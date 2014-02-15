@@ -1,7 +1,13 @@
 Team7Project
 ============
 
-Github repo for Team7's Winter2014 project.
+This is Team 7's submission for the CMPUT301 Winter 2014 group project. The project is an Android application
+that allows for discussion of topics; these topics are bound to a place or GPS location, and would generally be 
+about locally relevent things such as nearby restaurants and shops. Each topic is made up of comments, and 
+both topic and comments can have a picture attached. All topics and comments can be replied to, and each reply
+can also have a picture attached as well. Users will also be able to favourite topics and comments, and be 
+capable of commenting themselves using a username, and see other commenters' usernames. The application
+is very much like Reddit, but instead of subreddits, topics are grouped by geolocation.
 
 
 License
@@ -20,3 +26,6 @@ License
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+
+
