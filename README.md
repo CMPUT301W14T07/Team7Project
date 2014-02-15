@@ -7,7 +7,7 @@ Github repo for Team7's Winter2014 project.
 License
 ============
 
-   Copyright 2014 CMPUT301W14T07
+   Copyright 2014 Tsz Chung (Jacky) Chang, Logan Lin, Eden Mar, Michael Raypold, Wen (John) Zhong
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
