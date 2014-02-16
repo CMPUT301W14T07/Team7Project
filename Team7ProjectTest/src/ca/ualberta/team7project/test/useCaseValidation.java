@@ -4,7 +4,6 @@
 package ca.ualberta.team7project.test;
 
 import java.util.Date;
-
 import ca.ualberta.team7project.MainActivity;
 import android.content.Context;
 import android.location.Location;
@@ -75,10 +74,10 @@ public class useCaseValidation extends
 	}
 	
 	/**
-	 * Test sortByRelevance use case
+	 * Test sortByScore use case
 	 * @return	void
 	 */
-	public void sortByRelevanceTest() {
+	public void sortByScoreTest() {
 		// For the actual test, this topic needs to be populated.
 		TopicModel topic = new TopicModel();
 		Boolean ordered = true;
@@ -98,7 +97,7 @@ public class useCaseValidation extends
 	
 		assertTrue("Comments should be ordered by vote count", ordered);
 	}
-	
+		
 	/**
 	 * Test DefaultCommentOrder use case
 	 * <p>
@@ -125,4 +124,21 @@ public class useCaseValidation extends
 		assertTrue("Threads ordered by date", ordered);
 	}
 	
+	/**
+	 * Test AddFavorite use case
+	 * @ return void
+	 */
+	public void addFavoriteTest() {
+		// For the actual test, this topic needs to be populated.
+		TopicModel topic = new TopicModel();
+		UserModel user = new UserModel();
+		
+		user.setName("bob");
+		
+		// Bob is going to favorite the parent thread
+		user.addFavoriteThread(topic.getThreads().get(0));
+
+		assertEqual("Users most recent favorite should be the same as the thread",
+				user.getFavorites().getLast(), topic.getThreads().get(0));
+	}
 }
