@@ -1,8 +1,9 @@
 /**a
  * @author	Michael Raypold
- * 
  */
 package ca.ualberta.team7project.test;
+
+import java.util.Date;
 
 import ca.ualberta.team7project.MainActivity;
 import android.content.Context;
@@ -22,7 +23,8 @@ public class useCaseValidation extends
 	}
 
 	/**
-	 * Test to check use case 1 (CreateIdentity)
+	 * Test CreateIdentity use case
+	 * @return	void
 	 */
 	public void createIdentityTest() {
 		UserPersistenceModel user = new UserPersistenceMode();
@@ -32,7 +34,6 @@ public class useCaseValidation extends
 			newUser = new UserModel("Bob");
 		}
 		else {
-			// Retrieve the user tied to the application
 			newUser = user.getUser();
 		}
 		
@@ -40,7 +41,8 @@ public class useCaseValidation extends
 	}
 	
 	/**
-	 * Test to check use case 2 (SetLocation)
+	 * Test SetLocation use case
+	 * @return	void
 	 */
 	public void setLocationTest() {
 		UserPersistenceModel user = new UserPersistenceMode();
@@ -53,7 +55,8 @@ public class useCaseValidation extends
 	}
 	
 	/**
-	 * Test to check use case 11 (AddTopLevelComment)
+	 * Test AddTopLevelComment use case
+	 * @return	void
 	 */
 	public void addTopLevelCommentTest() {
 		TopicModel topic = new TopicModel();
@@ -72,8 +75,54 @@ public class useCaseValidation extends
 	}
 	
 	/**
-	 *  
+	 * Test sortByRelevance use case
+	 * @return	void
 	 */
+	public void sortByRelevanceTest() {
+		// For the actual test, this topic needs to be populated.
+		TopicModel topic = new TopicModel();
+		Boolean ordered = true;
+		Integer lastScore = null;
+		
+		topic.sortThreadsByRelevance();
+		lastScore = topic.threads.get(0).getVotes();
+		
+		for(Thread t : topic.getThreads()) {
+			if(lastScore < t.getVotes()) {
+				ordered = false;
+				break;
+			}
+			
+			lastScore = t.getVotes();
+		}
 	
+		assertTrue("Comments should be ordered by vote count", ordered);
+	}
+	
+	/**
+	 * Test DefaultCommentOrder use case
+	 * <p>
+	 * Comments are ordered based off date by default if the user has never seen the topic before
+	 * @ return	void
+	 */
+	public void defaultCommentOrderTest() {
+		// For the actual test, this topic needs to be populated.
+		TopicModel topic = new TopicModel();
+		Boolean ordered = true;
+		Date lastDate = null;
+		
+		lastDate = topic.threads.get(0).getDate();
+		
+		for(Thread t : topic.getThreads()) {
+			if(lastDate.compareTo(t.getDate()) < 0 ) {
+				ordered = false;
+				break;
+			}
+
+			lastDate = t.getDate();
+		}
+		
+		assertTrue("Threads ordered by date", ordered);
+	}
 	
 }
