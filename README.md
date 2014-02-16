@@ -1,14 +1,25 @@
 Team7Project
 ============
 
-This is Team 7's submission for the CMPUT301 Winter 2014 group project. The project is an Android application
-that allows for discussion of topics; these topics are bound to a place or GPS location, and would generally be 
-about locally relevent things such as nearby restaurants and shops. Each topic is made up of comments, and 
-both topic and comments can have a picture attached. All topics and comments can be replied to, and each reply
-can also have a picture attached as well. Users will also be able to favourite topics and comments, and be 
-capable of commenting themselves using a username, and see other commenters' usernames. The application
-is very much like Reddit, but instead of subreddits, topics are grouped by geolocation.
+This is Team 7's submission for the CMPUT301 Winter 2014 group project.
 
+Application Description
+============ 
+
+The project is an Android application that allows for discussion of topics; these topics are bound to a 
+place or GPS location, and would generally be about locally relevant things such as nearby restaurants 
+and shops. Each topic is made up of comments, and both topic and comments can have a picture attached. 
+
+All topics and comments can be replied to, and each reply can also have a picture attached as well. 
+Users will also be able to favorite topics and comments, and be capable of commenting themselves using 
+a username, and see other commenter's usernames. 
+
+The application is very much like Reddit, but instead of subreddits, topics are grouped by geolocation.
+
+
+Installation Instructions
+============
+> TODO
 
 License
 ============
