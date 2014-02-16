@@ -1,4 +1,4 @@
-/**a
+/**
  * @author	Michael Raypold
  */
 package ca.ualberta.team7project.test;
@@ -102,7 +102,7 @@ public class useCaseValidation extends
 	 * Test DefaultCommentOrder use case
 	 * <p>
 	 * Comments are ordered based off date by default if the user has never seen the topic before
-	 * @ return	void
+	 * @return	void
 	 */
 	public void defaultCommentOrderTest() {
 		// For the actual test, this topic needs to be populated.
@@ -126,7 +126,7 @@ public class useCaseValidation extends
 	
 	/**
 	 * Test AddFavorite use case
-	 * @ return void
+	 * @return void
 	 */
 	public void addFavoriteTest() {
 		// For the actual test, this topic needs to be populated.
@@ -140,5 +140,34 @@ public class useCaseValidation extends
 
 		assertEqual("Users most recent favorite should be the same as the thread",
 				user.getFavorites().getLast(), topic.getThreads().get(0));
+	}
+	
+	/**
+	 * Test EditComment use case
+	 * @return void 
+	 */
+	public void editCommentTest() {
+		// Initial test is the same as addTopLevelCommentTest()
+		TopicModel topic = new TopicModel();
+		ThreadModel thread = new ThreadModel();
+		UserModel user = new UserModel();
+		
+		// TODO Maybe have a helper class so we aren't creating a new user for each Test.
+		user.setName("Bob");
+		
+		thread.setComment("This is my comment");
+		thread.setLocation();
+		thread.setAuthor(CommentAuthor author = new CommentAuthor(user));
+		topic.addThread(thread);
+		
+		assertTrue("Comment is top level for edit comment", topic.threads.contains(thread));
+		
+		thread = topic.getThreads().getLast();
+		thread.setComment("Updated comment");
+				
+		assertEquals("Edited thread should represent the new comment",
+				"updated comment",
+				topic.getThreads().getLast().getComment());
+		
 	}
 }
