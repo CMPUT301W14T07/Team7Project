@@ -21,11 +21,11 @@ import android.location.Location;
 public class UserModel {
 
 		private String name;
+		private String uniqueID;
 		private Location currentLocation;
 		private ArrayList<TopicModel> authoredTopics;	// Are we saving authored topics or threads?
 		private ArrayList<TopicModel> favoriteTopics;
 		private ArrayList<ThreadModel> postedThreads;
-		private String uniqueID;
 		private TopicModel lastViewedTopic;
 		private Integer topicPosition;
 		
@@ -61,6 +61,25 @@ public class UserModel {
 			setUniqueID();
 		}
 
+		/**
+		 * Return the unique ID of the user, which uniquely identifies all posts.
+		 * 
+		 * @return The unique ID of the user.
+		 */
+		public String getUniqueID() {
+			return uniqueID;
+		}
+
+		/**
+		 * Generates a unique ID with the given the user name using hashCode().
+		 * <p>
+		 * This private method is only called when names are set.
+		 */
+		private void setUniqueID() {
+			// Just a temporary hash function until we come up with something.			
+			this.uniqueID = String.valueOf(getName().hashCode());
+		}
+		
 		/**
 		 * Returns a Location object with longitude, latitude and a timestamp.
 		 * 
@@ -135,25 +154,6 @@ public class UserModel {
 		 */
 		public void addPostedThreads(ArrayList<ThreadModel> postedThreads) {
 			this.postedThreads = postedThreads;
-		}
-
-		/**
-		 * Return the unique ID of the user, which uniquely identifies all posts.
-		 * 
-		 * @return The unique ID of the user.
-		 */
-		public String getUniqueID() {
-			return uniqueID;
-		}
-
-		/**
-		 * Generates a unique ID with the given the user name.
-		 * <p>
-		 * This private method is only called when names are set.
-		 */
-		private void setUniqueID() {
-			// TODO this should either be called in the constructor or setName()
-			//this.uniqueID = the result of the some hashing mechanism
 		}
 
 		/**

@@ -3,7 +3,7 @@
  * <ul>
  * <li>All parent threads for a topic
  * <li>Topic name
- * <li>The topic author
+ * <li>The topic author and unique ID.
  * <li>The date the topic was created and last updated
  * <li>Geolocation
  * <li>The unique ID of the last thread added to the topic
@@ -23,9 +23,10 @@ public class TopicModel {
 	private Date createdDate;
 	private Date lastUpdated;
 	private Location location;
-	private CommentAuthorModel topicAuthor;
 	private LinkedList<ThreadModel> threads;
 	private Integer lastThreadUniqueID;
+	private String authorName;
+	private String authorUnique;
 	
 	/**
 	 * Initializes TopicModel with a title and author.
@@ -33,10 +34,11 @@ public class TopicModel {
 	 * @param topicName 	The name (title) given to the topic by the author
 	 * @param topicAuthor	The user who created the topic
 	 */
-	public TopicModel(String topicName, CommentAuthorModel topicAuthor) {
+	public TopicModel(String topicName, String authorName, String authorUnique) {
 		super();
 		this.topicName = topicName;
-		this.topicAuthor = topicAuthor;
+		this.authorName = authorName;
+		this.authorUnique = authorUnique;
 		this.lastThreadUniqueID = 0;
 		
 		//TODO Should set location, and dates here.
@@ -122,27 +124,6 @@ public class TopicModel {
 		// TODO. Clarification. Issue #24. May need to make this a public method
 		this.location = location;
 	}
-
-	/**
-	 * Returns the initial comment author.
-	 * <p>
-	 * If the user has updated their username, their old topics will keep the old username.
-	 * 
-	 * @return The author that created the topic.
-	 */
-	public CommentAuthorModel getTopicAuthor() {
-		//TODO Perhaps we only need a string and hash representing topic author.
-		return topicAuthor;
-	}
-
-	/**
-	 * Takes a CommentAuthorModel object and sets the topic author.
-	 * 
-	 * @param topicAuthor, the user (userModel) who has created the topic.
-	 */
-	private void setTopicAuthor(CommentAuthorModel topicAuthor) {
-		this.topicAuthor = topicAuthor;
-	}
 	
 	/**
 	 * Returns all parent threads and children corresponding to the topic.
@@ -189,4 +170,40 @@ public class TopicModel {
 		this.lastThreadUniqueID = oldID;
 	}
 
+	/**
+	 * Gets the non-unique topic author name.
+	 * 
+	 * @return The name of the topic author.
+	 */
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	/**
+	 * Set the non-unique topic author name.
+	 * 
+	 * @param authorName The given name of the topic author.
+	 */
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	/**
+	 * Returns a unique ID of the topic author created in the UserModel.
+	 * 
+	 * @return Returns the unique ID associated with the topic author.
+	 */
+	public String getAuthorUnique() {
+		return authorUnique;
+	}
+
+	/**
+	 * A unique ID used to identify topics by an author.
+	 * 
+	 * @param authorUnique The given unique ID created in the USerModel.
+	 */
+	public void setAuthorUnique(String authorUnique) {
+		this.authorUnique = authorUnique;
+	}
+	
 }

@@ -4,7 +4,7 @@
  * <li>Comment
  * <li>Image uploaded by the user
  * <li>Number of votes (favorites)
- * <li>The thread author
+ * <li>The thread author and unique ID
  * <li>The date the thread was last updated
  * <li>Geolocation
  * <li>All associated child threads
@@ -24,7 +24,8 @@ public class ThreadModel {
 	private String comment;
 	private Bitmap image;
 	private Integer upVotes;
-	private CommentAuthorModel commentAuthor;
+	private String authorName;
+	private String authorUnique;
 	private Date lastUpdatedDate;
 	private Location location;
 	private LinkedList<ThreadModel> threads;
@@ -35,14 +36,16 @@ public class ThreadModel {
 	 * 
 	 * @param comment	 	A comment written by the thread author
 	 * @param image			Bitmap image choosen by the thread author
-	 * @param commentAuthor Unique user representing the comment author
+	 * @param authorName 	The author name for UserModel
+	 * @param authorUnique 	The unique identifier associated with a user from UserModel
 	 */
 	public ThreadModel(String comment, Bitmap image,
-			CommentAuthorModel commentAuthor) {
+			String authorName, String authorUnique) {
 		super();
 		this.comment = comment;
 		this.image = image;
-		this.commentAuthor = commentAuthor;
+		this.authorName = authorName;
+		this.authorUnique = authorUnique;
 	}
 	
 	/**
@@ -105,29 +108,7 @@ public class ThreadModel {
 	public void decrementUpVotes() {
 		this.upVotes--;
 	}
-	
-	/**
-	 * Returns the original comment author.
-	 * <p>
-	 * Comment author is not updated when a user changes their username.
-	 * 
-	 * @return A CommentAuthorModel object representing the threads author.
-	 */
-	public CommentAuthorModel getCommentAuthor() {
-		return commentAuthor;
-	}
-	
-	/**
-	 * Set the comment author for the thread.
-	 * <p>
-	 * Only called upon initial thread creation.
-	 * 
-	 * @param commentAuthor from the CommentAuthorModel representing the thread author.
-	 */
-	private void setCommentAuthor(CommentAuthorModel commentAuthor) {
-		this.commentAuthor = commentAuthor;
-	}
-	
+		
 	/**
 	 * Returns the timestamp in a Date object when the thread was created or last updated.
 	 * 
@@ -202,10 +183,52 @@ public class ThreadModel {
 	 * Takes a unique ID and attaches it to the thread.
 	 * <p>
 	 * The uniqueID can only be generated when a thread is added to a topic.
+	 * Therefore getLastThreadUniqueID() and setLastThreadUniqueID() must be called from
+	 * TopicModel whenever a new thread is created.
+	 * <p>
+	 * These methods must be called outside of ThreadModel, since the ThreadModel does not
+	 * have any knowledge of which topic it is associated with.
 	 * 
 	 * @param uniqueID A generated unique ID from the the Topic the thread will be added to.
 	 */
 	public void setUniqueID(Integer uniqueID) {
 		this.uniqueID = uniqueID;
 	}
+
+	/**
+	 * Gets the non-unique thread author name.
+	 * 
+	 * @return The name of the thread author.
+	 */
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	/**
+	 * Set the non-unique thread author name.
+	 * 
+	 * @param authorName The given name of the thread author.
+	 */
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	/**
+	 * Returns a unique ID of the thread author created in the UserModel.
+	 * 
+	 * @return Returns the unique ID associated with the thread author.
+	 */
+	public String getAuthorUnique() {
+		return authorUnique;
+	}
+
+	/**
+	 * A unique ID used to identify posts by an author.
+	 * 
+	 * @param authorUnique The given unique ID created in the USerModel.
+	 */
+	public void setAuthorUnique(String authorUnique) {
+		this.authorUnique = authorUnique;
+	}
+	
 }
