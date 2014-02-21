@@ -1,5 +1,5 @@
 /**
- * A Series of test:
+ * A Series of tests to verify that ThreadModel is working correctly:
  * <ul>
  * <li> Determine if basic thread attributes are properly set.
  * <li> Determine if unique ID's for topics and threads is assigning unique ID's
@@ -28,6 +28,8 @@ public class ThreadCreationTest extends
 
 	/**
 	 * Determines if the basic attributes of a thread are set
+	 * <p>
+	 * This includes authors name, unique ID, Bitmap image and comment.
 	 */
 	public void testThreadCreate() {
 		UserModel user = new UserModel("Ash Ketchum");
@@ -42,6 +44,8 @@ public class ThreadCreationTest extends
 	
 	/**
 	 * Test to determine if unique ID is correct when parent threads are inserted.
+	 * <p>
+	 * Three threads are inserted. Two parent threads and one child thread.
 	 */
 	public void testUniqeIDOnThreadInsert() {
 		UserModel user = new UserModel("Ash Ketchum");
