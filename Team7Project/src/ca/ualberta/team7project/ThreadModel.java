@@ -35,7 +35,7 @@ public class ThreadModel {
 	 * A public constructor that creates a thread that includes comments and all metadata.
 	 * 
 	 * @param comment	 	A comment written by the thread author
-	 * @param image			Bitmap image choosen by the thread author
+	 * @param image			Bitmap image chosen by the thread author
 	 * @param authorName 	The author name for UserModel
 	 * @param authorUnique 	The unique identifier associated with a user from UserModel
 	 */
@@ -47,6 +47,10 @@ public class ThreadModel {
 		this.authorName = authorName;
 		this.authorUnique = authorUnique;
 		this.threads = new LinkedList<ThreadModel>();
+		
+		setLastUpdatedDate(new Date());
+		
+		// TODO Location needs to be set
 	}
 	
 	/**

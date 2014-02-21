@@ -2,6 +2,7 @@
  * A series of tests to determine that UserModel is working correctly:
  * <ul>
  * <li>Confirm that user's UniqueID's are unique.
+ * <li>Location (longitude and latitude) is correct
  * </ul>
  * 
  * @author Michael Raypold
@@ -34,4 +35,10 @@ public class UserModelTest extends
 				userOne.getUniqueID().equals(userTwo.getUniqueID()));
 	}
 
+	/**
+	 * Ensure that the location is correct
+	 */
+	public void testUserLocation() {
+		
+	}
 }

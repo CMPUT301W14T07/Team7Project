@@ -3,6 +3,7 @@
  * <ul>
  * <li> Determine if basic thread attributes are properly set.
  * <li> Determine if unique ID's for topics and threads is assigning unique ID's
+ * <li>Location (longitude and latitude) is correct
  * </ul>
  * 
  * @author Michael Raypold
@@ -51,39 +52,32 @@ public class ThreadCreationTest extends
 		UserModel user = new UserModel("Ash Ketchum");
 		TopicModel topic = new TopicModel("Pokedex", user.getName(), user.getUniqueID());
 		
-		// Create a new thread to add to the topic
-		ThreadModel thread1 = new ThreadModel("Caught Snorelax", null, user.getName(), user.getUniqueID());
-		
-		// Before adding the thread to the topic we must set the unique ID
+		ThreadModel threadOne = new ThreadModel("Caught Snorelax", null, user.getName(), user.getUniqueID());
 		topic.setLastThreadUniqueID();
-		Integer uniqueID = topic.getLastThreadUniqueID();
-		thread1.setUniqueID(uniqueID);
+		threadOne.setUniqueID(topic.getLastThreadUniqueID());
+		topic.addThread(threadOne);
 		
-		topic.addThread(thread1);
+		assertEquals("First thread should have unique ID of 1", threadOne.getUniqueID(), (Integer)1);
 		
-		assertEquals("First thread should have unique ID of 1", thread1.getUniqueID(), (Integer)1);
-		
-		// Create a second thread to add to the topic (Repeat above steps)
-		ThreadModel thread2 = new ThreadModel("Caught Mew", null, user.getName(), user.getUniqueID());
-		
+		ThreadModel threadTwo = new ThreadModel("Caught Mew", null, user.getName(), user.getUniqueID());
 		topic.setLastThreadUniqueID();
-		Integer uniqueID2 = topic.getLastThreadUniqueID();
-		thread2.setUniqueID(uniqueID2);
+		threadTwo.setUniqueID(topic.getLastThreadUniqueID());
+		topic.addThread(threadTwo);
 		
-		topic.addThread(thread2);
-		
-		assertEquals("Second thread should have a unique ID of 2", thread2.getUniqueID(), (Integer)2);
+		assertEquals("Second thread should have a unique ID of 2", threadTwo.getUniqueID(), (Integer)2);
 				
-		// Add a child thread to thread 1
-		ThreadModel thread3 = new ThreadModel("Caught Jigglypuff", null, user.getName(), user.getUniqueID());
-		
+		ThreadModel threadThree = new ThreadModel("Caught Jigglypuff", null, user.getName(), user.getUniqueID());
 		topic.setLastThreadUniqueID();
-		Integer uniqueID3 = topic.getLastThreadUniqueID();
-		thread3.setUniqueID(uniqueID3);
+		threadThree.setUniqueID(topic.getLastThreadUniqueID());
+		threadOne.addThread(threadThree);
 		
-		thread1.addThread(thread3);
-		
-		assertEquals("Third thread should have a unique ID of 3", thread3.getUniqueID(), (Integer)3);
+		assertEquals("Third thread should have a unique ID of 3", threadThree.getUniqueID(), (Integer)3);
 	}
 
+	/**
+	 * Test that location has been properly set for the thread
+	 */
+	public void testThreadLocation() {
+		
+	}
 }

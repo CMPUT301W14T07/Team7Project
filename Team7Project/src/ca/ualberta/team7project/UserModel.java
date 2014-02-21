@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import android.location.Location;
@@ -48,7 +49,6 @@ public class UserModel {
 			this.favoriteTopics = new ArrayList<TopicModel>();
 			this.postedThreads = new ArrayList<ThreadModel>();
 
-			
 			// Set location?
 		}
 
@@ -81,14 +81,14 @@ public class UserModel {
 		}
 
 		/**
-		 * Generates a unique ID with the given the user name.
+		 * Generates a unique ID with the given user name.
 		 * <p>
 		 * A random number and the current date with microsecond precision is appended to
 		 * the current user name to ensure that the UniqueID is unique when using the
 		 * .hashCode() method.
 		 * <p>
 		 * Random numbers are appended in case multiple users are created at precisely the same millisecond.
-		 * The current date is appended in case users have the same user name.
+		 * The current date is appended in case multiple users have the same user name.
 		 * <p>
 		 * Despite these measures, UniqueID is not guaranteed to be unique. Nevertheless, it prevents
 		 * UserModel from storing a list of usernames on the server.
@@ -97,7 +97,9 @@ public class UserModel {
 		 */
 		private void setUniqueID() {
 			// Just a temporary hash function until we come up with something.		
-			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			// TODO should use built in android locale function to detect location for dates
+			// Is it ok to have an android specific function in a model class?
+			DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss", Locale.CANADA);
 			Date currentDate = Calendar.getInstance().getTime();
 			String dateString = dateFormat.format(currentDate);
 			

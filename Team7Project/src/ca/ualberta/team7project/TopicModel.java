@@ -42,6 +42,9 @@ public class TopicModel {
 		this.lastThreadUniqueID = 0;
 		this.threads = new LinkedList<ThreadModel>();
 		
+		setCreatedDate(new Date());
+		setLastUpdated(getCreatedDate());
+		
 		//TODO Should set location, and dates here.
 		//TODO waiting for clarification on dates and locations
 		//TODO Every topic needs and parent thread. Set the thread.
