@@ -15,7 +15,13 @@
 
 package ca.ualberta.team7project;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
 import android.location.Location;
 
 public class UserModel {
@@ -75,13 +81,32 @@ public class UserModel {
 		}
 
 		/**
-		 * Generates a unique ID with the given the user name using hashCode().
+		 * Generates a unique ID with the given the user name.
+		 * <p>
+		 * A random number and the current date with microsecond precision is appended to
+		 * the current user name to ensure that the UniqueID is unique when using the
+		 * .hashCode() method.
+		 * <p>
+		 * Random numbers are appended in case multiple users are created at precisely the same millisecond.
+		 * The current date is appended in case users have the same user name.
+		 * <p>
+		 * Despite these measures, UniqueID is not guaranteed to be unique. Nevertheless, it prevents
+		 * UserModel from storing a list of usernames on the server.
 		 * <p>
 		 * This private method is only called when names are set.
 		 */
 		private void setUniqueID() {
-			// Just a temporary hash function until we come up with something.			
-			this.uniqueID = String.valueOf(getName().hashCode());
+			// Just a temporary hash function until we come up with something.		
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			Date currentDate = Calendar.getInstance().getTime();
+			String dateString = dateFormat.format(currentDate);
+			
+			Random random = new Random();
+			Integer randomInt = random.nextInt();
+			
+			String userName = getName() + dateString + String.valueOf(randomInt);
+			
+			this.uniqueID = String.valueOf(userName.hashCode());
 		}
 		
 		/**

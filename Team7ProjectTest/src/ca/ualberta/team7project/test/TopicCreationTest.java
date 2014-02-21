@@ -16,7 +16,7 @@ public class TopicCreationTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 
 	/**
-	 * Required constructor
+	 * Default constructor
 	 */
 	public TopicCreationTest() {
 		super(MainActivity.class);
