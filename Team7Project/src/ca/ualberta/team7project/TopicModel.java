@@ -6,6 +6,7 @@
  * <li>The topic author
  * <li>The date the topic was created and last updated
  * <li>Geolocation
+ * <li>The unique ID of the last thread added to the topic
  * </ul>
  * @author Michael Raypold
  */
@@ -24,6 +25,7 @@ public class TopicModel {
 	private Location location;
 	private CommentAuthorModel topicAuthor;
 	private LinkedList<ThreadModel> threads;
+	private Integer lastThreadUniqueID;
 	
 	/**
 	 * Initializes TopicModel with a title and author.
@@ -35,6 +37,7 @@ public class TopicModel {
 		super();
 		this.topicName = topicName;
 		this.topicAuthor = topicAuthor;
+		this.lastThreadUniqueID = 0;
 		
 		//TODO Should set location, and dates here.
 		//TODO waiting for clarification on dates and locations
@@ -162,6 +165,28 @@ public class TopicModel {
 	 */
 	public void addThread(ThreadModel thread) {
 		this.threads.add(thread);
+	}
+
+	/**
+	 * Returns the unique ID of the thread last added to the topic.
+	 * <p>
+	 * The unique ID does not represent post count since posts can be deleted.
+	 * 
+	 * @return The unique ID of the thread last added to the topic.
+	 */
+	public Integer getLastThreadUniqueID() {
+		return lastThreadUniqueID;
+	}
+
+	/**
+	 * Increment the current ID and then set the unique ID to the new count.
+	 * <p>
+	 * Must be called everytime a thread is added to a topic, or a thread to a thread.
+	 */
+	public void setLastThreadUniqueID() {	
+		Integer oldID = getLastThreadUniqueID();
+		oldID++;
+		this.lastThreadUniqueID = oldID;
 	}
 
 }

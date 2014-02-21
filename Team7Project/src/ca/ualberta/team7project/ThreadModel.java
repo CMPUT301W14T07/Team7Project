@@ -8,6 +8,7 @@
  * <li>The date the thread was last updated
  * <li>Geolocation
  * <li>All associated child threads
+ * <li>The Unique ID associated with a thread
  * </ul>
  * @author Michael Raypold
  */
@@ -27,6 +28,7 @@ public class ThreadModel {
 	private Date lastUpdatedDate;
 	private Location location;
 	private LinkedList<ThreadModel> threads;
+	private Integer uniqueID;
 
 	/**
 	 * A public constructor that creates a thread that includes comments and all metadata.
@@ -185,5 +187,25 @@ public class ThreadModel {
 	 */
 	public void addThread(ThreadModel thread) {
 		this.threads.add(thread);
+	}
+
+	/**
+	 * Get the unique ID associated to the thread.
+	 * 
+	 * @return Returns an integer representing the unique ID of the thread
+	 */
+	public Integer getUniqueID() {
+		return uniqueID;
+	}
+
+	/**
+	 * Takes a unique ID and attaches it to the thread.
+	 * <p>
+	 * The uniqueID can only be generated when a thread is added to a topic.
+	 * 
+	 * @param uniqueID A generated unique ID from the the Topic the thread will be added to.
+	 */
+	public void setUniqueID(Integer uniqueID) {
+		this.uniqueID = uniqueID;
 	}
 }
