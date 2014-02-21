@@ -46,6 +46,7 @@ public class ThreadModel {
 		this.image = image;
 		this.authorName = authorName;
 		this.authorUnique = authorUnique;
+		this.threads = new LinkedList<ThreadModel>();
 	}
 	
 	/**

@@ -38,6 +38,10 @@ public class UserModel {
 		 */
 		public UserModel(String userName) {
 			setName(userName);
+			this.authoredTopics = new ArrayList<TopicModel>();
+			this.favoriteTopics = new ArrayList<TopicModel>();
+			this.postedThreads = new ArrayList<ThreadModel>();
+
 			
 			// Set location?
 		}

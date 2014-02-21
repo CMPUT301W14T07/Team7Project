@@ -40,6 +40,7 @@ public class TopicModel {
 		this.authorName = authorName;
 		this.authorUnique = authorUnique;
 		this.lastThreadUniqueID = 0;
+		this.threads = new LinkedList<ThreadModel>();
 		
 		//TODO Should set location, and dates here.
 		//TODO waiting for clarification on dates and locations
