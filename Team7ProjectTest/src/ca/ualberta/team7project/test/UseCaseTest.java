@@ -1,6 +1,6 @@
 /**
  * @author	Michael Raypold
- */
+ *//*
 package ca.ualberta.team7project.test;
 
 import java.util.Date;
@@ -10,21 +10,17 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.test.ActivityInstrumentationTestCase2;
 
-public class useCaseValidation extends
+public class UseCaseTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
-
-	public useCaseValidation(Class<MainActivity> name) {
+	
+	public UseCaseTest(Class<MainActivity> name) {
 		super(name);
 	}
 
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
-	/**
+	*//**
 	 * Test CreateIdentity use case
 	 * @return	void
-	 */
+	 *//*
 	public void createIdentityTest() {
 		UserPersistenceModel user = new UserPersistenceMode();
 		UserModel newUser = null;
@@ -39,10 +35,10 @@ public class useCaseValidation extends
 		assertNotNull("User should be created or already exist", newUser);
 	}
 	
-	/**
+	*//**
 	 * Test SetLocation use case
 	 * @return	void
-	 */
+	 *//*
 	public void setLocationTest() {
 		UserPersistenceModel user = new UserPersistenceMode();
 		UserModel newUser = user.getUser();
@@ -53,10 +49,10 @@ public class useCaseValidation extends
 		assertNotNull("Users location should now be set", newUser.getCurrentLocation());
 	}
 	
-	/**
+	*//**
 	 * Test AddTopLevelComment use case
 	 * @return	void
-	 */
+	 *//*
 	public void addTopLevelCommentTest() {
 		TopicModel topic = new TopicModel();
 		ThreadModel thread = new ThreadModel();
@@ -73,10 +69,10 @@ public class useCaseValidation extends
 		assertTrue("Comment is top level", topic.threads.contains(thread));
 	}
 	
-	/**
+	*//**
 	 * Test sortByScore use case
 	 * @return	void
-	 */
+	 *//*
 	public void sortByScoreTest() {
 		// For the actual test, this topic needs to be populated.
 		TopicModel topic = new TopicModel();
@@ -98,12 +94,12 @@ public class useCaseValidation extends
 		assertTrue("Comments should be ordered by vote count", ordered);
 	}
 		
-	/**
+	*//**
 	 * Test DefaultCommentOrder use case
 	 * <p>
 	 * Comments are ordered based off date by default if the user has never seen the topic before
 	 * @return	void
-	 */
+	 *//*
 	public void defaultCommentOrderTest() {
 		// For the actual test, this topic needs to be populated.
 		TopicModel topic = new TopicModel();
@@ -124,10 +120,10 @@ public class useCaseValidation extends
 		assertTrue("Threads ordered by date", ordered);
 	}
 	
-	/**
+	*//**
 	 * Test AddFavorite use case
 	 * @return void
-	 */
+	 *//*
 	public void addFavoriteTest() {
 		// For the actual test, this topic needs to be populated.
 		TopicModel topic = new TopicModel();
@@ -142,10 +138,10 @@ public class useCaseValidation extends
 				user.getFavorites().getLast(), topic.getThreads().get(0));
 	}
 	
-	/**
+	*//**
 	 * Test EditComment use case
 	 * @return void 
-	 */
+	 *//*
 	public void editCommentTest() {
 		// Initial test is the same as addTopLevelCommentTest()
 		TopicModel topic = new TopicModel();
@@ -171,3 +167,4 @@ public class useCaseValidation extends
 		
 	}
 }
+*/
