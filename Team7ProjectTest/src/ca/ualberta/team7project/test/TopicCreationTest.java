@@ -13,7 +13,6 @@ package ca.ualberta.team7project.test;
 
 import java.util.Date;
 import java.util.LinkedList;
-
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.ThreadModel;

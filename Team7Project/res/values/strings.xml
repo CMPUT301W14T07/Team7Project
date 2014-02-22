@@ -5,4 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    
+    <!-- Strings for the ActionBar -->
+    <string name="topics_home_button">Topics Home</string>
+    <string name="geo_location_set">Set geolocation</string>
+    <string name="user_preferences">Set user preferences</string>
+    <string name="add_topic_favorites">Add current topic to favorites</string>
+    <string name="create_topic">Create a new topic</string>
+    <string name="refresh_topic">Refresh the current topic</string>
+    <string name="sorting_options">Sorting preferences</string>
+    
 </resources>
