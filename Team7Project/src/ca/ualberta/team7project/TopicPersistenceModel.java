@@ -1,5 +1,6 @@
 package ca.ualberta.team7project;
 
-public class TopicPersistenceModel {
+public class TopicPersistenceModel
+{
 
 }

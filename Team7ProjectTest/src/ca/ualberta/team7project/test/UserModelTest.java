@@ -15,30 +15,36 @@ import ca.ualberta.team7project.UserModel;
 import android.test.ActivityInstrumentationTestCase2;
 
 public class UserModelTest extends
-		ActivityInstrumentationTestCase2<MainActivity> {
+        ActivityInstrumentationTestCase2<MainActivity>
+{
 
-	/**
-	 * Default constructor
-	 */
-	public UserModelTest() {
-		super(MainActivity.class);
-	}
-	
-	/**
-	 * Ensure that two users with the same name have different UniqueID
-	 */
-	public void testUniqueID() {
-		UserModel userOne = new UserModel("Ash Ketchum");
-		UserModel userTwo = new UserModel("Ash Ketchum");
+    /**
+     * Default constructor
+     */
+    public UserModelTest()
+    {
 
-		assertFalse("UniqueID for two users with the same name is unique", 
-				userOne.getUniqueID().equals(userTwo.getUniqueID()));
-	}
+        super(MainActivity.class);
+    }
 
-	/**
-	 * Ensure that the location is correct
-	 */
-	public void testUserLocation() {
-		
-	}
+    /**
+     * Ensure that two users with the same name have different UniqueID
+     */
+    public void testUniqueID()
+    {
+
+        UserModel userOne = new UserModel("Ash Ketchum");
+        UserModel userTwo = new UserModel("Ash Ketchum");
+
+        assertFalse("UniqueID for two users with the same name is unique",
+                userOne.getUniqueID().equals(userTwo.getUniqueID()));
+    }
+
+    /**
+     * Ensure that the location is correct
+     */
+    public void testUserLocation()
+    {
+
+    }
 }
