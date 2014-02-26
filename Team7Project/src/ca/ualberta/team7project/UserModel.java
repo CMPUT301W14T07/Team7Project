@@ -43,8 +43,7 @@ public class UserModel
      * <p>
      * Construct the user with the given name and generate a unique ID.
      * 
-     * @param userName
-     *            The name given to the user.
+     * @param userName The name given to the user.
      */
     public UserModel(String userName)
     {
@@ -71,8 +70,7 @@ public class UserModel
     /**
      * Update or set the username and sets the new uniqueID.
      * 
-     * @param name
-     *            The new name of the user.
+     * @param name The new name of the user.
      */
     public void setName(String name)
     {
@@ -143,8 +141,7 @@ public class UserModel
     /**
      * Uses provide Location object to update the position of the user.
      * 
-     * @param currentLocation
-     *            A Location object with longitude and latitude set.
+     * @param currentLocation A Location object with longitude and latitude set.
      */
     public void setCurrentLocation(Location currentLocation)
     {
@@ -169,8 +166,7 @@ public class UserModel
      * <p>
      * Insertion is in chronological order.
      * 
-     * @param authoredTopics
-     *            A new topic created by the user.
+     * @param authoredTopics A new topic created by the user.
      */
     public void addAuthoredTopics(ArrayList<TopicModel> authoredTopics)
     {
@@ -196,8 +192,7 @@ public class UserModel
      * Add to the list of favorite topics, a topic the user has selected as a
      * favorite.
      * 
-     * @param favoriteTopics
-     *            A topic the user has selected as a favorite.
+     * @param favoriteTopics A topic the user has selected as a favorite.
      */
     public void addFavoriteTopics(ArrayList<TopicModel> favoriteTopics)
     {
@@ -219,8 +214,7 @@ public class UserModel
     /**
      * Add to the chronological list of posted threads by the user.
      * 
-     * @param postedThreads
-     *            A new thread created by the user.
+     * @param postedThreads A new thread created by the user.
      */
     public void addPostedThreads(ArrayList<ThreadModel> postedThreads)
     {
@@ -242,8 +236,7 @@ public class UserModel
     /**
      * Update the topic being viewed by the user.
      * 
-     * @param lastViewedTopic
-     *            The topic last viewed by the user.
+     * @param lastViewedTopic The topic last viewed by the user.
      */
     public void setLastViewedTopic(TopicModel lastViewedTopic)
     {
@@ -266,8 +259,7 @@ public class UserModel
     /**
      * Set the thread number associated with a topic that the user is viewing.
      * 
-     * @param topicPosition
-     *            The unique number associated with a thread.
+     * @param topicPosition The unique number associated with a thread.
      */
     public void setTopicPosition(Integer topicPosition)
     {

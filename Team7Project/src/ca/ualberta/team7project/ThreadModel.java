@@ -36,14 +36,10 @@ public class ThreadModel
      * A public constructor that creates a thread that includes comments and all
      * metadata.
      * 
-     * @param comment
-     *            A comment written by the thread author
-     * @param image
-     *            Bitmap image chosen by the thread author
-     * @param authorName
-     *            The author name for UserModel
-     * @param authorUnique
-     *            The unique identifier associated with a user from UserModel
+     * @param comment A comment written by the thread author
+     * @param image Bitmap image chosen by the thread author
+     * @param authorName The author name for UserModel
+     * @param authorUnique The unique identifier associated with a user from UserModel
      */
     public ThreadModel(String comment, Bitmap image, String authorName,
             String authorUnique)
@@ -75,8 +71,7 @@ public class ThreadModel
     /**
      * Set the thread comment when creating or editing the thread.
      * 
-     * @param comment
-     *            , a String object representing the user's comment.
+     * @param comment a String object representing the user's comment.
      */
     public void setComment(String comment)
     {
@@ -98,8 +93,7 @@ public class ThreadModel
     /**
      * User sets an image upon creating or editing a thread.
      * 
-     * @param image
-     *            , and Android Bitmap object to associate with the thread
+     * @param image And Android Bitmap object to associate with the thread
      */
     public void setImage(Bitmap image)
     {

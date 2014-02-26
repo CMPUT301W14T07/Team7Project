@@ -18,8 +18,7 @@ public class ActionBarController
      * Sets the MenuItem, which is the button that was clicked on the action
      * bar.
      * 
-     * @param item
-     *            The ID associated with the action bar item.
+     * @param item The ID associated with the action bar item.
      */
     public ActionBarController(MenuItem item)
     {

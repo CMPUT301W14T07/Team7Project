@@ -32,10 +32,8 @@ public class TopicModel
     /**
      * Initializes TopicModel with a title and author.
      * 
-     * @param topicName
-     *            The name (title) given to the topic by the author
-     * @param topicAuthor
-     *            The user who created the topic
+     * @param topicName The name (title) given to the topic by the author
+     * @param topicAuthor The user who created the topic
      */
     public TopicModel(String topicName, String authorName, String authorUnique)
     {
@@ -70,8 +68,7 @@ public class TopicModel
     /**
      * The topicAuthor sets a topic name.
      * 
-     * @param The
-     *            topic name (title) chosen by the topicAuthor.
+     * @param The topic name (title) chosen by the topicAuthor.
      */
     public void setTopicName(String topicName)
     {
@@ -95,8 +92,7 @@ public class TopicModel
      * <p>
      * setCreatedDate is only called in the constructor.
      * 
-     * @param A
-     *            Date object representing topic creation date.
+     * @param A Date object representing topic creation date.
      */
     private void setCreatedDate(Date createdDate)
     {
@@ -121,8 +117,7 @@ public class TopicModel
      * lastUpdated is set in the constructor, as well as whenever a user edits a
      * topic.
      * 
-     * @param lastUpdated
-     *            , A Date object representing the update date.
+     * @param lastUpdated A Date object representing the update date.
      */
     public void setLastUpdated(Date lastUpdated)
     {
@@ -146,8 +141,7 @@ public class TopicModel
     /**
      * Set the topic geolocation.
      * 
-     * @param location
-     *            , a Location object with longitude and latitude.
+     * @param location a Location object with longitude and latitude.
      */
     private void setLocation(Location location)
     {
@@ -175,8 +169,7 @@ public class TopicModel
      * <p>
      * Threads are ordered chronologically. Other methods exist to sort a Topic.
      * 
-     * @param thread
-     *            , the ThreadModel object to be added to the Topic.
+     * @param thread the ThreadModel object to be added to the Topic.
      */
     public void addThread(ThreadModel thread)
     {
@@ -225,8 +218,7 @@ public class TopicModel
     /**
      * Set the non-unique topic author name.
      * 
-     * @param authorName
-     *            The given name of the topic author.
+     * @param authorName The given name of the topic author.
      */
     public void setAuthorName(String authorName)
     {
@@ -248,8 +240,7 @@ public class TopicModel
     /**
      * A unique ID used to identify topics by an author.
      * 
-     * @param authorUnique
-     *            The given unique ID created in the USerModel.
+     * @param authorUnique The given unique ID created in the USerModel.
      */
     public void setAuthorUnique(String authorUnique)
     {
