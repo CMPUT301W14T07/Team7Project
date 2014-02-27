@@ -35,7 +35,7 @@ public class ActionBarController
      */
     public boolean getAction()
     {
-
+    	// TODO Find alternative to switch statement
         switch (this.item.getItemId())
         {
             case R.id.action_home:

@@ -8,19 +8,15 @@
  * @author Michael Raypold
  */
 
-package ca.ualberta.team7project.test;
+package ModelTests;
 
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.UserModel;
+import ca.ualberta.team7project.models.UserModel;
 import android.test.ActivityInstrumentationTestCase2;
 
-public class UserModelTest extends
-        ActivityInstrumentationTestCase2<MainActivity>
+public class UserModelTest extends ActivityInstrumentationTestCase2<MainActivity>
 {
 
-    /**
-     * Default constructor
-     */
     public UserModelTest()
     {
 
@@ -37,7 +33,7 @@ public class UserModelTest extends
         UserModel userTwo = new UserModel("Ash Ketchum");
 
         assertFalse("UniqueID for two users with the same name is unique",
-                userOne.getUniqueID().equals(userTwo.getUniqueID()));
+                userOne.getUniqueName().equals(userTwo.getUniqueName()));
     }
 
     /**
