@@ -5,6 +5,8 @@
  */
 package ca.ualberta.team7project;
 
+import views.CreateIdentityAlertView;
+import android.support.v4.app.DialogFragment;
 import android.view.MenuItem;
 
 public class ActionBarController
@@ -87,7 +89,8 @@ public class ActionBarController
     private void userPreferences()
     {
 
-        // TODO
+        CreateIdentityAlertView newFragment = new CreateIdentityAlertView();
+        //newFragment.show(getSupportFragmentManager(), "missiles");
     }
 
     /**
