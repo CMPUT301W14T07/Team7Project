@@ -1,9 +1,9 @@
 /**
- * Creates an alert action dialog promting the user to enter a new user name.
+ * Creates an alert action dialog prompting the user to enter a new user name.
  * 
  * @author Michael Raypold
  */
-package views;
+package ca.ualberta.team7project.views;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

@@ -3,7 +3,7 @@
  * 
  * @author Michael Raypold
  */
-package views;
+package ca.ualberta.team7project.views;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,19 +20,19 @@ public class SortPreferencesAlertView extends DialogFragment
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(ca.ualberta.team7project.R.string.create_identity)
-	        .setPositiveButton(ca.ualberta.team7project.R.string.create_user_confirm, new DialogInterface.OnClickListener() {
-	        	
-	            public void onClick(DialogInterface dialog, int id) {
-	            	// TODO
-	            }
-	        })
-	        .setNegativeButton(ca.ualberta.team7project.R.string.cancel, new DialogInterface.OnClickListener() {
-	        	
-	            public void onClick(DialogInterface dialog, int id) {
-	                // TODO
-	            }
-	        });
+        builder.setMessage(ca.ualberta.team7project.R.string.select_sorting_preferences)
+        	.setItems(ca.ualberta.team7project.R.array.sorting_preferences_array, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+
+					// TODO switch statement for each item in arrays.cml
+					// TODO Auto-generated method stub
+					
+				}
+        		
+        	});
 		
 		return builder.create();
 	}

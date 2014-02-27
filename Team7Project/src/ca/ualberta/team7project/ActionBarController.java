@@ -5,11 +5,11 @@
  */
 package ca.ualberta.team7project;
 
-import views.CreateIdentityAlertView;
-import android.support.v4.app.DialogFragment;
+import ca.ualberta.team7project.views.SortPreferencesAlertView;
+import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 
-public class ActionBarController
+public class ActionBarController extends FragmentActivity
 {
 
     private MenuItem item;
@@ -89,7 +89,7 @@ public class ActionBarController
     private void userPreferences()
     {
 
-        CreateIdentityAlertView newFragment = new CreateIdentityAlertView();
+        //CreateIdentityAlertView newFragment = new CreateIdentityAlertView();
         //newFragment.show(getSupportFragmentManager(), "missiles");
     }
 
@@ -126,7 +126,8 @@ public class ActionBarController
     private void sortPreferences()
     {
 
-        // TODO
+        SortPreferencesAlertView preferencesAlert = new SortPreferencesAlertView();
+        preferencesAlert.show(getSupportFragmentManager(), "Sort Preferences Alert");
     }
 
     /**

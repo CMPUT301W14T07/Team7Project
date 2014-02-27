@@ -25,5 +25,8 @@
 	<string name="create_user_confirm">Create User</string>
     
 	<!-- Strings for the SortPreferencesAlertView -->
+	<string name="select_sorting_preferences">Select Sorting Preferences</string>
+	<string name="confirm_preferences">Change Preferences</string>
+	
 	
 </resources>
