@@ -5,8 +5,6 @@
  */
 package ca.ualberta.team7project.models;
 
-import java.util.LinkedList;
-
 import android.graphics.Bitmap;
 import android.location.Location;
 
@@ -16,7 +14,6 @@ public class TopicModel extends ThreadModel
 
 	private String title;
 	private Integer lastThreadUniqueID;
-    private LinkedList<CommentThreadModel> comments;
 	
 	/**
 	 * Constructs a topic with the given parameters.
@@ -33,7 +30,6 @@ public class TopicModel extends ThreadModel
     	
 		super(comment, image, authorName, authorUnique, location);
 		this.lastThreadUniqueID = 0;
-		this.comments = new LinkedList<CommentThreadModel>();
 		this.title = title;
 		
 	}
@@ -74,19 +70,5 @@ public class TopicModel extends ThreadModel
 		oldID++;
 		this.lastThreadUniqueID = oldID;
 	}
-	
-	
-	public LinkedList<CommentThreadModel> getComments()
-	{
-	
-		return comments;
-	}
 
-
-	
-	public void addComment(CommentThreadModel comment)
-	{
-	
-		this.comments.add(comment);
-	}
 }

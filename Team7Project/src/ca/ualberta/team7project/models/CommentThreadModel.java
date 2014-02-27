@@ -6,17 +6,13 @@
  */
 package ca.ualberta.team7project.models;
 
-import java.util.LinkedList;
-
 import android.graphics.Bitmap;
 import android.location.Location;
-
 
 public class CommentThreadModel extends ThreadModel
 {
 
 	private Integer votes;
-    private LinkedList<CommentThreadModel> comments;
 	
 	/**
 	 * Constructs a comment thread using the ThreadModel superclass
@@ -31,7 +27,6 @@ public class CommentThreadModel extends ThreadModel
 			String authorUnique, Location location)
 	{
 		super(comment, image, authorName, authorUnique, location);
-		this.comments = new LinkedList<CommentThreadModel>();
 		this.votes = 0;
 	}
 
@@ -47,22 +42,6 @@ public class CommentThreadModel extends ThreadModel
 	{
 	
 		this.votes = votes;
-	}
-
-
-	
-	public LinkedList<CommentThreadModel> getComments()
-	{
-	
-		return comments;
-	}
-
-
-	
-	public void addComment(CommentThreadModel comment)
-	{
-	
-		this.comments.add(comment);
 	}
 
 	

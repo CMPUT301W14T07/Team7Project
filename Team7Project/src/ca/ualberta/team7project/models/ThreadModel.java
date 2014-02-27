@@ -6,6 +6,8 @@
 package ca.ualberta.team7project.models;
 
 import java.util.Date;
+import java.util.LinkedList;
+
 import android.graphics.Bitmap;
 import android.location.Location;
 
@@ -19,6 +21,11 @@ public class ThreadModel
     protected Date lastUpdatedDate;
     protected Location location;
     protected Integer uniqueID;
+    
+    //TODO
+    // There must be a better way than putting a class of subclass in the superclass.......
+    // Doesn't seem 'correct'
+    protected LinkedList<CommentThreadModel> comments;
     
 	/**
      * Constructs the ThreadModel with appropriate parameters.
@@ -38,6 +45,7 @@ public class ThreadModel
 		this.authorName = authorName;
 		this.authorUnique = authorUnique;
 		this.location = location;
+		this.comments = new LinkedList<CommentThreadModel>();
 		
 	}
 
@@ -135,6 +143,20 @@ public class ThreadModel
 	public void setUniqueID(Integer uniqueID)
 	{
 		this.uniqueID = uniqueID;
+	}
+	
+	
+	public LinkedList<CommentThreadModel> getComments()
+	{
+	
+		return comments;
+	}
+
+	
+	public void addComment(CommentThreadModel comment)
+	{
+	
+		this.comments.add(comment);
 	}
 
 }
