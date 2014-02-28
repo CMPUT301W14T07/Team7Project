@@ -9,7 +9,6 @@ package ca.ualberta.team7project;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,7 @@ public class MainActivity extends Activity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+                
         ActionBar actionBar = getActionBar();
         actionBar.show();
     }
@@ -56,7 +55,7 @@ public class MainActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
 
-        ActionBarController actionBarController = new ActionBarController(item);
+        ActionBarController actionBarController = new ActionBarController(item, getFragmentManager());
         return actionBarController.getAction();
     }
 

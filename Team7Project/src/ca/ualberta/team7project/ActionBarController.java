@@ -5,17 +5,16 @@
  */
 package ca.ualberta.team7project;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.view.MenuItem;
-import android.widget.Toast;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
-import ca.ualberta.team7project.views.SortPreferencesAlertView;
 
-public class ActionBarController extends FragmentActivity
+public class ActionBarController extends Activity
 {
 
     private MenuItem item;
+    private FragmentManager fragment;
 
     /**
      * Required constructor.
@@ -25,13 +24,15 @@ public class ActionBarController extends FragmentActivity
      * 
      * @param item The ID associated with the action bar item.
      */
-    public ActionBarController(MenuItem item)
+    public ActionBarController(MenuItem item, FragmentManager fragment)
     {
+    	this.fragment = fragment;
         this.item = item;
     }
     
 
-    /**
+
+	/**
      * Takes an item id and calls the associated method to provide button
      * functionality. to the action bar.
      * 
@@ -119,8 +120,8 @@ public class ActionBarController extends FragmentActivity
     private void refreshView()
     {
 
-    	//CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-    	//userAlert.show(MainActivity.getContext(), "New User Name Alert");
+    	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
+    	userAlert.show(fragment, "New User Name Alert");
     	// TODO
     }
 
