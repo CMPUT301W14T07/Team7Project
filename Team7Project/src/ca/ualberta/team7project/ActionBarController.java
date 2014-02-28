@@ -5,9 +5,12 @@
  */
 package ca.ualberta.team7project;
 
-import ca.ualberta.team7project.views.SortPreferencesAlertView;
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
+import ca.ualberta.team7project.views.CreateIdentityAlertView;
+import ca.ualberta.team7project.views.SortPreferencesAlertView;
 
 public class ActionBarController extends FragmentActivity
 {
@@ -24,9 +27,9 @@ public class ActionBarController extends FragmentActivity
      */
     public ActionBarController(MenuItem item)
     {
-
         this.item = item;
     }
+    
 
     /**
      * Takes an item id and calls the associated method to provide button
@@ -89,8 +92,7 @@ public class ActionBarController extends FragmentActivity
     private void userPreferences()
     {
 
-        //CreateIdentityAlertView newFragment = new CreateIdentityAlertView();
-        //newFragment.show(getSupportFragmentManager(), "missiles");
+    	//TODO
     }
 
     /**
@@ -117,7 +119,9 @@ public class ActionBarController extends FragmentActivity
     private void refreshView()
     {
 
-        // TODO
+    	//CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
+    	//userAlert.show(MainActivity.getContext(), "New User Name Alert");
+    	// TODO
     }
 
     /**
@@ -125,9 +129,9 @@ public class ActionBarController extends FragmentActivity
      */
     private void sortPreferences()
     {
-
-        SortPreferencesAlertView preferencesAlert = new SortPreferencesAlertView();
-        preferencesAlert.show(getSupportFragmentManager(), "Sort Preferences Alert");
+    	//http://stackoverflow.com/questions/2002288/static-way-to-get-context-on-android
+        //SortPreferencesAlertView preferencesAlert = new SortPreferencesAlertView();
+        //preferencesAlert.show(getSupportFragmentManager(), "Sort Preferences Alert");
     }
 
     /**

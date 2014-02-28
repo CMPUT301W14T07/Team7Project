@@ -22,6 +22,7 @@
     
     <!-- Strings for the CreateIdentityAlertView -->
     <string name="create_identity">Create User Identity</string>
+    <string name="create_user_hint">Enter user name</string>
 	<string name="create_user_confirm">Create User</string>
     
 	<!-- Strings for the SortPreferencesAlertView -->

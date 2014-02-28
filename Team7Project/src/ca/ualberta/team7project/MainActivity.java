@@ -7,15 +7,16 @@
  */
 package ca.ualberta.team7project;
 
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity
 {
-
+	
     /**
      * Creates the state of the application when the activity is initialized
      */
@@ -58,4 +59,5 @@ public class MainActivity extends Activity
         ActionBarController actionBarController = new ActionBarController(item);
         return actionBarController.getAction();
     }
+
 }
