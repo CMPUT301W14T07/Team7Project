@@ -1,9 +1,5 @@
-UserModel -> split to identity and preference models
+UserModel -> split to identity and preference (location + sorting) models
 
-userPreferencesAlertView -> relate to a model holding location
-
-sortPreferencesAlertView -> relate to preference model
-
-sortTopicController -> relate to preference model
+locationPreferencesAlertView -> relate to a model holding location
 
 TopicPersistenceModel -> newTopic, addComment, editComment should update the server immediately, thus topicToServer() will never be used
