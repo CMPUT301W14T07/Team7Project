@@ -10,9 +10,9 @@ package ca.ualberta.team7project;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements IdentityListener
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-                
+
         ActionBar actionBar = getActionBar();
         actionBar.show();
                 
@@ -73,25 +73,30 @@ public class MainActivity extends Activity implements IdentityListener
 	 * Determine if creating a new user or using an existing user, then sets the open user.
 	 */
 	public void setNewUser()
-	{
+	{		
 		UserModel newUser = null;
 		
 		if(firstRun() == true) {
 			/* Prompt alert to create new user */
 			promtIdentityAlertView();
-			setFirstRun();
+
 		}
 		else {
 			/* This is not the first run, therefore a user must already exist */
 			UserPersistence persistence = new UserPersistence(getApplicationContext());
-			setUser(persistence.deserializeUser());
-			
-			/* However, if serialization fails, prompt new user dialog and then create new user*/
+			newUser = persistence.deserializeUser();
+
+			/* However, if serialization fails, prompt new user dialog and then create new user */
 			if(newUser == null) {
 				promtIdentityAlertView();
 			}
+			else {
+				setUser(newUser);
+		        Toast.makeText(getApplicationContext(), "Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();
+			}
 		}
 		
+		setFirstRun();
 	}
 
 	public UserModel getUser()
@@ -111,7 +116,9 @@ public class MainActivity extends Activity implements IdentityListener
 	 */
 	public boolean firstRun() 
 	{
-		SharedPreferences persistence = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences persistence = getApplicationContext().getSharedPreferences(
+				"appPreferences", Context.MODE_PRIVATE);
+		
 		return persistence.getBoolean("firstRun", true); 		
 	}
     
@@ -120,11 +127,13 @@ public class MainActivity extends Activity implements IdentityListener
 	 */
 	public void setFirstRun()
 	{
-		SharedPreferences persistence = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences persistence = getApplicationContext().getSharedPreferences(
+				"appPreferences", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = persistence.edit();
 		
 		editor.putBoolean("firstRun", false);
 		editor.commit();
+
 	}
 	
 	/**
@@ -145,10 +154,11 @@ public class MainActivity extends Activity implements IdentityListener
 	public void onDialogPositiveCLick(DialogFragment dialog, String userName)
 	{
 		UserModel newUser = new UserModel(userName);
-		
+
 		UserPersistence persistence = new UserPersistence(getApplicationContext());
 		persistence.serializeUser(newUser);
-		
+		setUser(newUser);
+
         Toast.makeText(getApplicationContext(), "Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();
 
 	}

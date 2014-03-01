@@ -33,19 +33,23 @@ public class UserPersistence extends Activity
 	 */
 	public void serializeUser(UserModel user)
 	{
+
 		try {
 			FileOutputStream fileStream = context.openFileOutput(user.getName().concat(".dat"), 0);
 			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 			objectStream.writeObject(user);
 
+
 			fileStream.flush();
 			objectStream.flush();
 			objectStream.close();
 			fileStream.close();
-			
+
 			setLastOpenUser(user.getName());
+
 		}
 		catch (IOException e) {
+
 			e.printStackTrace();
 		}
 	}
@@ -58,14 +62,13 @@ public class UserPersistence extends Activity
 	{
 		String userName = lastOpenUser();
 		UserModel newUser = null;
-		
+
 		// TODO perform file exists check
 		
 		if(userName != null) {
 			try {
 				FileInputStream fileStream = context.openFileInput(userName.concat(".dat"));
 				ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-
 				newUser = (UserModel) objectStream.readObject();
 
 				objectStream.close();
@@ -74,9 +77,11 @@ public class UserPersistence extends Activity
 				return newUser;
 			}
 			catch (IOException e) {
+
 				e.printStackTrace();
 			}
 			catch (ClassNotFoundException c) {
+
 				c.printStackTrace();
 			}
 		}
@@ -91,8 +96,9 @@ public class UserPersistence extends Activity
 	 */
 	public String lastOpenUser()
 	{
-		SharedPreferences persistence = getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
-		String userName = persistence.getString("lastOpenUser", null); 
+		SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+		String userName = persistence.getString("lastOpenUser", null);
+
 		return userName;	
 	}
 	
@@ -101,10 +107,11 @@ public class UserPersistence extends Activity
 	 */
 	public void setLastOpenUser(String userName)
 	{
-		SharedPreferences persistence = getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+		SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = persistence.edit();
 		editor.putString("lastOpenUser", userName);
 		editor.commit();
+
 	}
 	
 	/**

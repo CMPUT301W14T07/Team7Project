@@ -15,6 +15,7 @@
 
 package ca.ualberta.team7project.models;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.Random;
 
 import android.location.Location;
 
-public class UserModel
+public class UserModel implements Serializable
 {
 
     private String name;
