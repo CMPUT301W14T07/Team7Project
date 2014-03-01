@@ -5,6 +5,7 @@
  */
 package ca.ualberta.team7project.views;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -12,13 +13,28 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
-import ca.ualberta.team7project.UserPersistence;
-import ca.ualberta.team7project.models.UserModel;
 
 
 public class CreateIdentityAlertView extends DialogFragment
-{
-	    
+{	
+	public interface IdentityListener
+	{
+		public void onDialogPositiveCLick(DialogFragment dialog, String userName);
+	}
+	   
+	IdentityListener listener;
+	
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (IdentityListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement NoticeDialogListener");
+        }
+    }
+
 	/**
 	 * Build the action dialog with text entry and confirmation buttons
 	 */
@@ -42,11 +58,8 @@ public class CreateIdentityAlertView extends DialogFragment
 	            	 * Discuss in next meeting 
 	            	 */
 	            	
-	            	/* Save the new user to the filesystem */
-	            	UserModel user = new UserModel(textInput.getText().toString());
-	        		UserPersistence persistence = new UserPersistence();
-	        		persistence.serializeUser(user);
-	        		
+	            	listener.onDialogPositiveCLick(CreateIdentityAlertView.this, textInput.getText().toString());
+	            		        		
 	            }
 	        })
 	        .setNegativeButton(ca.ualberta.team7project.R.string.cancel, new DialogInterface.OnClickListener() {

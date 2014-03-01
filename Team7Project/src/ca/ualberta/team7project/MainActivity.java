@@ -9,16 +9,19 @@ package ca.ualberta.team7project;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
+import ca.ualberta.team7project.views.CreateIdentityAlertView.IdentityListener;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity implements IdentityListener
 {
 	private UserModel user;
 	
@@ -34,8 +37,9 @@ public class MainActivity extends Activity
                 
         ActionBar actionBar = getActionBar();
         actionBar.show();
-        
-        user = getNewUser();
+                
+        user = null;
+        setNewUser();
     }
 
     // TODO Need an onResume()
@@ -46,8 +50,6 @@ public class MainActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
         return super.onCreateOptionsMenu(menu);
@@ -68,24 +70,21 @@ public class MainActivity extends Activity
     }
 
 	/**
-	 * Returns a new user if this is the first time the application has run, or an existing 
-	 * user from the filesystem if this is not the first run.
-	 * 
-	 * @return the user to be associated with the activity.
+	 * Determine if creating a new user or using an existing user, then sets the open user.
 	 */
-	public UserModel getNewUser()
+	public void setNewUser()
 	{
 		UserModel newUser = null;
-		UserPersistence persistence = new UserPersistence();
 		
 		if(firstRun() == true) {
 			/* Prompt alert to create new user */
 			promtIdentityAlertView();
-	    	setFirstRun();    	
+			setFirstRun();
 		}
 		else {
 			/* This is not the first run, therefore a user must already exist */
-			newUser = persistence.deserializeUser();
+			UserPersistence persistence = new UserPersistence(getApplicationContext());
+			setUser(persistence.deserializeUser());
 			
 			/* However, if serialization fails, prompt new user dialog and then create new user*/
 			if(newUser == null) {
@@ -93,7 +92,6 @@ public class MainActivity extends Activity
 			}
 		}
 		
-		return newUser;
 	}
 
 	public UserModel getUser()
@@ -131,12 +129,29 @@ public class MainActivity extends Activity
 	
 	/**
 	 * Prompts the CreatIdentityAlertView.
+	 * <p>
+	 * After the view has been prompted, the new user will be serialized to the filesystem.
 	 */
 	public void promtIdentityAlertView() 
 	{
-		String userName = null;
-		
     	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
     	userAlert.show(getFragmentManager(), "New User Name Alert");
 	}
+
+	/**
+	 * Takes the user name and updates the user in the view
+	 */
+	@Override
+	public void onDialogPositiveCLick(DialogFragment dialog, String userName)
+	{
+		UserModel newUser = new UserModel(userName);
+		
+		UserPersistence persistence = new UserPersistence(getApplicationContext());
+		persistence.serializeUser(newUser);
+		
+        Toast.makeText(getApplicationContext(), "Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();
+
+	}
+
+
 }

@@ -19,9 +19,12 @@ import ca.ualberta.team7project.models.UserModel;
 public class UserPersistence extends Activity
 {
 
-	public UserPersistence()
+	private Context context;
+	
+	public UserPersistence(Context context)
 	{
 		super();
+		this.context = context;
 	}
 
 	/**
@@ -31,15 +34,16 @@ public class UserPersistence extends Activity
 	public void serializeUser(UserModel user)
 	{
 		try {
-			FileOutputStream fileStream = openFileOutput(user.getName().concat(".dat"), 0);
+			FileOutputStream fileStream = context.openFileOutput(user.getName().concat(".dat"), 0);
 			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
-
 			objectStream.writeObject(user);
 
 			fileStream.flush();
 			objectStream.flush();
 			objectStream.close();
 			fileStream.close();
+			
+			setLastOpenUser(user.getName());
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -59,7 +63,7 @@ public class UserPersistence extends Activity
 		
 		if(userName != null) {
 			try {
-				FileInputStream fileStream = openFileInput(userName.concat(".dat"));
+				FileInputStream fileStream = context.openFileInput(userName.concat(".dat"));
 				ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 
 				newUser = (UserModel) objectStream.readObject();
@@ -90,6 +94,17 @@ public class UserPersistence extends Activity
 		SharedPreferences persistence = getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 		String userName = persistence.getString("lastOpenUser", null); 
 		return userName;	
+	}
+	
+	/**
+	 * Sets the name of the last open user in the preferences
+	 */
+	public void setLastOpenUser(String userName)
+	{
+		SharedPreferences persistence = getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = persistence.edit();
+		editor.putString("lastOpenUser", userName);
+		editor.commit();
 	}
 	
 	/**
