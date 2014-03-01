@@ -9,14 +9,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
 
-
 public class CreateIdentityAlertView extends DialogFragment
 {	
+
+	private Context context;
+	
 	public interface IdentityListener
 	{
 		public void onDialogPositiveCLick(DialogFragment dialog, String userName);
@@ -24,9 +28,15 @@ public class CreateIdentityAlertView extends DialogFragment
 	   
 	IdentityListener listener;
 	
+
+	/**
+	 * Allows activities  to pass in context needed for sharedPreferences()
+	 */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.context = activity.getApplicationContext();
+        
         try {
             listener = (IdentityListener) activity;
         } catch (ClassCastException e) {
@@ -49,26 +59,33 @@ public class CreateIdentityAlertView extends DialogFragment
 		/* Build the dialog alert */
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(ca.ualberta.team7project.R.string.create_identity)
+        	.setCancelable(false)
         	.setView(textInput)
 	        .setPositiveButton(ca.ualberta.team7project.R.string.create_user_confirm, new DialogInterface.OnClickListener() {
 	        	
-	            public void onClick(DialogInterface dialog, int id) {
-	            	/* Note: I think ideally we create an interface to listen for onClicks and pass this data
-	            	 * back to the caller instead serializing here.
-	            	 * Discuss in next meeting 
-	            	 */
-	            	
+	            public void onClick(DialogInterface dialog, int id) {            	
 	            	listener.onDialogPositiveCLick(CreateIdentityAlertView.this, textInput.getText().toString());
 	            		        		
 	            }
-	        })
-	        .setNegativeButton(ca.ualberta.team7project.R.string.cancel, new DialogInterface.OnClickListener() {
-	        	
+	        });
+        
+        
+        /*
+         * Important:
+         * Only show a cancel button if there is a user already existing on the phone.
+         */
+		SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+
+        if(persistence.getString("lastOpenUser", null) != null){
+        	builder.setNegativeButton(ca.ualberta.team7project.R.string.cancel, 
+        			new DialogInterface.OnClickListener() {
+        		
 	            public void onClick(DialogInterface dialog, int id) {
-	            	// Do nothing, just close dialog box
+
+	            	// TODO major bug fix. USER SHOULD NOT BE ABLE TO CANCEL DIALOG BOX IF NO USER EXISTS IN THE SYSTEM!!!!!!!
 	            }
 	        });
-		
+        }
 		return builder.create();
 	}
 }

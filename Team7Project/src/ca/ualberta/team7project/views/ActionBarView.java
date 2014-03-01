@@ -8,6 +8,7 @@ package ca.ualberta.team7project.views;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.view.MenuItem;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.R;
 
 public class ActionBarView extends Activity
@@ -83,8 +84,7 @@ public class ActionBarView extends Activity
      */
     private void geolocationPreferences()
     {
-    	
-        // TODO
+    	// TODO
     }
 
     /**
@@ -92,8 +92,11 @@ public class ActionBarView extends Activity
      */
     private void userPreferences()
     {
+    	// TODO. For now, this just updates username.
+    	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
+    	userAlert.setCancelable(false);
+    	userAlert.show(fragment, "New User Name Alert");
 
-    	//TODO
     }
 
     /**

@@ -144,6 +144,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void promtIdentityAlertView() 
 	{
     	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
+    	userAlert.setCancelable(false);
     	userAlert.show(getFragmentManager(), "New User Name Alert");
 	}
 
