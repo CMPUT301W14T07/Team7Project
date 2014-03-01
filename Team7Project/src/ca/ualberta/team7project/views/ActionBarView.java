@@ -3,14 +3,14 @@
  * 
  * @author Michael Raypold
  */
-package ca.ualberta.team7project;
+package ca.ualberta.team7project.views;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.view.MenuItem;
-import ca.ualberta.team7project.views.CreateIdentityAlertView;
+import ca.ualberta.team7project.R;
 
-public class ActionBarController extends Activity
+public class ActionBarView extends Activity
 {
 
     private MenuItem item;
@@ -24,7 +24,7 @@ public class ActionBarController extends Activity
      * 
      * @param item The ID associated with the action bar item.
      */
-    public ActionBarController(MenuItem item, FragmentManager fragment)
+    public ActionBarView(MenuItem item, FragmentManager fragment)
     {
     	this.fragment = fragment;
         this.item = item;
@@ -83,7 +83,7 @@ public class ActionBarController extends Activity
      */
     private void geolocationPreferences()
     {
-
+    	
         // TODO
     }
 
@@ -119,9 +119,6 @@ public class ActionBarController extends Activity
      */
     private void refreshView()
     {
-
-    	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-    	userAlert.show(fragment, "New User Name Alert");
     	// TODO
     }
 
