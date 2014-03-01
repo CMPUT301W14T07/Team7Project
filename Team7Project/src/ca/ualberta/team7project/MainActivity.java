@@ -76,20 +76,20 @@ public class MainActivity extends Activity
 	public UserModel getNewUser()
 	{
 		UserModel newUser = null;
+		UserPersistence persistence = new UserPersistence();
 		
 		if(firstRun() == true) {
-			/* Prompt alert and user entered information to create new user */
-			newUser = new UserModel(promtIdentityAlertView());
+			/* Prompt alert to create new user */
+			promtIdentityAlertView();
 	    	setFirstRun();    	
 		}
 		else {
 			/* This is not the first run, therefore a user must already exist */
-			UserPersistence persistence = new UserPersistence();
 			newUser = persistence.deserializeUser();
 			
 			/* However, if serialization fails, prompt new user dialog and then create new user*/
 			if(newUser == null) {
-				newUser = new UserModel(promtIdentityAlertView());
+				promtIdentityAlertView();
 			}
 		}
 		
@@ -131,14 +131,12 @@ public class MainActivity extends Activity
 	
 	/**
 	 * Prompts the CreatIdentityAlertView.
-	 * @return userName String Representing the choosen user name
 	 */
-	public String promtIdentityAlertView() {
+	public void promtIdentityAlertView() 
+	{
 		String userName = null;
 		
     	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
     	userAlert.show(getFragmentManager(), "New User Name Alert");
-
-    	return userName;
 	}
 }

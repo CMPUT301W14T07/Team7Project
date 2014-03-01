@@ -7,8 +7,10 @@
 package ca.ualberta.team7project;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,13 +24,30 @@ public class UserPersistence extends Activity
 		super();
 	}
 
+	/**
+	 * Serialize the user with the filename set as the user name
+	 * @param user A non-null UserModel object
+	 */
 	public void serializeUser(UserModel user)
 	{
-		// TODO
+		try {
+			FileOutputStream fileStream = openFileOutput(user.getName().concat(".dat"), 0);
+			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+
+			objectStream.writeObject(user);
+
+			fileStream.flush();
+			objectStream.flush();
+			objectStream.close();
+			fileStream.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
-	 * 
+	 * Deserializes a UserModel or returns null if none exist.
 	 * @return newUser A deserialized  UserModel or a null object if failure
 	 */
 	public UserModel deserializeUser() 
@@ -81,4 +100,6 @@ public class UserPersistence extends Activity
 		// TODO
 		return true;
 	}
+	
+	// TODO delete user from disk method
 }

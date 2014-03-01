@@ -12,10 +12,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
+import ca.ualberta.team7project.UserPersistence;
+import ca.ualberta.team7project.models.UserModel;
 
 
 public class CreateIdentityAlertView extends DialogFragment
 {
+	    
 	/**
 	 * Build the action dialog with text entry and confirmation buttons
 	 */
@@ -34,14 +37,21 @@ public class CreateIdentityAlertView extends DialogFragment
 	        .setPositiveButton(ca.ualberta.team7project.R.string.create_user_confirm, new DialogInterface.OnClickListener() {
 	        	
 	            public void onClick(DialogInterface dialog, int id) {
-	            	// TODO
-	            	// Return the button attributes to the caller
+	            	/* Note: I think ideally we create an interface to listen for onClicks and pass this data
+	            	 * back to the caller instead serializing here.
+	            	 * Discuss in next meeting 
+	            	 */
+	            	
+	            	/* Save the new user to the filesystem */
+	            	UserModel user = new UserModel(textInput.getText().toString());
+	        		UserPersistence persistence = new UserPersistence();
+	        		persistence.serializeUser(user);
+	        		
 	            }
 	        })
 	        .setNegativeButton(ca.ualberta.team7project.R.string.cancel, new DialogInterface.OnClickListener() {
 	        	
 	            public void onClick(DialogInterface dialog, int id) {
-	                // TODO
 	            	// Do nothing, just close dialog box
 	            }
 	        });
