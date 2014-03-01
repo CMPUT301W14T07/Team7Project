@@ -64,4 +64,5 @@ public class TopicListModel
 			topics.add(topic); //add a new topic
 		}
 	}
+	
 }
