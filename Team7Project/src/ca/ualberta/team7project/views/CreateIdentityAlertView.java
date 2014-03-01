@@ -82,7 +82,7 @@ public class CreateIdentityAlertView extends DialogFragment
         		
 	            public void onClick(DialogInterface dialog, int id) {
 
-	            	// TODO major bug fix. USER SHOULD NOT BE ABLE TO CANCEL DIALOG BOX IF NO USER EXISTS IN THE SYSTEM!!!!!!!
+	            	// Do nothing on cancel
 	            }
 	        });
         }
