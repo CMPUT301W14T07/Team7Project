@@ -78,24 +78,22 @@ public class MainActivity extends Activity
 		UserModel newUser = null;
 		
 		if(firstRun() == true) {
-			/* Display action dialog, prompting the user to create a new identity/user */
-	    	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-	    	userAlert.show(getFragmentManager(), "New User Name Alert");
-	    	// TODO. Take data entered in userAlert and create the user.
-	    	setFirstRun();
-	    	
-	    	return newUser;
+			/* Prompt alert and user entered information to create new user */
+			newUser = new UserModel(promtIdentityAlertView());
+	    	setFirstRun();    	
 		}
 		else {
 			/* This is not the first run, therefore a user must already exist */
-			// TODO
+			UserPersistence persistence = new UserPersistence();
+			newUser = persistence.deserializeUser();
+			
 			/* However, if serialization fails, prompt new user dialog and then create new user*/
-			// TODO
-			//return the result of the above process;
-			// Returning null for now until entire method is finished
-			return null;
+			if(newUser == null) {
+				newUser = new UserModel(promtIdentityAlertView());
+			}
 		}
 		
+		return newUser;
 	}
 
 	public UserModel getUser()
@@ -129,5 +127,18 @@ public class MainActivity extends Activity
 		
 		editor.putBoolean("firstRun", false);
 		editor.commit();
+	}
+	
+	/**
+	 * Prompts the CreatIdentityAlertView.
+	 * @return userName String Representing the choosen user name
+	 */
+	public String promtIdentityAlertView() {
+		String userName = null;
+		
+    	CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
+    	userAlert.show(getFragmentManager(), "New User Name Alert");
+
+    	return userName;
 	}
 }

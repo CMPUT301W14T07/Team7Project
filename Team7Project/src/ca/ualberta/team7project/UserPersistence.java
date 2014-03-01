@@ -6,6 +6,9 @@
 
 package ca.ualberta.team7project;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,33 +27,50 @@ public class UserPersistence extends Activity
 		// TODO
 	}
 	
+	/**
+	 * 
+	 * @return newUser A deserialized  UserModel or a null object if failure
+	 */
 	public UserModel deserializeUser() 
 	{
+		String userName = lastOpenUser();
+		UserModel newUser = null;
 		
-		return null;
+		// TODO perform file exists check
+		
+		if(userName != null) {
+			try {
+				FileInputStream fileStream = openFileInput(userName.concat(".dat"));
+				ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+
+				newUser = (UserModel) objectStream.readObject();
+
+				objectStream.close();
+				fileStream.close();
+
+				return newUser;
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			catch (ClassNotFoundException c) {
+				c.printStackTrace();
+			}
+		}
+
+		/* If return is null, then userName was null. Caller needs to create a new user */
+		return newUser;
 	}
-	
-	/**
-	 * A helper function to determine if a user exists on the filesystem.
-	 */
-	public boolean userAlreadyExists() 
-	{
-		return false;
-	}
-	
+		
 	/**
 	 * Gets the name of the last open user to aid deserialization.
 	 * @return userName Representing the name of the user last created.
 	 */
 	public String lastOpenUser()
 	{
-		String userName = null;
-    	SharedPreferences preferences = getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = 
-    	
-    	
-		return userName;
-		
+		SharedPreferences persistence = getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+		String userName = persistence.getString("lastOpenUser", null); 
+		return userName;	
 	}
 	
 	/**
@@ -58,6 +78,7 @@ public class UserPersistence extends Activity
 	 */
 	public boolean fileExists(String file)
 	{
+		// TODO
 		return true;
 	}
 }
