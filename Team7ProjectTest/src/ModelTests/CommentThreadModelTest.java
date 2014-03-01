@@ -12,7 +12,7 @@ package ModelTests;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.models.CommentThreadModel;
+import ca.ualberta.team7project.models.CommentModel;
 import ca.ualberta.team7project.models.TopicModel;
 import ca.ualberta.team7project.models.UserModel;
 
@@ -34,7 +34,7 @@ public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<Mai
     {
 
         UserModel user = new UserModel("Ash Ketchum");
-        CommentThreadModel thread = new CommentThreadModel("Caught Snorelax", null,
+        CommentModel thread = new CommentModel("Caught Snorelax", null,
                 user.getName(), user.getUniqueName(), null);
 
         assertEquals("Name of thread has been set properly", "Caught Snorelax",
@@ -64,7 +64,7 @@ public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<Mai
                 null, 
                 "Ash's pokedex");
 
-        CommentThreadModel threadOne = new CommentThreadModel("Caught Snorelax", 
+        CommentModel threadOne = new CommentModel("Caught Snorelax", 
         		null,
                 user.getName(), 
                 user.getUniqueName(), 
@@ -77,7 +77,7 @@ public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<Mai
         assertEquals("First thread should have unique ID of 1",
                 threadOne.getUniqueID(), (Integer) 1);
 
-        CommentThreadModel threadTwo = new CommentThreadModel("Caught Mew", 
+        CommentModel threadTwo = new CommentModel("Caught Mew", 
         		null,
                 user.getName(), 
                 user.getUniqueName(),
@@ -91,7 +91,7 @@ public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<Mai
         assertEquals("Second thread should have a unique ID of 2",
                 threadTwo.getUniqueID(), (Integer) 2);
 
-        CommentThreadModel threadThree = new CommentThreadModel("Caught Jigglypuff", 
+        CommentModel threadThree = new CommentModel("Caught Jigglypuff", 
         		null,
                 user.getName(), 
                 user.getUniqueName(),

@@ -9,7 +9,7 @@ package ca.ualberta.team7project.models;
 import android.graphics.Bitmap;
 import android.location.Location;
 
-public class CommentThreadModel extends ThreadModel
+public class CommentModel extends ThreadModel
 {
 
 	private Integer votes;
@@ -23,7 +23,7 @@ public class CommentThreadModel extends ThreadModel
      * @param authorUnique unique hash generated for each user
      * @param location the comment was written at
 	 */
-	public CommentThreadModel(String comment, Bitmap image, String authorName,
+	public CommentModel(String comment, Bitmap image, String authorName,
 			String authorUnique, Location location)
 	{
 		super(comment, image, authorName, authorUnique, location);

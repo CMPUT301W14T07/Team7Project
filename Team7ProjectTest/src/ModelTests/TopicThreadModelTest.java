@@ -14,7 +14,7 @@ package ModelTests;
 import java.util.LinkedList;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.models.CommentThreadModel;
+import ca.ualberta.team7project.models.CommentModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.TopicModel;
 import ca.ualberta.team7project.models.UserModel;
@@ -63,7 +63,7 @@ public class TopicThreadModelTest extends ActivityInstrumentationTestCase2<MainA
                 null, 
                 "Ash's pokedex");
         
-        CommentThreadModel threadOne = new CommentThreadModel("Caught Snorelax", 
+        CommentModel threadOne = new CommentModel("Caught Snorelax", 
         		null,
                 user.getName(), 
                 user.getUniqueName(), 
@@ -73,7 +73,7 @@ public class TopicThreadModelTest extends ActivityInstrumentationTestCase2<MainA
         threadOne.setUniqueID(topic.getLastThreadUniqueID());
         topic.addComment(threadOne);
 
-        CommentThreadModel threadTwo = new CommentThreadModel("Caught Mew", 
+        CommentModel threadTwo = new CommentModel("Caught Mew", 
         		null,
                 user.getName(), 
                 user.getUniqueName(),
@@ -83,7 +83,7 @@ public class TopicThreadModelTest extends ActivityInstrumentationTestCase2<MainA
         threadTwo.setUniqueID(topic.getLastThreadUniqueID());
         topic.addComment(threadTwo);
 
-        CommentThreadModel threadThree = new CommentThreadModel("Caught Jigglypuff", 
+        CommentModel threadThree = new CommentModel("Caught Jigglypuff", 
         		null,
                 user.getName(), 
                 user.getUniqueName(),

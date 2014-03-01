@@ -25,13 +25,13 @@ public class ThreadModel
     //TODO
     // There must be a better way than putting a class of subclass in the superclass.......
     // Doesn't seem 'correct'
-    protected LinkedList<CommentThreadModel> comments;
+    protected LinkedList<CommentModel> comments;
     
 	/**
      * Constructs the ThreadModel with appropriate parameters.
      *  
      * @param comment associated with the thread
-     * @param image associated with the thread
+     * @param image associated with the thread (may be null)
      * @param authorName chosen by the user
      * @param authorUnique unique hash generated for each user
      * @param location the comment was written at
@@ -45,7 +45,7 @@ public class ThreadModel
 		this.authorName = authorName;
 		this.authorUnique = authorUnique;
 		this.location = location;
-		this.comments = new LinkedList<CommentThreadModel>();
+		this.comments = new LinkedList<CommentModel>();
 		
 	}
 
@@ -146,14 +146,14 @@ public class ThreadModel
 	}
 	
 	
-	public LinkedList<CommentThreadModel> getComments()
+	public LinkedList<CommentModel> getComments()
 	{
 	
 		return comments;
 	}
 
 	
-	public void addComment(CommentThreadModel comment)
+	public void addComment(CommentModel comment)
 	{
 	
 		this.comments.add(comment);

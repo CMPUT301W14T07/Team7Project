@@ -1,4 +1,4 @@
-package ca.ualberta.team7Project.controllers;
+package ca.ualberta.team7project.controllers;
 
 
 public class ListAdapterController

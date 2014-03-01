@@ -32,7 +32,7 @@ public class UserModel implements Serializable
     private String name;
     private String uniqueName;
     private Location currentLocation;
-    private ArrayList<CommentThreadModel> authoredComments;
+    private ArrayList<CommentModel> authoredComments;
     private ArrayList<TopicModel> favoriteTopics;
     private TopicModel lastViewedTopic;
     private Integer topicPosition;
@@ -46,7 +46,7 @@ public class UserModel implements Serializable
     {
 
         setName(userName);
-        this.authoredComments = new ArrayList<CommentThreadModel>();
+        this.authoredComments = new ArrayList<CommentModel>();
         this.favoriteTopics = new ArrayList<TopicModel>();
 
         setUniqueName();
@@ -169,13 +169,13 @@ public class UserModel implements Serializable
         this.topicPosition = topicPosition;
     }
 
-	public ArrayList<CommentThreadModel> getAuthoredComments()
+	public ArrayList<CommentModel> getAuthoredComments()
 	{
 
 		return authoredComments;
 	}
 
-	public void addAuthoredComment(CommentThreadModel authoredComment)
+	public void addAuthoredComment(CommentModel authoredComment)
 	{
 
 		this.authoredComments.add(authoredComment);
