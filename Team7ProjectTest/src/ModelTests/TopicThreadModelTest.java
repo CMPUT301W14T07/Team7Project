@@ -19,96 +19,75 @@ import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.TopicModel;
 import ca.ualberta.team7project.models.UserModel;
 
-public class TopicThreadModelTest extends ActivityInstrumentationTestCase2<MainActivity>
-{
+public class TopicThreadModelTest extends
+	ActivityInstrumentationTestCase2<MainActivity> {
 
-    public TopicThreadModelTest()
-    {
+    public TopicThreadModelTest() {
 
-        super(MainActivity.class);
+	super(MainActivity.class);
     }
 
     /**
      * Test to ensure that basic properties of the topic are correct.
      */
-    public void testTopicCreate()
-    {
+    public void testTopicCreate() {
 
-        UserModel user = new UserModel("Ash Ketchum");
-        TopicModel topic = new TopicModel("A listing of all my Pokemon", 
-        		null, 
-        		user.getName(),
-                user.getUniqueName(), 
-                null, 
-                "Ash's pokedex");
+	UserModel user = new UserModel("Ash Ketchum");
+	TopicModel topic = new TopicModel("A listing of all my Pokemon", null,
+		user, null, "Ash's pokedex");
 
-        assertEquals("Topic title is correct", "Ash's pokedex", topic.getTitle());
-        assertEquals("Author name is correct", "Ash Ketchum",
-                topic.getAuthorName());
-        assertEquals("Unique author name is the same as the users",
-                topic.getAuthorUnique(), user.getUniqueName());
+	assertEquals("Topic title is correct", "Ash's pokedex",
+		topic.getTitle());
+	assertEquals("Author name is correct", "Ash Ketchum",
+		topic.getAuthorName());
+	assertEquals("Unique author name is the same as the users",
+		topic.getAuthorUnique(), user.getUniqueName());
     }
 
     /**
      * Test to determine that chronological insertion into Topics is correct
      */
-    public void testThreadsInsertedProperly()
-    {
+    public void testThreadsInsertedProperly() {
 
-        UserModel user = new UserModel("Ash Ketchum");
-        TopicModel topic = new TopicModel("A listing of all my Pokemon", 
-        		null, 
-        		user.getName(),
-                user.getUniqueName(), 
-                null, 
-                "Ash's pokedex");
-        
-        CommentModel threadOne = new CommentModel("Caught Snorelax", 
-        		null,
-                user.getName(), 
-                user.getUniqueName(), 
-                null);
-        
-        topic.setLastThreadUniqueID();
-        threadOne.setUniqueID(topic.getLastThreadUniqueID());
-        topic.addComment(threadOne);
+	UserModel user = new UserModel("Ash Ketchum");
+	TopicModel topic = new TopicModel("A listing of all my Pokemon", null,
+		user, null, "Ash's pokedex");
 
-        CommentModel threadTwo = new CommentModel("Caught Mew", 
-        		null,
-                user.getName(), 
-                user.getUniqueName(),
-                null);        
-        
-        topic.setLastThreadUniqueID();
-        threadTwo.setUniqueID(topic.getLastThreadUniqueID());
-        topic.addComment(threadTwo);
+	CommentModel threadOne = new CommentModel("Caught Snorelax", null,
+		user, null);
 
-        CommentModel threadThree = new CommentModel("Caught Jigglypuff", 
-        		null,
-                user.getName(), 
-                user.getUniqueName(),
-                null);
-        
-        
-        topic.setLastThreadUniqueID();
-        threadThree.setUniqueID(topic.getLastThreadUniqueID());
-        topic.addComment(threadThree);
+	topic.setLastThreadUniqueID();
+	threadOne.setUniqueID(topic.getLastThreadUniqueID());
+	topic.addComment(threadOne);
 
-        LinkedList<ThreadModel> pokedexThreads = new LinkedList<ThreadModel>();
-        pokedexThreads.add(threadOne);
-        pokedexThreads.add(threadTwo);
-        pokedexThreads.add(threadThree);
+	CommentModel threadTwo = new CommentModel("Caught Mew", null, user,
+		null);
 
-        assertEquals("Threads have been correctly entered", pokedexThreads,
-                topic.getComments());
+	topic.setLastThreadUniqueID();
+	threadTwo.setUniqueID(topic.getLastThreadUniqueID());
+	topic.addComment(threadTwo);
+
+	CommentModel threadThree = new CommentModel("Caught Jigglypuff", null,
+		user, null);
+
+	topic.setLastThreadUniqueID();
+	threadThree.setUniqueID(topic.getLastThreadUniqueID());
+	topic.addComment(threadThree);
+
+	LinkedList<ThreadModel> pokedexThreads = new LinkedList<ThreadModel>();
+	pokedexThreads.add(threadOne);
+	pokedexThreads.add(threadTwo);
+	pokedexThreads.add(threadThree);
+
+	assertEquals("Threads have been correctly entered", pokedexThreads,
+		topic.getComments());
     }
 
     /**
      * Test to determine that Location is properly set for the topic
      */
-    public void testTopicLocation()
-    {
+    public void testTopicLocation() {
 
-        // TODO
+	// TODO
     }
 }

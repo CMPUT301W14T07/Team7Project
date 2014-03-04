@@ -16,13 +16,12 @@ import ca.ualberta.team7project.models.CommentModel;
 import ca.ualberta.team7project.models.TopicModel;
 import ca.ualberta.team7project.models.UserModel;
 
-public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<MainActivity>
-{
+public class CommentThreadModelTest extends
+	ActivityInstrumentationTestCase2<MainActivity> {
 
-    public CommentThreadModelTest()
-    {
+    public CommentThreadModelTest() {
 
-        super(MainActivity.class);
+	super(MainActivity.class);
     }
 
     /**
@@ -30,19 +29,18 @@ public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<Mai
      * <p>
      * This includes authors name, unique names, Bitmap image and comment.
      */
-    public void testThreadCreate()
-    {
+    public void testThreadCreate() {
 
-        UserModel user = new UserModel("Ash Ketchum");
-        CommentModel thread = new CommentModel("Caught Snorelax", null,
-                user.getName(), user.getUniqueName(), null);
+	UserModel user = new UserModel("Ash Ketchum");
+	CommentModel thread = new CommentModel("Caught Snorelax", null,
+		user, null);
 
-        assertEquals("Name of thread has been set properly", "Caught Snorelax",
-                thread.getComment());
-        assertNull("No Bitmap was inserted", thread.getImage());
-        assertEquals("User name was set", "Ash Ketchum", thread.getAuthorName());
-        assertNotNull("User's unique ID is attributed to the thread",
-                thread.getAuthorUnique());
+	assertEquals("Name of thread has been set properly", "Caught Snorelax",
+		thread.getComment());
+	assertNull("No Bitmap was inserted", thread.getImage());
+	assertEquals("User name was set", "Ash Ketchum", thread.getAuthorName());
+	assertNotNull("User's unique ID is attributed to the thread",
+		thread.getAuthorUnique());
 
     }
 
@@ -52,64 +50,48 @@ public class CommentThreadModelTest extends ActivityInstrumentationTestCase2<Mai
      * <p>
      * Three threads are inserted. Two parent threads and one child thread.
      */
-    public void testUniqeIDOnThreadInsert()
-    {
+    public void testUniqeIDOnThreadInsert() {
 
-        UserModel user = new UserModel("Ash Ketchum");
-        
-        TopicModel topic = new TopicModel("A listing of all my Pokemon", 
-        		null, 
-        		user.getName(),
-                user.getUniqueName(), 
-                null, 
-                "Ash's pokedex");
+	UserModel user = new UserModel("Ash Ketchum");
 
-        CommentModel threadOne = new CommentModel("Caught Snorelax", 
-        		null,
-                user.getName(), 
-                user.getUniqueName(), 
-                null);
-        
-        topic.setLastThreadUniqueID();
-        threadOne.setUniqueID(topic.getLastThreadUniqueID());
-        topic.addComment(threadOne);
+	TopicModel topic = new TopicModel("A listing of all my Pokemon", null,
+		user, null, "Ash's pokedex");
 
-        assertEquals("First thread should have unique ID of 1",
-                threadOne.getUniqueID(), (Integer) 1);
+	CommentModel threadOne = new CommentModel("Caught Snorelax", null,
+		user, null);
 
-        CommentModel threadTwo = new CommentModel("Caught Mew", 
-        		null,
-                user.getName(), 
-                user.getUniqueName(),
-                null);
-        
-        
-        topic.setLastThreadUniqueID();
-        threadTwo.setUniqueID(topic.getLastThreadUniqueID());
-        topic.addComment(threadTwo);
+	topic.setLastThreadUniqueID();
+	threadOne.setUniqueID(topic.getLastThreadUniqueID());
+	topic.addComment(threadOne);
 
-        assertEquals("Second thread should have a unique ID of 2",
-                threadTwo.getUniqueID(), (Integer) 2);
+	assertEquals("First thread should have unique ID of 1",
+		threadOne.getUniqueID(), (Integer) 1);
 
-        CommentModel threadThree = new CommentModel("Caught Jigglypuff", 
-        		null,
-                user.getName(), 
-                user.getUniqueName(),
-                null);
-        
-        topic.setLastThreadUniqueID();
-        threadThree.setUniqueID(topic.getLastThreadUniqueID());
-        threadOne.addComment(threadThree);
+	CommentModel threadTwo = new CommentModel("Caught Mew", null, user,
+		null);
 
-        assertEquals("Third thread should have a unique ID of 3",
-                threadThree.getUniqueID(), (Integer) 3);
+	topic.setLastThreadUniqueID();
+	threadTwo.setUniqueID(topic.getLastThreadUniqueID());
+	topic.addComment(threadTwo);
+
+	assertEquals("Second thread should have a unique ID of 2",
+		threadTwo.getUniqueID(), (Integer) 2);
+
+	CommentModel threadThree = new CommentModel("Caught Jigglypuff", null,
+		user, null);
+
+	topic.setLastThreadUniqueID();
+	threadThree.setUniqueID(topic.getLastThreadUniqueID());
+	threadOne.addComment(threadThree);
+
+	assertEquals("Third thread should have a unique ID of 3",
+		threadThree.getUniqueID(), (Integer) 3);
     }
 
     /**
      * Test that location has been properly set for the thread
      */
-    public void testThreadLocation()
-    {
+    public void testThreadLocation() {
 
     }
 }
