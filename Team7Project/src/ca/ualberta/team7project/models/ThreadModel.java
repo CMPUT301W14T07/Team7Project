@@ -11,8 +11,7 @@ import java.util.LinkedList;
 import android.graphics.Bitmap;
 import android.location.Location;
 
-public class ThreadModel
-{
+public class ThreadModel {
 
     protected String comment;
     protected Bitmap image;
@@ -21,142 +20,110 @@ public class ThreadModel
     protected Date lastUpdatedDate;
     protected Location location;
     protected Integer uniqueID;
-    
-    //TODO
-    // There must be a better way than putting a class of subclass in the superclass.......
+
+    // TODO
+    // There must be a better way than putting a class of subclass in the
+    // superclass.......
     // Doesn't seem 'correct'
     protected LinkedList<CommentModel> comments;
-    
-	/**
+
+    /**
      * Constructs the ThreadModel with appropriate parameters.
-     *  
+     * 
      * @param comment associated with the thread
      * @param image associated with the thread (may be null)
-     * @param authorName chosen by the user
-     * @param authorUnique unique hash generated for each user
+     * @param user associated with the thread
      * @param location the comment was written at
      */
-	public ThreadModel(String comment, Bitmap image, String authorName,
-			String authorUnique, Location location)
-	{
-		super();
-		this.comment = comment;
-		this.image = image;
-		this.authorName = authorName;
-		this.authorUnique = authorUnique;
-		this.location = location;
-		this.comments = new LinkedList<CommentModel>();
-		
-	}
+    public ThreadModel(String comment, Bitmap image, UserModel user,
+	    Location location) {
+	super();
+	this.comment = comment;
+	this.image = image;
+	this.authorName = user.getName();
+	this.authorUnique = user.getUniqueName();
+	this.location = location;
+	this.comments = new LinkedList<CommentModel>();
 
-	
-	public String getComment()
-	{
-	
-		return comment;
-	}
+    }
 
-	
-	public void setComment(String comment)
-	{
-	
-		this.comment = comment;
-	}
+    public String getComment() {
 
-	
-	public Bitmap getImage()
-	{
-	
-		return image;
-	}
+	return comment;
+    }
 
-	
-	public void setImage(Bitmap image)
-	{
-	
-		this.image = image;
-	}
+    public void setComment(String comment) {
 
-	
-	public String getAuthorName()
-	{
-	
-		return authorName;
-	}
+	this.comment = comment;
+    }
 
-	
-	public void setAuthorName(String authorName)
-	{
-	
-		this.authorName = authorName;
-	}
+    public Bitmap getImage() {
 
-	
-	public String getAuthorUnique()
-	{
-	
-		return authorUnique;
-	}
+	return image;
+    }
 
-	
-	public void setAuthorUnique(String authorUnique)
-	{
-	
-		this.authorUnique = authorUnique;
-	}
+    public void setImage(Bitmap image) {
 
-	
-	public Date getLastUpdatedDate()
-	{
-	
-		return lastUpdatedDate;
-	}
+	this.image = image;
+    }
 
-	
-	public void setLastUpdatedDate(Date lastUpdatedDate)
-	{
-	
-		this.lastUpdatedDate = lastUpdatedDate;
-	}
+    public String getAuthorName() {
 
-	
-	public Location getLocation()
-	{
-	
-		return location;
-	}
+	return authorName;
+    }
 
-	
-	public void setLocation(Location location)
-	{
-	
-		this.location = location;
-	}
+    public void setAuthorName(String authorName) {
 
-	
-	public Integer getUniqueID()
-	{
-	
-		return uniqueID;
-	}
+	this.authorName = authorName;
+    }
 
-	public void setUniqueID(Integer uniqueID)
-	{
-		this.uniqueID = uniqueID;
-	}
-	
-	
-	public LinkedList<CommentModel> getComments()
-	{
-	
-		return comments;
-	}
+    public String getAuthorUnique() {
 
-	
-	public void addComment(CommentModel comment)
-	{
-	
-		this.comments.add(comment);
-	}
+	return authorUnique;
+    }
+
+    public void setAuthorUnique(String authorUnique) {
+
+	this.authorUnique = authorUnique;
+    }
+
+    public Date getLastUpdatedDate() {
+
+	return lastUpdatedDate;
+    }
+
+    public void setLastUpdatedDate(Date lastUpdatedDate) {
+
+	this.lastUpdatedDate = lastUpdatedDate;
+    }
+
+    public Location getLocation() {
+
+	return location;
+    }
+
+    public void setLocation(Location location) {
+
+	this.location = location;
+    }
+
+    public Integer getUniqueID() {
+
+	return uniqueID;
+    }
+
+    public void setUniqueID(Integer uniqueID) {
+	this.uniqueID = uniqueID;
+    }
+
+    public LinkedList<CommentModel> getComments() {
+
+	return comments;
+    }
+
+    public void addComment(CommentModel comment) {
+
+	this.comments.add(comment);
+    }
 
 }

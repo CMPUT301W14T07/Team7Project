@@ -9,40 +9,32 @@ package ca.ualberta.team7project.models;
 import android.graphics.Bitmap;
 import android.location.Location;
 
-public class CommentModel extends ThreadModel
-{
+public class CommentModel extends ThreadModel {
 
-	private Integer votes;
-	
-	/**
-	 * Constructs a comment thread using the ThreadModel superclass
-	 * 
+    private Integer votes;
+
+    /**
+     * Constructs a comment thread using the ThreadModel superclass
+     * 
      * @param comment associated with the thread
      * @param image associated with the thread
-     * @param authorName chosen by the user
-     * @param authorUnique unique hash generated for each user
+     * @param user associated with the comment
      * @param location the comment was written at
-	 */
-	public CommentModel(String comment, Bitmap image, String authorName,
-			String authorUnique, Location location)
-	{
-		super(comment, image, authorName, authorUnique, location);
-		this.votes = 0;
-	}
+     */
+    public CommentModel(String comment, Bitmap image, UserModel user,
+	    Location location) {
+	super(comment, image, user, location);
+	this.votes = 0;
+    }
 
-	
-	public Integer getVotes()
-	{
-	
-		return votes;
-	}
+    public Integer getVotes() {
 
-	
-	public void setVotes(Integer votes)
-	{
-	
-		this.votes = votes;
-	}
+	return votes;
+    }
 
-	
+    public void setVotes(Integer votes) {
+
+	this.votes = votes;
+    }
+
 }
