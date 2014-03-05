@@ -11,29 +11,37 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-
 public class SortPreferencesAlertView extends DialogFragment
 {
+
 	/**
 	 * Build the action dialog with a list of sorting preferences.
 	 */
 	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(ca.ualberta.team7project.R.string.select_sorting_preferences)
-        	.setItems(ca.ualberta.team7project.R.array.sorting_preferences_array, new DialogInterface.OnClickListener() {
+	public Dialog onCreateDialog(Bundle savedInstanceState)
+	{
 
-				@Override
-				public void onClick(DialogInterface dialog, int which)
-				{
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setMessage(
+				ca.ualberta.team7project.R.string.select_sorting_preferences)
+				.setItems(
+						ca.ualberta.team7project.R.array.sorting_preferences_array,
+						new DialogInterface.OnClickListener()
+						{
 
-					// TODO switch statement for each item in arrays.cml
-					// TODO Auto-generated method stub
-					
-				}
-        		
-        	});
-		
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+
+								// TODO switch statement for each item in
+								// arrays.cml
+								// TODO Auto-generated method stub
+
+							}
+
+						});
+
 		return builder.create();
 	}
 }
