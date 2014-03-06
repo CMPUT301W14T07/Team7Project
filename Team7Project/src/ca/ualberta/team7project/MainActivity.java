@@ -16,7 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import ca.ualberta.team7project.controllers.UserModelController;
+import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
@@ -26,7 +26,7 @@ public class MainActivity extends Activity implements IdentityListener
 {
 
 	private UserModel user;
-	private UserModelController userModelController;
+	private UserController userModelController;
 
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements IdentityListener
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 
-		this.userModelController = new UserModelController(getApplicationContext());
+		this.userModelController = new UserController(getApplicationContext());
 		
 		/*
 		 * The bellow functions will be more concise and partially integrated into UserModelController soon.
@@ -204,14 +204,14 @@ public class MainActivity extends Activity implements IdentityListener
 	}
 
 	
-	public UserModelController getUserModelController()
+	public UserController getUserModelController()
 	{
 	
 		return userModelController;
 	}
 
 	
-	public void setUserModelController(UserModelController userModelController)
+	public void setUserModelController(UserController userModelController)
 	{
 	
 		this.userModelController = userModelController;

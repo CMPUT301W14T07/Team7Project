@@ -15,13 +15,13 @@ import ca.ualberta.team7project.models.UserModel;
  * - Updates userModel (need to add some getters/setters still)
  * - Writing some JUnit tests for this class
  */
-public class UserModelController
+public class UserController
 {
 	private Context context;
 	private UserModel user;
 	private UserPersistence persistence;
 	
-	public UserModelController(Context context)
+	public UserController(Context context)
 	{
 		super();
 		this.context = context;
