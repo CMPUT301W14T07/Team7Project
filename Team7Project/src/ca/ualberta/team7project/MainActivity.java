@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import ca.ualberta.team7project.controllers.UserModelController;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
@@ -25,6 +26,7 @@ public class MainActivity extends Activity implements IdentityListener
 {
 
 	private UserModel user;
+	private UserModelController userModelController;
 
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -39,6 +41,13 @@ public class MainActivity extends Activity implements IdentityListener
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 
+		this.userModelController = new UserModelController(getApplicationContext());
+		
+		/*
+		 * The bellow functions will be more concise and partially integrated into UserModelController soon.
+		 * My (michael) intention is to finish these thursday/friday of this week.
+		 * After that, I will continue working on action bar functionality and help with whatever needs to be done.
+		 */
 		user = null;
 		setNewUser();
 	}
@@ -79,6 +88,9 @@ public class MainActivity extends Activity implements IdentityListener
 	public void setNewUser()
 	{
 
+		/*
+		 * This method will be moved to UserModelController soon...
+		 */
 		UserModel newUser = null;
 
 		if (firstRun() == true)
@@ -175,7 +187,10 @@ public class MainActivity extends Activity implements IdentityListener
 	@Override
 	public void onDialogPositiveCLick(DialogFragment dialog, String userName)
 	{
-
+		
+		/*
+		 * This method will be moved to UserModelController soon.....
+		 */
 		UserModel newUser = new UserModel(userName);
 
 		UserPersistence persistence = new UserPersistence(
@@ -186,6 +201,20 @@ public class MainActivity extends Activity implements IdentityListener
 		Toast.makeText(getApplicationContext(),
 				"Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();
 
+	}
+
+	
+	public UserModelController getUserModelController()
+	{
+	
+		return userModelController;
+	}
+
+	
+	public void setUserModelController(UserModelController userModelController)
+	{
+	
+		this.userModelController = userModelController;
 	}
 
 }
