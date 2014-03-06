@@ -29,6 +29,8 @@ public class CreateIdentityAlertView extends DialogFragment
 
 	IdentityListener listener;
 
+	// TODO source the tutorial for this....
+	
 	/**
 	 * Allows activities to pass in context needed for sharedPreferences()
 	 */
