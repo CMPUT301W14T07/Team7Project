@@ -8,7 +8,6 @@ package ca.ualberta.team7project.views;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.view.MenuItem;
-import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.R;
 
 public class ActionBarView extends Activity

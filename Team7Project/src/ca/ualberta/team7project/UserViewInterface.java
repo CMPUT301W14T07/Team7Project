@@ -9,10 +9,10 @@ package ca.ualberta.team7project;
 import ca.ualberta.team7project.models.UserModel;
 
 
-public interface userViewInterface
+public interface UserViewInterface
 {
 
-	public void UpdateUser(UserModel user);
-	public void ToastUser();
-	public void PromptIdentityAlertView();
+	public void updateViews(UserModel user);
+	public void toastUser();
+	public void promptIdentityAlertView();
 }

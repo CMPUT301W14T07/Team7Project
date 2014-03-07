@@ -5,6 +5,7 @@
  */
 package ca.ualberta.team7project.views;
 
+import ca.ualberta.team7project.models.UserModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,7 +25,9 @@ public class CreateIdentityAlertView extends DialogFragment
 	public interface IdentityListener
 	{
 
-		public void onDialogPositiveCLick(DialogFragment dialog, String userName);
+		public void onIdentityPositiveCLick(DialogFragment dialog, String userName);
+
+		void UpdateUser(UserModel user);
 	}
 
 	IdentityListener listener;
@@ -78,7 +81,7 @@ public class CreateIdentityAlertView extends DialogFragment
 							public void onClick(DialogInterface dialog, int id)
 							{
 
-								listener.onDialogPositiveCLick(
+								listener.onIdentityPositiveCLick(
 										CreateIdentityAlertView.this, textInput
 												.getText().toString());
 

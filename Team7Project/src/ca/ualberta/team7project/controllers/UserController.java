@@ -8,24 +8,19 @@ package ca.ualberta.team7project.controllers;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.UserPersistence;
-import ca.ualberta.team7project.userViewInterface;
+import ca.ualberta.team7project.UserViewInterface;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
 
-/*
- * TODO Michael: I'm going to be working on this class on Thursday/Friday
- * - Implements the interface for listeners associated with UserModel (waiting for response from Alex about this)
- * - Updates userModel (need to add some getters/setters still)
- * - Writing some JUnit tests for this class
- */
-public class UserController
+public class UserController implements UserViewInterface
 {
 	private Context context;
 	private FragmentManager fragment;
 	private UserModel user;
 	private UserPersistence persistence;
-	private userViewInterface updateViews;
 	
 	public UserController(Context context, FragmentManager fragment)
 	{
@@ -68,13 +63,7 @@ public class UserController
 
 		if (firstRun() == true)
 		{
-			/* Prompt alert to create new user */
-			CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-			userAlert.setCancelable(false);
-			userAlert.show(this.fragment, "New User Name Alert");
-			
-			// Replace with interface methods when working..
-			
+			promptIdentityAlertView();			
 		} else
 		{
 			newUser = deserializeUser();
@@ -85,12 +74,7 @@ public class UserController
 			 */
 			if (newUser == null)
 			{
-				CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-				userAlert.setCancelable(false);
-				userAlert.show(this.fragment, "New User Name Alert");
-				
-				// Replace with interface methods when working...
-				
+				promptIdentityAlertView();				
 			} else
 			{
 				setUser(newUser);
@@ -128,7 +112,7 @@ public class UserController
 	 */
 	public void setFirstRun()
 	{
-
+		
 		SharedPreferences persistence = this.context
 				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = persistence.edit();
@@ -167,7 +151,7 @@ public class UserController
 	public void setUser(UserModel user)
 	{
 		this.user = user;
-		//updateViews.UpdateUser(user); Commented out until I get this working...
+		updateViews(user);
 	}
 	
 	public UserPersistence getPersistence()
@@ -195,6 +179,29 @@ public class UserController
 	{
 	
 		this.fragment = fragment;
+	}
+
+	@Override
+	public void updateViews(UserModel user)
+	{
+		// Updates all the views. Still have to do this.
+		MainActivity.user = this.user;
+		toastUser();
+	}
+
+	@Override
+	public void toastUser()
+	{
+		Toast.makeText(this.context,
+				"Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();			
+	}
+
+	@Override
+	public void promptIdentityAlertView()
+	{
+		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
+		userAlert.setCancelable(false);
+		userAlert.show(this.fragment, "New User Name Alert");			
 	}
 
 }
