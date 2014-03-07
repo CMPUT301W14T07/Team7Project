@@ -132,6 +132,19 @@ public class UserPersistence extends Activity
 
 	}
 
+
+	/**
+	 * Returns the name of the last logged in user to the application.
+	 * @return String of the last open user. Null if none exist.
+	 */
+	public String getLastOpenUser()
+	{
+		SharedPreferences persistence = context.getSharedPreferences(
+			"appPreferences", Context.MODE_PRIVATE);
+		
+		return persistence.getString("lastOpenUser", null);
+	}
+	
 	/**
 	 * An error checking function to ensure that the file exists on disk.
 	 */

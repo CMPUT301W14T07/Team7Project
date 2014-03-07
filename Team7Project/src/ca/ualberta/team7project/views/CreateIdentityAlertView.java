@@ -5,17 +5,17 @@
  */
 package ca.ualberta.team7project.views;
 
-import ca.ualberta.team7project.models.UserModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
+import ca.ualberta.team7project.UserPersistence;
+import ca.ualberta.team7project.models.UserModel;
 
 public class CreateIdentityAlertView extends DialogFragment
 {
@@ -89,13 +89,12 @@ public class CreateIdentityAlertView extends DialogFragment
 						});
 
 		/*
-		 * Important: Only show a cancel button if there is a user already
+		 * Only show a cancel button if there is a user already
 		 * existing on the phone.
 		 */
-		SharedPreferences persistence = context.getSharedPreferences(
-				"appPreferences", Context.MODE_PRIVATE);
-
-		if (persistence.getString("lastOpenUser", null) != null)
+		UserPersistence persistence = new UserPersistence(context);
+		
+		if (persistence.getLastOpenUser() != null)
 		{
 			builder.setNegativeButton(ca.ualberta.team7project.R.string.cancel,
 					new DialogInterface.OnClickListener()
