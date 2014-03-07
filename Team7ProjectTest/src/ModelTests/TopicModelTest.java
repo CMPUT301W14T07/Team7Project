@@ -19,16 +19,27 @@ import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.TopicModel;
 import ca.ualberta.team7project.models.UserModel;
 
-public class TopicThreadModelTest extends
+public class TopicModelTest extends
 		ActivityInstrumentationTestCase2<MainActivity>
 {
 
-	public TopicThreadModelTest()
+	public TopicModelTest()
 	{
 
 		super(MainActivity.class);
 	}
 
+	/**
+	 * Test the constructor overload
+	 */
+	public void testOverload()
+	{
+		UserModel user = new UserModel("Ash Ketchum");
+		TopicModel topic = new TopicModel("A listing of Pokemon", user, null, "Pokdex");
+		
+		assertEquals("Topic does not need an image", topic.getImage(), null);
+	}
+	
 	/**
 	 * Test to ensure that basic properties of the topic are correct.
 	 */

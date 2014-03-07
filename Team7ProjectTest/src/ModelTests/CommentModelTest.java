@@ -16,11 +16,11 @@ import ca.ualberta.team7project.models.CommentModel;
 import ca.ualberta.team7project.models.TopicModel;
 import ca.ualberta.team7project.models.UserModel;
 
-public class CommentThreadModelTest extends
+public class CommentModelTest extends
 		ActivityInstrumentationTestCase2<MainActivity>
 {
 
-	public CommentThreadModelTest()
+	public CommentModelTest()
 	{
 		super(MainActivity.class);
 	}
