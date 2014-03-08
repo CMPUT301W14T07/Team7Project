@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
+import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.controllers.ListAdapterController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.ThreadListModel;
@@ -45,7 +46,7 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
-
+	
 		this.userController = new UserController(getApplicationContext(), getFragmentManager());
 		
 	}

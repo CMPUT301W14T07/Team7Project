@@ -2,7 +2,6 @@ package ca.ualberta.team7project.controllers;
 
 import java.util.List;
 
-import android.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

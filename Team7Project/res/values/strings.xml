@@ -33,5 +33,7 @@
 	<string name="create_thread">Create New Topic</string>
 	<string name="enter_title">Title</string>
 	<string name="enter_title_optional">Title (optional)</string>
+	<string name="enter_comment">Comment</string>
+	<string name="insert_image">Insert Image</string>
 	
 </resources>

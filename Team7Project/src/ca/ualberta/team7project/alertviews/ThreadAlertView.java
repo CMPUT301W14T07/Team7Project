@@ -4,15 +4,17 @@
 
 package ca.ualberta.team7project.alertviews;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import ca.ualberta.team7project.controllers.ThreadController;
 
 
@@ -24,40 +26,15 @@ public class ThreadAlertView extends DialogFragment
 	 */
 	
 	private Context context;
-	private Boolean replying;
+	private Boolean replying = true;
 	
-	public interface IdentityListener
+	public interface ThreadListener
 	{
-		// TODO
+		public void createThread(DialogFragment dialog, String title);
 	}
 
-	IdentityListener listener;
-	
-	
-	/*
-	 * Allows activities to pass in context.
-	 */
-	@Override
-	public void onAttach(Activity activity)
-	{
-
-		super.onAttach(activity);
-		this.context = activity.getApplicationContext();
-
-		try
-		{
-			listener = (IdentityListener) activity;
-		} catch (ClassCastException e)
-		{
-			throw new ClassCastException(activity.toString()
-					+ "must implement NoticeDialogListener");
-		}
+	ThreadListener listener;
 		
-		/* We need to determine which attributes the AlertDialoig will contain */
-		this.replying = ThreadController.inTopic();
-		
-	}
-	
 	/*
 	 * The context sensitive builder for ThreadAlertView
 	 */
@@ -65,10 +42,21 @@ public class ThreadAlertView extends DialogFragment
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
 
-		final EditText titleInput = new EditText(getActivity());
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		/*
+		 * Stuff that is commented out is things I would prefer to use, but cant get working
+		 */
 		
+		final EditText titleInput = new EditText(getActivity());
+		final EditText bodyInput = new EditText(getActivity());
+				
+		/* We need to determine which attributes the AlertDialoig will contain */
+		this.replying = ThreadController.inTopic();
+
+		/* Create the builder, inflate the layout and set the view to the appropriate xml file */
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		LayoutInflater inflator = getActivity().getLayoutInflater();
+		builder.setView(inflator.inflate(ca.ualberta.team7project.R.layout.create_thread, null));
+
 		/* Set the properties of the user input text box */
 		if(replying == true)
 		{
@@ -77,18 +65,57 @@ public class ThreadAlertView extends DialogFragment
 			/* Title is optional */
 			titleInput.setHint(ca.ualberta.team7project.R.string.enter_title_optional);
 			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
-					| InputType.TYPE_TEXT_VARIATION_NORMAL);			
+					| InputType.TYPE_TEXT_VARIATION_NORMAL);
+			
+			//TextView title = (TextView)getDialog().findViewById(ca.ualberta.team7project.R.id.thread_title);
+			//title.setText("stuff");
 		}
 		else
 		{
+			builder.setMessage(ca.ualberta.team7project.R.string.create_thread);
+
 			titleInput.setHint(ca.ualberta.team7project.R.string.enter_title);
 			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
-					| InputType.TYPE_TEXT_VARIATION_NORMAL);			
-			
-			builder.setMessage(ca.ualberta.team7project.R.string.create_thread);
+					| InputType.TYPE_TEXT_VARIATION_NORMAL);
+
+			//TextView title = (TextView)getDialog().findViewById(ca.ualberta.team7project.R.id.thread_title);
+			//title.setText("stuff");
 		}
 
-		
+		builder.setCancelable(true);
+		builder.setNeutralButton(
+				ca.ualberta.team7project.R.string.insert_image,
+				new DialogInterface.OnClickListener()
+				{
+
+					public void onClick(DialogInterface dialog, int id)
+					{
+
+						// TODO. Interact with the listener/interface
+					}
+				});
+		builder.setPositiveButton(
+				ca.ualberta.team7project.R.string.confirm,
+				new DialogInterface.OnClickListener()
+				{
+
+					public void onClick(DialogInterface dialog, int id)
+					{
+
+						// TODO. Interact with the listener/interface
+					}
+				});
+		builder.setNegativeButton(
+				ca.ualberta.team7project.R.string.cancel,
+				new DialogInterface.OnClickListener()
+				{
+
+					public void onClick(DialogInterface dialog, int id)
+					{
+						// TODO
+
+					}
+				});		
 		return builder.create();
 	}
 }
