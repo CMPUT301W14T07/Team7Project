@@ -26,7 +26,6 @@ public class CreateIdentityAlertView extends DialogFragment
 	{
 
 		public void onIdentityPositiveCLick(DialogFragment dialog, String userName);
-		public void UpdateUser(UserModel user);
 	}
 
 	IdentityListener listener;

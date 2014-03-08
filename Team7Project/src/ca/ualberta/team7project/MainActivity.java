@@ -25,7 +25,6 @@ import ca.ualberta.team7project.views.CreateIdentityAlertView.IdentityListener;
 
 public class MainActivity extends Activity implements IdentityListener
 {
-	public static UserModel user;
 	private UserController userController;
 	private ListView lv;
 	private ThreadListModel topics;
@@ -40,7 +39,7 @@ public class MainActivity extends Activity implements IdentityListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		/* Below code does not compile */
+		/* Below code does not compile and run in the emulator */
 		//lv = (ListView) findViewById(R.id.listView1);
 		//ListAdapterController adapter = new ListAdapterController(this, R.layout.activity_main, R.id.listView1, topics.getList());
 		
@@ -80,18 +79,6 @@ public class MainActivity extends Activity implements IdentityListener
 		return actionBarController.getAction();
 	}
 
-	public UserModel getUser()
-	{
-
-		return user;
-	}
-
-	public void setUser(UserModel user)
-	{
-
-		this.user = user;
-	}
-
 	/**
 	 * Takes the user name and updates the user in the view.
 	 * <p>
@@ -119,11 +106,5 @@ public class MainActivity extends Activity implements IdentityListener
 		this.userController = userController;
 	}
 
-	@Override
-	public void UpdateUser(UserModel user)
-	{
-		// TODO Auto-generated method stub
-		
-	}
 
 }

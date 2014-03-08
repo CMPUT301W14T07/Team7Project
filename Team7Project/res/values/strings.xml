@@ -19,7 +19,6 @@
     <string name="refresh_topic">Refresh the current topic</string>
     <string name="sorting_options">Sorting preferences</string>
     
-    
     <!-- Strings for the CreateIdentityAlertView -->
     <string name="create_identity">Create User Identity</string>
     <string name="create_user_hint">Enter user name</string>
@@ -29,5 +28,10 @@
 	<string name="select_sorting_preferences">Select Sorting Preferences</string>
 	<string name="confirm_preferences">Change Preferences</string>
 	
+	<!-- Strings for the ThreadAlertView -->
+	<string name="reply_thread">Reply To Thread</string>
+	<string name="create_thread">Create New Topic</string>
+	<string name="enter_title">Title</string>
+	<string name="enter_title_optional">Title (optional)</string>
 	
 </resources>

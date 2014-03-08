@@ -13,6 +13,10 @@ import android.support.v4.app.DialogFragment;
 
 public class SortPreferencesAlertView extends DialogFragment
 {
+	
+	/*
+	 * TODO. Left for a latter milestone
+	 */
 
 	/**
 	 * Build the action dialog with a list of sorting preferences.
