@@ -200,16 +200,22 @@ public class ThreadModel
 
 	public UUID getUniqueID()
 	{
-
-		return uniqueID;
+		return this.uniqueID;
 	}
 
 	public void setUniqueID(UUID uniqueID)
 	{
-
 		this.uniqueID = uniqueID;
-		this.timestamp = new Date();
-
+		
+		
+		//not updating timestamp on purpose
+	}
+	
+	public void generateUniqueID()
+	{
+		this.uniqueID = UUID.randomUUID();
+		
+		//not updating timestamp on purpose
 	}
 
 	public LinkedList<ThreadModel> getComments()
