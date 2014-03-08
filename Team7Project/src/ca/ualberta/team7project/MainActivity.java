@@ -25,13 +25,7 @@ import ca.ualberta.team7project.views.CreateIdentityAlertView.IdentityListener;
 
 public class MainActivity extends Activity implements IdentityListener
 {
-
-<<<<<<< HEAD
-	
-	private UserModel user;
-=======
 	public static UserModel user;
->>>>>>> 076f1888a8f30d19e5b6f40208d9ed22849278d4
 	private UserController userController;
 	private ListView lv;
 	private TopicListModel topics;
@@ -127,7 +121,6 @@ public class MainActivity extends Activity implements IdentityListener
 	@Override
 	public void UpdateUser(UserModel user)
 	{
-
 		// TODO Auto-generated method stub
 		
 	}
