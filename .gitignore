@@ -26,3 +26,6 @@ proguard/
 
 # Temporary Files
 *~
+
+#javadoc generated files
+Team7Project/doc/
