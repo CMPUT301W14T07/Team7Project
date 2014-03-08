@@ -22,7 +22,7 @@ public class ThreadModel
 	private Bitmap image;
 	private String authorName;
 	private String authorUnique;
-	private Date lastUpdatedDate;
+	private Date timestamp; //time of last update
 	private Location location;
 	private Integer uniqueID;
 	private LinkedList<ThreadModel> comments;
@@ -45,7 +45,7 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = null;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 
@@ -65,7 +65,7 @@ public class ThreadModel
 		this.location = location;
 		this.title = null;
 		this.image = null;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 	
@@ -88,7 +88,7 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = title;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 	
@@ -109,7 +109,7 @@ public class ThreadModel
 		this.location = location;
 		this.title = title;
 		this.image = null;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 	
@@ -124,7 +124,7 @@ public class ThreadModel
 	{
 
 		this.comment = comment;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 
@@ -138,7 +138,7 @@ public class ThreadModel
 	{
 
 		this.image = image;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 
@@ -153,7 +153,7 @@ public class ThreadModel
 	{
 
 		this.authorName = authorName;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 
@@ -167,19 +167,19 @@ public class ThreadModel
 	{
 
 		this.authorUnique = authorUnique;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 
-	public Date getLastUpdatedDate()
+	public Date getTimestamp()
 	{
 
-		return lastUpdatedDate;
+		return timestamp;
 	}
 
-	public void setLastUpdatedDate()
+	public void setTimestamp()
 	{
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 	}
 
 	public Location getLocation()
@@ -192,7 +192,7 @@ public class ThreadModel
 	{
 
 		this.location = location;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 
@@ -206,7 +206,7 @@ public class ThreadModel
 	{
 
 		this.uniqueID = uniqueID;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 
@@ -220,7 +220,7 @@ public class ThreadModel
 	{
 
 		this.comments.add(comment);
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 
 	}
 	
@@ -234,7 +234,7 @@ public class ThreadModel
 	{
 	
 		this.title = title;
-		this.lastUpdatedDate = new Date();
+		this.timestamp = new Date();
 	}
 
 }

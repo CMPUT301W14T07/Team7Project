@@ -57,7 +57,7 @@ public class ThreadModelTests extends
 		
 		Date date = new Date();
 		
-		assertEquals("Date is set", thread.getLastUpdatedDate(), date);
+		assertEquals("Date is set", thread.getTimestamp(), date);
 		
 		/* Now check that the date is updated when we update a thread */
 		try
@@ -69,7 +69,7 @@ public class ThreadModelTests extends
 		}
 		
 		thread.setTitle("Check this out!");
-		assertFalse("Date was updated", date.equals(thread.getLastUpdatedDate()));
+		assertFalse("Date was updated", date.equals(thread.getTimestamp()));
 	}
 	
 	/*
