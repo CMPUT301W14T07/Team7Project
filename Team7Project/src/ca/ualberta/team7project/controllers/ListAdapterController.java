@@ -13,7 +13,7 @@ import ca.ualberta.team7project.models.ThreadModel;
 public class ListAdapterController extends ArrayAdapter<ThreadModel>
 {
 /**
- * This is a custom adapter that handles the conversion from TopicListModel to the MainActivity. 
+ * This is a custom adapter that handles the conversion from ThreadListModel to the MainActivity. 
  * Much of this was taken from https://github.com/zjullion/PicPosterComplete/blob/master/src/ca/ualberta/cs/picposter/view/PicPostModelAdapter.java
  * @author emar
  * @param c

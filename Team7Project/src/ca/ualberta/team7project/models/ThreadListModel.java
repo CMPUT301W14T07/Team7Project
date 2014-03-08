@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.widget.ArrayAdapter;
+
 /**
  * This class holds the list of topics
  * 
@@ -12,6 +14,7 @@ public class ThreadListModel
 {
 
 	private LinkedList<ThreadModel> topics;
+	private ArrayAdapter<ThreadModel> adapter;
 
 	/**
 	 * Construct new, empty list
@@ -36,6 +39,31 @@ public class ThreadListModel
 		this.topics = topics;
 	}
 
+	/**
+	 * Adds a ThreadModel to the list
+	 * @author emar
+	 */
+	public void addThreadModel(ThreadModel thread)
+	{
+		this.topics.add(thread);
+		this.adapter.notifyDataSetChanged();
+		
+		//is this the correct update?
+		this.UpdateTopic(thread);
+		
+		//still need to add code for picture
+	}
+	
+	/**
+	 * Sets the adapter for the list
+	 * @author emar
+	 * @param adapter
+	 */
+	public void setAdapter(ArrayAdapter<ThreadModel> adapter)
+	{
+		this.adapter = adapter;
+	}
+	
 	/**
 	 * Adds to or updates a topic in the list
 	 * <p>
@@ -73,9 +101,18 @@ public class ThreadListModel
 		}
 	}
 	
+	/**
+	 * Returns the list of ThreadModels in the ThreadModelList; because of the 
+	 * method .unmodifiableList, have to return as a list, so will need to cast 
+	 * to a linked list down the road
+	 * @author emar
+	 * @return
+	 */
+	
 	public List<ThreadModel> getList() 
 	{
-		return null;
+		return Collections.unmodifiableList(this.topics);
 	}
-
+	
+	//public addThreadCollection(Collection)
 }
