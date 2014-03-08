@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -68,7 +69,7 @@ public class ThreadListModel
 	public void UpdateTopic(ThreadModel topic)
 	{
 
-		Integer id = topic.getUniqueID();
+		UUID id = topic.getUniqueID();
 
 		boolean exists = false;
 

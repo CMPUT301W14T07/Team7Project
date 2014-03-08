@@ -2,6 +2,7 @@ package ca.ualberta.team7project.models;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.UUID;
 
 /**
  * Class that provides methods for storing and loading from the ElasticSearch
@@ -23,7 +24,7 @@ public class ThreadPersistenceModel
 	 * 
 	 * @return The up-to-date topic from the server
 	 */
-	public ThreadModel PullTopic(Integer topicID)
+	public ThreadModel PullTopic(UUID topicID)
 	{
 
 		// TODO:

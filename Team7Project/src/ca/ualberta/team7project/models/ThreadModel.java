@@ -12,6 +12,7 @@ package ca.ualberta.team7project.models;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,7 +29,7 @@ public class ThreadModel
 	private String authorUnique;
 	private Date timestamp; //time of last change of any kind
 	private Location location;
-	private Integer uniqueID;
+	private UUID uniqueID; //this is also the Elastic Search index
 	private LinkedList<ThreadModel> comments;
 
 	/**
@@ -197,13 +198,13 @@ public class ThreadModel
 
 	}
 
-	public Integer getUniqueID()
+	public UUID getUniqueID()
 	{
 
 		return uniqueID;
 	}
 
-	public void setUniqueID(Integer uniqueID)
+	public void setUniqueID(UUID uniqueID)
 	{
 
 		this.uniqueID = uniqueID;
