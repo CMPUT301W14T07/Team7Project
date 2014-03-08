@@ -10,43 +10,43 @@
 
     <!-- Home button for list of topic -->
 	<item android:id="@+id/action_home" 
-	      android:icon="@android:drawable/ic_menu_myplaces"
+	      android:icon="@drawable/ic_action_home"
 	      android:title="@string/topics_home_button"
 	      android:showAsAction="always"/>
 	
 	<!-- Set geolocation button -->
 	<item android:id="@+id/action_geo_location" 
-	      android:icon="@android:drawable/ic_dialog_map"
+	      android:icon="@drawable/ic_action_geolocation"
 	      android:title="@string/geo_location_set"
 	      android:showAsAction="always"/>
 	
-	<!-- User preferences button -->
+ 	<!-- User preferences button -->
 	<item android:id="@+id/action_user_preferences" 
-	      android:icon="@android:drawable/ic_dialog_info"
+	      android:icon="@drawable/ic_action_preferences"
 	      android:title="@string/user_preferences"
 	      android:showAsAction="always"/>
 		
 	<!-- Add current topic to favorites button -->
 	<item android:id="@+id/action_add_favorite" 
-	      android:icon="@android:drawable/btn_star_big_off"
+	      android:icon="@drawable/ic_action_favorite"
 	      android:title="@string/add_topic_favorites"
 	      android:showAsAction="always"/>
 	
 	<!-- Create topic button -->
 	<item android:id="@+id/action_create_topic" 
-	      android:icon="@android:drawable/stat_notify_chat"
+	      android:icon="@drawable/ic_action_new_thread"
 	      android:title="@string/create_topic"
 	      android:showAsAction="always"/>
 	
 	<!-- Refresh topic button -->
 	<item android:id="@+id/action_refresh" 
-	      android:icon="@android:drawable/ic_popup_sync"
+	      android:icon="@drawable/ic_action_refresh"
 	      android:title="@string/refresh_topic"
 	      android:showAsAction="always"/>	
 	      
 	<!-- Sorting options -->
 	<item android:id="@+id/action_sort" 
-	      android:icon="@android:drawable/ic_menu_search"
+	      android:icon="@drawable/ic_action_sort"
 	      android:title="@string/sorting_options"
 	      android:showAsAction="always"/>
 </menu>

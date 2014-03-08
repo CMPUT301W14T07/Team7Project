@@ -14,14 +14,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
-import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
-import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.controllers.ListAdapterController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.ThreadListModel;
-import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
