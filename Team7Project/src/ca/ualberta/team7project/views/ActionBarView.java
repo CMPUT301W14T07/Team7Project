@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.view.MenuItem;
 import ca.ualberta.team7project.R;
+import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 
 public class ActionBarView extends Activity
 {

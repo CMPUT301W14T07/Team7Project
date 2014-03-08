@@ -12,8 +12,8 @@ import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.UserPersistence;
 import ca.ualberta.team7project.UserViewInterface;
+import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.models.UserModel;
-import ca.ualberta.team7project.views.CreateIdentityAlertView;
 
 public class UserController implements UserViewInterface
 {

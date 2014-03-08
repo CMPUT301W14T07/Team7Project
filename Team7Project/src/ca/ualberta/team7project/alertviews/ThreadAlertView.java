@@ -2,7 +2,7 @@
  * A procedurally built view for creating and replying to threads.
  */
 
-package ca.ualberta.team7project.views;
+package ca.ualberta.team7project.alertviews;
 
 import ca.ualberta.team7project.UserPersistence;
 import android.app.Activity;

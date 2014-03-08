@@ -15,13 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
+import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.ListAdapterController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
-import ca.ualberta.team7project.views.CreateIdentityAlertView;
-import ca.ualberta.team7project.views.CreateIdentityAlertView.IdentityListener;
 
 public class MainActivity extends Activity implements IdentityListener
 {
@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements IdentityListener
 	}
 
 	/**
-	 * Takes the user name and updates the user in the view.
+	 * Takes the user name and updates the user model.
 	 * <p>
 	 * An onDialigPositiveClick is received only when creating a new UserModel.
 	 */

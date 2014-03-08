@@ -3,7 +3,7 @@
  * 
  * @author Michael Raypold
  */
-package ca.ualberta.team7project.views;
+package ca.ualberta.team7project.alertviews;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
