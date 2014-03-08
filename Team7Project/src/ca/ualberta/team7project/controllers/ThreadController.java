@@ -36,10 +36,16 @@ public class ThreadController
 
 	/**
 	 * A helper method for context sensitive alert dialogs.
-	 * @return True if the user is viewing 
+	 * <P>
+	 * When user clicks a reply or post button, the alert dialogs need to know whether
+	 * the user is posting a new topic or replying to an existing topic.
+	 * <P>
+	 * A user is either viewing the home thread of all topics, or is inside a topic.
+	 * 
+	 * @return True if the user is in the child thread of a topic.
 	 */
-	public Boolean inTopic(){
-		//TODO
+	public static Boolean inTopic(){
+		// TODO
 		return true;
 	}
 	

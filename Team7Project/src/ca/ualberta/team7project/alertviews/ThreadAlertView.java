@@ -4,16 +4,16 @@
 
 package ca.ualberta.team7project.alertviews;
 
-import ca.ualberta.team7project.UserPersistence;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.widget.EditText;
+import ca.ualberta.team7project.controllers.ThreadController;
 
 
 public class ThreadAlertView extends DialogFragment
@@ -24,6 +24,7 @@ public class ThreadAlertView extends DialogFragment
 	 */
 	
 	private Context context;
+	private Boolean replying;
 	
 	public interface IdentityListener
 	{
@@ -53,6 +54,7 @@ public class ThreadAlertView extends DialogFragment
 		}
 		
 		/* We need to determine which attributes the AlertDialoig will contain */
+		this.replying = ThreadController.inTopic();
 		
 	}
 	
@@ -65,14 +67,28 @@ public class ThreadAlertView extends DialogFragment
 
 		final EditText titleInput = new EditText(getActivity());
 
-		/* Set the properties of the user input text box */
-		titleInput.setHint(ca.ualberta.team7project.R.string.create_user_hint);
-		titleInput.setInputType(InputType.TYPE_CLASS_TEXT
-				| InputType.TYPE_TEXT_VARIATION_NORMAL);
-
-		/* Build the dialog alert */
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		
+		/* Set the properties of the user input text box */
+		if(replying == true)
+		{
+			builder.setMessage(ca.ualberta.team7project.R.string.reply_thread);
+			
+			/* Title is optional */
+			titleInput.setHint(ca.ualberta.team7project.R.string.enter_title_optional);
+			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
+					| InputType.TYPE_TEXT_VARIATION_NORMAL);			
+		}
+		else
+		{
+			titleInput.setHint(ca.ualberta.team7project.R.string.enter_title);
+			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
+					| InputType.TYPE_TEXT_VARIATION_NORMAL);			
+			
+			builder.setMessage(ca.ualberta.team7project.R.string.create_thread);
+		}
 
+		
 		return builder.create();
 	}
 }
