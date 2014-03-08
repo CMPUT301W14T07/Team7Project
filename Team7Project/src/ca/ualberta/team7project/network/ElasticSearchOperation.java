@@ -16,35 +16,35 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.graphics.Bitmap;
 import android.util.Log;
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.models.TopicListModel;
-import ca.ualberta.team7project.models.TopicModel;
+import ca.ualberta.team7project.models.ThreadListModel;
+import ca.ualberta.team7project.models.ThreadModel;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Basic ElasticSearchOperation for posting TopicModel to server and pulling
- * TopicModel from server Reference zjullion at
+ * Class for posting ThreadModel to server
+ * and pulling ThreadModel from server
+ * Reference zjullion at
  * https://github.com/zjullion/PicPosterComplete
  */
-
 public class ElasticSearchOperation
 {
 
-	public static final String SERVER_URL = "http://cmput301.softwareprocess.es:8080/testing/pic_poster/";
+	public static final String SERVER_URL = "http://cmput301.softwareprocess.es:8080/cmput301w14t07/topics/";
 	public static final String LOG_TAG = "ElasticSearch";
 
 	private static Gson GSON = null;
 
 	/**
-	 * Sends a TopicModel to the server. Does nothing if the request fails.
+	 * Sends a ThreadModel representing a Topic to the server
+	 * <p>
+	 * Does nothing if the request fails.
 	 * 
-	 * @param model
-	 *            a TopicModel
+	 * @param model a ThreadModel to be json serialized and pushed to the server
 	 */
-
-	public static void pushPicPostModel(final TopicModel model)
+	public void pushThreadModel(final ThreadModel model)
 	{
 
 		if (GSON == null)
@@ -97,8 +97,8 @@ public class ElasticSearchOperation
 	 * @param model
 	 * @param activity
 	 */
-	public static void searchForPicPostModels(final String searchTerm,
-			final TopicListModel model, final MainActivity activity)
+	public void searchForThreadModels(final String searchTerm,
+			final ThreadListModel model, final MainActivity activity)
 	{
 
 		if (GSON == null)
@@ -151,41 +151,49 @@ public class ElasticSearchOperation
 					return;
 				}
 
-				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<PicPostModel>>()
+				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<ThreadModel>>()
 				{
 				}.getType();
-				final ElasticSearchSearchResponse<PicPostModel> returnedData = GSON
+				final ElasticSearchSearchResponse<ThreadModel> returnedData = GSON
 						.fromJson(responseJson, elasticSearchSearchResponseType);
 
+				/*
 				Runnable updateModel = new Runnable()
 				{
 
 					@Override
 					public void run()
 					{
-
 						model.clear();
 						model.addPicPostCollection(returnedData.getSources());
 					}
 				};
 
 				activity.runOnUiThread(updateModel);
+				*/
 			}
 		};
 
 		thread.start();
 	}
+	
+	//TODO: pullThreadModel, pulls one thread by uniqueID/elastic search index
+	public ThreadModel pullThreadModel()
+	{
+		//TODO: most of this code can be copied from the above method
+		
+		return null;
+	}
+
 
 	/**
-	 * Constructs a Gson with a custom serializer / desserializer registered for
-	 * Bitmaps.
+	 * Constructs a Gson builder
+	 * (register a custom serializer/desserializer for Bitmaps - may not be neccasary)
 	 */
 	private static void constructGson()
 	{
-
 		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Bitmap.class, new BitmapJsonConverter());
+		//builder.registerTypeAdapter(Bitmap.class, new BitmapJsonConverter());
 		GSON = builder.create();
 	}
-
 }
