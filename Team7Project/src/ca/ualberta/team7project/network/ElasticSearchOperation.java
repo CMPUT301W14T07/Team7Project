@@ -47,6 +47,8 @@ public class ElasticSearchOperation
 	/**
 	 * Sends a ThreadModel representing a Topic to the server
 	 * <p>
+	 * This call is currently synchronous (change if neccasary)
+	 * <p>
 	 * Uses an HttpPut request to create or update the document with index matching our uniqueID.
 	 * <p>
 	 * Does nothing if the request fails.
@@ -68,11 +70,10 @@ public class ElasticSearchOperation
 				try
 				{
 					request.setEntity(new StringEntity(GSON.toJson(model)));
-				} catch (UnsupportedEncodingException exception)
+				} catch (UnsupportedEncodingException e)
 				{
-					Log.w(LOG_TAG,
-							"Error encoding PicPostModel: "
-									+ exception.getMessage());
+					e.printStackTrace();
+					Log.w(LOG_TAG, "Error encoding the model: " + e.getMessage().toString());
 					return;
 				}
 
@@ -80,29 +81,40 @@ public class ElasticSearchOperation
 				try
 				{
 					response = client.execute(request);
-					Log.i(LOG_TAG, "Response: "
-							+ response.getStatusLine().toString());
-				} catch (IOException exception)
+					Log.i(LOG_TAG, "Response: " + response.getStatusLine().toString());
+				} catch (IOException e)
 				{
-					Log.w(LOG_TAG,
-							"Error sending PicPostModel: "
-									+ exception.getMessage());
+					e.printStackTrace();
+					Log.w(LOG_TAG, "Error sending the model: " + e.getMessage().toString());
 				}
+				
+				//TODO: check http response message
+				
+				//TODO: verify if actually pushed
 			}
 		};
 
 		thread.start();
+		
+		try
+		{
+			thread.join();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * This method has big issue, not finished. it has to be checked line by
-	 * line
+	 * Major TODO: check line by line
+	 * <p>
+	 * The caller passes in the entire Elastic Search search term
 	 * 
-	 * @param searchTerm
-	 * @param model
+	 * @param searchObject the JSON search term for Elastic Search
+	 * @param model what is this supposed to do??
 	 * @param activity
 	 */
-	public void searchForThreadModels(final String searchTerm,
+	public void searchForThreadModels(final String searchObject,
 			final ThreadListModel model, final MainActivity activity)
 	{
 		Thread thread = new Thread()
@@ -111,11 +123,11 @@ public class ElasticSearchOperation
 			@Override
 			public void run()
 			{
-
 				HttpClient client = new DefaultHttpClient();
 				HttpPost request = new HttpPost(SERVER_URL + "_search");
-				String query = "{\"query\": {\"query_string\": {\"default_field\": \"text\",\"query\": \"*"
-						+ searchTerm + "*\"}}}";
+				//String query = "{\"query\": {\"query_string\": {\"default_field\": \"text\",\"query\": \"*"
+				//		+ searchTerm + "*\"}}}";
+				String query = searchObject;
 				String responseJson = "";
 
 				try
