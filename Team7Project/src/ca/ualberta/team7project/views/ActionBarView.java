@@ -10,6 +10,7 @@ import android.app.FragmentManager;
 import android.view.MenuItem;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.alertviews.ThreadAlertView;
 
 public class ActionBarView extends Activity
 {
@@ -107,7 +108,6 @@ public class ActionBarView extends Activity
 	 */
 	private void addTopicToFavorites()
 	{
-
 		// TODO
 	}
 
@@ -116,8 +116,8 @@ public class ActionBarView extends Activity
 	 */
 	private void createTopic()
 	{
-
-		// TODO
+		ThreadAlertView threadAlert = new ThreadAlertView();
+		threadAlert.show(fragment, "New Thread Alert");
 	}
 
 	/**

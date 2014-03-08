@@ -9,7 +9,6 @@ public class ThreadView implements ThreadAlertListener
 
 	
 	
-	
 	/**
 	 * Called when the user has completed the ThreadAlertView dialog
 	 * @see ThreadAlertView.java
