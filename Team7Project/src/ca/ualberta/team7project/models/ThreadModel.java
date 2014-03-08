@@ -33,7 +33,7 @@ public class ThreadModel
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
-	 * 
+	 * Generic reply with a picture
 	 * @param comment associated with the thread
 	 * @param image associated with the thread (may be null)
 	 * @param user associated with the thread
@@ -55,7 +55,7 @@ public class ThreadModel
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
-	 * 
+	 * Generic reply without a picture
 	 * @param comment associated with the thread
 	 * @param user associated with the thread
 	 * @param location the thread was written at
@@ -75,7 +75,7 @@ public class ThreadModel
 	
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
-	 * 
+	 * Top Level post with title and picture
 	 * @param comment associated with the thread
 	 * @param image associated with the thread (may be null)
 	 * @param user associated with the thread
@@ -98,7 +98,7 @@ public class ThreadModel
 	
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
-	 * 
+	 * Top Level post without picture
 	 * @param comment associated with the thread
 	 * @param user associated with the thread
 	 * @param location the comment was written at

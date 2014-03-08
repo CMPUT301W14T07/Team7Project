@@ -1,9 +1,12 @@
 package ca.ualberta.team7project.models;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.location.Location;
 import android.widget.ArrayAdapter;
 
 /**
@@ -37,21 +40,6 @@ public class ThreadListModel
 
 		super();
 		this.topics = topics;
-	}
-
-	/**
-	 * Adds a ThreadModel to the list
-	 * @author emar
-	 */
-	public void addThreadModel(ThreadModel thread)
-	{
-		this.topics.add(thread);
-		this.adapter.notifyDataSetChanged();
-		
-		//is this the correct update?
-		this.UpdateTopic(thread);
-		
-		//still need to add code for picture
 	}
 	
 	/**
@@ -102,17 +90,70 @@ public class ThreadListModel
 	}
 	
 	/**
-	 * Returns the list of ThreadModels in the ThreadModelList; because of the 
+	 * Returns the list of ThreadModels in the ThreadListModel; because of the 
 	 * method .unmodifiableList, have to return as a list, so will need to cast 
 	 * to a linked list down the road
 	 * @author emar
 	 * @return
-	 */
-	
+	 */	
 	public List<ThreadModel> getList() 
 	{
 		return Collections.unmodifiableList(this.topics);
 	}
-	
-	//public addThreadCollection(Collection)
+	/**
+	 * Adds a collection of ThreadModels into the list wholesale; this might come
+	 * in handy for wholesale addition of ThreadModels
+	 * @author emar
+	 * @param topics
+	 */
+	public void addThreadCollection(Collection<ThreadModel> collection)
+	{
+		this.topics.addAll(collection);
+		this.adapter.notifyDataSetChanged();
+		
+		//oh god am I doing this right?
+		for (ThreadModel t : collection)
+		{
+			this.UpdateTopic(t);
+		}
+		
+	}
+	/**
+	 * Adds a brand new topic to the ThreadListModel. For now, all of these
+	 * must have a title and a picture.
+	 * @author emar
+	 * @param comment
+	 * @param image
+	 * @param user
+	 * @param location
+	 * @param title
+	 */
+	public void addOriginalPost(String comment, Bitmap image, UserModel user,
+			Location location, String title)
+	{
+		ThreadModel tm = new ThreadModel(comment, image, user, location, title);
+		this.topics.add(tm);
+		this.adapter.notifyDataSetChanged();
+		
+		//is this being used right?
+		this.UpdateTopic(tm);
+	}
+	/**
+	 * Adds a reply to any ThreadModel. Must have a picture for now.
+	 * @author emar
+	 * @param comment
+	 * @param image
+	 * @param user
+	 * @param location
+	 */
+	public void addReply(String comment, Bitmap image, UserModel user,
+			Location location)
+	{
+		ThreadModel tm = new ThreadModel(comment, image, user, location);
+		this.topics.add(tm);
+		this.adapter.notifyDataSetChanged();
+		
+		//hopefully I'm using this right
+		this.UpdateTopic(tm);
+	}
 }
