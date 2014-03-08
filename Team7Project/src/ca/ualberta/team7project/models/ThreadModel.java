@@ -11,22 +11,21 @@ package ca.ualberta.team7project.models;
 
 import java.util.Date;
 import java.util.LinkedList;
-
 import android.graphics.Bitmap;
 import android.location.Location;
 
 public class ThreadModel
 {
 
-	protected String title;
-	protected String comment;
-	protected Bitmap image;
-	protected String authorName;
-	protected String authorUnique;
-	protected Date lastUpdatedDate;
-	protected Location location;
-	protected Integer uniqueID;
-	protected LinkedList<ThreadModel> comments;
+	private String title;
+	private String comment;
+	private Bitmap image;
+	private String authorName;
+	private String authorUnique;
+	private Date lastUpdatedDate;
+	private Location location;
+	private Integer uniqueID;
+	private LinkedList<ThreadModel> comments;
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
@@ -46,6 +45,7 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = null;
+		this.lastUpdatedDate = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 
@@ -65,6 +65,7 @@ public class ThreadModel
 		this.location = location;
 		this.title = null;
 		this.image = null;
+		this.lastUpdatedDate = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 	
@@ -87,6 +88,7 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = title;
+		this.lastUpdatedDate = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 	
@@ -107,6 +109,7 @@ public class ThreadModel
 		this.location = location;
 		this.title = title;
 		this.image = null;
+		this.lastUpdatedDate = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
 	
@@ -121,6 +124,8 @@ public class ThreadModel
 	{
 
 		this.comment = comment;
+		this.lastUpdatedDate = new Date();
+
 	}
 
 	public Bitmap getImage()
@@ -133,18 +138,23 @@ public class ThreadModel
 	{
 
 		this.image = image;
+		this.lastUpdatedDate = new Date();
+
 	}
 
 	public String getAuthorName()
 	{
 
 		return authorName;
+		
 	}
 
 	public void setAuthorName(String authorName)
 	{
 
 		this.authorName = authorName;
+		this.lastUpdatedDate = new Date();
+
 	}
 
 	public String getAuthorUnique()
@@ -157,6 +167,8 @@ public class ThreadModel
 	{
 
 		this.authorUnique = authorUnique;
+		this.lastUpdatedDate = new Date();
+
 	}
 
 	public Date getLastUpdatedDate()
@@ -165,10 +177,9 @@ public class ThreadModel
 		return lastUpdatedDate;
 	}
 
-	public void setLastUpdatedDate(Date lastUpdatedDate)
+	public void setLastUpdatedDate()
 	{
-
-		this.lastUpdatedDate = lastUpdatedDate;
+		this.lastUpdatedDate = new Date();
 	}
 
 	public Location getLocation()
@@ -181,6 +192,8 @@ public class ThreadModel
 	{
 
 		this.location = location;
+		this.lastUpdatedDate = new Date();
+
 	}
 
 	public Integer getUniqueID()
@@ -193,6 +206,8 @@ public class ThreadModel
 	{
 
 		this.uniqueID = uniqueID;
+		this.lastUpdatedDate = new Date();
+
 	}
 
 	public LinkedList<ThreadModel> getComments()
@@ -205,6 +220,8 @@ public class ThreadModel
 	{
 
 		this.comments.add(comment);
+		this.lastUpdatedDate = new Date();
+
 	}
 	
 	public String getTitle()
@@ -217,6 +234,7 @@ public class ThreadModel
 	{
 	
 		this.title = title;
+		this.lastUpdatedDate = new Date();
 	}
 
 }

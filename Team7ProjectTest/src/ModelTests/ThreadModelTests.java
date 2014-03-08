@@ -1,5 +1,6 @@
 package ModelTests;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -48,6 +49,29 @@ public class ThreadModelTests extends
 		assertEquals("Title should be set", "Caught Snorelax", thread.getTitle());
 	}
 	
+	public void testDateSet()
+	{
+		/* The date must properly be set in the constructor */
+		UserModel user = new UserModel("Ash Ketchum");
+		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
+		
+		Date date = new Date();
+		
+		assertEquals("Date is set", thread.getLastUpdatedDate(), date);
+		
+		/* Now check that the date is updated when we update a thread */
+		try
+		{
+			Thread.sleep(1000);
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		thread.setTitle("Check this out!");
+		assertFalse("Date was updated", date.equals(thread.getLastUpdatedDate()));
+	}
+	
 	/*
 	 * The below tests will test whether insertion of child comments is working
 	 */
@@ -79,8 +103,15 @@ public class ThreadModelTests extends
 
 		/* Even though threads have the same properties, the id should be unique */
 		
-		assertFalse("Thread ID is unique", threadOne.getUniqueID().equals(threadTwo.getUniqueID()));
-		
+		assertFalse("Thread ID is unique", threadOne.getUniqueID().equals(threadTwo.getUniqueID()));	
+	}
+	
+	/*
+	 * Tests the ability to store a thread as a JSON object
+	 */
+	public void testThreadJSON() 
+	{
+		// TODO
 	}
 	
 }
