@@ -1,5 +1,6 @@
 package ca.ualberta.team7project.models;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,10 +49,9 @@ public class ThreadListModel
 		this.topics.add(thread);
 		this.adapter.notifyDataSetChanged();
 		
-		//is this the correct update?
+		//is this the correct use of the update method?
 		this.UpdateTopic(thread);
 		
-		//still need to add code for picture
 	}
 	
 	/**
@@ -113,6 +113,32 @@ public class ThreadListModel
 	{
 		return Collections.unmodifiableList(this.topics);
 	}
+	/**
+	 * Adds a collection of ThreadModels into the list wholesale; this will come
+	 * in handy for wholesale addition of ThreadModels
+	 * @author emar
+	 * @param topics
+	 */
+	public void addThreadCollection(Collection<ThreadModel> collection)
+	{
+		this.topics.addAll(collection);
+		this.adapter.notifyDataSetChanged();
+		
+		//oh god am I doing this right?
+		for (ThreadModel t : collection)
+		{
+			this.UpdateTopic(t);
+		}
+		
+	}
 	
-	//public addThreadCollection(Collection)
+	public void addOriginalPost()
+	{
+		
+	}
+	
+	public void addReply()
+	{
+		
+	}
 }
