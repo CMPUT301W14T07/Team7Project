@@ -207,7 +207,6 @@ public class ThreadModel
 	{
 		this.uniqueID = uniqueID;
 		
-		
 		//not updating timestamp on purpose
 	}
 	

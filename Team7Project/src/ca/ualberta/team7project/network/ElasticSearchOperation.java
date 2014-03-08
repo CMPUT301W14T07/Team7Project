@@ -10,6 +10,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -36,9 +37,17 @@ public class ElasticSearchOperation
 	public static final String LOG_TAG = "ElasticSearch";
 
 	private static Gson GSON = null;
+	
+	public ElasticSearchOperation()
+	{
+		super();
+		constructGson();
+	}
 
 	/**
 	 * Sends a ThreadModel representing a Topic to the server
+	 * <p>
+	 * Uses an HttpPut request to create or update the document with index matching our uniqueID.
 	 * <p>
 	 * Does nothing if the request fails.
 	 * 
@@ -46,10 +55,6 @@ public class ElasticSearchOperation
 	 */
 	public void pushThreadModel(final ThreadModel model)
 	{
-
-		if (GSON == null)
-			constructGson();
-
 		Thread thread = new Thread()
 		{
 
@@ -58,7 +63,7 @@ public class ElasticSearchOperation
 			{
 
 				HttpClient client = new DefaultHttpClient();
-				HttpPost request = new HttpPost(SERVER_URL);
+				HttpPut request = new HttpPut(SERVER_URL);
 
 				try
 				{
@@ -100,10 +105,6 @@ public class ElasticSearchOperation
 	public void searchForThreadModels(final String searchTerm,
 			final ThreadListModel model, final MainActivity activity)
 	{
-
-		if (GSON == null)
-			constructGson();
-
 		Thread thread = new Thread()
 		{
 
@@ -157,20 +158,18 @@ public class ElasticSearchOperation
 				final ElasticSearchSearchResponse<ThreadModel> returnedData = GSON
 						.fromJson(responseJson, elasticSearchSearchResponseType);
 
-				/*
 				Runnable updateModel = new Runnable()
 				{
 
 					@Override
 					public void run()
 					{
-						model.clear();
-						model.addPicPostCollection(returnedData.getSources());
+						//model.clear();
+						//model.addPicPostCollection(returnedData.getSources());
 					}
 				};
 
 				activity.runOnUiThread(updateModel);
-				*/
 			}
 		};
 
@@ -185,10 +184,9 @@ public class ElasticSearchOperation
 		return null;
 	}
 
-
 	/**
 	 * Constructs a Gson builder
-	 * (register a custom serializer/desserializer for Bitmaps - may not be neccasary)
+	 * (register a custom serializer/desserializer for Bitmaps - may leave this out)
 	 */
 	private static void constructGson()
 	{
