@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import ca.ualberta.team7project.controllers.ListAdapterController;
 import ca.ualberta.team7project.controllers.UserController;
-import ca.ualberta.team7project.models.TopicListModel;
+import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public static UserModel user;
 	private UserController userController;
 	private ListView lv;
-	private TopicListModel topics;
+	private ThreadListModel topics;
 	
 	/**
 	 * Creates the state of the application when the activity is initialized

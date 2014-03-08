@@ -1,5 +1,9 @@
 /**
- * The class for which comments and topics are derived.
+ * The single class for which all children and and parent threads are derived
+ * <P>
+ * There contains four constructors for the users needs.
+ * Every constructor requires a comment, user and location. However, the user 
+ * has the option of entering an image or a title.
  * 
  * @author Michael Raypold
  */
@@ -14,6 +18,7 @@ import android.location.Location;
 public class ThreadModel
 {
 
+	protected String title;
 	protected String comment;
 	protected Bitmap image;
 	protected String authorName;
@@ -21,56 +26,91 @@ public class ThreadModel
 	protected Date lastUpdatedDate;
 	protected Location location;
 	protected Integer uniqueID;
-	protected LinkedList<CommentModel> comments;
+	protected LinkedList<ThreadModel> comments;
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
 	 * 
-	 * @param comment
-	 *            associated with the thread
-	 * @param image
-	 *            associated with the thread (may be null)
-	 * @param user
-	 *            associated with the thread
-	 * @param location
-	 *            the comment was written at
+	 * @param comment associated with the thread
+	 * @param image associated with the thread (may be null)
+	 * @param user associated with the thread
+	 * @param location the thread was written at
 	 */
 	public ThreadModel(String comment, Bitmap image, UserModel user,
 			Location location)
 	{
-
 		super();
 		this.comment = comment;
 		this.image = image;
 		this.authorName = user.getName();
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
-		this.comments = new LinkedList<CommentModel>();
-
+		this.title = null;
+		this.comments = new LinkedList<ThreadModel>();
 	}
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
 	 * 
-	 * @param comment
-	 *            associated with the thread
-	 * @param user
-	 *            associated with the thread
-	 * @param location
-	 *            the comment was written at
+	 * @param comment associated with the thread
+	 * @param user associated with the thread
+	 * @param location the thread was written at
 	 */
 	public ThreadModel(String comment, UserModel user, Location location)
 	{
-
 		super();
 		this.comment = comment;
 		this.authorName = user.getName();
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
-		this.comments = new LinkedList<CommentModel>();
-
+		this.title = null;
+		this.image = null;
+		this.comments = new LinkedList<ThreadModel>();
 	}
-
+	
+	/**
+	 * Constructs the ThreadModel with appropriate parameters.
+	 * 
+	 * @param comment associated with the thread
+	 * @param image associated with the thread (may be null)
+	 * @param user associated with the thread
+	 * @param location the thread was written at
+	 * @param title of the thread
+	 */
+	public ThreadModel(String comment, Bitmap image, UserModel user,
+			Location location, String title)
+	{
+		super();
+		this.comment = comment;
+		this.image = image;
+		this.authorName = user.getName();
+		this.authorUnique = user.getUniqueName();
+		this.location = location;
+		this.title = title;
+		this.comments = new LinkedList<ThreadModel>();
+	}
+	
+	/**
+	 * Constructs the ThreadModel with appropriate parameters.
+	 * 
+	 * @param comment associated with the thread
+	 * @param user associated with the thread
+	 * @param location the comment was written at
+	 * @param title of the thread
+	 */
+	public ThreadModel(String comment, UserModel user, Location location, String title)
+	{
+		super();
+		this.comment = comment;
+		this.authorName = user.getName();
+		this.authorUnique = user.getUniqueName();
+		this.location = location;
+		this.title = title;
+		this.image = null;
+		this.comments = new LinkedList<ThreadModel>();
+	}
+	
+	
 	public String getComment()
 	{
 
@@ -155,13 +195,13 @@ public class ThreadModel
 		this.uniqueID = uniqueID;
 	}
 
-	public LinkedList<CommentModel> getComments()
+	public LinkedList<ThreadModel> getComments()
 	{
 
 		return comments;
 	}
 
-	public void addComment(CommentModel comment)
+	public void addComment(ThreadModel comment)
 	{
 
 		this.comments.add(comment);

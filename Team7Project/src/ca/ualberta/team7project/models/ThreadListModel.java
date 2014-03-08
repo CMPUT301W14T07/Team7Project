@@ -8,19 +8,19 @@ import java.util.List;
  * This class holds the list of topics
  * 
  */
-public class TopicListModel
+public class ThreadListModel
 {
 
-	private LinkedList<TopicModel> topics;
+	private LinkedList<ThreadModel> topics;
 
 	/**
 	 * Construct new, empty list
 	 */
-	public TopicListModel()
+	public ThreadListModel()
 	{
 
 		super();
-		topics = new LinkedList<TopicModel>();
+		topics = new LinkedList<ThreadModel>();
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class TopicListModel
 	 * @param topics
 	 *            list of existing topics
 	 */
-	public TopicListModel(LinkedList<TopicModel> topics)
+	public ThreadListModel(LinkedList<ThreadModel> topics)
 	{
 
 		super();
@@ -49,16 +49,16 @@ public class TopicListModel
 	 * @param topic
 	 *            the topic to add or update from
 	 */
-	public void UpdateTopic(TopicModel topic)
+	public void UpdateTopic(ThreadModel topic)
 	{
 
-		Integer id = topic.getTopicID();
+		Integer id = topic.getUniqueID();
 
 		boolean exists = false;
 
-		for (TopicModel t : topics)
+		for (ThreadModel t : topics)
 		{
-			if (t.getTopicID() == topic.getTopicID())
+			if (t.getUniqueID() == topic.getUniqueID())
 			{
 				exists = true; // update the existing topic
 				topics.remove(t);
@@ -73,7 +73,7 @@ public class TopicListModel
 		}
 	}
 	
-	public List<TopicModel> getList() 
+	public List<ThreadModel> getList() 
 	{
 		return null;
 	}

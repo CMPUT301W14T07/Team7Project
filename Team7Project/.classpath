@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="libs/gson-2.2.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="libs/gson-2.2.4-sources.jar"/>
 	<classpathentry kind="lib" path="libs/gson-2.2.4.jar"/>
-	<classpathentry excluding="ca/ualberta/team7project/network/" kind="src" path="src"/>
+	<classpathentry excluding="ca/ualberta/team7project/network/|ca/ualberta/team7project/models/CommentModel.java|ca/ualberta/team7project/models/TopicModel.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * server and the disk
  * 
  */
-public class TopicPersistenceModel
+public class ThreadPersistenceModel
 {
 
 	// TODO: method that gets list of most relevant X topicID
@@ -19,7 +19,7 @@ public class TopicPersistenceModel
 	 *            the Elastic Search index genereted when the topic was created
 	 * @return The up-to-date topic from the server
 	 */
-	public TopicModel PullTopic(Integer topicID)
+	public ThreadModel PullTopic(Integer topicID)
 	{
 
 		// TODO:
@@ -41,10 +41,10 @@ public class TopicPersistenceModel
 	 *            the existing topic that needs to be updated
 	 * @return The most up-to-date version of the topic
 	 */
-	public TopicModel GetUpdatedTopic(TopicModel topic)
+	public ThreadModel GetUpdatedTopic(ThreadModel topic)
 	{
 
-		TopicModel temp = PullTopic(topic.getTopicID());
+		ThreadModel temp = PullTopic(topic.getUniqueID());
 
 		if (topic == temp)
 			return topic; // if already up-to-date, just return the topic
@@ -78,7 +78,7 @@ public class TopicPersistenceModel
 	 * @param topics
 	 *            the entire list of topics to save
 	 */
-	public void SaveTopicListToDisk(LinkedList<TopicModel> topics)
+	public void SaveTopicListToDisk(LinkedList<ThreadModel> topics)
 	{
 
 		// TODO:
@@ -92,7 +92,7 @@ public class TopicPersistenceModel
 	 * 
 	 * @return A LinkedList of TopicModel for initializing a TopicListModel
 	 */
-	public LinkedList<TopicModel> LoadTopicListFromDisk()
+	public LinkedList<ThreadModel> LoadTopicListFromDisk()
 	{
 
 		// TODO:

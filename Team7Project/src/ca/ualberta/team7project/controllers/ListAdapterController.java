@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ca.ualberta.team7project.models.TopicModel;
+import ca.ualberta.team7project.models.ThreadModel;
 
-public class ListAdapterController extends ArrayAdapter<TopicModel>
+public class ListAdapterController extends ArrayAdapter<ThreadModel>
 {
 /**
  * This is a custom adapter that handles the conversion from TopicListModel to the MainActivity. 
@@ -23,7 +23,7 @@ public class ListAdapterController extends ArrayAdapter<TopicModel>
  * @param topics
  */
 	
-	public ListAdapterController(Context c, int resource, int resourceId, List<TopicModel> topics)
+	public ListAdapterController(Context c, int resource, int resourceId, List<ThreadModel> topics)
 	{
 		/*Constructor*/
 		super(c, resource, resourceId, topics);
@@ -36,7 +36,7 @@ public class ListAdapterController extends ArrayAdapter<TopicModel>
 	}
 
 	@Override
-	public TopicModel getItem(int arg0)
+	public ThreadModel getItem(int arg0)
 	{
 		return this.getItem(arg0);
 	}
@@ -53,7 +53,7 @@ public class ListAdapterController extends ArrayAdapter<TopicModel>
 			//view = inflater.inflate(R.layout.single_row, null);
 		}
 		
-		TopicModel tp = this.getItem(position);
+		ThreadModel tp = this.getItem(position);
 		
 		//if (tp != null) 
 		{

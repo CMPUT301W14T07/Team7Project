@@ -32,9 +32,9 @@ public class UserModel implements Serializable
 	private String name;
 	private String uniqueName;
 	private Location currentLocation;
-	private ArrayList<CommentModel> authoredComments;
-	private ArrayList<TopicModel> favoriteTopics;
-	private TopicModel lastViewedTopic;
+	private ArrayList<ThreadModel> authoredComments;
+	private ArrayList<ThreadModel> favoriteTopics;
+	private ThreadModel lastViewedTopic;
 	private Integer topicPosition;
 
 	/**
@@ -47,8 +47,8 @@ public class UserModel implements Serializable
 	{
 
 		setName(userName);
-		this.authoredComments = new ArrayList<CommentModel>();
-		this.favoriteTopics = new ArrayList<TopicModel>();
+		this.authoredComments = new ArrayList<ThreadModel>();
+		this.favoriteTopics = new ArrayList<ThreadModel>();
 
 		setUniqueName();
 	}
@@ -123,25 +123,25 @@ public class UserModel implements Serializable
 		this.currentLocation = currentLocation;
 	}
 
-	public ArrayList<TopicModel> getFavoriteTopics()
+	public ArrayList<ThreadModel> getFavoriteTopics()
 	{
 
 		return favoriteTopics;
 	}
 
-	public void addFavoriteTopic(TopicModel topic)
+	public void addFavoriteTopic(ThreadModel topic)
 	{
 
 		this.favoriteTopics.add(topic);
 	}
 
-	public TopicModel getLastViewedTopic()
+	public ThreadModel getLastViewedTopic()
 	{
 
 		return lastViewedTopic;
 	}
 
-	public void setLastViewedTopic(TopicModel lastViewedTopic)
+	public void setLastViewedTopic(ThreadModel lastViewedTopic)
 	{
 
 		this.lastViewedTopic = lastViewedTopic;
@@ -171,13 +171,13 @@ public class UserModel implements Serializable
 		this.topicPosition = topicPosition;
 	}
 
-	public ArrayList<CommentModel> getAuthoredComments()
+	public ArrayList<ThreadModel> getAuthoredComments()
 	{
 
 		return authoredComments;
 	}
 
-	public void addAuthoredComment(CommentModel authoredComment)
+	public void addAuthoredComment(ThreadModel authoredComment)
 	{
 
 		this.authoredComments.add(authoredComment);
