@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 
 		ActionBarView actionBarController = new ActionBarView(item,
-				getFragmentManager());
+				getFragmentManager(), getApplicationContext());
 		return actionBarController.getAction();
 	}
 

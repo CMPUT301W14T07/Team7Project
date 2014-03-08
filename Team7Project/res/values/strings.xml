@@ -4,6 +4,10 @@
     <string name="app_name">Team7Project</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <!-- Strings used for general application toasts -->
+	<string name="refresh">Refresh Successful</string>
+	<string name="refresh_failed">Refresh Failed: No Network Connection</string>
 
     <!-- General strings for multiple buttons/dialog boxes -->
     <string name="confirm">Confirm</string>

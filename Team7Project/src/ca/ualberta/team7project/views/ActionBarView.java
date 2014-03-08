@@ -7,16 +7,20 @@ package ca.ualberta.team7project.views;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.view.MenuItem;
+import android.widget.Toast;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.controllers.ThreadController;
 
 public class ActionBarView extends Activity
 {
 
 	private MenuItem item;
 	private FragmentManager fragment;
+	private Context context;
 
 	/**
 	 * Required constructor.
@@ -27,10 +31,11 @@ public class ActionBarView extends Activity
 	 * @param item
 	 *            The ID associated with the action bar item.
 	 */
-	public ActionBarView(MenuItem item, FragmentManager fragment)
+	public ActionBarView(MenuItem item, FragmentManager fragment, Context context)
 	{
 
 		this.fragment = fragment;
+		this.context = context;
 		this.item = item;
 	}
 
@@ -95,7 +100,6 @@ public class ActionBarView extends Activity
 	 */
 	private void userPreferences()
 	{
-
 		// TODO. For now, this just updates username.
 		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
 		userAlert.setCancelable(false);
@@ -125,8 +129,19 @@ public class ActionBarView extends Activity
 	 */
 	private void refreshView()
 	{
-
-		// TODO
+		// TODO refresh view
+		//Call refresh in controller and get success or fail boolean.
+		//Then display appropriate toast.
+		// Commented out until the code is complete...
+/*		if(ThreadController.refreshThreads() == true){
+			Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh, Toast.LENGTH_SHORT).show();
+		}
+		else{
+			Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
+		}*/
+		
+		// Just a temporary debug toast. REMOVE ONCE ABOVE COMPLETE	
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
 	}
 
 	/**
