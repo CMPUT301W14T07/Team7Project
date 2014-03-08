@@ -184,7 +184,6 @@ public class UserController implements UserViewInterface
 	@Override
 	public void updateViews(UserModel user)
 	{
-		// Updates all the views. Still have to do this.
 		MainActivity.user = this.user;
 		toastUser();
 	}

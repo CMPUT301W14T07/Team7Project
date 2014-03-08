@@ -26,16 +26,15 @@ public class CreateIdentityAlertView extends DialogFragment
 	{
 
 		public void onIdentityPositiveCLick(DialogFragment dialog, String userName);
-
-		void UpdateUser(UserModel user);
+		public void UpdateUser(UserModel user);
 	}
 
 	IdentityListener listener;
-
-	// TODO source the tutorial for this....
 	
 	/**
-	 * Allows activities to pass in context needed for sharedPreferences()
+	 * Allows activities to pass in context needed for UserPersistence
+	 * <p>
+	 * Referenced http://developer.android.com/guide/topics/ui/dialogs.html
 	 */
 	@Override
 	public void onAttach(Activity activity)
@@ -50,7 +49,7 @@ public class CreateIdentityAlertView extends DialogFragment
 		} catch (ClassCastException e)
 		{
 			throw new ClassCastException(activity.toString()
-					+ " must implement NoticeDialogListener");
+					+ "must implement NoticeDialogListener");
 		}
 	}
 

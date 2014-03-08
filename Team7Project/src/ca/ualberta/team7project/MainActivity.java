@@ -40,8 +40,9 @@ public class MainActivity extends Activity implements IdentityListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		lv = (ListView) findViewById(R.id.listView1);
-		ListAdapterController adapter = new ListAdapterController(this, R.layout.activity_main, R.id.listView1, topics.getList());
+		/* Below code does not compile */
+		//lv = (ListView) findViewById(R.id.listView1);
+		//ListAdapterController adapter = new ListAdapterController(this, R.layout.activity_main, R.id.listView1, topics.getList());
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
