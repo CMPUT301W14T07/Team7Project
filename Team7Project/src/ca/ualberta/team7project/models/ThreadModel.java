@@ -245,10 +245,17 @@ public class ThreadModel
 	 * <li>http://stackoverflow.com/questions/5871482</li>
 	 * <li>http://mobile.cs.fsu.edu/converting-images-to-json-objects/</li></ul>
 	 */
-	private class BitmapData
+	protected class BitmapData
 	{
 		private String data = null;
 
+		/**
+		 * Converts a bitmap to an array of bytes, then encodes the bytes as a base64 string
+		 * <p>
+		 * Accepts null as the parameter, in which case the stored string is cleared
+		 * 
+		 * @param image a bitmap to be encoded
+		 */
 		public void encode(Bitmap image)
 		{
 			if(image == null)
@@ -263,6 +270,12 @@ public class ThreadModel
 			data = Base64.encodeToString(bytes, Base64.DEFAULT);
 		}
 
+		/**
+		 * Decodes the stored base64 string, then converts the bytes to a bitmap
+		 * 
+		 * @return a Java Bitmap corresponding to the base64 string stored
+		 * , or null if no base64 string is stored
+		 */
 		public Bitmap decode()
 		{
 			if(data == null)
