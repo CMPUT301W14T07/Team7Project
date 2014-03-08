@@ -206,5 +206,17 @@ public class ThreadModel
 
 		this.comments.add(comment);
 	}
+	
+	public String getTitle()
+	{
+	
+		return title;
+	}
+
+	public void setTitle(String title)
+	{
+	
+		this.title = title;
+	}
 
 }
