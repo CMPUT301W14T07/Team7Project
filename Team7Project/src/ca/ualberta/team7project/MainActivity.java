@@ -10,7 +10,6 @@ package ca.ualberta.team7project;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,11 +23,15 @@ import ca.ualberta.team7project.views.ActionBarView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView.IdentityListener;
 
-public class MainActivity extends Activity implements IdentityListener, userViewInterface
+public class MainActivity extends Activity implements IdentityListener
 {
 
+<<<<<<< HEAD
 	
 	private UserModel user;
+=======
+	public static UserModel user;
+>>>>>>> 076f1888a8f30d19e5b6f40208d9ed22849278d4
 	private UserController userController;
 	private ListView lv;
 	private TopicListModel topics;
@@ -100,10 +103,8 @@ public class MainActivity extends Activity implements IdentityListener, userView
 	 * An onDialigPositiveClick is received only when creating a new UserModel.
 	 */
 	@Override
-	public void onDialogPositiveCLick(DialogFragment dialog, String userName)
-	{
-		// TODO: I would like to rename this dialog to be more descriptive.
-				
+	public void onIdentityPositiveCLick(DialogFragment dialog, String userName)
+	{				
 		userController.setContext(getApplicationContext());
 		userController.setFragment(getFragmentManager());
 		userController.createNewUser(userName);
@@ -122,27 +123,13 @@ public class MainActivity extends Activity implements IdentityListener, userView
 	
 		this.userController = userController;
 	}
-	
+
 	@Override
 	public void UpdateUser(UserModel user)
 	{
-		this.user = user;
-		ToastUser();
-	}
 
-	@Override
-	public void ToastUser()
-	{
-		Toast.makeText(getApplicationContext(),
-				"Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();		
-	}
-
-	@Override
-	public void PromptIdentityAlertView()
-	{
-		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-		userAlert.setCancelable(false);
-		userAlert.show(getFragmentManager(), "New User Name Alert");		
+		// TODO Auto-generated method stub
+		
 	}
 
 }

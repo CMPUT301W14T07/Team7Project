@@ -14,33 +14,34 @@ import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.UserModel;
 import android.test.ActivityInstrumentationTestCase2;
 
-public class UserModelTest extends ActivityInstrumentationTestCase2<MainActivity>
+public class UserModelTest extends
+		ActivityInstrumentationTestCase2<MainActivity>
 {
 
-    public UserModelTest()
-    {
+	public UserModelTest()
+	{
 
-        super(MainActivity.class);
-    }
+		super(MainActivity.class);
+	}
 
-    /**
-     * Ensure that two users with the same name have different UniqueID
-     */
-    public void testUniqueID()
-    {
+	/**
+	 * Ensure that two users with the same name have different UniqueID
+	 */
+	public void testUniqueID()
+	{
 
-        UserModel userOne = new UserModel("Ash Ketchum");
-        UserModel userTwo = new UserModel("Ash Ketchum");
+		UserModel userOne = new UserModel("Ash Ketchum");
+		UserModel userTwo = new UserModel("Ash Ketchum");
 
-        assertFalse("UniqueID for two users with the same name is unique",
-                userOne.getUniqueName().equals(userTwo.getUniqueName()));
-    }
+		assertFalse("UniqueID for two users with the same name is unique",
+				userOne.getUniqueName().equals(userTwo.getUniqueName()));
+	}
 
-    /**
-     * Ensure that the location is correct
-     */
-    public void testUserLocation()
-    {
+	/**
+	 * Ensure that the location is correct
+	 */
+	public void testUserLocation()
+	{
 
-    }
+	}
 }

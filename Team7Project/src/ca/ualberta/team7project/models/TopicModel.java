@@ -37,6 +37,23 @@ public class TopicModel extends ThreadModel
 
 	}
 
+	/**
+	 * Constructs a topic with the given parameters.
+	 * 
+	 * @param comment
+	 *            associated with the topic
+	 * @param user
+	 *            associated with the topic
+	 * @param location
+	 *            the topic was created at
+	 */
+	public TopicModel(String comment, UserModel user, Location location, String title)
+	{
+		super(comment, user, location);
+		this.lastThreadUniqueID = 0;
+		this.title = title;
+	}
+	
 	public String getTitle()
 	{
 

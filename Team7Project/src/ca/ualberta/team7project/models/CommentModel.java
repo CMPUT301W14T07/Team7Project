@@ -34,6 +34,19 @@ public class CommentModel extends ThreadModel
 		this.votes = 0;
 	}
 
+	/**
+	 * Constructs a comment thread using the ThreadModel superclass
+	 * 
+	 * @param comment associated with the thread
+	 * @param user associated with the thread
+	 * @param location associated with the thread
+	 */
+	public CommentModel(String comment, UserModel user, Location location)
+	{
+		super(comment, user, location);
+		this.votes = 0;
+	}
+
 	public Integer getVotes()
 	{
 

@@ -21,11 +21,6 @@ public class ThreadModel
 	protected Date lastUpdatedDate;
 	protected Location location;
 	protected Integer uniqueID;
-
-	// TODO
-	// There must be a better way than putting a class of subclass in the
-	// superclass.......
-	// Doesn't seem 'correct'
 	protected LinkedList<CommentModel> comments;
 
 	/**
@@ -47,6 +42,28 @@ public class ThreadModel
 		super();
 		this.comment = comment;
 		this.image = image;
+		this.authorName = user.getName();
+		this.authorUnique = user.getUniqueName();
+		this.location = location;
+		this.comments = new LinkedList<CommentModel>();
+
+	}
+
+	/**
+	 * Constructs the ThreadModel with appropriate parameters.
+	 * 
+	 * @param comment
+	 *            associated with the thread
+	 * @param user
+	 *            associated with the thread
+	 * @param location
+	 *            the comment was written at
+	 */
+	public ThreadModel(String comment, UserModel user, Location location)
+	{
+
+		super();
+		this.comment = comment;
 		this.authorName = user.getName();
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
