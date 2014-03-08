@@ -14,8 +14,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
+import ca.ualberta.team7project.controllers.ListAdapterController;
 import ca.ualberta.team7project.controllers.UserController;
+import ca.ualberta.team7project.models.TopicListModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ActionBarView;
 import ca.ualberta.team7project.views.CreateIdentityAlertView;
@@ -24,9 +27,12 @@ import ca.ualberta.team7project.views.CreateIdentityAlertView.IdentityListener;
 public class MainActivity extends Activity implements IdentityListener, userViewInterface
 {
 
+	
 	private UserModel user;
 	private UserController userController;
-
+	private ListView lv;
+	private TopicListModel topics;
+	
 	/**
 	 * Creates the state of the application when the activity is initialized
 	 */
@@ -37,6 +43,9 @@ public class MainActivity extends Activity implements IdentityListener, userView
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		lv = (ListView) findViewById(R.id.listView1);
+		ListAdapterController adapter = new ListAdapterController(this, R.layout.activity_main, R.id.listView1, topics.getList());
+		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 

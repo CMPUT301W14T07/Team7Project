@@ -1,6 +1,8 @@
 package ca.ualberta.team7project.models;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class holds the list of topics
@@ -69,6 +71,11 @@ public class TopicListModel
 		{
 			topics.add(topic); // add a new topic
 		}
+	}
+	
+	public List<TopicModel> getList() 
+	{
+		return null;
 	}
 
 }
