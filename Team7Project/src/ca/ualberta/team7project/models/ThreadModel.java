@@ -251,6 +251,12 @@ public class ThreadModel
 
 		public void encode(Bitmap image)
 		{
+			if(image == null)
+			{
+				data = null;
+				return;
+			}
+			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			image.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
 			byte[] bytes = byteStream.toByteArray();
