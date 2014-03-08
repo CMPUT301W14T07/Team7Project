@@ -9,20 +9,24 @@
  */
 package ca.ualberta.team7project.models;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.LinkedList;
+
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.util.Base64;
 
 public class ThreadModel
 {
 
 	private String title;
 	private String comment;
-	private Bitmap image;
+	private BitmapData bitmapData; //bitmap stored as base64-encoded byte array
 	private String authorName;
 	private String authorUnique;
-	private Date timestamp; //time of last update
+	private Date timestamp; //time of last change of any kind
 	private Location location;
 	private Integer uniqueID;
 	private LinkedList<ThreadModel> comments;
@@ -40,7 +44,7 @@ public class ThreadModel
 	{
 		super();
 		this.comment = comment;
-		this.image = image;
+		this.bitmapData.encode(image);
 		this.authorName = user.getName();
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
@@ -64,7 +68,7 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = null;
-		this.image = null;
+		this.bitmapData = new BitmapData();
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
@@ -83,7 +87,7 @@ public class ThreadModel
 	{
 		super();
 		this.comment = comment;
-		this.image = image;
+		this.bitmapData.encode(image);
 		this.authorName = user.getName();
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
@@ -108,7 +112,7 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = title;
-		this.image = null;
+		this.bitmapData = new BitmapData();
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
@@ -130,16 +134,13 @@ public class ThreadModel
 
 	public Bitmap getImage()
 	{
-
-		return image;
+		return this.bitmapData.decode();
 	}
 
 	public void setImage(Bitmap image)
 	{
-
-		this.image = image;
+		this.bitmapData.encode(image);
 		this.timestamp = new Date();
-
 	}
 
 	public String getAuthorName()
@@ -237,4 +238,34 @@ public class ThreadModel
 		this.timestamp = new Date();
 	}
 
+	/**
+	 * Class that stores a bitmap in json serializable form (a base64 encoded byte array)
+	 * <p>
+	 * See the following:<ul>
+	 * <li>http://stackoverflow.com/questions/5871482</li>
+	 * <li>http://mobile.cs.fsu.edu/converting-images-to-json-objects/</li></ul>
+	 */
+	private class BitmapData
+	{
+		private String data = null;
+
+		public void encode(Bitmap image)
+		{
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+			image.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+			byte[] bytes = byteStream.toByteArray();
+			data = Base64.encodeToString(bytes, Base64.DEFAULT);
+		}
+
+		public Bitmap decode()
+		{
+			if(data == null)
+				return null;
+			
+			byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+			Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+			return bitmap;
+		}
+		
+	}
 }
