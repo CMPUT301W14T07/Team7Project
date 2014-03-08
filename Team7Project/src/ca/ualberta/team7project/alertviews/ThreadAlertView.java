@@ -12,9 +12,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import ca.ualberta.team7project.controllers.ThreadController;
 
 
@@ -25,15 +23,15 @@ public class ThreadAlertView extends DialogFragment
 	 * sensitive and depends on the models/controllers state.
 	 */
 	
-	private Context context;
 	private Boolean replying = true;
 	
-	public interface ThreadListener
+	public interface ThreadAlertListener
 	{
-		public void createThread(DialogFragment dialog, String title);
+		public void createThread(DialogFragment dialog, String title, String comment);
+		public void insertImage(DialogFragment dialog);
 	}
 
-	ThreadListener listener;
+	ThreadAlertListener listener;
 		
 	/*
 	 * The context sensitive builder for ThreadAlertView
@@ -43,7 +41,10 @@ public class ThreadAlertView extends DialogFragment
 	{
 
 		/*
-		 * Stuff that is commented out is things I would prefer to use, but cant get working
+		 * NOTES:
+		 * Not fully implemented yet. Need to interact with the ThreadView through listeners still
+		 * Also need to create a dialog to select images still.
+		 * 
 		 */
 		
 		final EditText titleInput = new EditText(getActivity());
