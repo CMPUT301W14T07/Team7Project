@@ -31,7 +31,7 @@ public class UserModel implements Serializable
 	//this is the usermodel we need
 	private String name;
 	private String uniqueName;
-	private Location currentLocation;
+	private Location location;
 
 	/**
 	 * Construct the user with the given parameters
@@ -44,6 +44,8 @@ public class UserModel implements Serializable
 		setName(userName);
 
 		setUniqueName();
+		
+		location = new Location("non-existing provider");
 	}
 
 	public String getName()
@@ -104,15 +106,15 @@ public class UserModel implements Serializable
 		this.uniqueName = String.valueOf(userName.hashCode());
 	}
 
-	public Location getCurrentLocation()
+	public Location getLocation()
 	{
 
-		return currentLocation;
+		return location;
 	}
 
-	public void setCurrentLocation(Location currentLocation)
+	public void setLocation(Location location)
 	{
 
-		this.currentLocation = currentLocation;
+		this.location = location;
 	}
 }

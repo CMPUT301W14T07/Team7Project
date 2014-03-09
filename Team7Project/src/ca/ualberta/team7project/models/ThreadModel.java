@@ -19,7 +19,6 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.util.Base64;
 
-
 public class ThreadModel {
 
 	private String title = null;
@@ -31,10 +30,7 @@ public class ThreadModel {
 	
 	private LinkedList<ThreadModel> comments = null;
 	
-	//this should be replaced by a UserModel containing only these 3 fields
-	private String authorName = null;
-	private String authorUnique = null;
-	private Location location = null;
+	private UserModel user;
 	
 	//cases where ThreadModel will be constructed
 	
@@ -73,9 +69,7 @@ public class ThreadModel {
 		super();
 		this.comment = comment;
 		this.bitmapData.encode(image);
-		this.authorName = user.getName();
-		this.authorUnique = user.getUniqueName();
-		this.location = location;
+		this.user = user;
 		this.title = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
@@ -97,9 +91,7 @@ public class ThreadModel {
 	public ThreadModel(String comment, UserModel user, Location location) {
 		super();
 		this.comment = comment;
-		this.authorName = user.getName();
-		this.authorUnique = user.getUniqueName();
-		this.location = location;
+		this.user = user;
 		this.title = null;
 		this.bitmapData = new BitmapData();
 //		this.bitmapData = null;
@@ -129,9 +121,7 @@ public class ThreadModel {
 		super();
 		this.comment = comment;
 		this.bitmapData.encode(image);
-		this.authorName = user.getName();
-		this.authorUnique = user.getUniqueName();
-		this.location = location;
+		this.user = user;
 		this.title = title;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
@@ -156,9 +146,7 @@ public class ThreadModel {
 			String title) {
 		super();
 		this.comment = comment;
-		this.authorName = user.getName();
-		this.authorUnique = user.getUniqueName();
-		this.location = location;
+		this.user = user;
 		this.title = title;
 		this.bitmapData = new BitmapData();
 //		this.bitmapData = null;
@@ -195,27 +183,20 @@ public class ThreadModel {
 
 	public String getAuthorName() {
 
-		return authorName;
+		return user.getName();
 
 	}
 
 	public void setAuthorName(String authorName) {
 
-		this.authorName = authorName;
+		this.user.setName(authorName);
 		this.timestamp = new Date();
 
 	}
 
 	public String getAuthorUnique() {
 
-		return authorUnique;
-	}
-
-	public void setAuthorUnique(String authorUnique) {
-
-		this.authorUnique = authorUnique;
-		this.timestamp = new Date();
-
+		return user.getUniqueName();
 	}
 
 	public Date getTimestamp() {
@@ -223,18 +204,18 @@ public class ThreadModel {
 		return timestamp;
 	}
 
-	public void setTimestamp() {
+	public void resetTimestamp() {
 		this.timestamp = new Date();
 	}
 
 	public Location getLocation() {
 
-		return location;
+		return user.getLocation();
 	}
 
 	public void setLocation(Location location) {
 
-		this.location = location;
+		this.user.setLocation(location);
 		this.timestamp = new Date();
 
 	}
