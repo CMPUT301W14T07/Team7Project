@@ -3,6 +3,7 @@ package ca.ualberta.team7project.controllers;
 import java.util.LinkedList;
 
 import android.app.Activity;
+import android.util.Log;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
@@ -22,9 +23,13 @@ public class ThreadListController extends Activity
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate(); //temporary debug populate
-
+		Log.e("debug", listModel.getThread(0).getTitle());
+		
 		this.listModel = new ThreadListModel();
-		this.listView = new ThreadListView(this.listModel, activity);
+		
+		if(listModel.getSize() > 0){
+			this.listView = new ThreadListView(this.listModel, activity);
+		}
 
 	}
 	
@@ -35,14 +40,16 @@ public class ThreadListController extends Activity
 	public void debugPopulate()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
-		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, null);
-		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo", user, null);
+		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null, "Pokedex one");
+		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, null, "Pokedex two");
+		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo", user, null, "Pokedex three");
 		
 		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
+		
+		Log.e("debug", thread.getTitle());
 		
 		ThreadListModel newListModel = new ThreadListModel();
 		newListModel.setTopics(threads);

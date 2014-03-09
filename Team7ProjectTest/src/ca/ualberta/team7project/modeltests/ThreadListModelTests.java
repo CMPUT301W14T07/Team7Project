@@ -67,5 +67,25 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		assertEquals("Topics for aleternate constructor properly set", threadListTwo.getTopics(),
 				threads);
 	}
+	
+	public void testIndexRetrieve()
+	{
+		UserModel user = new UserModel("Ash Ketchum");
+		ThreadListModel threadList = new ThreadListModel();
+		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
+		threadList.addTopic(thread);
+		
+		assertEquals("Thread retrieved by index correctly", thread, threadList.getThread(0));
+	}
+	
+	public void testListSize()
+	{
+		UserModel user = new UserModel("Ash Ketchum");
+		ThreadListModel threadList = new ThreadListModel();
+		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
+		threadList.addTopic(thread);
+		
+		assertEquals("Thread retrieved by index correctly", 1, threadList.getSize());
+	}
 
 }

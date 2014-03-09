@@ -6,10 +6,7 @@
  */
 package ca.ualberta.team7project.models;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
 public class ThreadListModel
@@ -58,14 +55,17 @@ public class ThreadListModel
 	/**
 	 * Retrieve a ThreadModel by index position
 	 * @param index of the ThreadModel
-	 * @return 
+	 * @return the Thread associated with that index
 	 */
 	public ThreadModel getThread(int index)
 	{
 		return this.topics.get(index);
 	}
 	
-	
+	public int getSize()
+	{
+		return this.topics.size();
+	}
 	
 	/**
 	 * Adds to or updates a topic in the list

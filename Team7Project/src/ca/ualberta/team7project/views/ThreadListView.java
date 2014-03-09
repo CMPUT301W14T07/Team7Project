@@ -7,13 +7,12 @@
  */
 package ca.ualberta.team7project.views;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
-import android.widget.ArrayAdapter;
+import android.util.Log;
 import android.widget.ListView;
 import ca.ualberta.team7project.controllers.ThreadListAdapter;
 import ca.ualberta.team7project.models.ThreadListModel;
+import ca.ualberta.team7project.models.ThreadModel;
 
 public class ThreadListView extends Activity
 {
@@ -69,6 +68,23 @@ public class ThreadListView extends Activity
 	{
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
+       
+        /* Debug */
+        Log.e("debug", "printing");
+        if(listModel.getSize() < 1)
+        {
+        	Log.e("debug", "something is wrong, who knows what?");
+        }
+        ThreadModel newThread = this.listModel.getThread(0);
+        if(newThread != null)
+        {
+        	Log.e("debug", "this shouldn't be null ffs");
+        }
+        if(newThread.getTitle() == null)
+        {
+        	Log.e("debug", "wtf is going on.....");
+        }        
+        /* Debug */
         
         ThreadListAdapter adapter = new ThreadListAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, listModel);
