@@ -19,7 +19,8 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.util.Base64;
 
-public class ThreadModel {
+public class ThreadModel
+{
 
 	private String title = null;
 	private String comment = null;
@@ -27,29 +28,10 @@ public class ThreadModel {
 											// byte array
 	private Date timestamp = null; // time of last change of any kind
 	private UUID uniqueID = null; // this is also the Elastic Search index
-	
+
 	private LinkedList<ThreadModel> comments = null;
-	
+
 	private UserModel user;
-	
-	//cases where ThreadModel will be constructed
-	
-	//each of these may or may not have a bitmap, may or may not have a title
-	
-	//[1]
-	//load from disk (existing date, existing id)
-	//pull from server (existing date, existing id)
-	
-	//[2]
-	//create new topic (new date, generate id)
-	//create reply (new date, generate id)
-	
-	//[3]
-	//editing (new date, existing id)
-	
-	//we could make one constructor for each of these 3 cases
-	//	and expect null bitmaps and/or null title Strings
-	//or we could just make 9 constructors
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters. Generic reply
@@ -64,17 +46,20 @@ public class ThreadModel {
 	 * @param location
 	 *            the thread was written at
 	 */
-	public ThreadModel(String comment, Bitmap image, UserModel user,
-			Location location) {
+	public ThreadModel(String comment, Bitmap image, UserModel user)
+	{
 		super();
 		this.comment = comment;
 		this.bitmapData.encode(image);
 		this.user = user;
 		this.title = null;
+		
 		this.timestamp = new Date();
-		this.comments = new LinkedList<ThreadModel>();
+		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		
+		this.comments = new LinkedList<ThreadModel>();
 	}
 
 	/**
@@ -88,17 +73,20 @@ public class ThreadModel {
 	 * @param location
 	 *            the thread was written at
 	 */
-	public ThreadModel(String comment, UserModel user, Location location) {
+	public ThreadModel(String comment, UserModel user)
+	{
 		super();
 		this.comment = comment;
 		this.user = user;
 		this.title = null;
-		this.bitmapData = new BitmapData();
-//		this.bitmapData = null;
+		this.bitmapData = new BitmapData(); //empty bitmap will be treated as no bitmap
+		
 		this.timestamp = new Date();
-		this.comments = new LinkedList<ThreadModel>();
+		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		
+		this.comments = new LinkedList<ThreadModel>();
 	}
 
 	/**
@@ -117,16 +105,20 @@ public class ThreadModel {
 	 *            of the thread
 	 */
 	public ThreadModel(String comment, Bitmap image, UserModel user,
-			Location location, String title) {
+			String title)
+	{
 		super();
 		this.comment = comment;
 		this.bitmapData.encode(image);
 		this.user = user;
 		this.title = title;
+		
 		this.timestamp = new Date();
-		this.comments = new LinkedList<ThreadModel>();
+		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		
+		this.comments = new LinkedList<ThreadModel>();
 	}
 
 	/**
@@ -142,118 +134,148 @@ public class ThreadModel {
 	 * @param title
 	 *            of the thread
 	 */
-	public ThreadModel(String comment, UserModel user, Location location,
-			String title) {
+	public ThreadModel(String comment, UserModel user, String title)
+	{
 		super();
 		this.comment = comment;
 		this.user = user;
 		this.title = title;
-		this.bitmapData = new BitmapData();
-//		this.bitmapData = null;
+		this.bitmapData = new BitmapData(); //empty bitmap will be treated as no bitmap
+		
 		this.timestamp = new Date();
-		this.comments = new LinkedList<ThreadModel>();
+		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		
+		this.comments = new LinkedList<ThreadModel>();
 	}
 
-	public boolean isTopic() {
+	public boolean isTopic()
+	{
+
 		return (this.title != null);
 	}
 
-	public String getComment() {
+	public String getComment()
+	{
 
 		return comment;
 	}
 
-	public void setComment(String comment) {
+	public void setComment(String comment)
+	{
 
 		this.comment = comment;
 		this.timestamp = new Date();
 
 	}
 
-	public Bitmap getImage() {
+	public Bitmap getImage()
+	{
+
 		return this.bitmapData.decode();
 	}
 
-	public void setImage(Bitmap image) {
+	public void setImage(Bitmap image)
+	{
+
 		this.bitmapData.encode(image);
 		this.timestamp = new Date();
 	}
 
-	public String getAuthorName() {
+	public String getAuthorName()
+	{
 
 		return user.getName();
 
 	}
 
-	public void setAuthorName(String authorName) {
+	public void setAuthorName(String authorName)
+	{
 
 		this.user.setName(authorName);
 		this.timestamp = new Date();
 
 	}
 
-	public String getAuthorUnique() {
+	public String getAuthorUnique()
+	{
 
 		return user.getUniqueName();
 	}
 
-	public Date getTimestamp() {
+	public Date getTimestamp()
+	{
 
 		return timestamp;
 	}
 
-	public void resetTimestamp() {
+	public void resetTimestamp()
+	{
+
 		this.timestamp = new Date();
 	}
 
-	public Location getLocation() {
+	public Location getLocation()
+	{
 
 		return user.getLocation();
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(Location location)
+	{
 
 		this.user.setLocation(location);
 		this.timestamp = new Date();
 
 	}
 
-	public UUID getUniqueID() {
+	public UUID getUniqueID()
+	{
+
 		return this.uniqueID;
 	}
 
-	public void setUniqueID(UUID uniqueID) {
+	public void setUniqueID(UUID uniqueID)
+	{
+
 		this.uniqueID = uniqueID;
 
 		// not updating timestamp on purpose
 	}
 
-	public void generateUniqueID() {
+	public void generateUniqueID()
+	{
+
 		this.uniqueID = UUID.randomUUID();
 
 		// not updating timestamp on purpose
 	}
 
-	public LinkedList<ThreadModel> getComments() {
+	public LinkedList<ThreadModel> getComments()
+	{
 
 		return comments;
 	}
 
-	public void addComment(ThreadModel comment) {
+	public void addComment(ThreadModel comment)
+	{
 
 		this.comments.add(comment);
-		this.timestamp = new Date(); //this command overwrites the top level comment's timestamp, need to create a new variable for it
+		this.timestamp = new Date(); // this command overwrites the top level
+										// comment's timestamp, need to create a
+										// new variable for it
 
 	}
 
-	public String getTitle() {
+	public String getTitle()
+	{
 
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(String title)
+	{
 
 		this.title = title;
 		this.timestamp = new Date();
@@ -269,7 +291,9 @@ public class ThreadModel {
 	 * <li>http://mobile.cs.fsu.edu/converting-images-to-json-objects/</li>
 	 * </ul>
 	 */
-	protected class BitmapData {
+	protected class BitmapData
+	{
+
 		private String data = null;
 
 		/**
@@ -282,8 +306,11 @@ public class ThreadModel {
 		 * @param image
 		 *            a bitmap to be encoded
 		 */
-		public void encode(Bitmap image) {
-			if (image == null) {
+		public void encode(Bitmap image)
+		{
+
+			if (image == null)
+			{
 				data = null;
 				return;
 			}
@@ -300,7 +327,9 @@ public class ThreadModel {
 		 * @return a Java Bitmap corresponding to the base64 string stored , or
 		 *         null if no base64 string is stored
 		 */
-		public Bitmap decode() {
+		public Bitmap decode()
+		{
+
 			if (data == null)
 				return null;
 

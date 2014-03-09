@@ -44,7 +44,7 @@ public class ThreadModelTests extends
 	public void testWithTitle()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel thread = new ThreadModel("With a Masterball!", user, null, "Caught Snorelax");
+		ThreadModel thread = new ThreadModel("With a Masterball!", user, "Caught Snorelax");
 		
 		assertEquals("Title should be set", "Caught Snorelax", thread.getTitle());
 	}
@@ -79,7 +79,7 @@ public class ThreadModelTests extends
 	public void testChildThread()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel parent = new ThreadModel("First post!", user, null, "Ash's Pokedex");
+		ThreadModel parent = new ThreadModel("First post!", user, "Ash's Pokedex");
 		ThreadModel child = new ThreadModel("Obtained Charmander", user, null);
 		
 		LinkedList<ThreadModel> children = new LinkedList<ThreadModel>();
@@ -98,8 +98,8 @@ public class ThreadModelTests extends
 	public void testUniqueID()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel threadOne = new ThreadModel("First post!", user, null, "Ash's Pokedex");
-		ThreadModel threadTwo = new ThreadModel("First post!", user, null, "Ash's Pokedex");
+		ThreadModel threadOne = new ThreadModel("First post!", user, "Ash's Pokedex");
+		ThreadModel threadTwo = new ThreadModel("First post!", user, "Ash's Pokedex");
 
 		/* Even though threads have the same properties, the id should be unique */
 		

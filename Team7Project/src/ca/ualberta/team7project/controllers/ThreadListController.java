@@ -32,9 +32,9 @@ public class ThreadListController extends Activity
 	public void debugPopulate()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null, "Pokedex one");
-		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, null, "Pokedex two");
-		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo", user, null, "Pokedex three");
+		ThreadModel thread = new ThreadModel("Caught Snorelax", user, "Pokedex one");
+		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, "Pokedex two");
+		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo", user, "Pokedex three");
 		
 		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 		threads.add(thread);
