@@ -88,7 +88,7 @@ public class MainActivity extends Activity implements IdentityListener
 	 * An onDialigPositiveClick is received only when creating a new UserModel.
 	 */
 	@Override
-	public void onIdentityPositiveCLick(DialogFragment dialog, String userName)
+	public void onIdentityPositiveCLick(String userName)
 	{				
 		userController.setContext(getApplicationContext());
 		userController.setFragment(getFragmentManager());

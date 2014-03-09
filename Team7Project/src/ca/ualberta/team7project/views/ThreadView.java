@@ -10,6 +10,10 @@ import ca.ualberta.team7project.models.ThreadModel;
 public class ThreadView implements ThreadAlertListener
 {
 	final private UUID parentId;
+
+	/*
+	 * Listeners for clicks we be here. To be implemented.
+	 */
 	
 	public ThreadView(UUID parentId)
 	{
@@ -20,7 +24,6 @@ public class ThreadView implements ThreadAlertListener
 	/**
 	 * Called when the user has completed the ThreadAlertView dialog
 	 * @see ThreadAlertView.java
-	 * @param dialog associated with the thread prompt
 	 * @param title associated with the new topic or comment
 	 * @param comment associated with the new topic or comment
 	 */
