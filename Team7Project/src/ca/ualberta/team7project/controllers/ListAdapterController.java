@@ -18,6 +18,12 @@ import ca.ualberta.team7project.models.UserModel;
 
 public class ListAdapterController extends ArrayAdapter<ThreadModel>
 {
+	/*
+	 * This class is deprecated and is only here for reference right now.
+	 * 
+	 * See ThreadAdapter for the new class
+	 * 
+	 */
 
 	/**
 	 * This is a custom adapter that handles the conversion from ThreadListModel
