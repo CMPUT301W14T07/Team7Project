@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
+import ca.ualberta.team7project.models.ThreadModel;
 
 
 public class ThreadView implements ThreadAlertListener
@@ -26,10 +27,24 @@ public class ThreadView implements ThreadAlertListener
 	@Override
 	public void createThread(String title, String comment)
 	{
-		//create a new ThreadModel
+		//we do not update our working model in place here
 		
-		//send it to the TopicUpdater
+		if(parentId == null)
+		{
+			//create a new topic (ThreadModel)
+			
+			//ThreadModel topic = new ThreadModel();
 		
+			//send it to the TopicUpdater
+		}
+		else
+		{
+			//is replying
+			
+			//create a new comment (ThreadModel)
+			
+			//send it to a different method of the TopicUpdater
+		}
 	}
 
 	/**

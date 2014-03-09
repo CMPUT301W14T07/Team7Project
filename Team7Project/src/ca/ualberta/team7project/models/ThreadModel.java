@@ -32,7 +32,25 @@ public class ThreadModel {
 	private Location location = null;
 	private UUID uniqueID = null; // this is also the Elastic Search index
 	private LinkedList<ThreadModel> comments = null;
-
+	
+	//cases where ThreadModel will be constructed
+	
+	//each of these may or may not have a bitmap, may or may not have a title
+	
+	//[1]
+	//load from disk (existing date, existing id)
+	//pull from server (existing date, existing id)
+	
+	//[2]
+	//create new topic (new date, generate id)
+	//create reply (new date, generate id)
+	
+	//[3]
+	//editing (new date, existing id)
+	
+	//we could make on constructor for each of these 3 cases
+	//	and expect null bitmaps and/or null title Strings
+	//or we could just make 9 constructors
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters. Generic reply
@@ -80,8 +98,8 @@ public class ThreadModel {
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = null;
-		//this.bitmapData = new BitmapData();
-		this.bitmapData = null;
+		this.bitmapData = new BitmapData();
+//		this.bitmapData = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 		// every thread has a uniqueID, either topic or comment
@@ -139,8 +157,8 @@ public class ThreadModel {
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = title;
-//		this.bitmapData = new BitmapData();
-		this.bitmapData = null;
+		this.bitmapData = new BitmapData();
+//		this.bitmapData = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 		// every thread has a uniqueID, either topic or comment
