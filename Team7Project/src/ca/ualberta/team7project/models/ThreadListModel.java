@@ -18,7 +18,7 @@ public class ThreadListModel
 {
 
 	private LinkedList<ThreadModel> topics;
-	private ArrayAdapter<ThreadModel> adapter;
+
 
 	/**
 	 * Construct new, empty list
@@ -43,15 +43,6 @@ public class ThreadListModel
 		this.topics = topics;
 	}
 	
-	/**
-	 * Sets the adapter for the list
-	 * @author emar
-	 * @param adapter
-	 */
-	public void setAdapter(ArrayAdapter<ThreadModel> adapter)
-	{
-		this.adapter = adapter;
-	}
 	
 	/**
 	 * Adds to or updates a topic in the list
@@ -110,7 +101,6 @@ public class ThreadListModel
 	public void addThreadCollection(Collection<ThreadModel> collection)
 	{
 		this.topics.addAll(collection);
-		this.adapter.notifyDataSetChanged();
 		
 		//oh god am I doing this right?
 		for (ThreadModel t : collection)
@@ -119,42 +109,6 @@ public class ThreadListModel
 		}
 		
 	}
-	/**
-	 * Adds a brand new topic to the ThreadListModel. For now, all of these
-	 * must have a title and a picture.
-	 * @author emar
-	 * @param comment
-	 * @param image
-	 * @param user
-	 * @param location
-	 * @param title
-	 */
-	public void addOriginalPost(String comment, Bitmap image, UserModel user,
-			Location location, String title)
-	{
-		ThreadModel tm = new ThreadModel(comment, image, user, location, title);
-		this.topics.add(tm);
-		this.adapter.notifyDataSetChanged();
-		
-		//is this being used right?
-		this.UpdateTopic(tm);
+
 	}
-	/**
-	 * Adds a reply to any ThreadModel. Must have a picture for now.
-	 * @author emar
-	 * @param comment
-	 * @param image
-	 * @param user
-	 * @param location
-	 */
-	public void addReply(String comment, Bitmap image, UserModel user,
-			Location location)
-	{
-		ThreadModel tm = new ThreadModel(comment, image, user, location);
-		this.topics.add(tm);
-		this.adapter.notifyDataSetChanged();
-		
-		//hopefully I'm using this right
-		this.UpdateTopic(tm);
-	}
-}
+

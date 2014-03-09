@@ -35,7 +35,6 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 	public View getView(int position, View view, ViewGroup parent)
 	{
 		
-
 		if (view == null) 
 		{
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
@@ -63,15 +62,9 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 			
 			TextView an = (TextView) view.findViewById(R.id.author);
 			an.setText(tp.getAuthorName());
-			
-			
-			
+						
 			
 		}
-
-		
-		
-		
 		return view;
 	}
 	
