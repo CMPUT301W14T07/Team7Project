@@ -31,7 +31,7 @@ public class UserModel implements Serializable
 	//this is the usermodel we need
 	private String name;
 	private String uniqueName;
-	private Location location;
+	private Location location = null;
 
 	/**
 	 * Construct the user with the given parameters
@@ -45,7 +45,7 @@ public class UserModel implements Serializable
 
 		setUniqueName();
 		
-		location = new Location("non-existing provider");
+		//location = new Location("non-existing provider");
 	}
 
 	public String getName()
