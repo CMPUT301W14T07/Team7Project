@@ -39,6 +39,7 @@ public class ElasticSearchOperation
 
 	private static Gson GSON = null;
 	
+	//
 	public ElasticSearchOperation()
 	{
 		super();
@@ -57,6 +58,9 @@ public class ElasticSearchOperation
 	 * @param model a ThreadModel <i>representing a full topic</i>
 	 * 		to be json serialized and pushed to the server
 	 */
+	
+	//called when you want to push a new topic to server
+	//and this function could only be used when pushing new topic to server
 	public void pushThreadModel(final ThreadModel model)
 	{
 		Thread thread = new Thread()
@@ -65,10 +69,10 @@ public class ElasticSearchOperation
 			@Override
 			public void run()
 			{
-
+				String id = model.getUniqueID().toString();
 				HttpClient client = new DefaultHttpClient();
-				HttpPut request = new HttpPut(SERVER_URL);
-
+				HttpPut request = new HttpPut(SERVER_URL+id);
+				
 				try
 				{
 					request.setEntity(new StringEntity(GSON.toJson(model)));
