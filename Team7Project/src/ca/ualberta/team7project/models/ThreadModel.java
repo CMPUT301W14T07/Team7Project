@@ -281,6 +281,16 @@ public class ThreadModel
 		this.timestamp = new Date();
 	}
 
+	public ThreadModel getLastComment()
+	{
+		return comments.getLast();
+	}
+	
+	public ThreadModel getFirstComment()
+	{
+		return comments.getFirst();
+	}
+	
 	/**
 	 * Class that stores a bitmap in json serializable form (a base64 encoded
 	 * byte array)

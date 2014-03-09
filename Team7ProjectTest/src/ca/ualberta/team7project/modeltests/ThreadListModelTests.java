@@ -24,7 +24,7 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
 		threadsList.addTopic(thread);
 		
-		LinkedList threads = threadsList.getTopics();
+		LinkedList<ThreadModel> threads = threadsList.getTopics();
 		
 		assertTrue("LinkedList of thread should contain a thread", threads.contains(thread));
 	}
@@ -40,7 +40,7 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		threadsList.addTopic(threadFirst);
 		threadsList.addTopic(threadLast);
 
-		LinkedList threads = threadsList.getTopics();
+		LinkedList<ThreadModel> threads = threadsList.getTopics();
 		
 		assertEquals("Last inserted topic in place", threads.getLast(), threadLast);
 	}

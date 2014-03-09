@@ -33,7 +33,7 @@ public class UserModelTest extends
 		UserModel userOne = new UserModel("Ash Ketchum");
 		UserModel userTwo = new UserModel("Ash Ketchum");
 
-		assertFalse("UniqueID for two users with the same name is unique",
+		assertFalse("uniqueName for two users with the same name is unique",
 				userOne.getUniqueName().equals(userTwo.getUniqueName()));
 	}
 
@@ -42,6 +42,8 @@ public class UserModelTest extends
 	 */
 	public void testUserLocation()
 	{
-
+		// TODO
 	}
+	
+	
 }

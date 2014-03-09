@@ -66,6 +66,21 @@ public class ThreadListModel
 		return this.topics.size();
 	}
 	
+	public ThreadModel getLastTopic()
+	{
+		return topics.getLast();
+	}
+	
+	public ThreadModel getFirstTopic()
+	{
+		return topics.getFirst();
+	}
+	
+	public void insertFirstTopic(ThreadModel thread)
+	{
+		this.topics.addFirst(thread);
+	}
+	
 	/**
 	 * Adds to or updates a topic in the list
 	 * <p>

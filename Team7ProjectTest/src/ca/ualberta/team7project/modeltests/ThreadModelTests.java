@@ -23,15 +23,6 @@ public class ThreadModelTests extends
 		super(MainActivity.class);
 	}
 
-	/*
-	 * Note: Location values are null for now until functionality is added in milestone 3
-	 */
-	
-	/*
-	 * The below test will test the constructors, since there exists overloading in the model class
-	 */
-	
-
 	public void testNoImageNoTitle()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
@@ -75,7 +66,6 @@ public class ThreadModelTests extends
 	/*
 	 * The below tests will test whether insertion of child comments is working
 	 */
-	
 	public void testChildThread()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
@@ -93,8 +83,6 @@ public class ThreadModelTests extends
 	/*
 	 * Tests below test whether unique ID is working
 	 */
-
-	// FAILS RIGHT NOW!
 	public void testUniqueID()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
