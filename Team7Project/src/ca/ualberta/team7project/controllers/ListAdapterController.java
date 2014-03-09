@@ -44,6 +44,7 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 		
 		ThreadModel tp = this.getItem(position);
 		
+
 		if (tp != null) 
 		{
 			
@@ -67,6 +68,7 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 			
 			
 		}
+
 		
 		
 		
