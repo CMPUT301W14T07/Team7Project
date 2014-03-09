@@ -8,6 +8,7 @@
     <!-- Strings used for general application toasts -->
 	<string name="refresh">Refresh Successful</string>
 	<string name="refresh_failed">Refresh Failed: No Network Connection</string>
+	<string name="title">Thread Title</string>
 
     <!-- General strings for multiple buttons/dialog boxes -->
     <string name="confirm">Confirm</string>

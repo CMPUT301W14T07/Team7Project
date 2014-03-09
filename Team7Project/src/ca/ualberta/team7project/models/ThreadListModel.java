@@ -37,6 +37,35 @@ public class ThreadListModel
 		this.topics = topics;
 	}
 	
+	public LinkedList<ThreadModel> getTopics()
+	{
+	
+		return topics;
+	}
+
+	
+	public void setTopics(LinkedList<ThreadModel> topics)
+	{
+	
+		this.topics = topics;
+	}	
+	
+	public void addTopic(ThreadModel thread)
+	{
+		this.topics.add(thread);
+	}
+
+	/**
+	 * Retrieve a ThreadModel by index position
+	 * @param index of the ThreadModel
+	 * @return 
+	 */
+	public ThreadModel getThread(int index)
+	{
+		return this.topics.get(index);
+	}
+	
+	
 	
 	/**
 	 * Adds to or updates a topic in the list
@@ -73,24 +102,5 @@ public class ThreadListModel
 			topics.add(topic);
 		}
 	}
-	
-	public LinkedList<ThreadModel> getTopics()
-	{
-	
-		return topics;
-	}
-
-	
-	public void setTopics(LinkedList<ThreadModel> topics)
-	{
-	
-		this.topics = topics;
-	}	
-	
-	public void addTopic(ThreadModel thread)
-	{
-		this.topics.add(thread);
-	}
-
 }
 
