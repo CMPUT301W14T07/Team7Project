@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.UUID;
 
+import ca.ualberta.team7project.network.ElasticSearchOperation;
+
 /**
  * Class that provides methods for storing and loading from the ElasticSearch
  * server and the disk
@@ -11,7 +13,15 @@ import java.util.UUID;
  */
 public class ThreadPersistenceModel
 {
-
+	private ElasticSearchOperation search;
+	//this class should not have any other attributes or things will get messier
+	
+	public ThreadPersistenceModel()
+	{
+		super();
+		search = new ElasticSearchOperation();
+	}
+	
 	public static enum SortMethod //methods for getting the "best/most relevant" topics
 	{
 		DATE, LOCATION, DATE_LOCATION
@@ -84,6 +94,17 @@ public class ThreadPersistenceModel
 			return topic; // if already up-to-date, just return the topic argument
 
 		return temp;
+	}
+	
+	/**
+	 * Push a topic to the server
+	 * 
+	 * @param topic an updated topic in memory
+	 */
+	public void PushTopic(ThreadModel topic)
+	{
+		search.pushThreadModel(topic);
+		
 	}
 
 	// TODO:

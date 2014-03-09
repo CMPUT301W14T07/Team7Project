@@ -6,22 +6,25 @@ import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
+import ca.ualberta.team7project.network.TopicUpdater;
 
 
 public class ThreadView implements ThreadAlertListener
 {
 	final private UUID parentId;
 	private UserModel user;
+	private TopicUpdater updater;
 
 	/*
 	 * Listeners for clicks we be here. To be implemented.
 	 */
 	
-	public ThreadView(UUID parentId, UserModel user)
+	public ThreadView(UUID parentId, UserModel user, TopicUpdater updater)
 	{
 		super();
 		this.parentId = parentId;
 		this.user = user;
+		this.updater = updater;
 	}
 
 	/**
@@ -41,6 +44,7 @@ public class ThreadView implements ThreadAlertListener
 			ThreadModel topic = new ThreadModel(comment, user, title);
 			
 			//send it to the TopicUpdater
+			updater.addTopic(topic);
 		}
 		else
 		{
