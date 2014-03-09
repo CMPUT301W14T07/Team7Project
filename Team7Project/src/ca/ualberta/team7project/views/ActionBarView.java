@@ -20,6 +20,7 @@ public class ActionBarView extends Activity
 	private MenuItem item;
 	private FragmentManager fragment;
 	private Context context;
+	private Context mainactivity; //help me Lord
 
 	/**
 	 * Required constructor.
@@ -30,12 +31,12 @@ public class ActionBarView extends Activity
 	 * @param item
 	 *            The ID associated with the action bar item.
 	 */
-	public ActionBarView(MenuItem item, FragmentManager fragment, Context context)
+	public ActionBarView(MenuItem item, FragmentManager fragment, Context context, Context mainactivity)
 	{
-
 		this.fragment = fragment;
 		this.context = context;
 		this.item = item;
+		this.mainactivity = mainactivity;
 	}
 
 	/**
@@ -119,7 +120,8 @@ public class ActionBarView extends Activity
 	 */
 	private void createTopic()
 	{
-		ThreadAlertView threadAlert = new ThreadAlertView();
+		ThreadView tv = ((ca.ualberta.team7project.MainActivity)mainactivity).getThreadController().getThreadView();
+		ThreadAlertView threadAlert = new ThreadAlertView(tv);
 		threadAlert.show(fragment, "New Thread Alert");
 	}
 

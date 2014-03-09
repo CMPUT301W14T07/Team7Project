@@ -7,6 +7,8 @@
  */
 package ca.ualberta.team7project;
 
+import java.util.UUID;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -15,7 +17,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.ThreadController;
 import ca.ualberta.team7project.controllers.ThreadListController;
@@ -46,7 +47,9 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		this.userController = new UserController(context, fragment);
 		this.listController = new ThreadListController(this);
-		this.threadController = new ThreadController(context, fragment);
+		
+		//TODO: grab parentId from intent
+		this.threadController = new ThreadController(context, fragment, null);
 		
 	}
 
@@ -75,7 +78,7 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 
 		ActionBarView actionBarController = new ActionBarView(item,
-				getFragmentManager(), getApplicationContext());
+				getFragmentManager(), getApplicationContext(), this);
 		return actionBarController.getAction();
 	}
 
@@ -104,6 +107,13 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 	
 		this.userController = userController;
+	}
+
+	
+	public ThreadController getThreadController()
+	{
+	
+		return threadController;
 	}
 
 
