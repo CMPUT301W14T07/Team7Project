@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(ca.ualberta.team7project.R.layout.activity_main);
+		setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
 
 		/* Below code does not compile and run in the emulator */
 		//lv = (ListView) findViewById(R.id.listView1);

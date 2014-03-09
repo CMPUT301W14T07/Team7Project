@@ -7,12 +7,16 @@
  */
 package ca.ualberta.team7project.views;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
-import android.view.View;
-import android.widget.TextView;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import ca.ualberta.team7project.models.ThreadListModel;
 
-public class ThreadListView
+public class ThreadListView extends Activity
 {
 	private ThreadListModel listModel;
 	private static Activity activity;
@@ -23,12 +27,24 @@ public class ThreadListView
 		this.listModel = listModel;
 		ThreadListView.activity = activity;
 		
-		TextView textView = (TextView)activity.findViewById(ca.ualberta.team7project.R.id.textView1);
-		textView.setText("hello");
+		/* Just testing the list right now */
+        activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
+        
+        ListView list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
+		        
+        ArrayList<String> threads = new ArrayList<String>();
 
-		//View v = activity.findViewById (ca.ualberta.team7project.R.layout.activity_main);
-		//v.invalidate();
+		String[] items = new String[] {"Hello", "World"};
+		for(String s: items){
+			threads.add(s);
+		}
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, 
+				ca.ualberta.team7project.R.layout.test_layout, items);
+		
+		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
+		list.setAdapter(adapter);
+		/* End test */
 	}
 
-	
 }
