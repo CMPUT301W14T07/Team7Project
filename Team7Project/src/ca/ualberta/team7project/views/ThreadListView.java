@@ -27,7 +27,7 @@ public class ThreadListView extends Activity
 		this.listModel = listModel;
 		ThreadListView.activity = activity;
 		
-		//populateList() uncomment when the ThreadListAdapter works.
+		populateList();
 		
 		/* 
 		 * Just testing basic stuff right now for application crashes.
@@ -37,7 +37,8 @@ public class ThreadListView extends Activity
 		 * 
 		 * So...Need to write use the custom adapter that has been written.
 		 */
-        activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
+		
+/*        activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		        
@@ -52,7 +53,8 @@ public class ThreadListView extends Activity
 				ca.ualberta.team7project.R.layout.test_layout, items);
 		
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
-		list.setAdapter(adapter);
+		list.setAdapter(adapter);*/
+		
 		/* End test */
 	}
 
@@ -70,6 +72,9 @@ public class ThreadListView extends Activity
         
         ThreadListAdapter adapter = new ThreadListAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, listModel);
+
+		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
+		list.setAdapter(adapter);
 
 	}
 }
