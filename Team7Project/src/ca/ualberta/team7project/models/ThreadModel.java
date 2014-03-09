@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.util.Base64;
 
+
 public class ThreadModel {
 
 	private String title = null;
@@ -31,6 +32,7 @@ public class ThreadModel {
 	private Location location = null;
 	private UUID uniqueID = null; // this is also the Elastic Search index
 	private LinkedList<ThreadModel> comments = null;
+
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters. Generic reply
@@ -78,7 +80,8 @@ public class ThreadModel {
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = null;
-		this.bitmapData = new BitmapData();
+		//this.bitmapData = new BitmapData();
+		this.bitmapData = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 		// every thread has a uniqueID, either topic or comment
@@ -136,7 +139,8 @@ public class ThreadModel {
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = title;
-		this.bitmapData = new BitmapData();
+//		this.bitmapData = new BitmapData();
+		this.bitmapData = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 		// every thread has a uniqueID, either topic or comment
@@ -238,7 +242,7 @@ public class ThreadModel {
 	public void addComment(ThreadModel comment) {
 
 		this.comments.add(comment);
-		this.timestamp = new Date();
+		this.timestamp = new Date(); //this command overwrites the top level comment's timestamp, need to create a new variable for it
 
 	}
 
