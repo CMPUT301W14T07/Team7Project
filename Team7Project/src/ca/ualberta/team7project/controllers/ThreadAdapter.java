@@ -1,7 +1,13 @@
+/**
+ * A custom Adapter to populate a list view with the contents of ThreadListModel
+ * <p>
+ * Referenced http://www.vogella.com/tutorials/AndroidListView/article.html
+ * 
+ * @author Michael Raypold
+ */
 package ca.ualberta.team7project.controllers;
 
 import java.util.LinkedList;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,30 +31,32 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
     	this.context = context;
 	}
 
-	/*
-	 * http://www.vogella.com/tutorials/AndroidListView/article.html
-	 */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-    	Log.e("debug", "working2");
-
         LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
 
         TextView textView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTitle);
-
+        String title = getItem(position).getTitle();
+        
         /* Ensure the title is not null before setting it in the layout */
-        if((threads.get(position).getTitle()) != null)
+        if(title != null)
         {
-            textView.setText(threads.get(position).getTitle());
+            textView.setText(title);
         }
         else
         {
         	textView.setText("");
         }
+        
+        /* Set comment body */
+        
+        /* Set picture */
+        
+        /* etc, etc. The rest should be trivial now that this is set up */
         
 		return rowView;
     }

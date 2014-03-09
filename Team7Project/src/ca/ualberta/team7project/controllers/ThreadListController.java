@@ -1,9 +1,7 @@
 package ca.ualberta.team7project.controllers;
 
 import java.util.LinkedList;
-
 import android.app.Activity;
-import android.util.Log;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
@@ -23,16 +21,8 @@ public class ThreadListController extends Activity
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate();
-				
-		/* Since UI runs on a separate thread, we have to wait for the list to populate */
-		/* Therefore, we need to pull from elastic search or the cache before initializing the view */
-		if(listModel.getSize() > 0){
-			this.listView = new ThreadListView(this.listModel, activity);
-		}
-		else{
-			// TODO pull from server/filesystem here.
-		}
-
+		
+		this.listView = new ThreadListView(this.listModel, activity);
 	}
 	
 	/*
