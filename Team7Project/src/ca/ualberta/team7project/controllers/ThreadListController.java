@@ -22,12 +22,11 @@ public class ThreadListController extends Activity
 		ThreadListController.activity = activity;
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
-		debugPopulate(); //temporary debug populate
-		Log.e("debug", listModel.getThread(0).getTitle());
-		
-		this.listModel = new ThreadListModel();
-		
+		debugPopulate();
+				
+		/* Since UI runs on a seperate thread, we have to wait for the list to populate */
 		if(listModel.getSize() > 0){
+			this.listModel = new ThreadListModel();
 			this.listView = new ThreadListView(this.listModel, activity);
 		}
 
@@ -48,9 +47,7 @@ public class ThreadListController extends Activity
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
-		
-		Log.e("debug", thread.getTitle());
-		
+				
 		ThreadListModel newListModel = new ThreadListModel();
 		newListModel.setTopics(threads);
 		setListModel(newListModel);
