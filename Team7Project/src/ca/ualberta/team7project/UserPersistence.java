@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserModel;
 
 public class UserPersistence extends Activity
@@ -34,12 +35,12 @@ public class UserPersistence extends Activity
 	 * @param user
 	 *            A non-null UserModel object
 	 */
-	public void serializeUser(UserModel user)
+	public void serializeUser(PreferenceModel user)
 	{
 
 		try
 		{
-			FileOutputStream fileStream = context.openFileOutput(user.getName()
+			FileOutputStream fileStream = context.openFileOutput(user.getUser().getName()
 					.concat(".dat"), 0);
 			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 			objectStream.writeObject(user);
@@ -49,7 +50,7 @@ public class UserPersistence extends Activity
 			objectStream.close();
 			fileStream.close();
 
-			setLastOpenUser(user.getName());
+			setLastOpenUser(user.getUser().getName());
 
 		} catch (IOException e)
 		{
@@ -63,11 +64,11 @@ public class UserPersistence extends Activity
 	 * 
 	 * @return newUser A deserialized UserModel or a null object if failure
 	 */
-	public UserModel deserializeUser()
+	public PreferenceModel deserializeUser()
 	{
 
 		String userName = lastOpenUser();
-		UserModel newUser = null;
+		PreferenceModel newUser = null;
 
 		// TODO perform file exists check
 
@@ -79,7 +80,7 @@ public class UserPersistence extends Activity
 						.concat(".dat"));
 				ObjectInputStream objectStream = new ObjectInputStream(
 						fileStream);
-				newUser = (UserModel) objectStream.readObject();
+				newUser = (PreferenceModel) objectStream.readObject();
 
 				objectStream.close();
 				fileStream.close();

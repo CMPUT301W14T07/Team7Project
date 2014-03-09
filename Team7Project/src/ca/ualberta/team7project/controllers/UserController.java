@@ -12,13 +12,14 @@ import android.widget.Toast;
 import ca.ualberta.team7project.UserPersistence;
 import ca.ualberta.team7project.UserViewInterface;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserModel;
 
 public class UserController implements UserViewInterface
 {
 	private Context context;
 	private FragmentManager fragment;
-	private UserModel user;
+	private PreferenceModel user;
 	private UserPersistence persistence;
 	
 	public UserController(Context context, FragmentManager fragment)
@@ -42,7 +43,7 @@ public class UserController implements UserViewInterface
 	 */
 	public void createNewUser(String userName)
 	{
-		UserModel newUser = new UserModel(userName);
+		PreferenceModel newUser = new PreferenceModel(userName);
 
 		UserPersistence persistence = new UserPersistence(
 				this.context);
@@ -58,7 +59,7 @@ public class UserController implements UserViewInterface
 	 */
 	public void setUserInitialRun()
 	{
-		UserModel newUser = null;
+		PreferenceModel newUser = null;
 
 		if (firstRun() == true)
 		{
@@ -83,7 +84,7 @@ public class UserController implements UserViewInterface
 		setFirstRun();	
 	}
 	
-	private UserModel deserializeUser()
+	private PreferenceModel deserializeUser()
 	{
 		return persistence.deserializeUser();
 	}
@@ -140,14 +141,14 @@ public class UserController implements UserViewInterface
 	}
 
 	
-	public UserModel getUser()
+	public PreferenceModel getUser()
 	{
 	
 		return user;
 	}
 
 	
-	public void setUser(UserModel user)
+	public void setUser(PreferenceModel user)
 	{
 		this.user = user;
 		updateViews(user);
@@ -181,7 +182,7 @@ public class UserController implements UserViewInterface
 	}
 
 	@Override
-	public void updateViews(UserModel user)
+	public void updateViews(PreferenceModel user)
 	{
 		toastUser();
 	}
@@ -190,7 +191,7 @@ public class UserController implements UserViewInterface
 	public void toastUser()
 	{
 		Toast.makeText(this.context,
-				"Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();			
+				"Logged in as " + user.getUser().getName(), Toast.LENGTH_SHORT).show();			
 	}
 
 	@Override

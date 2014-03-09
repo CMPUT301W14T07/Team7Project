@@ -32,22 +32,6 @@ public class UserModel implements Serializable
 	private String name;
 	private String uniqueName;
 	private Location currentLocation;
-	
-	//this should be in a preference model
-	//it also seems like we are double-caching the favorites
-	//and this also makes updating the favorites threads from server kind of weird
-	//we should store a list of UUID's where the user favorited
-	//	and just rely on loading everything from disk on start
-	private ArrayList<ThreadModel> favoriteTopics;
-	
-	//probably not needed at all
-	private ArrayList<ThreadModel> authoredComments;
-	
-	//seems too hard to use
-	private ThreadModel lastViewedTopic;
-	
-	//is this the parent? probably not needed
-	private Integer topicPosition;
 
 	/**
 	 * Construct the user with the given parameters
@@ -57,10 +41,7 @@ public class UserModel implements Serializable
 	 */
 	public UserModel(String userName)
 	{
-
 		setName(userName);
-		this.authoredComments = new ArrayList<ThreadModel>();
-		this.favoriteTopics = new ArrayList<ThreadModel>();
 
 		setUniqueName();
 	}
@@ -134,65 +115,4 @@ public class UserModel implements Serializable
 
 		this.currentLocation = currentLocation;
 	}
-
-	public ArrayList<ThreadModel> getFavoriteTopics()
-	{
-
-		return favoriteTopics;
-	}
-
-	public void addFavoriteTopic(ThreadModel topic)
-	{
-
-		this.favoriteTopics.add(topic);
-	}
-
-	public ThreadModel getLastViewedTopic()
-	{
-
-		return lastViewedTopic;
-	}
-
-	public void setLastViewedTopic(ThreadModel lastViewedTopic)
-	{
-
-		this.lastViewedTopic = lastViewedTopic;
-	}
-
-	/**
-	 * Keep track of the current thread viewed within a topic.
-	 * 
-	 * @return An Integer representing the unique number associated with a
-	 *         thread.
-	 */
-	public Integer getTopicPosition()
-	{
-
-		return topicPosition;
-	}
-
-	/**
-	 * Set the thread number associated with a topic that the user is viewing.
-	 * 
-	 * @param topicPosition
-	 *            The unique number associated with a thread.
-	 */
-	public void setTopicPosition(Integer topicPosition)
-	{
-
-		this.topicPosition = topicPosition;
-	}
-
-	public ArrayList<ThreadModel> getAuthoredComments()
-	{
-
-		return authoredComments;
-	}
-
-	public void addAuthoredComment(ThreadModel authoredComment)
-	{
-
-		this.authoredComments.add(authoredComment);
-	}
-
 }
