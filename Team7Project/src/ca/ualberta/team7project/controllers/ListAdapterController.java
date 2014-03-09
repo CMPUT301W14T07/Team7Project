@@ -1,8 +1,10 @@
 package ca.ualberta.team7project.controllers;
 
-import java.util.List;
+import java.util.LinkedList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ca.ualberta.team7project.R;
+import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.UserModel;
 
 public class ListAdapterController extends ArrayAdapter<ThreadModel>
 {
@@ -24,7 +28,7 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
  * @param topics
  */
 	
-	public ListAdapterController(Context c, int resource, int resourceId, List<ThreadModel> topics)
+	public ListAdapterController(Context c, int resource, int resourceId, LinkedList<ThreadModel> topics)
 	{
 		/*Constructor*/
 		super(c, resource, resourceId, topics);
@@ -68,6 +72,38 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 		return view;
 	}
 	
+public void addThread(ThreadListModel topics, String comment, UserModel user, Location location, String title, Bitmap image)
+{
+	if (title == null && image == null) //not a top level comment and no image
+	{
+		ThreadModel tm = new ThreadModel(comment, user, location);
+		topics.UpdateTopic(tm);		
+	}
 	
+	else if (title == null && image != null) //not a top level comment but image exists
+	{
+		ThreadModel tm = new ThreadModel(comment, image, user, location);
+		topics.UpdateTopic(tm);
+	}
+	
+	else if (title != null && image == null) //top level comment, no image
+	{
+		ThreadModel tm = new ThreadModel(comment, user, location, title);
+		topics.UpdateTopic(tm);
+	}
+	
+	else if (title != null && image != null) //top level comment, image attached
+	{
+		ThreadModel tm = new ThreadModel(comment, image, user, location, title);
+		topics.UpdateTopic(tm);
+	}
+	
+}
+//public ThreadModel(String comment, UserModel user, Location location, String title)
+//public ThreadModel(String comment, Bitmap image, UserModel user,
+//		Location location, String title)
+//public ThreadModel(String comment, UserModel user, Location location)
+//public ThreadModel(String comment, Bitmap image, UserModel user,
+//		Location location)
 	
 }

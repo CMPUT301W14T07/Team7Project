@@ -69,7 +69,8 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = null;
-		this.bitmapData = new BitmapData();
+		//this.bitmapData = new BitmapData();
+		this.bitmapData = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}
@@ -113,7 +114,8 @@ public class ThreadModel
 		this.authorUnique = user.getUniqueName();
 		this.location = location;
 		this.title = title;
-		this.bitmapData = new BitmapData();
+//		this.bitmapData = new BitmapData();
+		this.bitmapData = null;
 		this.timestamp = new Date();
 		this.comments = new LinkedList<ThreadModel>();
 	}

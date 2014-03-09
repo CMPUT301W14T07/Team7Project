@@ -6,10 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import android.graphics.Bitmap;
-import android.location.Location;
-import android.widget.ArrayAdapter;
-
 /**
  * This class holds the list of topics
  * 
