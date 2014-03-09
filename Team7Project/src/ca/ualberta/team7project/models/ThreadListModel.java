@@ -39,7 +39,6 @@ public class ThreadListModel
 	
 		return topics;
 	}
-
 	
 	public void setTopics(LinkedList<ThreadModel> topics)
 	{

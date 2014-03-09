@@ -1,5 +1,8 @@
 package ca.ualberta.team7project.controllers;
 
+import java.util.LinkedList;
+
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,18 +13,18 @@ import android.widget.TextView;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
-public class ThreadListAdapter extends ArrayAdapter<ThreadListModel>
+public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 {
 
-	private ThreadListModel listModel;
+	private LinkedList<ThreadModel> threads;
 	private Context context;
 		
-	public ThreadListAdapter(Context context, int resource,
-			ThreadListModel listModel)
+	public ThreadAdapter(Context context, int resource,
+			LinkedList<ThreadModel> threads)
 	{
 		super(context, resource);
-		this.listModel = listModel;
-
+    	//threads = new LinkedList<ThreadModel>();
+    	this.threads = threads;
 	}
 
 	/*
@@ -35,16 +38,13 @@ public class ThreadListAdapter extends ArrayAdapter<ThreadListModel>
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         
         View rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
-        
-        /* Get the ThreadModel from the list */
-        ThreadModel thread = listModel.getThread(position);
-        
+                
         TextView textView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTitle);
         
         /* Ensure the title is not null before setting it in the layout */
-        if((thread.getTitle()) != null)
+        if((threads.get(position).getTitle()) != null)
         {
-            textView.setText(thread.getTitle());
+            textView.setText(threads.get(position).getTitle());
         }
         else
         {
