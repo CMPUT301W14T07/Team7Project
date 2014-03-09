@@ -1,4 +1,4 @@
-package ModelTests;
+package ca.ualberta.team7project.modeltests;
 
 import java.util.Date;
 import java.util.LinkedList;

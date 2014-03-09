@@ -23,7 +23,7 @@ public class ThreadListModel
 	public ThreadListModel()
 	{
 		super();
-		topics = new LinkedList<ThreadModel>();
+		this.topics = new LinkedList<ThreadModel>();
 	}
 
 	/**
@@ -122,6 +122,5 @@ public class ThreadListModel
 		}
 		
 	}
-
-	}
+}
 

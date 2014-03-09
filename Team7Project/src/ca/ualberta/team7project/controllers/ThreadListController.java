@@ -27,7 +27,7 @@ public class ThreadListController
 		debugPopulate(); //temporary debug populate
 
 		this.listModel = new ThreadListModel();		
-		this.listView = new ThreadListView(this.listModel);
+		//this.listView = new ThreadListView(this.listModel);
 
 	}
 	
@@ -46,7 +46,8 @@ public class ThreadListController
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
-		listModel.setTopics(threads);
+		//setListModel(threads);
+		//this.listModel.setTopics(threads);
 	}
 	
 	/**
@@ -57,6 +58,20 @@ public class ThreadListController
 	public void refreshThreads()
 	{
 		// TODO call the persistence and network classes here
+	}
+
+	
+	public ThreadListModel getListModel()
+	{
+	
+		return listModel;
+	}
+
+	
+	public void setListModel(ThreadListModel threads)
+	{
+	
+		this.listModel = threads;
 	}
 	
 }

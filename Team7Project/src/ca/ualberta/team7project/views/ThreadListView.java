@@ -25,6 +25,9 @@ public class ThreadListView extends ListActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		/* Call the custom list adapter */
+		
 		/*
 		 * String[] values = new String[] { "a", "b", "c", "d", "e", "f", "g",
 		 * "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",

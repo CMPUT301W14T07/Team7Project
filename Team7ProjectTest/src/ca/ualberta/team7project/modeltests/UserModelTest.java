@@ -8,7 +8,7 @@
  * @author Michael Raypold
  */
 
-package ModelTests;
+package ca.ualberta.team7project.modeltests;
 
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.UserModel;
