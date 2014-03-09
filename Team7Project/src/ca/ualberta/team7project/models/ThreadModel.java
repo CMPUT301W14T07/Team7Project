@@ -30,7 +30,7 @@ public class ThreadModel
 	private Date timestamp; //time of last change of any kind
 	private Location location;
 	private UUID uniqueID; //this is also the Elastic Search index
-	private LinkedList<ThreadModel> comments;
+	private LinkedList<ThreadModel> comments; //need to implement another LinkedList possibly because there's no way to track this ThreadModel's parents
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters.
@@ -229,7 +229,7 @@ public class ThreadModel
 	{
 
 		this.comments.add(comment);
-		this.timestamp = new Date();
+		this.timestamp = new Date(); //this command overwrites the top level comment's timestamp, need to create a new variable for it
 
 	}
 	

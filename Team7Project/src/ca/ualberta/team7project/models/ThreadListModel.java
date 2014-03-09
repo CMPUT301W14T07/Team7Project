@@ -78,9 +78,10 @@ public class ThreadListModel
 	}
 	
 	/**
-	 * Returns the list of ThreadModels in the ThreadListModel; because of the 
-	 * method .unmodifiableList, have to return as a list, so will need to cast 
-	 * to a linked list down the road
+	 * Returns the list of ThreadModels in the associated with the variable comments in 
+	 * ThreadModel; because of the method .unmodifiableList, have to return as a list, so 
+	 * will need to cast to a linked list down the road. Also, this is not performing
+	 * what is meant to be done, which I assume is to retrieve its children threads
 	 * @author emar
 	 * @return
 	 */	

@@ -99,11 +99,25 @@ public void addThread(ThreadListModel topics, String comment, UserModel user, Lo
 	}
 	
 }
+
 //public ThreadModel(String comment, UserModel user, Location location, String title)
 //public ThreadModel(String comment, Bitmap image, UserModel user,
 //		Location location, String title)
 //public ThreadModel(String comment, UserModel user, Location location)
 //public ThreadModel(String comment, Bitmap image, UserModel user,
 //		Location location)
-	
+
+/**
+ * Because of issues in the ThreadListModel, this method is likely not
+ * working as intended either
+ * @author emar
+ * @param tml
+ * @return
+ */
+
+public LinkedList<ThreadModel> expandThread(ThreadListModel tml)
+{
+	return (LinkedList) tml.getList();
+}
+
 }
