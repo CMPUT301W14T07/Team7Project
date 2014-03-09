@@ -27,7 +27,6 @@ public class ThreadListController extends Activity
 		/* Since UI runs on a separate thread, we have to wait for the list to populate */
 		/* Therefore, we need to pull from elastic search or the cache before initializing the view */
 		if(listModel.getSize() > 0){
-			this.listModel = new ThreadListModel();
 			this.listView = new ThreadListView(this.listModel, activity);
 		}
 		else{

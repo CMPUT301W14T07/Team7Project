@@ -12,7 +12,6 @@ import java.util.LinkedList;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.ListView;
-import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
@@ -64,7 +63,7 @@ public class ThreadListView extends Activity
 	 * <p>
 	 * Called when we need to update a list with a new ThreadListModel or
 	 * upon the initialization of the class.
-	 * @see ThreadAdapter.java
+	 * @see ThreadListAdapter.java
 	 */
 	public void populateList()
 	{
@@ -72,15 +71,17 @@ public class ThreadListView extends Activity
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
         
     	LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
+    	Log.e("debug", Integer.toString(listModel.getSize()));
 		for(ThreadModel thread : listModel.getTopics()){
 			threads.add(thread);
+			Log.e("debug", thread.getTitle());
 		}
 		
-        ThreadAdapter adapter = new ThreadAdapter(activity, 
+/*        ThreadAdapter adapter = new ThreadAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, threads);
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
-		list.setAdapter(adapter);
+		list.setAdapter(adapter);*/
 
 	}
 }
