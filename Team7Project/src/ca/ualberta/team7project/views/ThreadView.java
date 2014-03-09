@@ -5,20 +5,23 @@ import java.util.UUID;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.UserModel;
 
 
 public class ThreadView implements ThreadAlertListener
 {
 	final private UUID parentId;
+	private UserModel user;
 
 	/*
 	 * Listeners for clicks we be here. To be implemented.
 	 */
 	
-	public ThreadView(UUID parentId)
+	public ThreadView(UUID parentId, UserModel user)
 	{
 		super();
 		this.parentId = parentId;
+		this.user = user;
 	}
 
 	/**
@@ -35,9 +38,8 @@ public class ThreadView implements ThreadAlertListener
 		if(parentId == null)
 		{
 			//create a new topic (ThreadModel)
+			ThreadModel topic = new ThreadModel(comment, user, title);
 			
-			//ThreadModel topic = new ThreadModel();
-		
 			//send it to the TopicUpdater
 		}
 		else

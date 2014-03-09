@@ -10,6 +10,7 @@ import java.util.UUID;
 import android.app.FragmentManager;
 import android.content.Context;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ThreadView;
 
 public class ThreadController
@@ -20,7 +21,7 @@ public class ThreadController
 	private ThreadModel thread;
 	private ThreadView threadView;
 	
-	public ThreadController(Context context, FragmentManager fragment, UUID parentId)
+	public ThreadController(Context context, FragmentManager fragment, UUID parentId, UserModel user)
 	{
 		super();
 		this.context = context;
@@ -35,7 +36,7 @@ public class ThreadController
 		 */
 		thread = null;
 		
-		threadView = new ThreadView(parentId);
+		threadView = new ThreadView(parentId, user);
 	}
 
 	/**

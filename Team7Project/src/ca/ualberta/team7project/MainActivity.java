@@ -46,7 +46,8 @@ public class MainActivity extends Activity implements IdentityListener
 		this.listController = new ThreadListController(this);
 		
 		//TODO: grab parentId from intent
-		this.threadController = new ThreadController(context, fragment, null);
+		this.threadController = new ThreadController(context, fragment, null,
+				userController.getUser().getUser());
 		
 	}
 
