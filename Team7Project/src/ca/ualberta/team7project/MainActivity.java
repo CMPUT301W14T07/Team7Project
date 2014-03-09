@@ -10,20 +10,25 @@ package ca.ualberta.team7project;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
+import ca.ualberta.team7project.controllers.ThreadController;
+import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
-import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
 {
 	private UserController userController;
-	private ListView lv;
-	private ThreadListModel topics;
+	private ThreadListController listController;
+	private ThreadController threadController;
+	
+	//private ListView lv;
+	//private ThreadListModel topics;
 	
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -42,7 +47,12 @@ public class MainActivity extends Activity implements IdentityListener
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 	
-		this.userController = new UserController(getApplicationContext(), getFragmentManager());
+		Context context = getApplicationContext();
+		FragmentManager fragment = getFragmentManager();
+		
+		this.userController = new UserController(context, fragment);
+		this.listController = new ThreadListController(context, fragment);
+		this.threadController = new ThreadController(context, fragment);
 		
 	}
 

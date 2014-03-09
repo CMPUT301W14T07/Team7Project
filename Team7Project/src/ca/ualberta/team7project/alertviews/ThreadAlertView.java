@@ -17,11 +17,6 @@ import ca.ualberta.team7project.controllers.ThreadController;
 
 public class ThreadAlertView extends DialogFragment
 {
-	/*
-	 * This view does not use XML files since much of the content is context
-	 * sensitive and depends on the models/controllers state.
-	 */
-	
 	private Boolean replying = true;
 	
 	public interface ThreadAlertListener
@@ -84,6 +79,7 @@ public class ThreadAlertView extends DialogFragment
 
 		builder.setCancelable(true);
 		builder.setNeutralButton(
+				/* This will be moved to xml layout when I find a nicer way of making the button */
 				ca.ualberta.team7project.R.string.insert_image,
 				new DialogInterface.OnClickListener()
 				{

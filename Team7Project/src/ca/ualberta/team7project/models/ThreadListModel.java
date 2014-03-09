@@ -1,3 +1,9 @@
+/**
+ * This class holds the list of ThreadModel objects
+ * <p>
+ * The list is used to populate the list view of threads in the application.
+ * 
+ */
 package ca.ualberta.team7project.models;
 
 import java.util.Collection;
@@ -6,22 +12,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * This class holds the list of topics
- * 
- */
 public class ThreadListModel
 {
 
 	private LinkedList<ThreadModel> topics;
-
 
 	/**
 	 * Construct new, empty list
 	 */
 	public ThreadListModel()
 	{
-
 		super();
 		topics = new LinkedList<ThreadModel>();
 	}
@@ -29,12 +29,10 @@ public class ThreadListModel
 	/**
 	 * Construct from existing list of topics
 	 * 
-	 * @param topics
-	 *            list of existing topics
+	 * @param topics list of existing topics
 	 */
 	public ThreadListModel(LinkedList<ThreadModel> topics)
 	{
-
 		super();
 		this.topics = topics;
 	}
@@ -50,8 +48,7 @@ public class ThreadListModel
 	 * method should not be called <i>directly</i> to update the topic after the
 	 * user writes a new comment
 	 * 
-	 * @param topic
-	 *            the topic to add or update from
+	 * @param topic the topic to add or update from
 	 */
 	public void UpdateTopic(ThreadModel topic)
 	{
@@ -64,7 +61,7 @@ public class ThreadListModel
 		{
 			if (t.getUniqueID() == topic.getUniqueID())
 			{
-				exists = true; // update the existing topic
+				exists = true;
 				topics.remove(t);
 				topics.add(topic);
 				break;
@@ -73,9 +70,25 @@ public class ThreadListModel
 
 		if (exists == false)
 		{
-			topics.add(topic); // add a new topic
+			topics.add(topic);
 		}
 	}
+	
+	public LinkedList<ThreadModel> getTopics()
+	{
+	
+		return topics;
+	}
+
+	
+	public void setTopics(LinkedList<ThreadModel> topics)
+	{
+	
+		this.topics = topics;
+	}	
+	
+	
+	/*Below methods are probably deprecated, but I will leave them for now */
 	
 	/**
 	 * Returns the list of ThreadModels in the associated with the variable comments in 
@@ -89,6 +102,7 @@ public class ThreadListModel
 	{
 		return Collections.unmodifiableList(this.topics);
 	}
+	
 	/**
 	 * Adds a collection of ThreadModels into the list wholesale; this might come
 	 * in handy for wholesale addition of ThreadModels
