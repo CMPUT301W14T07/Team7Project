@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
-	
+		
 		Context context = getApplicationContext();
 		FragmentManager fragment = getFragmentManager();
 		
