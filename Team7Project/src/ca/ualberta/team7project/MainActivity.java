@@ -7,11 +7,8 @@
  */
 package ca.ualberta.team7project;
 
-import java.util.UUID;
-
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;

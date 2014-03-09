@@ -26,12 +26,15 @@ public class ThreadModel {
 	private String comment = null;
 	private BitmapData bitmapData = null; // bitmap stored as base64-encoded
 											// byte array
+	private Date timestamp = null; // time of last change of any kind
+	private UUID uniqueID = null; // this is also the Elastic Search index
+	
+	private LinkedList<ThreadModel> comments = null;
+	
+	//this should be replaced by a UserModel containing only these 3 fields
 	private String authorName = null;
 	private String authorUnique = null;
-	private Date timestamp = null; // time of last change of any kind
 	private Location location = null;
-	private UUID uniqueID = null; // this is also the Elastic Search index
-	private LinkedList<ThreadModel> comments = null;
 	
 	//cases where ThreadModel will be constructed
 	
@@ -48,7 +51,7 @@ public class ThreadModel {
 	//[3]
 	//editing (new date, existing id)
 	
-	//we could make on constructor for each of these 3 cases
+	//we could make one constructor for each of these 3 cases
 	//	and expect null bitmaps and/or null title Strings
 	//or we could just make 9 constructors
 

@@ -28,13 +28,25 @@ import android.location.Location;
 
 public class UserModel implements Serializable
 {
-
+	//this is the usermodel we need
 	private String name;
 	private String uniqueName;
 	private Location currentLocation;
-	private ArrayList<ThreadModel> authoredComments;
+	
+	//this should be in a preference model
+	//it also seems like we are double-caching the favorites
+	//and this also makes updating the favorites threads from server kind of weird
+	//we should store a list of UUID's where the user favorited
+	//	and just rely on loading everything from disk on start
 	private ArrayList<ThreadModel> favoriteTopics;
+	
+	//probably not needed at all
+	private ArrayList<ThreadModel> authoredComments;
+	
+	//seems too hard to use
 	private ThreadModel lastViewedTopic;
+	
+	//is this the parent? probably not needed
 	private Integer topicPosition;
 
 	/**
