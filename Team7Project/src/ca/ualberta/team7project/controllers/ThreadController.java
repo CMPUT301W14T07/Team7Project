@@ -10,6 +10,8 @@ import java.util.UUID;
 import android.app.FragmentManager;
 import android.content.Context;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.UserModel;
+import ca.ualberta.team7project.network.TopicUpdater;
 import ca.ualberta.team7project.views.ThreadView;
 
 public class ThreadController
@@ -19,8 +21,10 @@ public class ThreadController
 	private FragmentManager fragment;
 	private ThreadModel thread;
 	private ThreadView threadView;
+	private UUID topmost; //null only if currently browsing topics (comments with no parents)
+	private TopicUpdater updater;
 	
-	public ThreadController(Context context, FragmentManager fragment, UUID parentId)
+	public ThreadController(Context context, FragmentManager fragment, UUID parentId, UserModel user, UUID topmost)
 	{
 		super();
 		this.context = context;
@@ -35,7 +39,11 @@ public class ThreadController
 		 */
 		thread = null;
 		
-		threadView = new ThreadView(parentId);
+		this.topmost = topmost;
+		
+		this.updater = new TopicUpdater(topmost);  
+		
+		threadView = new ThreadView(parentId, user, this.updater);
 	}
 
 	/**
