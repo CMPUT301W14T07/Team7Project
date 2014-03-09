@@ -43,7 +43,10 @@ public class ThreadListController extends Activity
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
-		//this.listModel.setTopics(threads);
+		
+		ThreadListModel newListModel = new ThreadListModel();
+		newListModel.setTopics(threads);
+		setListModel(newListModel);
 	}
 	
 	/**
