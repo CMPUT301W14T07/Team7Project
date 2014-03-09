@@ -55,9 +55,9 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 		ThreadModel tp = this.getItem(position);
 		
 		//if (tp != null) 
-		{
+		//{
 			//TextView tv = (TextView) view.findViewById(R.id.textView1);
-		}
+		//}
 		
 		
 		return view;

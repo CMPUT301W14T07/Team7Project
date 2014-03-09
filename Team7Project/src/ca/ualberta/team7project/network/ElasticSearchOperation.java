@@ -27,7 +27,8 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Class for posting ThreadModel to server
  * and pulling ThreadModel from server
- * Reference zjullion at
+ * <p>
+ * Reference zjullion at:<br>
  * https://github.com/zjullion/PicPosterComplete
  */
 public class ElasticSearchOperation
@@ -47,13 +48,14 @@ public class ElasticSearchOperation
 	/**
 	 * Sends a ThreadModel representing a Topic to the server
 	 * <p>
-	 * This call is currently synchronous (change if neccasary)
-	 * <p>
 	 * Uses an HttpPut request to create or update the document with index matching our uniqueID.
+	 * <p>
+	 * This call is currently synchronous (change if neccasary) 
 	 * <p>
 	 * Does nothing if the request fails.
 	 * 
-	 * @param model a ThreadModel to be json serialized and pushed to the server
+	 * @param model a ThreadModel <i>representing a full topic</i>
+	 * 		to be json serialized and pushed to the server
 	 */
 	public void pushThreadModel(final ThreadModel model)
 	{

@@ -9,7 +9,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
-import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.UserPersistence;
 import ca.ualberta.team7project.UserViewInterface;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
