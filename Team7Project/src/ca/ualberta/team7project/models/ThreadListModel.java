@@ -91,40 +91,6 @@ public class ThreadListModel
 	{
 		this.topics.add(thread);
 	}
-	
-	/*Below methods are probably deprecated, but I will leave them for now */
-	
-	/**
-	 * Returns the list of ThreadModels in the associated with the variable comments in 
-	 * ThreadModel; because of the method .unmodifiableList, have to return as a list, so 
-	 * will need to cast to a linked list down the road. Also, this is not performing
-	 * what is meant to be done, which I assume is to retrieve its children threads
-	 * @author emar
-	 * @return
-	 */	
-	public List<ThreadModel> getList() 
-	{
-		return Collections.unmodifiableList(this.topics);
-	}
-	
-	/**
-	 * Adds a collection of ThreadModels into the list wholesale; this might come
-	 * in handy for wholesale addition of ThreadModels
-	 * @author emar
-	 * @param topics
-	 */
-	public void addThreadCollection(Collection<ThreadModel> collection)
-	{
-		this.topics.addAll(collection);
-		
-		
-		//oh god am I doing this right?
-		//maybe wrong...
-		for (ThreadModel t : collection)
-		{
-			this.UpdateTopic(t);
-		}
-		
-	}
+
 }
 

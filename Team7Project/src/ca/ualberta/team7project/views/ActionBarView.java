@@ -13,7 +13,6 @@ import android.widget.Toast;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
-import ca.ualberta.team7project.controllers.ThreadController;
 
 public class ActionBarView extends Activity
 {

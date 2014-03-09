@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
 import ca.ualberta.team7project.UserPersistence;
-import ca.ualberta.team7project.models.UserModel;
 
 public class CreateIdentityAlertView extends DialogFragment
 {

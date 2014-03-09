@@ -12,18 +12,22 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ca.ualberta.team7project.controllers.ThreadListAdapter;
 import ca.ualberta.team7project.models.ThreadListModel;
 
 public class ThreadListView extends Activity
 {
 	private ThreadListModel listModel;
 	private static Activity activity;
+	private ListView list;
 	
 	public ThreadListView(ThreadListModel listModel, Activity activity)
 	{
 		super();
 		this.listModel = listModel;
 		ThreadListView.activity = activity;
+		
+		//populateList() uncomment when the ThreadListAdapter works.
 		
 		/* 
 		 * Just testing basic stuff right now for application crashes.
@@ -35,7 +39,7 @@ public class ThreadListView extends Activity
 		 */
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         
-        ListView list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
+        list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		        
         ArrayList<String> threads = new ArrayList<String>();
 
@@ -52,4 +56,20 @@ public class ThreadListView extends Activity
 		/* End test */
 	}
 
+	/**
+	 * Populate the listView with the contents of ThreadListModel
+	 * <p>
+	 * Called when we need to update a list with a new ThreadListModel or
+	 * upon the initialization of the class.
+	 * @see ThreadListAdapter.java
+	 */
+	public void populateList()
+	{
+        activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
+        list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
+        
+        ThreadListAdapter adapter = new ThreadListAdapter(activity, 
+        		ca.ualberta.team7project.R.layout.thread, listModel);
+
+	}
 }
