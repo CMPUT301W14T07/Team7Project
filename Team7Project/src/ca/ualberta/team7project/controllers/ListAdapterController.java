@@ -49,10 +49,7 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 		{
 			
 			TextView tv = (TextView) view.findViewById(R.id.comment_string);
-			if (tv != null)
-			{
-				tv.setText(tp.getComment());
-			}
+			tv.setText(tp.getComment());
 			
 			ImageView im = (ImageView) view.findViewById(R.id.picture);
 			if (im != null)
@@ -61,10 +58,13 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 			}
 			
 			TextView ts = (TextView) view.findViewById(R.id.timestamp);
-			if (ts != null)
-			{
-				ts.setText(tp.getTimestamp().toString());
-			}
+			ts.setText(tp.getTimestamp().toString());
+			
+			
+			TextView an = (TextView) view.findViewById(R.id.author);
+			an.setText(tp.getAuthorName());
+			
+			
 			
 			
 		}
