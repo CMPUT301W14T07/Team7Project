@@ -28,9 +28,6 @@ public class MainActivity extends Activity implements IdentityListener
 	private ThreadListController listController;
 	private ThreadController threadController;
 	
-	//private ListView lv;
-	//private ThreadListModel topics;
-	
 	/**
 	 * Creates the state of the application when the activity is initialized
 	 */
@@ -40,10 +37,6 @@ public class MainActivity extends Activity implements IdentityListener
 
 		super.onCreate(savedInstanceState);
 		setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
-
-		/* Below code does not compile and run in the emulator */
-		//lv = (ListView) findViewById(R.id.listView1);
-		//ListAdapterController adapter = new ListAdapterController(this, R.layout.activity_main, R.id.listView1, topics.getList());
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();

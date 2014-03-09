@@ -87,6 +87,10 @@ public class ThreadListModel
 		this.topics = topics;
 	}	
 	
+	public void addTopic(ThreadModel thread)
+	{
+		this.topics.add(thread);
+	}
 	
 	/*Below methods are probably deprecated, but I will leave them for now */
 	

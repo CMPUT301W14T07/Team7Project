@@ -16,25 +16,56 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 	{
 		super(MainActivity.class);
 	}
+	
+	public void testInsertThread()
+	{
+		UserModel user = new UserModel("Ash Ketchum");
+		ThreadListModel threadsList = new ThreadListModel();
+		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
+		threadsList.addTopic(thread);
+		
+		LinkedList threads = threadsList.getTopics();
+		
+		assertTrue("LinkedList of thread should contain a thread", threads.contains(thread));
+	}
+	
+	public void testInsertionOrder()
+	{
+		UserModel user = new UserModel("Ash Ketchum");
+		ThreadListModel threadsList = new ThreadListModel();
+		
+		ThreadModel threadFirst = new ThreadModel("Obtained bicycle!", user, null);
+		ThreadModel threadLast = new ThreadModel("Obtained Helix Fossil!", user, null);
+		
+		threadsList.addTopic(threadFirst);
+		threadsList.addTopic(threadLast);
 
-	// Why is this failing?
-	public void testAlternateConstructor()
+		LinkedList threads = threadsList.getTopics();
+		
+		assertEquals("Last inserted topic in place", threads.getLast(), threadLast);
+	}
+	
+	public void testSetTopic()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
 		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
 		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, null);
-		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo", user, null);
 		
 		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
-		threads.add(threadTwo);
 
-		ThreadListModel threadsList = new ThreadListModel(threads);
-		ThreadListModel threadsListTwo = new ThreadListModel();
+		ThreadListModel threadList = new ThreadListModel(threads);
+		threadList.setTopics(threads);
 		
-		threadsListTwo.setTopics(threads);
-
-		assertEquals("The models should be the same", threadsList, threadsListTwo);
+		assertEquals("Topics has been properly set", threadList.getTopics(), threads);
+		
+		/* Now lets test setTopic for the alternate constructor */
+		ThreadListModel threadListTwo = new ThreadListModel();
+		threadListTwo.setTopics(threads);
+		
+		assertEquals("Topics for aleternate constructor properly set", threadListTwo.getTopics(),
+				threads);
 	}
+
 }

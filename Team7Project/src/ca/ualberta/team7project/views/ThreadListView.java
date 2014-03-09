@@ -10,8 +10,6 @@ package ca.ualberta.team7project.views;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ca.ualberta.team7project.models.ThreadListModel;
@@ -27,7 +25,14 @@ public class ThreadListView extends Activity
 		this.listModel = listModel;
 		ThreadListView.activity = activity;
 		
-		/* Just testing the list right now */
+		/* 
+		 * Just testing basic stuff right now for application crashes.
+		 * 
+		 * However, instead of this block of code, we would call a method that populates the 
+		 * list based off the model data.
+		 * 
+		 * So...Need to write use the custom adapter that has been written.
+		 */
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         
         ListView list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
