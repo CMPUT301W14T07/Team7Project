@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.models.ThreadModel;
 
 public class ListAdapterController extends ArrayAdapter<ThreadModel>
@@ -28,18 +30,6 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 		super(c, resource, resourceId, topics);
 	}
 
-	@Override
-	public int getCount()
-	{
-		return this.getCount();
-	}
-
-	@Override
-	public ThreadModel getItem(int arg0)
-	{
-		return this.getItem(arg0);
-	}
-
 
 	@Override
 	public View getView(int position, View view, ViewGroup parent)
@@ -49,15 +39,35 @@ public class ListAdapterController extends ArrayAdapter<ThreadModel>
 		if (view == null) 
 		{
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
-			//view = inflater.inflate(R.layout.single_row, null);
+			view = inflater.inflate(R.layout.single_row, null);
 		}
 		
 		ThreadModel tp = this.getItem(position);
 		
-		//if (tp != null) 
+		if (tp != null) 
 		{
-			//TextView tv = (TextView) view.findViewById(R.id.textView1);
+			
+			TextView tv = (TextView) view.findViewById(R.id.comment_string);
+			if (tv != null)
+			{
+				tv.setText(tp.getComment());
+			}
+			
+			ImageView im = (ImageView) view.findViewById(R.id.picture);
+			if (im != null)
+			{
+				im.setImageBitmap(tp.getImage());
+			}
+			
+			TextView ts = (TextView) view.findViewById(R.id.timestamp);
+			if (ts != null)
+			{
+				ts.setText(tp.getTimestamp().toString());
+			}
+			
+			
 		}
+		
 		
 		
 		return view;
