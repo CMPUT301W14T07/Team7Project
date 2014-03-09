@@ -7,17 +7,18 @@ import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 public class ThreadView implements ThreadAlertListener
 {
 
-	
+	/*
+	 * Listeners for clicks we be here. To be implemented.
+	 */
 	
 	/**
 	 * Called when the user has completed the ThreadAlertView dialog
 	 * @see ThreadAlertView.java
-	 * @param dialog associated with the thread prompt
 	 * @param title associated with the new topic or comment
 	 * @param comment associated with the new topic or comment
 	 */
 	@Override
-	public void createThread(DialogFragment dialog, String title, String comment)
+	public void createThread(String title, String comment)
 	{
 
 		// TODO Auto-generated method stub

@@ -21,7 +21,7 @@ public class ThreadAlertView extends DialogFragment
 	
 	public interface ThreadAlertListener
 	{
-		public void createThread(DialogFragment dialog, String title, String comment);
+		public void createThread(String title, String comment);
 		public void insertImage(DialogFragment dialog);
 	}
 
