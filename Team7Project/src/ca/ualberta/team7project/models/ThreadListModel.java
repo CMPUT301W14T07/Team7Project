@@ -102,7 +102,9 @@ public class ThreadListModel
 	{
 		this.topics.addAll(collection);
 		
+		
 		//oh god am I doing this right?
+		//maybe wrong...
 		for (ThreadModel t : collection)
 		{
 			this.UpdateTopic(t);
