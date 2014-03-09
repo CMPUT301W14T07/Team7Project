@@ -2,32 +2,29 @@ package ca.ualberta.team7project.controllers;
 
 import java.util.LinkedList;
 
-import android.app.FragmentManager;
-import android.content.Context;
+import android.app.Activity;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
-public class ThreadListController
+public class ThreadListController extends Activity
 {
 
-	private Context context;
-	private FragmentManager fragment;
 	private ThreadListModel listModel;
 	private ThreadListView listView;
+	private static Activity activity;
 	
-	public ThreadListController(Context context, FragmentManager fragment){
+	public ThreadListController(Activity activity){
 		
-		this.context = context;
-		this.fragment = fragment;
+		ThreadListController.activity = activity;
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate(); //temporary debug populate
 
-		this.listModel = new ThreadListModel();		
-		//this.listView = new ThreadListView(this.listModel);
+		this.listModel = new ThreadListModel();
+		this.listView = new ThreadListView(this.listModel, activity);
 
 	}
 	
@@ -46,7 +43,6 @@ public class ThreadListController
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
-		//setListModel(threads);
 		//this.listModel.setTopics(threads);
 	}
 	
@@ -72,6 +68,33 @@ public class ThreadListController
 	{
 	
 		this.listModel = threads;
+	}
+	
+	public ThreadListView getListView()
+	{
+	
+		return listView;
+	}
+
+	
+	public void setListView(ThreadListView listView)
+	{
+	
+		this.listView = listView;
+	}
+
+	
+	public Activity getActivity()
+	{
+	
+		return activity;
+	}
+
+	
+	public void setActivity(Activity activity)
+	{
+	
+		this.activity = activity;
 	}
 	
 }

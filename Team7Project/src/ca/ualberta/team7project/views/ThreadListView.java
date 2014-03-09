@@ -7,40 +7,28 @@
  */
 package ca.ualberta.team7project.views;
 
-import android.app.ListActivity;
-import android.os.Bundle;
+import android.app.Activity;
+import android.view.View;
+import android.widget.TextView;
 import ca.ualberta.team7project.models.ThreadListModel;
 
-public class ThreadListView extends ListActivity
+public class ThreadListView
 {
-
 	private ThreadListModel listModel;
-
-	public ThreadListView(ThreadListModel listModel)
+	private static Activity activity;
+	
+	public ThreadListView(ThreadListModel listModel, Activity activity)
 	{
+		super();
 		this.listModel = listModel;
+		ThreadListView.activity = activity;
+		
+		TextView textView = (TextView)activity.findViewById(ca.ualberta.team7project.R.id.textView1);
+		textView.setText("hello");
+
+		//View v = activity.findViewById (ca.ualberta.team7project.R.layout.activity_main);
+		//v.invalidate();
 	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		
-		/* Call the custom list adapter */
-		
-		/*
-		 * String[] values = new String[] { "a", "b", "c", "d", "e", "f", "g",
-		 * "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-		 * "w", "x", "y", "z" };
-		 * 
-		 * ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-		 * android.R.layout.simple_list_item_single_choice, values);
-		 * setListAdapter(adapter);
-		 * getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		 */
-		
-	}
-	
-	
+
 	
 }

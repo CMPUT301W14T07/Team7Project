@@ -23,4 +23,37 @@ public class ThreadListAdapter extends ArrayAdapter<ThreadModel>
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	public View getView(int position, View view, ViewGroup parent)
+	{
+
+		if (view == null)
+		{
+			LayoutInflater inflater = LayoutInflater.from(this.getContext());
+			view = inflater.inflate(R.layout.single_row, null);
+		}
+
+		ThreadModel tp = this.getItem(position);
+
+		if (tp != null)
+		{
+
+			TextView tv = (TextView) view.findViewById(R.id.comment_string);
+			tv.setText(tp.getComment());
+
+			ImageView im = (ImageView) view.findViewById(R.id.picture);
+			if (im != null)
+			{
+				im.setImageBitmap(tp.getImage());
+			}
+
+			TextView ts = (TextView) view.findViewById(R.id.timestamp);
+			ts.setText(tp.getTimestamp().toString());
+
+			TextView an = (TextView) view.findViewById(R.id.author);
+			an.setText(tp.getAuthorName());
+
+		}
+		return view;
+	}
 }

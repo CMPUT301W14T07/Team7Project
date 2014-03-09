@@ -15,6 +15,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.ThreadController;
 import ca.ualberta.team7project.controllers.ThreadListController;
@@ -38,7 +39,7 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(ca.ualberta.team7project.R.layout.activity_main);
 
 		/* Below code does not compile and run in the emulator */
 		//lv = (ListView) findViewById(R.id.listView1);
@@ -51,7 +52,7 @@ public class MainActivity extends Activity implements IdentityListener
 		FragmentManager fragment = getFragmentManager();
 		
 		this.userController = new UserController(context, fragment);
-		this.listController = new ThreadListController(context, fragment);
+		this.listController = new ThreadListController(this);
 		this.threadController = new ThreadController(context, fragment);
 		
 	}
