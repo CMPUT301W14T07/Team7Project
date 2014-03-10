@@ -33,6 +33,8 @@ public class ThreadController
 	 * The only ThreadModel we care about is the one the user is interacting with. IE: the one they are replying to, caching etc.
 	 * 
 	 * I also don't see why we need to pass in a UserModel. Get it from the controller if it is needed at all.
+	 * 
+	 * Recommend reverting to a constructor of (Context context).
 	 */
 	
 	public ThreadController(Context context, FragmentManager fragment, UUID parentId, UserModel user, UUID topmost)

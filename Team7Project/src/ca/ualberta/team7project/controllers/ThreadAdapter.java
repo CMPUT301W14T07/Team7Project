@@ -39,20 +39,31 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 
         View rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
 
-        TextView textView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTitle);
+        TextView titleView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTitle);
         String title = getItem(position).getTitle();
+        
+        TextView bodyView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadBody);
+        String body = getItem(position).getComment();
         
         /* Ensure the title is not null before setting it in the layout */
         if(title != null)
         {
-            textView.setText(title);
+            titleView.setText(title);
         }
         else
         {
-        	textView.setText("");
+        	titleView.setText("");
         }
         
-        /* Set comment body */
+        /* Set comment body. Body should never be null, so this is just a precaution */
+        if(body != null)
+        {
+        	bodyView.setText(body);
+        }
+        else
+        {
+        	bodyView.setText("");
+        }
         
         /* Set picture */
         
