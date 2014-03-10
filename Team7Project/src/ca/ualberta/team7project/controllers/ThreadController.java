@@ -24,18 +24,27 @@ public class ThreadController
 	private UUID topmost; //null only if currently browsing topics (comments with no parents)
 	private TopicUpdater updater;
 	
+	/*
+	 * Notes (@michael):
+	 * 
+	 * I don't think UUID topmost is necessary. ThreadModel contains all necessary information within itself to determine if 
+	 * a comment is topmost or not. ThreadListView onclick listeners can set the ThreadModel in this class.
+	 * 
+	 * The only ThreadModel we care about is the one the user is interacting with. IE: the one they are replying to, caching etc.
+	 * 
+	 * I also don't see why we need to pass in a UserModel. Get it from the controller if it is needed at all.
+	 */
+	
 	public ThreadController(Context context, FragmentManager fragment, UUID parentId, UserModel user, UUID topmost)
 	{
 		super();
 		this.context = context;
-		this.fragment = fragment;
 		this.parentId = parentId;
 	
 		/* Create the view and set the models here */
 		/*
 		 * TODO:
-		 * For now just setting thread = null. However, once threadpersistence works, need to set currently viewed
-		 * thread in this constructor. Or if new application start, set the home screen for threads.
+		 * For now just setting thread = null.
 		 */
 		thread = null;
 		
