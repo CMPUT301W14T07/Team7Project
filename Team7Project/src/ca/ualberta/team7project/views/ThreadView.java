@@ -2,6 +2,8 @@ package ca.ualberta.team7project.views;
 
 import java.util.UUID;
 
+import android.app.Activity;
+
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -9,7 +11,7 @@ import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.TopicUpdater;
 
 
-public class ThreadView implements ThreadAlertListener
+public class ThreadView extends Activity implements ThreadAlertListener
 {
 	final private UUID parentId;
 	private UserModel user;
