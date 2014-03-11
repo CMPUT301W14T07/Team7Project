@@ -75,7 +75,6 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
     @Override
     public int getCount()
     {
-    	Log.e("debug", Integer.toString(threads.size()));
         return threads.size();
     }
     
