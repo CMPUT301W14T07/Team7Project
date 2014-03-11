@@ -1,6 +1,7 @@
 package ca.ualberta.team7project.controllers;
 
 import java.util.LinkedList;
+
 import android.app.Activity;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -18,7 +19,7 @@ public class ThreadListController extends Activity
 	public ThreadListController(Activity activity){
 		
 		ThreadListController.activity = activity;
-		
+				
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate();
 		

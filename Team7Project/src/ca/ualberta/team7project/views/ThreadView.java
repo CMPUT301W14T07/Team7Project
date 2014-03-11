@@ -3,19 +3,23 @@ package ca.ualberta.team7project.views;
 import java.util.UUID;
 
 import android.app.Activity;
-
+import android.util.Log;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
+import ca.ualberta.team7project.interfaces.ThreadListener;
+import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.network.TopicUpdater;
 
 
-public class ThreadView extends Activity implements ThreadAlertListener
+public class ThreadView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	final private UUID parentId;
 	private TopicUpdater updater;
 
 	/*
-	 * Listeners for clicks we be here. To be implemented.
+	 * Notes on the difference in listeners (~michael)
+	 * ThreadAlertsListener listens for the creation of new ThreadModels from ThreadAlertView
+	 * ThreadListener listens for button clicks on ThreadModel in ThreadAdapter
 	 */
 	
 	public ThreadView(UUID parentId, TopicUpdater updater)
@@ -62,6 +66,30 @@ public class ThreadView extends Activity implements ThreadAlertListener
 	 */
 	@Override
 	public void insertImage()
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFavoriteClick(ThreadModel thread)
+	{
+		Log.e("debug", "listeners worked!");
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReplyClick(ThreadModel thread)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCacheClick(ThreadModel thread)
 	{
 
 		// TODO Auto-generated method stub

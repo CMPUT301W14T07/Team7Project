@@ -18,6 +18,7 @@ import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListe
 import ca.ualberta.team7project.controllers.ThreadController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
+import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
@@ -25,6 +26,7 @@ public class MainActivity extends Activity implements IdentityListener
 	private UserController userController;
 	private ThreadListController listController;
 	private ThreadController threadController;
+	public ThreadListener threadListener; // Temporary until a workaround is found that allows casting in ThreadListController
 	
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -41,7 +43,7 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		Context context = getApplicationContext();
 		FragmentManager fragment = getFragmentManager();
-		
+				
 		this.userController = new UserController(context, fragment);
 		this.listController = new ThreadListController(this);
 		
