@@ -23,7 +23,6 @@ public class CreateIdentityAlertView extends DialogFragment
 
 	public interface IdentityListener
 	{
-
 		public void onIdentityPositiveCLick(String userName);
 	}
 

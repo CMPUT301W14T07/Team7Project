@@ -10,12 +10,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 import ca.ualberta.team7project.UserPersistence;
-import ca.ualberta.team7project.UserViewInterface;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.models.PreferenceModel;
-import ca.ualberta.team7project.models.UserModel;
 
-public class UserController implements UserViewInterface
+public class UserController implements UserListener
 {
 	private Context context;
 	private FragmentManager fragment;
