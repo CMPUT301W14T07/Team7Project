@@ -94,12 +94,4 @@ public class ThreadModelTests extends
 		assertFalse("Thread ID is unique", threadOne.getUniqueID().equals(threadTwo.getUniqueID()));	
 	}
 	
-	/*
-	 * Tests the ability to store a thread as a JSON object
-	 */
-	public void testThreadJSON() 
-	{
-		// TODO
-	}
-	
 }

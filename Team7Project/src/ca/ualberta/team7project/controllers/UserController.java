@@ -9,24 +9,24 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
-import ca.ualberta.team7project.UserPersistence;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.models.PreferenceModel;
+import ca.ualberta.team7project.models.UserPersistenceModel;
 
 public class UserController implements UserListener
 {
 	private Context context;
 	private FragmentManager fragment;
 	private PreferenceModel user;
-	private UserPersistence persistence;
+	private UserPersistenceModel persistence;
 	
 	public UserController(Context context, FragmentManager fragment)
 	{
 		super();
 		this.context = context;
 		this.fragment = fragment;
-		this.persistence = new UserPersistence(context);
+		this.persistence = new UserPersistenceModel(context);
 		
 		/*
 		 * Set the user in the controller. 
@@ -44,7 +44,7 @@ public class UserController implements UserListener
 	{
 		PreferenceModel newUser = new PreferenceModel(userName);
 
-		UserPersistence persistence = new UserPersistence(
+		UserPersistenceModel persistence = new UserPersistenceModel(
 				this.context);
 		persistence.serializeUser(newUser);
 		setUser(newUser);
@@ -153,14 +153,14 @@ public class UserController implements UserListener
 		updateViews(user);
 	}
 	
-	public UserPersistence getPersistence()
+	public UserPersistenceModel getPersistence()
 	{
 	
 		return persistence;
 	}
 
 	
-	public void setPersistence(UserPersistence persistence)
+	public void setPersistence(UserPersistenceModel persistence)
 	{
 	
 		this.persistence = persistence;
