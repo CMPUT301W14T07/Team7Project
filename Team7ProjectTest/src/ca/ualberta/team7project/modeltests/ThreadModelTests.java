@@ -60,7 +60,7 @@ public class ThreadModelTests extends
 		}
 		
 		thread.setTitle("Check this out!");
-		assertFalse("Date was updated", date.equals(thread.getTimestamp()));
+		assertFalse("Date was updated on thread insertion", date.equals(thread.getTimestamp()));
 	}
 	
 	/*
@@ -92,14 +92,6 @@ public class ThreadModelTests extends
 		/* Even though threads have the same properties, the id should be unique */
 		
 		assertFalse("Thread ID is unique", threadOne.getUniqueID().equals(threadTwo.getUniqueID()));	
-	}
-	
-	/*
-	 * Tests the ability to store a thread as a JSON object
-	 */
-	public void testThreadJSON() 
-	{
-		// TODO
 	}
 	
 }

@@ -68,6 +68,7 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 				threads);
 	}
 	
+	/* The model should be able to return an thread based off index position */
 	public void testIndexRetrieve()
 	{
 		UserModel user = new UserModel("Ash Ketchum");

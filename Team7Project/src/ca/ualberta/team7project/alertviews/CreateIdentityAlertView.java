@@ -14,7 +14,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
-import ca.ualberta.team7project.UserPersistence;
+import ca.ualberta.team7project.models.UserPersistenceModel;
 
 public class CreateIdentityAlertView extends DialogFragment
 {
@@ -87,7 +87,7 @@ public class CreateIdentityAlertView extends DialogFragment
 		 * Only show a cancel button if there is a user already
 		 * existing on the phone.
 		 */
-		UserPersistence persistence = new UserPersistence(context);
+		UserPersistenceModel persistence = new UserPersistenceModel(context);
 		
 		if (persistence.getLastOpenUser() != null)
 		{
