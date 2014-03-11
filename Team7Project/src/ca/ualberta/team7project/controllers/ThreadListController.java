@@ -32,9 +32,15 @@ public class ThreadListController extends Activity
 	public void debugPopulate()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel thread = new ThreadModel("Caught Snorelax", user, "Pokedex one");
-		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, "Pokedex two");
-		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo", user, "Pokedex three");
+		ThreadModel thread = new ThreadModel("Caught Snorelax. Anyone else tired of pokemon examples?" +
+				" I sure am. Guess ill start using movie references. Is elastic search pull working so I don't have " +
+				"to do this anymore?", user, "Pokedex one");
+		ThreadModel threadOne = new ThreadModel("Caught Charmander. Lots and lots of text. WOOOOOOT. " +
+				"MORE TEXT. Stop writing already.", user, "Pokedex two");
+		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo. Keep adding text to see how the layout is " +
+				"working. Is it working well? The buttons look ugly. Oh well, ill change them later. " +
+				"They are just here so that ppl can start working on click listeners. Internal monologues are great.", user, 
+				"Pokedex three");
 		
 		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 		threads.add(thread);
