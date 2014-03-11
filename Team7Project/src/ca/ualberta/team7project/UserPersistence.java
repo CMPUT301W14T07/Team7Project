@@ -15,7 +15,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import ca.ualberta.team7project.models.PreferenceModel;
-import ca.ualberta.team7project.models.UserModel;
 
 public class UserPersistence extends Activity
 {

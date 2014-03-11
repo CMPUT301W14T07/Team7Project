@@ -60,7 +60,7 @@ public class ThreadModelTests extends
 		}
 		
 		thread.setTitle("Check this out!");
-		assertFalse("Date was updated", date.equals(thread.getTimestamp()));
+		assertFalse("Date was updated on thread insertion", date.equals(thread.getTimestamp()));
 	}
 	
 	/*

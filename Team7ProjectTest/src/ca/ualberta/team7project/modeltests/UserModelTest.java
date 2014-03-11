@@ -10,9 +10,9 @@
 
 package ca.ualberta.team7project.modeltests;
 
+import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.UserModel;
-import android.test.ActivityInstrumentationTestCase2;
 
 public class UserModelTest extends
 		ActivityInstrumentationTestCase2<MainActivity>
@@ -20,7 +20,6 @@ public class UserModelTest extends
 
 	public UserModelTest()
 	{
-
 		super(MainActivity.class);
 	}
 
@@ -37,6 +36,18 @@ public class UserModelTest extends
 				userOne.getUniqueName().equals(userTwo.getUniqueName()));
 	}
 
+	/**
+	 * Ensure that basic properties of UserModel are set
+	 */
+	public void testPrimitiveAttributes()
+	{
+		UserModel user = new UserModel("Jerry Maguire");
+		
+		assertNotNull("User is not null", user);
+		assertEquals("User's name is properly set", "Jerry Maguire", user.getName());
+		assertNotNull("User has a unique name", user.getUniqueName());
+	}
+	
 	/**
 	 * Ensure that the location is correct
 	 */
