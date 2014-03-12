@@ -20,16 +20,14 @@ public class ActionBarView extends Activity
 	private MenuItem item;
 	private FragmentManager fragment;
 	private Context context;
-	private Context mainactivity; //help me Lord
+	private Context mainactivity;
 
 	/**
-	 * Required constructor.
-	 * <p>
-	 * Sets the MenuItem, which is the button that was clicked on the action
-	 * bar.
-	 * 
-	 * @param item
-	 *            The ID associated with the action bar item.
+	 * Construction ActionBarView which handles button clicks and calls the appropriate controllers.
+	 * @param item The ID associated with the action bar item.
+	 * @param fragment from the MainActivity
+	 * @param context from the the MainActivity
+	 * @param 
 	 */
 	public ActionBarView(MenuItem item, FragmentManager fragment, Context context, Context mainactivity)
 	{
@@ -120,8 +118,8 @@ public class ActionBarView extends Activity
 	 */
 	private void createTopic()
 	{
-		ThreadView tv = ((ca.ualberta.team7project.MainActivity)mainactivity).getThreadController().getThreadView();
-		ThreadAlertView threadAlert = new ThreadAlertView(tv);
+		ThreadView threadView = ((ca.ualberta.team7project.MainActivity)mainactivity).getThreadController().getThreadView();
+		ThreadAlertView threadAlert = new ThreadAlertView(threadView);
 		threadAlert.show(fragment, "New Thread Alert");
 	}
 
@@ -130,17 +128,6 @@ public class ActionBarView extends Activity
 	 */
 	private void refreshView()
 	{
-		// TODO refresh view
-		//Call refresh in controller and get success or fail boolean.
-		//Then display appropriate toast.
-		// Commented out until the code is complete...
-/*		if(ThreadController.refreshThreads() == true){
-			Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh, Toast.LENGTH_SHORT).show();
-		}
-		else{
-			Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
-		}*/
-		
 		// Just a temporary debug toast. REMOVE ONCE ABOVE COMPLETE	
 		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
 	}
