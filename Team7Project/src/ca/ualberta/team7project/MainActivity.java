@@ -43,12 +43,9 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		Context context = getApplicationContext();
 		FragmentManager fragment = getFragmentManager();
-				
+						
 		this.userController = new UserController(context, fragment);
 		this.listController = new ThreadListController(this);
-		
-		//TODO: grab parentId from intent
-		//TODO: grab topmost ID from intent
 		this.threadController = new ThreadController(context, null, null);
 		
 	}
