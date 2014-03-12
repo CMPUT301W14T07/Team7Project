@@ -7,13 +7,14 @@ package ca.ualberta.team7project.alertviews;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import ca.ualberta.team7project.controllers.ThreadController;
+import ca.ualberta.team7project.MainActivity;
 
 
 public class ThreadAlertView extends DialogFragment
@@ -28,15 +29,15 @@ public class ThreadAlertView extends DialogFragment
 
 	ThreadAlertListener listener;
 		
-	public ThreadAlertView(ThreadAlertListener listener)
+	public ThreadAlertView()
 	{
 		super();
-		this.listener = listener;
+		Context mainContext = MainActivity.getMainContext();
+
+		this.listener = ((ca.ualberta.team7project.MainActivity)mainContext).getListController().getListView();
+
 	}
 
-	/*
-	 * The context sensitive builder for ThreadAlertView
-	 */
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
@@ -49,7 +50,7 @@ public class ThreadAlertView extends DialogFragment
 		 */
 
 		/* We need to determine which attributes the AlertDialoig will contain */
-		this.replying = ThreadController.inTopic();
+		//this.replying = ThreadController.inTopic();
 
 		/* Create the builder, inflate the layout and set the view to the appropriate xml file */
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
-import ca.ualberta.team7project.controllers.ThreadController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.views.ActionBarView;
@@ -24,7 +23,9 @@ public class MainActivity extends Activity implements IdentityListener
 {
 	private UserController userController;
 	private ThreadListController listController;
-	private ThreadController threadController;
+	
+	/* mainContext is necessary for casting to all listeners */
+	private static Context mainContext;
 	
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -38,13 +39,13 @@ public class MainActivity extends Activity implements IdentityListener
 				
 		Context context = getApplicationContext();
 		FragmentManager fragment = getFragmentManager();
+		mainContext = this;
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
 		this.userController = new UserController(context, fragment);
 		this.listController = new ThreadListController(this);
-		this.threadController = new ThreadController(context, null, null);
 		
 	}
 
@@ -107,13 +108,6 @@ public class MainActivity extends Activity implements IdentityListener
 	}
 
 	
-	public ThreadController getThreadController()
-	{
-	
-		return threadController;
-	}
-
-	
 	public ThreadListController getListController()
 	{
 	
@@ -127,5 +121,22 @@ public class MainActivity extends Activity implements IdentityListener
 		this.listController = listController;
 	}
 
+	public static Context getMainContext()
+	{
+	
+		return mainContext;
+	}
 
+	public void setMainContext(Context mainContext)
+	{
+	
+		MainActivity.mainContext = mainContext;
+	}
+
+	
+	public void setUserController(UserController userController)
+	{
+	
+		this.userController = userController;
+	}
 }
