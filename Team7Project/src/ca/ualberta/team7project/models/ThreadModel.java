@@ -28,9 +28,9 @@ public class ThreadModel
 											// byte array
 	private Date timestamp = null; // time of last change of any kind
 	private UUID uniqueID = null; // this is also the Elastic Search index
-
-	private LinkedList<ThreadModel> comments = null;
-
+	
+	private UUID parentUUID = null;
+	private UUID topicUUID = null;
 	private UserModel user;
 
 	/**
@@ -46,7 +46,7 @@ public class ThreadModel
 	 * @param location
 	 *            the thread was written at
 	 */
-	public ThreadModel(String comment, Bitmap image, UserModel user)
+	public ThreadModel(String comment, Bitmap image, UserModel user, UUID parentUUID, UUID topicUUID)
 	{
 		super();
 		this.comment = comment;
@@ -59,7 +59,24 @@ public class ThreadModel
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 		
-		this.comments = new LinkedList<ThreadModel>();
+		this.parentUUID = parentUUID;
+		this.topicUUID = parentUUID;
+	}
+
+	public UUID getParentUUID() {
+		return parentUUID;
+	}
+
+	public void setParentUUID(UUID parentUUID) {
+		this.parentUUID = parentUUID;
+	}
+
+	public UUID getTopicUUID() {
+		return topicUUID;
+	}
+
+	public void setTopicUUID(UUID topicUUID) {
+		this.topicUUID = topicUUID;
 	}
 
 	/**
@@ -85,8 +102,8 @@ public class ThreadModel
 		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
-		
-		this.comments = new LinkedList<ThreadModel>();
+		this.parentUUID = parentUUID;
+		this.topicUUID = parentUUID;
 	}
 
 	/**
@@ -118,7 +135,6 @@ public class ThreadModel
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 		
-		this.comments = new LinkedList<ThreadModel>();
 	}
 
 	/**
@@ -147,7 +163,6 @@ public class ThreadModel
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 		
-		this.comments = new LinkedList<ThreadModel>();
 	}
 
 	public boolean isTopic()
@@ -252,22 +267,6 @@ public class ThreadModel
 		// not updating timestamp on purpose
 	}
 
-	public LinkedList<ThreadModel> getComments()
-	{
-
-		return comments;
-	}
-
-	public void addComment(ThreadModel comment)
-	{
-
-		this.comments.add(comment);
-		this.timestamp = new Date(); // this command overwrites the top level
-										// comment's timestamp, need to create a
-										// new variable for it
-
-	}
-
 	public String getTitle()
 	{
 
@@ -281,15 +280,6 @@ public class ThreadModel
 		this.timestamp = new Date();
 	}
 
-	public ThreadModel getLastComment()
-	{
-		return comments.getLast();
-	}
-	
-	public ThreadModel getFirstComment()
-	{
-		return comments.getFirst();
-	}
 	
 	/**
 	 * Class that stores a bitmap in json serializable form (a base64 encoded
