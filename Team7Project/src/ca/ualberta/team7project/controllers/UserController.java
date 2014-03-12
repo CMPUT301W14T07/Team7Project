@@ -8,17 +8,18 @@ package ca.ualberta.team7project.controllers;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
-import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
-import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
+import ca.ualberta.team7project.views.UserView;
 
-public class UserController implements UserListener
+public class UserController
 {
 	private Context context;
 	private FragmentManager fragment;
+	
 	private PreferenceModel user;
+	private UserView userView;
+	
 	private UserPersistenceModel persistence;
 	
 	public UserController(Context context, FragmentManager fragment)
@@ -26,35 +27,29 @@ public class UserController implements UserListener
 		super();
 		this.context = context;
 		this.fragment = fragment;
+		
+		this.setUserView(new UserView(this.context, this.fragment));
 		this.persistence = new UserPersistenceModel(context);
 		
-		/*
-		 * Set the user in the controller. 
-		 * We must first check if a user exists in the filesystem.
-		 */
+		/* Set the user by retrieving from file system, or creating a new user */
 		setUserInitialRun();
 	}
 	
 	/**
-	 * Creates a new UserModel
-	 * <p>
-	 * Typically called after an onDialogPositiveClick() from CreateIdentityAlertView()
+	 * Creates a new PreferenceModel, saves the model to the file system and updates the appropriate views.
 	 */
 	public void createNewUser(String userName)
 	{
 		PreferenceModel newUser = new PreferenceModel(userName);
 
-		UserPersistenceModel persistence = new UserPersistenceModel(
-				this.context);
+		UserPersistenceModel persistence = new UserPersistenceModel(this.context);
 		persistence.serializeUser(newUser);
 		setUser(newUser);
 		
 	}
 	
 	/**
-	 * A helper method for the constructor.
-	 * <p>
-	 * Determines if a user exists in the filesystem before setting the user.
+	 * Sets the open user by checking if one exists on the file system, or creating a new user.
 	 */
 	public void setUserInitialRun()
 	{
@@ -62,18 +57,15 @@ public class UserController implements UserListener
 
 		if (firstRun() == true)
 		{
-			promptIdentityAlertView();			
+			userView.promptIdentityAlertView();			
 		} else
 		{
 			newUser = deserializeUser();
 			
-			/*
-			 * However, if serialization fails, prompt new user dialog and then
-			 * create new user
-			 */
+			/* If serialization fails, create a new user. */
 			if (newUser == null)
 			{
-				promptIdentityAlertView();				
+				userView.promptIdentityAlertView();				
 			} else
 			{
 				setUser(newUser);
@@ -88,6 +80,11 @@ public class UserController implements UserListener
 		return persistence.deserializeUser();
 	}
 
+	
+	/* The following two methods should be moved to a persistence class or the main activity 
+	 * Low on the TODO list right now.
+	 * */
+	
 	/**
 	 * A simple check to determine if the application has ever been run on this
 	 * phone.
@@ -123,82 +120,53 @@ public class UserController implements UserListener
 	
 	public Context getContext()
 	{
-	
 		return context;
 	}
 
-	/**
-	 * Sets the context
-	 * <p>
-	 * This should always be set before using anything in the controller!
-	 * @param context Current application context from an Activity.
-	 */
 	public void setContext(Context context)
 	{
-	
 		this.context = context;
 	}
 
-	
 	public PreferenceModel getUser()
 	{
-	
 		return user;
 	}
 
-	
 	public void setUser(PreferenceModel user)
 	{
 		this.user = user;
-		updateViews(user);
+		userView.updateViews(user);
 	}
 	
 	public UserPersistenceModel getPersistence()
 	{
-	
 		return persistence;
 	}
 
-	
 	public void setPersistence(UserPersistenceModel persistence)
 	{
-	
 		this.persistence = persistence;
 	}
-
 	
 	public FragmentManager getFragment()
 	{
-	
 		return fragment;
 	}
 
-	
 	public void setFragment(FragmentManager fragment)
 	{
-	
 		this.fragment = fragment;
 	}
 
-	@Override
-	public void updateViews(PreferenceModel user)
+	public UserView getUserView()
 	{
-		toastUser();
+		return userView;
 	}
 
-	@Override
-	public void toastUser()
+	public void setUserView(UserView userView)
 	{
-		Toast.makeText(this.context,
-				"Logged in as " + user.getUser().getName(), Toast.LENGTH_SHORT).show();			
-	}
-
-	@Override
-	public void promptIdentityAlertView()
-	{
-		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
-		userAlert.setCancelable(false);
-		userAlert.show(this.fragment, "New User Name Alert");			
+		this.userView = userView;
 	}
 
 }

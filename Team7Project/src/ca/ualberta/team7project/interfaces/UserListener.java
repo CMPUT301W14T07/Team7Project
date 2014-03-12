@@ -13,6 +13,6 @@ public interface UserListener
 {
 
 	public void updateViews(PreferenceModel user);
-	public void toastUser();
+	public void toastUser(String userName);
 	public void promptIdentityAlertView();
 }
