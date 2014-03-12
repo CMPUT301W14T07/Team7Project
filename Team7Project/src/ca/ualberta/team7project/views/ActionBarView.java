@@ -20,21 +20,21 @@ public class ActionBarView extends Activity
 	private MenuItem item;
 	private FragmentManager fragment;
 	private Context context;
-	private Context mainactivity;
+	private Context mainContext;
 
 	/**
 	 * Construction ActionBarView which handles button clicks and calls the appropriate controllers.
 	 * @param item The ID associated with the action bar item.
 	 * @param fragment from the MainActivity
 	 * @param context from the the MainActivity
-	 * @param 
+	 * @param contextMain from the MainActivity is the actual context; not from getApplicationContext()
 	 */
-	public ActionBarView(MenuItem item, FragmentManager fragment, Context context, Context mainactivity)
+	public ActionBarView(MenuItem item, FragmentManager fragment, Context context, Context mainContext)
 	{
 		this.fragment = fragment;
 		this.context = context;
 		this.item = item;
-		this.mainactivity = mainactivity;
+		this.mainContext = mainContext;
 	}
 
 	/**
@@ -46,8 +46,7 @@ public class ActionBarView extends Activity
 	 */
 	public boolean getAction()
 	{
-
-		// TODO Find alternative to switch statement
+		// TODO would like to put this into a map.
 		switch (this.item.getItemId())
 		{
 			case R.id.action_home:
@@ -115,12 +114,24 @@ public class ActionBarView extends Activity
 
 	/**
 	 * Handles the user's request to create a new topic
+	 * <p>
+	 * threadListView cast to MainActivity's activity is passed in to provide functionality to
+	 * ThreadListener.
+	 * @see ThreadAlertView.java
+	 * @see ThreadListener.java
 	 */
 	private void createTopic()
 	{
-		ThreadView threadView = ((ca.ualberta.team7project.MainActivity)mainactivity).getThreadController().getThreadView();
-		ThreadAlertView threadAlert = new ThreadAlertView(threadView);
+/*		ThreadListView threadListView = ((ca.ualberta.team7project.MainActivity)mainContext)
+				.getListController().getListView();
+		
+		ThreadAlertView threadAlert = new ThreadAlertView(threadListView);
+		threadAlert.show(fragment, "New Thread Alert");*/
+		
+		// New method. Old stuff commented until fully tested.
+		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(fragment, "New Thread Alert");
+
 	}
 
 	/**
@@ -128,7 +139,7 @@ public class ActionBarView extends Activity
 	 */
 	private void refreshView()
 	{
-		// Just a temporary debug toast. REMOVE ONCE ABOVE COMPLETE	
+		// Just a temporary debug toast.	
 		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
 	}
 
@@ -154,6 +165,18 @@ public class ActionBarView extends Activity
 	{
 
 		return item;
+	}
+
+	public Context getMainContext()
+	{
+
+		return mainContext;
+	}
+
+	public void setMainContext(Context mainContext)
+	{
+
+		this.mainContext = mainContext;
 	}
 
 }

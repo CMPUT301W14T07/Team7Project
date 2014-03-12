@@ -8,11 +8,15 @@
 package ca.ualberta.team7project.views;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.ListView;
+import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
+import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadListModel;
+import ca.ualberta.team7project.models.ThreadModel;
 
-public class ThreadListView extends Activity
+public class ThreadListView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	private ThreadListModel listModel;
 	private static Activity activity;
@@ -44,5 +48,45 @@ public class ThreadListView extends Activity
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		list.setAdapter(adapter);
+	}
+
+	@Override
+	public void onFavoriteClick(ThreadModel thread)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReplyClick(ThreadModel thread)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCacheClick(ThreadModel thread)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createThread(String title, String comment)
+	{
+
+		Log.e("debug", "listeners worked!");
+		
+	}
+
+	@Override
+	public void insertImage()
+	{
+
+		// TODO Auto-generated method stub
+		
 	}
 }
