@@ -3,8 +3,8 @@
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" 
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
     <TableLayout
         android:id="@+id/threadLeft"
@@ -23,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/image_thread"
                 android:src="@drawable/ic_launcher" />
-
         </TableRow>
     </TableLayout>
 
@@ -34,81 +33,78 @@
         android:layout_weight="5" >
 
         <TableRow
-        android:layout_weight="0.1"
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|left" >
-
-        <TextView
-            android:id="@+id/threadTitle"
+            android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    	</TableRow>
+            android:layout_weight="0.1"
+            android:gravity="center_horizontal|left" >
 
-    <TableRow
-        android:layout_weight="2"
-        android:id="@+id/body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/threadTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/threadBody"
+        <TableRow
+            android:id="@+id/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.08"
-            android:text="@string/enter_comment"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_weight="2" >
 
-    </TableRow>
+            <TextView
+                android:id="@+id/threadBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.08"
+                android:text="@string/enter_comment"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
 
-    <LinearLayout
-        android:id="@+id/threadButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|right"
-        android:orientation="horizontal" >
-
-        <ImageButton
-            android:id="@+id/threadEdit"
+        <LinearLayout
+            android:id="@+id/threadButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/edit_thread"
-            android:src="@drawable/ic_thread_edit" 
-			android:focusable="false" 
-			android:background="?android:selectableItemBackground" />
+            android:gravity="center_horizontal|right"
+            android:orientation="horizontal" >
 
-        <ImageButton
-            android:id="@+id/threadFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/favorite_thread"
-            android:src="@drawable/ic_thread_favorite" 
-			android:focusable="false" 
-			android:background="?android:selectableItemBackground" />
+            <ImageButton
+                android:id="@+id/threadEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="@string/edit_thread"
+                android:focusable="false"
+                android:src="@drawable/ic_thread_edit" />
 
-        <ImageButton
-            android:id="@+id/threadReply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/reply_thread"
-            android:src="@drawable/ic_thread_reply" 
-            android:focusable="false" 
-			android:background="?android:selectableItemBackground" />
+            <ImageButton
+                android:id="@+id/threadFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="@string/favorite_thread"
+                android:focusable="false"
+                android:src="@drawable/ic_thread_favorite" />
 
-        <ImageButton
-            android:id="@+id/threadCache"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/save_thread"
-            android:src="@drawable/ic_thread_cache"
-            android:focusable="false"  
-			android:background="?android:selectableItemBackground" />
+            <ImageButton
+                android:id="@+id/threadReply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="@string/reply_thread"
+                android:focusable="false"
+                android:src="@drawable/ic_thread_reply" />
 
-    </LinearLayout>
-    
+            <ImageButton
+                android:id="@+id/threadCache"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="@string/save_thread"
+                android:focusable="false"
+                android:src="@drawable/ic_thread_cache" />
+        </LinearLayout>
     </TableLayout>
 
 </LinearLayout>

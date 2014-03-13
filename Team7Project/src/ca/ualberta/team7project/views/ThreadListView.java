@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.interfaces.ThreadListener;
@@ -74,9 +76,20 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 
 	@Override
 	public void onReplyClick(ThreadModel thread)
-	{
+	{		
+		/* The reply button was clicked in the adapter. It has returned the ThreadModel we are replying to */
 		Log.e("debug", "Reply pressed");
-		Log.e("debug", "Thread title:" + thread.getTitle());		
+		Log.e("debug", "Thread title:" + thread.getTitle());			
+		
+		/* Now, prompt a reply dialog to allow the user to respond */
+		ThreadAlertView threadAlert = new ThreadAlertView();
+		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+				.getFragmentManager(), "New Thread Alert");
+
+		/* We need to temporarily save the ThreadModel in expectation of the return from the dialog prompt 
+		 * After the return from the prompt below in createThread(), we need to add the response to the saved
+		 * ThreadModel and update ThreadListView, push to the server, etc, etc. (~michael)
+		 * */
 	}
 
 	@Override
