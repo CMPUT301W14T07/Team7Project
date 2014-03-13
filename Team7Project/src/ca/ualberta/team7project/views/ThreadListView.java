@@ -7,6 +7,10 @@
  */
 package ca.ualberta.team7project.views;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.util.Log;
 import android.widget.ListView;
@@ -87,7 +91,15 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	public void createThread(String title, String comment)
 	{	//just test
 		if (flag == false){
-		ElasticSearchOperation.searchForThreadModels(null);
+		try {
+			ElasticSearchOperation.searchRecipes(null);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		adapter.notifyDataSetChanged();
 		Log.e("debug", "listeners worked!");
 		flag= true;
