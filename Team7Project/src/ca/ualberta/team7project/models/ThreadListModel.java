@@ -6,8 +6,11 @@
  */
 package ca.ualberta.team7project.models;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.UUID;
+
+import ca.ualberta.team7project.network.ElasticSearchOperation;
 
 public class ThreadListModel
 {
@@ -22,6 +25,7 @@ public class ThreadListModel
 		super();
 		this.topics = new LinkedList<ThreadModel>();
 	}
+	
 
 	/**
 	 * Construct from existing list of topics
@@ -32,6 +36,10 @@ public class ThreadListModel
 	{
 		super();
 		this.topics = topics;
+	}
+	
+	public void addThreadCollection(Collection<ThreadModel> threads){
+		this.topics.addAll(threads);
 	}
 	
 	public LinkedList<ThreadModel> getTopics()
@@ -49,6 +57,9 @@ public class ThreadListModel
 	public void addTopic(ThreadModel thread)
 	{
 		this.topics.add(thread);
+		
+		//just to test if it's working wel
+		ElasticSearchOperation.pushThreadModel(thread);
 	}
 
 	/**
@@ -80,6 +91,7 @@ public class ThreadListModel
 	{
 		this.topics.addFirst(thread);
 	}
+	
 	
 	/**
 	 * Adds to or updates a topic in the list
@@ -115,6 +127,12 @@ public class ThreadListModel
 		{
 			topics.add(topic);
 		}
+	}
+
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		this.topics.clear();
 	}
 }
 

@@ -10,17 +10,26 @@ package ca.ualberta.team7project.views;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.network.ElasticSearchOperation;
 
 public class ThreadListView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	private ThreadListModel listModel;
 	private static Activity activity;
 	private ListView list;
+	//for test
+	private boolean flag = false;
+	
+	//Just to add adpater here.for test.
+	//to be honest, I really don't understand this MVC!
+	private ThreadAdapter adapter;
 	
 	public ThreadListView(ThreadListModel listModel, Activity activity)
 	{
@@ -43,7 +52,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		
-        ThreadAdapter adapter = new ThreadAdapter(activity, 
+        adapter = new ThreadAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, listModel.getTopics());
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
@@ -69,24 +78,36 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onCacheClick(ThreadModel thread)
 	{
-
+		Log.e("debug", "listeners worked!");
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void createThread(String title, String comment)
-	{
-
+	{	//just test
+		if (flag == false){
+		ElasticSearchOperation.searchForThreadModels(null);
+		adapter.notifyDataSetChanged();
 		Log.e("debug", "listeners worked!");
-		
+		flag= true;
+		}
+		else{
+			listModel.addThreadCollection(ElasticSearchOperation.buffer);
+			adapter.notifyDataSetChanged();
+			Log.e("debug", "listeners worked!");
+			flag =false;
+		}
 	}
 
 	@Override
 	public void insertImage()
 	{
-
+		
 		// TODO Auto-generated method stub
+		Log.e("debug", "listeners worked!");
+		//ElasticSearchOperation.searchForThreadModels(null, listModel, activity);
+		adapter.notifyDataSetChanged();
 		
 	}
 }

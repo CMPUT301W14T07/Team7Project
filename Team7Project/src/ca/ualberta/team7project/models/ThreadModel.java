@@ -32,6 +32,7 @@ public class ThreadModel
 	private UUID parentUUID = null;
 	private UUID topicUUID = null;
 	private UserModel user;
+	public static final String ROOT = "db352350-aa82-11e3-a5e2-0800200c9a66";
 
 	/**
 	 * Constructs the ThreadModel with appropriate parameters. Generic reply
@@ -90,7 +91,7 @@ public class ThreadModel
 	 * @param location
 	 *            the thread was written at
 	 */
-	public ThreadModel(String comment, UserModel user)
+	public ThreadModel(String comment, UserModel user, UUID parentUUID, UUID topicUUID)
 	{
 		super();
 		this.comment = comment;
@@ -102,8 +103,10 @@ public class ThreadModel
 		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		
 		this.parentUUID = parentUUID;
-		this.topicUUID = parentUUID;
+		this.topicUUID = topicUUID;
+		
 	}
 
 	/**
@@ -134,6 +137,7 @@ public class ThreadModel
 		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		this.topicUUID = this.uniqueID;
 		
 	}
 
@@ -162,6 +166,9 @@ public class ThreadModel
 		
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		this.topicUUID = this.uniqueID;
+		//Root UUID is db352350-aa82-11e3-a5e2-0800200c9a66, I just created
+		this.parentUUID = UUID.fromString(ROOT);
 		
 	}
 

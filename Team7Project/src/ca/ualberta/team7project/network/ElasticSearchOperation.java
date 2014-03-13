@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.Collection;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -12,10 +14,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.app.Activity;
 import android.util.Log;
-import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -27,13 +31,15 @@ import com.google.gson.reflect.TypeToken;
  * Reference zjullion at:<br>
  * https://github.com/zjullion/PicPosterComplete
  */
+
 public class ElasticSearchOperation
 {
-
-	public static final String SERVER_URL = "http://cmput301.softwareprocess.es:8080/cmput301w14t07/topics/";
+	//change the url to test
+	public static final String SERVER_URL = "http://cmput301.softwareprocess.es:8080/cmput301w14t07/comments/";
 	public static final String LOG_TAG = "ElasticSearch";
 
 	private static Gson GSON = null;
+	public static Collection<ThreadModel> buffer;
 	
 	//
 	public ElasticSearchOperation()
@@ -55,10 +61,14 @@ public class ElasticSearchOperation
 	 * 		to be json serialized and pushed to the server
 	 */
 	
-	//called when you want to push a new topic to server
-	//and this function could only be used when pushing new topic to server
-	public void pushThreadModel(final ThreadModel model)
-	{
+	//called when you want to push a new thread to server
+	public static void pushThreadModel(final ThreadModel model)
+	{	
+		if(GSON == null){
+			constructGson();
+		}
+		
+		
 		Thread thread = new Thread()
 		{
 
@@ -116,9 +126,11 @@ public class ElasticSearchOperation
 	 * @param model what is this supposed to do??
 	 * @param activity
 	 */
-	public void searchForThreadModels(final String searchObject,
-			final ThreadListModel model, final MainActivity activity)
-	{
+	public static void  searchForThreadModels(final String searchObject)
+	{	
+		if(GSON == null){
+			constructGson();
+		}
 		Thread thread = new Thread()
 		{
 
@@ -127,10 +139,10 @@ public class ElasticSearchOperation
 			{
 				HttpClient client = new DefaultHttpClient();
 				HttpPost request = new HttpPost(SERVER_URL + "_search");
-				//String query = "{\"query\": {\"query_string\": {\"default_field\": \"text\",\"query\": \"*"
-				//		+ searchTerm + "*\"}}}";
-				String query = searchObject;
+				//String query = 	"{\"query\": {\"query_string\": {\"default_field\": \"parentUUID\",\"query\": \"*" + ThreadModel.ROOT + "*\"}}}";
+				String query = "?parentCCID=db352350-aa82-11e3-a5e2-0800200c9a66";
 				String responseJson = "";
+				Log.w(LOG_TAG, "Debugg!!");
 
 				try
 				{
@@ -165,28 +177,18 @@ public class ElasticSearchOperation
 							+ exception.getMessage());
 					return;
 				}
-
+				Log.w(LOG_TAG, "Debugg!!");
 				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<ThreadModel>>()
 				{
 				}.getType();
+				
 				final ElasticSearchSearchResponse<ThreadModel> returnedData = GSON
 						.fromJson(responseJson, elasticSearchSearchResponseType);
-
-				Runnable updateModel = new Runnable()
-				{
-
-					@Override
-					public void run()
-					{
-						//model.clear();
-						//model.addPicPostCollection(returnedData.getSources());
-					}
-				};
-
-				activity.runOnUiThread(updateModel);
+				Log.w(LOG_TAG, ""+returnedData.toString());
+				buffer = returnedData.getSources();
 			}
 		};
-
+		thread.setPriority(Thread.MAX_PRIORITY);
 		thread.start();
 	}
 	
