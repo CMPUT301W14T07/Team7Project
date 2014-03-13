@@ -7,11 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.controllers.ThreadListController;
+import ca.ualberta.team7project.views.ThreadListView;
 
 /**
  * ThreadAlertView prompts the user to reply to a comment or create a new topic.
@@ -33,6 +36,7 @@ import ca.ualberta.team7project.MainActivity;
 public class ThreadAlertView extends DialogFragment
 {
 	private Boolean replying = true;
+	private Boolean editing = false;
 	
 	public interface ThreadAlertListener
 	{
@@ -57,7 +61,9 @@ public class ThreadAlertView extends DialogFragment
 
 		/* We need to determine which attributes the AlertDialoig will contain */
 		//this.replying = ThreadController.inTopic();
-
+		this.replying = ThreadListController.getInTopic();
+		this.editing = ThreadListController.getEditingTopic();
+		
 		/* Create the builder, inflate the layout and set the view to the appropriate xml file */
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflator = getActivity().getLayoutInflater();
@@ -69,7 +75,7 @@ public class ThreadAlertView extends DialogFragment
 		final Button insertImage = (Button) v.findViewById(ca.ualberta.team7project.R.id.thread_image);
 
 		/* Set the properties of the user input text box */
-		if(replying == true)
+		if(replying == true & editing == false)
 		{
 			builder.setMessage(ca.ualberta.team7project.R.string.reply_thread);
 			
@@ -78,8 +84,10 @@ public class ThreadAlertView extends DialogFragment
 			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 			
+			ThreadListController.setInTopic(false);
+			
 		}
-		else
+		else if(replying == false & editing == false)
 		{
 			builder.setMessage(ca.ualberta.team7project.R.string.create_thread);
 
@@ -88,7 +96,24 @@ public class ThreadAlertView extends DialogFragment
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 
 		}
+		else if(replying == false & editing == true)
+		{
+			builder.setMessage(ca.ualberta.team7project.R.string.edit_thread);
+			
+			/* Show existing title */
+			titleInput.setText(ThreadListController.getOpenThread().getTitle());
+			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
+					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 
+			/* Show existing comment body */
+			bodyInput.setText(ThreadListController.getOpenThread().getComment());
+			bodyInput.setInputType(InputType.TYPE_CLASS_TEXT
+					| InputType.TYPE_TEXT_VARIATION_NORMAL);
+			
+			ThreadListController.setEditingTopic(false);
+
+		}
+		
 		/* User wishes to insert an image. Show a new prompt with image selection options */
 		insertImage.setOnClickListener(new Button.OnClickListener(){
 

@@ -17,6 +17,7 @@ import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
+import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -81,6 +82,10 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		Log.e("debug", "Reply pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());			
 		
+		ThreadListController.setEditingTopic(false);
+		ThreadListController.setInTopic(true);
+		ThreadListController.setOpenThread(thread);
+
 		/* Now, prompt a reply dialog to allow the user to respond */
 		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
@@ -121,8 +126,24 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onEditClick(ThreadModel thread)
 	{
+		/* Edit button has been clicked and returns the ThreadModel the user wishes to edit.
+		 * 
+		 * We first need to check if the user has permission to edit this thread. If he does, then
+		 * we prompt a new ThreadAlertView and fill in the textboxes with the contents of the 
+		 * returned ThreadModel.
+		 * 
+		 * This functionality of this button most likely belongs in the controller/model.
+		 */		
 		Log.e("debug", "Edit pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());
+		
+		ThreadListController.setEditingTopic(true);
+		ThreadListController.setOpenThread(thread);
+		
+		ThreadAlertView threadAlert = new ThreadAlertView();
+		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+				.getFragmentManager(), "New Thread Alert");
+
 	}
 
 	@Override

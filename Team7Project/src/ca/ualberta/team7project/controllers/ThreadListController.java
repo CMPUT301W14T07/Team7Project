@@ -16,10 +16,19 @@ public class ThreadListController extends Activity
 	private ThreadListView listView;
 	private static Activity activity;
 	
+	/* Attributes necessary for passing between ThreadAlertView and ThreadListView */
+	private static Boolean inTopic;
+	private static Boolean editingThread;
+	private static ThreadModel openThread;
+	
 	public ThreadListController(Activity activity){
 		
 		ThreadListController.activity = activity;
-				
+		
+		ThreadListController.inTopic = false;
+		ThreadListController.editingThread = false;
+		ThreadListController.openThread = null;
+		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate();
 		
@@ -57,22 +66,7 @@ public class ThreadListController extends Activity
 		newListModel.setTopics(threads);
 		setListModel(newListModel);
 	}
-	
-	/**
-	 * A helper method for context sensitive alert dialogs.
-	 * <P>
-	 * When user clicks a reply or post button, the alert dialogs need to know whether
-	 * the user is posting a new topic or replying to an existing topic.
-	 * <P>
-	 * A user is either viewing the home thread of all topics, or is inside a topic.
-	 * 
-	 * @return True if the user is in the child thread of a topic.
-	 */
-	public static Boolean inTopic(){
-		// TODO
-		return true;
-	}
-	
+		
 	/**
 	 * If a network connection exists, pull the latest and greatest from ElasticSearch
 	 * <p>
@@ -120,8 +114,36 @@ public class ThreadListController extends Activity
 	
 	public void setActivity(Activity activity)
 	{
-	
 		ThreadListController.activity = activity;
 	}
 	
+	public static Boolean getInTopic()
+	{
+		return ThreadListController.inTopic;
+	}
+	
+	public static void setInTopic(Boolean type)
+	{
+		ThreadListController.inTopic = type;
+	}
+		
+	public static Boolean getEditingTopic()
+	{
+		return ThreadListController.editingThread;
+	}
+	
+	public static void setEditingTopic(Boolean type)
+	{
+		ThreadListController.editingThread = type;
+	}
+
+	public static ThreadModel getOpenThread()
+	{
+		return openThread;
+	}
+
+	public static void setOpenThread(ThreadModel openThread)
+	{
+		ThreadListController.openThread = openThread;
+	}
 }
