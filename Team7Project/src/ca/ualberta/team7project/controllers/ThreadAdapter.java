@@ -10,33 +10,37 @@ package ca.ualberta.team7project.controllers;
 import java.util.LinkedList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.views.ThreadListView;
 
 public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 {
 
 	private LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 	private Context context;
+	private ThreadListView view;
 		
 	public ThreadAdapter(Context context, int resource,
-			LinkedList<ThreadModel> threads)
+			LinkedList<ThreadModel> threads, ThreadListView view)
 	{
 		super(context, resource);
     	this.threads = threads;
     	this.context = context;
+    	this.view = view;
 	}
 	
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-        LayoutInflater inflater = (LayoutInflater) context
-        		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
 
@@ -59,21 +63,57 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         	bodyView.setText("");        
         
         /* Set picture */
-        // Not implemented yet.
+        // TODO
         
         /* Favorite button on click listener */
-        ImageButton favoriteButton = (ImageButton) rowView.findViewById(
-        		ca.ualberta.team7project.R.id.threadFavorite);
+        ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);
+        
+        editButton.setOnClickListener(new ImageButton.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				view.onEditClick(getItem(position));
+			}
+        	
+        });
+        
+        /* Favorite button on click listener */
+        ImageButton favoriteButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadFavorite);
         
         favoriteButton.setOnClickListener(new ImageButton.OnClickListener(){
 			@Override
 			public void onClick(View v)
 			{
-				// TODO. Listener needs to work first. Else we could pass intents.
-				// Having trouble casting the listener to activities like in CreateIdentityAlertView.
+				view.onFavoriteClick(getItem(position));
 			}
         	
         });
+        
+        /* Reply button on click listener */
+        ImageButton replyButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadReply);
+        
+        replyButton.setOnClickListener(new ImageButton.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				view.onReplyClick(getItem(position));
+			}	
+			
+        });
+        
+        
+        /* Cache button on click listener */
+        ImageButton cacheButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadCache);
+        
+        cacheButton.setOnClickListener(new ImageButton.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				view.onCacheClick(getItem(position));
+			}	
+			
+        });
+        
         
 		return rowView;
     }

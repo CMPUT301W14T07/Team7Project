@@ -44,7 +44,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		
         ThreadAdapter adapter = new ThreadAdapter(activity, 
-        		ca.ualberta.team7project.R.layout.thread, listModel.getTopics());
+        		ca.ualberta.team7project.R.layout.thread, listModel.getTopics(), this);
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		list.setAdapter(adapter);
@@ -53,56 +53,48 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onFavoriteClick(ThreadModel thread)
 	{
-
-		// TODO Auto-generated method stub
-		
+		Log.e("debug", "Favorite pressed");
+		Log.e("debug", "Thread title:" + thread.getTitle());
 	}
 
 	@Override
 	public void onReplyClick(ThreadModel thread)
 	{
-
-		// TODO Auto-generated method stub
-		
+		Log.e("debug", "Reply pressed");
+		Log.e("debug", "Thread title:" + thread.getTitle());		
 	}
 
 	@Override
 	public void onCacheClick(ThreadModel thread)
 	{
-
-		// TODO Auto-generated method stub
-		
+		Log.e("debug", "Cache pressed");
+		Log.e("debug", "Thread title:" + thread.getTitle());
 	}
 
 	@Override
 	public void createThread(String title, String comment)
 	{
-		/* Insert the thread into the appropriate topics */
-		Log.e("debug", "listeners worked!");
-		
+		Log.e("debug", "Create thread pressed");
+		Log.e("debug", "Thread title:" + title + " comment: " + comment);		
 	}
 
 	@Override
 	public void insertImage()
 	{
-
-		// TODO Auto-generated method stub
-		
+		Log.e("debug", "Insert image pressed");
 	}
 
 	@Override
 	public void onPhotoClick(ThreadModel thread)
 	{
-
-		// TODO Auto-generated method stub
-		
+		// Havent implemented the button for this yet.
 	}
 
 	@Override
 	public void onEditClick(ThreadModel thread)
 	{
-
-		// TODO Auto-generated method stub
-		
+		Log.e("debug", "Edit pressed");
+		Log.e("debug", "Thread title:" + thread.getTitle());
 	}
+
 }

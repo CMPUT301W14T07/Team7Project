@@ -18,8 +18,6 @@ package ca.ualberta.team7project.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import android.location.Location;
-
 public class PreferenceModel implements Serializable
 {
 	private UserModel user;

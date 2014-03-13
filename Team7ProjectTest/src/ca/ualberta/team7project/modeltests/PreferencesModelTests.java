@@ -1,7 +1,6 @@
 package ca.ualberta.team7project.modeltests;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;

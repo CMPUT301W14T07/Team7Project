@@ -24,6 +24,7 @@ public class ThreadListController extends Activity
 		debugPopulate();
 		
 		this.listView = new ThreadListView(this.listModel, activity);
+		
 	}
 	
 	/*
@@ -42,11 +43,15 @@ public class ThreadListController extends Activity
 				"working. Is it working well? The buttons look ugly. Oh well, ill change them later. " +
 				"They are just here so that ppl can start working on click listeners. Internal monologues are great.", user, 
 				"Pokedex three");
-		
+		ThreadModel threadThree = new ThreadModel("Caught Pidgeo. Just checking if the list will scroll. "
+				+ "Lots and lots of text needs to be written. Soon we can pull from ES and I won't have to write boring "
+				+ "lines of text list this. YEAHHHHHH!", user, "Pokedex four");
+
 		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
+		threads.add(threadThree);
 				
 		ThreadListModel newListModel = new ThreadListModel();
 		newListModel.setTopics(threads);
@@ -116,7 +121,7 @@ public class ThreadListController extends Activity
 	public void setActivity(Activity activity)
 	{
 	
-		this.activity = activity;
+		ThreadListController.activity = activity;
 	}
 	
 }

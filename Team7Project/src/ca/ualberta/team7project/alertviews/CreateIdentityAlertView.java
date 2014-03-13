@@ -18,7 +18,6 @@ import ca.ualberta.team7project.models.UserPersistenceModel;
 
 public class CreateIdentityAlertView extends DialogFragment
 {
-
 	private Context context;
 
 	public interface IdentityListener
