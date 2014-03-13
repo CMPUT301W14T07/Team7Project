@@ -10,14 +10,12 @@ package ca.ualberta.team7project.controllers;
 import java.util.LinkedList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
@@ -68,6 +66,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         /* Favorite button on click listener */
         ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);
         
+        editButton.setFocusable(false);
         editButton.setOnClickListener(new ImageButton.OnClickListener(){
 			@Override
 			public void onClick(View v)
@@ -80,6 +79,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         /* Favorite button on click listener */
         ImageButton favoriteButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadFavorite);
         
+        favoriteButton.setFocusable(false);
         favoriteButton.setOnClickListener(new ImageButton.OnClickListener(){
 			@Override
 			public void onClick(View v)
@@ -92,6 +92,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         /* Reply button on click listener */
         ImageButton replyButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadReply);
         
+        replyButton.setFocusable(false);
         replyButton.setOnClickListener(new ImageButton.OnClickListener(){
 			@Override
 			public void onClick(View v)
@@ -105,6 +106,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         /* Cache button on click listener */
         ImageButton cacheButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadCache);
         
+        cacheButton.setFocusable(false);
         cacheButton.setOnClickListener(new ImageButton.OnClickListener(){
 			@Override
 			public void onClick(View v)

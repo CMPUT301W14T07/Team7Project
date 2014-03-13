@@ -9,6 +9,9 @@ package ca.ualberta.team7project.views;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
@@ -43,11 +46,23 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		
-        ThreadAdapter adapter = new ThreadAdapter(activity, 
+        final ThreadAdapter adapter = new ThreadAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, listModel.getTopics(), this);
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		list.setAdapter(adapter);
+		
+		/* Individual threads are clickable within the list view without interfering with button onClick events */
+		list.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view, int position,
+					long id)
+			{
+				onThreadClick(adapter.getItem(position));
+			}
+			
+		});
 	}
 
 	@Override
@@ -87,7 +102,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onPhotoClick(ThreadModel thread)
 	{
-		// Havent implemented the button for this yet.
+		// Haven't implemented the button for this yet.
 	}
 
 	@Override
@@ -95,6 +110,15 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Log.e("debug", "Edit pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());
+	}
+
+	@Override
+	public void onThreadClick(ThreadModel thread)
+	{
+		// This method should allow the user to move forward through the replies
+		Log.e("debug", "Thread pressed");
+		Log.e("debug", "Thread title: " + thread.getTitle());
+		
 	}
 
 }

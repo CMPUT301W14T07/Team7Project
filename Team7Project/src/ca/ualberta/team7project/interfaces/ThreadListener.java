@@ -9,4 +9,5 @@ public interface ThreadListener
 	public void onCacheClick(ThreadModel thread);
 	public void onPhotoClick(ThreadModel thread);
 	public void onEditClick(ThreadModel thread);
+	public void onThreadClick(ThreadModel thread);
 }

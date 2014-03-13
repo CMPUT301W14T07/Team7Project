@@ -77,6 +77,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/edit_thread"
             android:src="@drawable/ic_thread_edit" 
+			android:focusable="false" 
 			android:background="?android:selectableItemBackground" />
 
         <ImageButton
@@ -85,6 +86,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/favorite_thread"
             android:src="@drawable/ic_thread_favorite" 
+			android:focusable="false" 
 			android:background="?android:selectableItemBackground" />
 
         <ImageButton
@@ -93,6 +95,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/reply_thread"
             android:src="@drawable/ic_thread_reply" 
+            android:focusable="false" 
 			android:background="?android:selectableItemBackground" />
 
         <ImageButton
@@ -100,7 +103,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/save_thread"
-            android:src="@drawable/ic_thread_cache" 
+            android:src="@drawable/ic_thread_cache"
+            android:focusable="false"  
 			android:background="?android:selectableItemBackground" />
 
     </LinearLayout>
