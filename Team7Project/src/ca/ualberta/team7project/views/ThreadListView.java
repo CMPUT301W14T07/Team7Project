@@ -24,8 +24,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	private ThreadListModel listModel;
 	private static Activity activity;
 	private ListView list;
-	//for test
-	private boolean flag = false;
 	
 	//Just to add adpater here.for test.
 	//to be honest, I really don't understand this MVC!
@@ -70,7 +68,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onReplyClick(ThreadModel thread)
 	{
-
+		
 		// TODO Auto-generated method stub
 		
 	}
@@ -85,19 +83,10 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 
 	@Override
 	public void createThread(String title, String comment)
-	{	//just test
-		if (flag == false){
-		ElasticSearchOperation.searchForThreadModels(null);
+	{	
+		listModel.addTopic(new ThreadModel(comment, null, title));
 		adapter.notifyDataSetChanged();
-		Log.e("debug", "listeners worked!");
-		flag= true;
-		}
-		else{
-			listModel.addThreadCollection(ElasticSearchOperation.buffer);
-			adapter.notifyDataSetChanged();
-			Log.e("debug", "listeners worked!");
-			flag =false;
-		}
+		
 	}
 
 	@Override
@@ -105,9 +94,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		
 		// TODO Auto-generated method stub
-		Log.e("debug", "listeners worked!");
-		//ElasticSearchOperation.searchForThreadModels(null, listModel, activity);
-		adapter.notifyDataSetChanged();
 		
 	}
 }
