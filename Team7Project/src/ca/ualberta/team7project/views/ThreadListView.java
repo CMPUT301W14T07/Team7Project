@@ -77,13 +77,29 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void createThread(String title, String comment)
 	{
-
+		/* Insert the thread into the appropriate topics */
 		Log.e("debug", "listeners worked!");
 		
 	}
 
 	@Override
 	public void insertImage()
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPhotoClick(ThreadModel thread)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEditClick(ThreadModel thread)
 	{
 
 		// TODO Auto-generated method stub

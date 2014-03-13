@@ -41,4 +41,10 @@
 	<string name="enter_comment">Comment</string>
 	<string name="insert_image">Insert Image</string>
 	
+	<!-- Strings for the UI buttons for each thread in list view -->
+	<string name="edit_thread">Edit Thread</string>
+	<string name="favorite_thread">Favorite Thread</string>
+	<string name="save_thread">Save Thread</string>
+	<string name="image_thread">Thread Image</string>
+	
 </resources>
