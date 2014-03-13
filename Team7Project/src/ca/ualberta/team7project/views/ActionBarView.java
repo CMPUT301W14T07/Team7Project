@@ -12,7 +12,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.alertviews.LocationLookupAlertView;
+import ca.ualberta.team7project.alertviews.SortPreferencesAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.interfaces.ThreadListener;
 
 public class ActionBarView extends Activity
 {
@@ -88,8 +91,9 @@ public class ActionBarView extends Activity
 	 */
 	private void geolocationPreferences()
 	{
-
-		// TODO
+		LocationLookupAlertView location = new LocationLookupAlertView();
+		location.setCancelable(false);
+		location.show(fragment, "Set Location Alert");
 	}
 
 	/**
@@ -149,11 +153,8 @@ public class ActionBarView extends Activity
 	private void sortPreferences()
 	{
 
-		// http://stackoverflow.com/questions/2002288/static-way-to-get-context-on-android
-		// SortPreferencesAlertView preferencesAlert = new
-		// SortPreferencesAlertView();
-		// preferencesAlert.show(getSupportFragmentManager(),
-		// "Sort Preferences Alert");
+		//SortPreferencesAlertView preferencesAlert = new SortPreferencesAlertView();
+		//preferencesAlert.show(fragment, "Sort Preference Alert");
 	}
 
 	/**

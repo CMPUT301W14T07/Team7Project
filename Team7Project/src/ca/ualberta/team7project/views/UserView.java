@@ -2,6 +2,7 @@ package ca.ualberta.team7project.views;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.location.Location;
 import android.widget.Toast;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.interfaces.UserListener;
@@ -40,6 +41,25 @@ public class UserView implements UserListener
 		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
 		userAlert.setCancelable(false);
 		userAlert.show(this.fragment, "New User Name Alert");			
+	}
+
+	@Override
+	public void locationSelected(Location location)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void toastLocation(Location location)
+	{
+
+		/* A variety of things could go wrong when the user selects a location.
+		 * After location has been selected. A prompt should be shown displaying the
+		 * results
+		 */
+		
 	}
 
 }

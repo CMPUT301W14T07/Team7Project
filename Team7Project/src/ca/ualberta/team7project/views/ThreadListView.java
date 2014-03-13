@@ -13,8 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.controllers.ThreadListController;

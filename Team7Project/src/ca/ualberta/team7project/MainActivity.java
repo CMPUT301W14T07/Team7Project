@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
@@ -164,7 +163,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void setThreadListener(ThreadListener threadListener)
 	{
 
-		this.threadListener = threadListener;
+		MainActivity.threadListener = threadListener;
 	}
 
 	public UserListener getUserListener()
@@ -176,7 +175,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void setUserListener(UserListener userListener)
 	{
 
-		this.userListener = userListener;
+		MainActivity.userListener = userListener;
 	}
 
 }

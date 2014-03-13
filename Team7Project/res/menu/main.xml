@@ -12,41 +12,41 @@
 	<item android:id="@+id/action_home" 
 	      android:icon="@drawable/ic_action_home"
 	      android:title="@string/topics_home_button"
-	      android:showAsAction="always"/>
+	      android:showAsAction="ifRoom"/>
 	
 	<!-- Set geolocation button -->
 	<item android:id="@+id/action_geo_location" 
 	      android:icon="@drawable/ic_action_geolocation"
 	      android:title="@string/geo_location_set"
-	      android:showAsAction="always"/>
+	      android:showAsAction="ifRoom"/>
 	
  	<!-- User preferences button -->
 	<item android:id="@+id/action_user_preferences" 
 	      android:icon="@drawable/ic_action_preferences"
 	      android:title="@string/user_preferences"
-	      android:showAsAction="always"/>
+	      android:showAsAction="ifRoom"/>
 		
 	<!-- Add current topic to favorites button -->
 	<item android:id="@+id/action_add_favorite" 
 	      android:icon="@drawable/ic_action_favorite"
 	      android:title="@string/add_topic_favorites"
-	      android:showAsAction="always"/>
+	      android:showAsAction="ifRoom"/>
 	
 	<!-- Create topic button -->
 	<item android:id="@+id/action_create_topic" 
 	      android:icon="@drawable/ic_action_new_thread"
 	      android:title="@string/create_topic"
-	      android:showAsAction="always"/>
+	      android:showAsAction="ifRoom"/>
 	
 	<!-- Refresh topic button -->
 	<item android:id="@+id/action_refresh" 
 	      android:icon="@drawable/ic_action_refresh"
 	      android:title="@string/refresh_topic"
-	      android:showAsAction="always"/>	
+	      android:showAsAction="ifRoom"/>	
 	      
 	<!-- Sorting options -->
 	<item android:id="@+id/action_sort" 
 	      android:icon="@drawable/ic_action_sort"
 	      android:title="@string/sorting_options"
-	      android:showAsAction="always"/>
+	      android:showAsAction="ifRoom"/>
 </menu>

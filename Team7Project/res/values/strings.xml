@@ -47,4 +47,12 @@
 	<string name="save_thread">Save Thread</string>
 	<string name="image_thread">Thread Image</string>
 	
+	<!-- Strings for the LocationLookupAlertView -->
+	<string name="set_location">Set Location</string>
+	<string name="location_message">Enter an address or set longitude/latitude</string>
+	<string name="address_hint">Address</string>
+	<string name="longitude">Longitude</string>
+	<string name="latitude">Latitude</string>
+	<string name="address">Address</string>
+	
 </resources>
