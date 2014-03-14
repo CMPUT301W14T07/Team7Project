@@ -2,15 +2,15 @@ package ca.ualberta.team7project.network;
 
 import java.util.UUID;
 
-import ca.ualberta.team7project.interfaces.RefreshListener;
+import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadPersistenceModel;
 
 public class TopicUpdater
 {
-	RefreshListener refresh;
+	ThreadListener refresh;
 	
-	public TopicUpdater(RefreshListener refresh)
+	public TopicUpdater(ThreadListener refresh)
 	{
 		super();
 		this.refresh = refresh;

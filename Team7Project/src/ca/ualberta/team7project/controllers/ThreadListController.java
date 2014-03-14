@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
-import ca.ualberta.team7project.interfaces.RefreshListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
@@ -15,7 +15,7 @@ import ca.ualberta.team7project.network.TopicUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
-public class ThreadListController extends Activity implements RefreshListener
+public class ThreadListController extends Activity
 {
 	private ArrayList<UUID> stack;
 	
@@ -163,7 +163,7 @@ public class ThreadListController extends Activity implements RefreshListener
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
 		
-		TopicUpdater updater = new TopicUpdater(this);
+		TopicUpdater updater = new TopicUpdater(listView);
 		
 		/* Determine if the user was editing, replying or creating a new thread */
 		if(getEditingTopic() == true)
@@ -171,6 +171,8 @@ public class ThreadListController extends Activity implements RefreshListener
 			/* User edited a thread. Update models appropriately */
 			/* Insert newThread in place of the open thread in the models */
 			// TODO thread persistence model needs a method for this.
+			
+			Toast.makeText(activity, "Editing", Toast.LENGTH_SHORT).show();
 		}
 		else
 		{
@@ -180,15 +182,16 @@ public class ThreadListController extends Activity implements RefreshListener
 				/* User replied. Updated models appropriately */
 				/* Append the reply to the openThread and then replace in the model */
 				// TODO thread persistence model needs a method for this
+				
+				Toast.makeText(activity, "Replying", Toast.LENGTH_SHORT).show();
 			}
 			/* User created new topic. Upload to Elastic Search */
 			else
 			{				
-				
+				Toast.makeText(activity, "New topic", Toast.LENGTH_SHORT).show();
+				updater.sendComment(newThread);
 			}
 		}
-		
-		updater.sendComment(newThread); //logic path above not working
 		
 		setEditingTopic(false);
 	

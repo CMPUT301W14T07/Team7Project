@@ -16,7 +16,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
-import ca.ualberta.team7project.interfaces.RefreshListener;
+import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
 
 import com.google.gson.Gson;
@@ -63,7 +63,7 @@ public class ElasticSearchOperation
 	 */
 
 	// called when you want to push a new thread to server
-	public void pushThreadModel(final ThreadModel model, final RefreshListener refresh)
+	public void pushThreadModel(final ThreadModel model, final ThreadListener refresh)
 	{
 
 		if (GSON == null)
@@ -108,7 +108,7 @@ public class ElasticSearchOperation
 				
 				if(refresh != null)
 				{
-					refresh.refreshThreads();
+					refresh.onRefresh();
 				}
 
 				// TODO: check http response message

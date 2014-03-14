@@ -13,4 +13,5 @@ public interface ThreadListener
 	public void onThreadClick(ThreadModel thread);
 	public void notifyListChange(ThreadListModel list);
 	public void notifyThreadInserted(ThreadModel thread);
+	public void onRefresh();
 }
