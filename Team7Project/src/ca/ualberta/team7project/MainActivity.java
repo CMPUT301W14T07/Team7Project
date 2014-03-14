@@ -23,8 +23,8 @@ import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
 {
-	private UserController userController;
-	private ThreadListController listController;
+	private static UserController userController;
+	private static ThreadListController listController;
 	
 	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
@@ -49,14 +49,13 @@ public class MainActivity extends Activity implements IdentityListener
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
-		this.userController = new UserController(context, fragment);
-		this.listController = new ThreadListController(this);
+		MainActivity.userController = new UserController(context, fragment);
+		MainActivity.listController = new ThreadListController(this);
 		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
 		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
 				getListController().getListView());
-		this.setUserListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
-				getUserController().getUserView());
+		this.setUserListener(MainActivity.getUserController().getUserView()); // TODO (~michael Reminder to look at NPE latter)
 
 /*		if(MainActivity.threadListener == null){
 			Log.e("debug", "thread is null");
@@ -108,7 +107,7 @@ public class MainActivity extends Activity implements IdentityListener
 	}
 
 	
-	public UserController getUserController()
+	public static UserController getUserController()
 	{
 	
 		return userController;
@@ -118,7 +117,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void setController(UserController userController)
 	{
 	
-		this.userController = userController;
+		MainActivity.userController = userController;
 	}
 
 	
@@ -132,7 +131,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void setListController(ThreadListController listController)
 	{
 	
-		this.listController = listController;
+		MainActivity.listController = listController;
 	}
 
 	public static Context getMainContext()
@@ -151,7 +150,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void setUserController(UserController userController)
 	{
 	
-		this.userController = userController;
+		MainActivity.userController = userController;
 	}
 
 	public static ThreadListener getThreadListener()

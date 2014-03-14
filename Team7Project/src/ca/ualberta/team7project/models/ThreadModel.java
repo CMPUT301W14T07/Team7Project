@@ -11,9 +11,7 @@ package ca.ualberta.team7project.models;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.UUID;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;

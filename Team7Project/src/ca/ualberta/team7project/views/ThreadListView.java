@@ -7,34 +7,24 @@
  */
 package ca.ualberta.team7project.views;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
-import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
-import ca.ualberta.team7project.network.ElasticSearchOperation;
 
 public class ThreadListView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	private ThreadListModel listModel;
 	private static Activity activity;
 	private ListView list;
-	
-	//Just to add adpater here.for test.
-	//to be honest, I really don't understand this MVC!
 	private ThreadAdapter adapter;
 	
 	public ThreadListView(ThreadListModel listModel, Activity activity)
@@ -87,13 +77,10 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onReplyClick(ThreadModel thread)
 	{
-		
-		// TODO Auto-generated method stub
-			
+					
 		Log.e("debug", "Reply pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());			
 
-		
 		ThreadListController.replyThread(thread);
 	}
 
@@ -107,18 +94,16 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void createThread(String title, String comment)
 	{	
-		listModel.addTopic(new ThreadModel(comment, null, title));
-		adapter.notifyDataSetChanged();
+		Log.e("debug", "Create thread pressed");
+		Log.e("debug", "Thread title:" + title);
 		
+		ThreadListController.createThread(title, comment);
 	}
 
 	@Override
 	public void insertImage()
 	{
-
-		
-		// TODO Auto-generated method stub
-
+		// TODO > Next milestone
 		Log.e("debug", "Insert image pressed");
 	}
 
@@ -133,10 +118,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Log.e("debug", "Edit pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());
-
-		//are we using this to test?
-		//ElasticSearchOperation.searchForThreadModels(null, listModel, activity);
-		adapter.notifyDataSetChanged();
 		
 		ThreadListController.editThread(thread);
 	}
@@ -148,6 +129,20 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		Log.e("debug", "Thread pressed");
 		Log.e("debug", "Thread title: " + thread.getTitle());
 		
+	}
+
+	@Override
+	public void notifyListChange(ThreadListModel list)
+	{
+		this.listModel = list;
+		adapter.notifyDataSetChanged();		
+	}
+
+	@Override
+	public void notifyThreadInserted(ThreadModel thread)
+	{
+		this.listModel.addTopic(thread);
+		adapter.notifyDataSetChanged();
 	}
 
 }

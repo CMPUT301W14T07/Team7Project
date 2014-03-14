@@ -7,8 +7,8 @@ import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.ThreadPersistenceModel;
 import ca.ualberta.team7project.models.UserModel;
-import ca.ualberta.team7project.network.ElasticSearchOperation;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
@@ -16,7 +16,7 @@ public class ThreadListController extends Activity
 {
 
 	private ThreadListModel listModel =null;
-	private ThreadListView listView;
+	private static ThreadListView listView;
 	private static Activity activity;
 	
 	/* Attributes necessary for passing between ThreadAlertView and ThreadListView */
@@ -34,7 +34,7 @@ public class ThreadListController extends Activity
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate();
-		this.listView = new ThreadListView(this.listModel, activity);
+		ThreadListController.listView = new ThreadListView(this.listModel, activity);
 		
 	}
 	
@@ -132,14 +132,18 @@ public class ThreadListController extends Activity
 	 */
 	public static void createThread(String title, String comment)
 	{
-		/* user is null for now, but we have to pull the user model to associate with the thread */
-		ThreadModel newThread = new ThreadModel(comment, null, title);
-
-		/* We must first determine if the user was editing, replying or creating a new thread */
+		/* First we need to get the UserModel to associate with a ThreadModel */
+		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
+		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
+		
+		ThreadPersistenceModel persistence = new ThreadPersistenceModel();
+		
+		/* Determine if the user was editing, replying or creating a new thread */
 		if(getEditingTopic() == true)
 		{
 			/* User edited a thread. Update models appropriately */
 			/* Insert newThread in place of the open thread in the models */
+			// TODO thread persistence model needs a method for this.
 		}
 		else
 		{
@@ -148,15 +152,21 @@ public class ThreadListController extends Activity
 			{
 				/* User replied. Updated models appropriately */
 				/* Append the reply to the openThread and then replace in the model */
+				// TODO thread persistence model needs a method for this
 			}
+			/* User created new topic. Upload to Elastic Search */
 			else
-			{
-				/* User created new topic. Updated models appropriately */
-				/* Add a new topic to the models */
+			{				
+				persistence.PushTopic(newThread);
 			}
 		}
 		
 		setEditingTopic(false);
+		
+		/* Finished working with model data, now update the view */
+		//ThreadListView.notifyListChange(somethreadlistmodelhere); This requires the updated ThreadListModel 
+		// However for now until persistence methods fully work I have added the following method to the listener interface.
+		listView.notifyThreadInserted(newThread);
 	}
 	
 	/* Your standard getters/setters */
@@ -182,7 +192,7 @@ public class ThreadListController extends Activity
 	public void setListView(ThreadListView listView)
 	{
 	
-		this.listView = listView;
+		ThreadListController.listView = listView;
 	}
 	
 	public Activity getActivity()

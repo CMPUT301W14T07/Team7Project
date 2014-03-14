@@ -1,5 +1,6 @@
 package ca.ualberta.team7project.interfaces;
 
+import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
 public interface ThreadListener
@@ -10,4 +11,6 @@ public interface ThreadListener
 	public void onPhotoClick(ThreadModel thread);
 	public void onEditClick(ThreadModel thread);
 	public void onThreadClick(ThreadModel thread);
+	public void notifyListChange(ThreadListModel list);
+	public void notifyThreadInserted(ThreadModel thread);
 }
