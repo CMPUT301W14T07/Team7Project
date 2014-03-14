@@ -15,17 +15,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
+import ca.ualberta.team7project.controllers.LocationController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.interfaces.UserListener;
-import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
 {
 	private static UserController userController;
 	private static ThreadListController listController;
+	private static LocationController locationController;
 	
 	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
@@ -52,13 +53,13 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
+		MainActivity.setLocationController(new LocationController(context));
 		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
 		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext). // TODO (~michael Reminder to look at NPE latter)
 				getListController().getListView());
 		this.setUserListener(MainActivity.getUserController().getUserView()); // TODO (~michael Reminder to look at NPE latter)
 
-		LocationModel location = new LocationModel(getApplicationContext());
 	}
 
 	// TODO Need an onResume()
@@ -174,6 +175,18 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 
 		MainActivity.userListener = userListener;
+	}
+
+	public static LocationController getLocationController()
+	{
+
+		return locationController;
+	}
+
+	public static void setLocationController(LocationController locationController)
+	{
+
+		MainActivity.locationController = locationController;
 	}
 
 }
