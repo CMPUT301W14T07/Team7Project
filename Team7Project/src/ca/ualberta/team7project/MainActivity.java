@@ -77,6 +77,16 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		this.setUserListener(MainActivity.getUserController().getUserView());
 
 	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		if(!listController.exitThread())
+		{
+			//exit the application
+			finish();
+		}
+	}
 
 	// TODO onResume ~ was crashing application when I tried to insert it here.
 

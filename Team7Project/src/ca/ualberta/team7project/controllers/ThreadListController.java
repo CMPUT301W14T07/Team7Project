@@ -79,6 +79,21 @@ public class ThreadListController extends Activity
 		setListModel(newListModel);
 	}
 
+	/**
+	 * Backs up to parent thread
+	 * 
+	 * @return true if there was a thread to exit to, false if there is no parent thread
+	 */
+	public boolean exitThread()
+	{
+		if(stack.size() == 1)
+			return false;
+		
+		stack.remove(stack.size()-1);
+		refreshThreads();
+		return true;
+	}
+	
 	public void enterThread(ThreadModel thread)
 	{
 		UUID id = thread.getUniqueID();
