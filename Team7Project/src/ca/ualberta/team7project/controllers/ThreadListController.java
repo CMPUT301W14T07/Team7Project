@@ -197,6 +197,14 @@ public class ThreadListController extends Activity
 			/* Insert newThread in place of the open thread in the models */
 			// TODO thread persistence model needs a method for this.
 			
+			if(this.getOpenThread() == null)
+				Log.e("halp", "editing null thread");
+			
+			newThread.setUniqueID(this.getOpenThread().getUniqueID());
+			newThread.setParentUUID(this.getOpenThread().getParentUUID());
+			newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
+			
+			updater.sendComment(newThread);
 			Toast.makeText(activity, "Editing", Toast.LENGTH_SHORT).show();
 		}
 		else
