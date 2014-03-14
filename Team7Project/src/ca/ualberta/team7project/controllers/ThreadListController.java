@@ -79,6 +79,15 @@ public class ThreadListController extends Activity
 		setListModel(newListModel);
 	}
 
+	public void enterThread(ThreadModel thread)
+	{
+		UUID id = thread.getUniqueID();
+		
+		stack.add(id);
+		
+		refreshThreads();
+	}
+	
 	/**
 	 * If a network connection exists, pull the latest and greatest from ElasticSearch
 	 * <p>
