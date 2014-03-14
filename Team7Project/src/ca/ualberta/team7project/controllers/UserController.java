@@ -8,6 +8,8 @@ package ca.ualberta.team7project.controllers;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
 import ca.ualberta.team7project.views.UserView;
@@ -17,7 +19,7 @@ public class UserController
 	private Context context;
 	private FragmentManager fragment;
 	
-	private PreferenceModel user;
+	private static PreferenceModel user;
 	private UserView userView;
 	
 	private UserPersistenceModel persistence;
@@ -116,6 +118,16 @@ public class UserController
 		editor.putBoolean("firstRun", false);
 		editor.commit();
 
+	}
+	
+	/**
+	 * The new longitude/latitude coordinates for the UserModel are set
+	 */
+	public static void updateLocationModel(double longitude, double latitude)
+	{
+		LocationModel location = new LocationModel(longitude, latitude);
+		UserController.user.getUser().setLocation(location);
+		Log.e("debug", "updating user coordinates");
 	}
 	
 	public Context getContext()

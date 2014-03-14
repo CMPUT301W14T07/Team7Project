@@ -18,6 +18,14 @@ public class LocationModel
 		super();
 		this.location = new double[2];
 	}
+	
+	public LocationModel(double longitude, double latitude)
+	{
+		super();
+		this.location = new double[2];
+		setLocation(longitude, latitude);
+	}
+
 
 	public void setLongitude(double longitude)
 	{

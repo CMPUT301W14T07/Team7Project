@@ -9,13 +9,12 @@ package ca.ualberta.team7project.interfaces;
 import android.location.Location;
 import ca.ualberta.team7project.models.PreferenceModel;
 
-
 public interface UserListener
 {
 
 	public void updateViews(PreferenceModel user);
 	public void toastUser(String userName);
 	public void promptIdentityAlertView();
-	public void locationSelected(Location location);
+	public void locationUpdated(double longitude, double latitude);
 	public void toastLocation(Location location);
 }

@@ -36,8 +36,8 @@ public class MainActivity extends Activity implements IdentityListener, Location
 	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
 
-	private static ThreadListener threadListener;
-	private static UserListener userListener;	
+	public static ThreadListener threadListener; // Would like to make these private, but get lots of NPE when so.
+	public static UserListener userListener;	
 	
 	private static LocationManager locationManager;
 	private Criteria criteria;
@@ -67,15 +67,14 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		MainActivity.locationManager.getLastKnownLocation(provider);
 		MainActivity.locationManager.requestLocationUpdates(this.provider, 1, 1, this);
 
-		
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.setLocationController(new LocationController(context, MainActivity.locationManager));
 		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
-		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext). // TODO (~michael Reminder to look at NPE latter)
+		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
 				getListController().getListView());
-		this.setUserListener(MainActivity.getUserController().getUserView()); // TODO (~michael Reminder to look at NPE latter)
+		this.setUserListener(MainActivity.getUserController().getUserView());
 
 	}
 
@@ -208,24 +207,17 @@ public class MainActivity extends Activity implements IdentityListener, Location
 	@Override
 	public void onLocationChanged(Location location)
 	{
-		Log.e("debug", "location changed");
+		Log.e("debug", "location has changed");
+		MainActivity.locationController.updateCoordinates(location);
 	}
 
 	@Override
-	public void onProviderDisabled(String provider)
-	{
-		
-	}
+	public void onProviderDisabled(String provider){}
 
 	@Override
-	public void onProviderEnabled(String provider)
-	{
-		
-	}
+	public void onProviderEnabled(String provider){}
 
 	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras)
-	{
-		
-	}
+	public void onStatusChanged(String provider, int status, Bundle extras){}
+
 }

@@ -1,12 +1,8 @@
 package ca.ualberta.team7project.controllers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
-import android.util.Log;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.LocationModel;
 
@@ -24,7 +20,7 @@ import ca.ualberta.team7project.models.LocationModel;
  * For simplicity (since we aren't concerned with battery life), this LocationController is 
  * always willing to accept connections. 
  */
-public class LocationController extends Activity implements LocationListener
+public class LocationController
 {
 	private Context context;
 	private Location location;
@@ -47,15 +43,7 @@ public class LocationController extends Activity implements LocationListener
 				
 	}
 
-	@Override
-	public void onLocationChanged(Location location)
-	{
-		updateCoordinates();
-		Log.e("debug", "lat  " + String.valueOf(location.getLatitude()));
-		// Call to update userModel
-	}
-		
-	public Boolean updateCoordinates()
+	public Boolean updateCoordinates(Location location)
 	{
 		Boolean updated = false;
 		
@@ -65,9 +53,12 @@ public class LocationController extends Activity implements LocationListener
 			this.setLongitude(location.getLongitude());
 			updated = true;
 		}
+
+		/* Notify all active models that coordinates have been updated */
+		MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
+		
 		return updated;
 	}
-	
 	
 	public Location getLocation()
 	{		
@@ -129,24 +120,6 @@ public class LocationController extends Activity implements LocationListener
 		this.latitude = latitude;
 	}
 	
-	@Override
-	public void onProviderDisabled(String provider)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onProviderEnabled(String provider)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras)
-	{
-		// TODO Auto-generated method stub
-	}
-
 	public LocationManager getLocationManager()
 	{
 
