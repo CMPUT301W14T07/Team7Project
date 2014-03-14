@@ -23,27 +23,23 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-import android.location.Location;
-
 public class UserModel implements Serializable
 {
 	private String name;
 	private String uniqueName;
-	private Location location = null;
+	private LocationModel location;
 
 	/**
 	 * Construct the user with the given parameters
 	 * 
-	 * @param userName
-	 *            The name given to the user.
+	 * @param userName The name given to the user.
 	 */
 	public UserModel(String userName)
 	{
 		setName(userName);
-
 		setUniqueName();
 		
-		//location = new Location("non-existing provider");
+		this.setLocation(null);
 	}
 
 	public String getName()
@@ -55,8 +51,7 @@ public class UserModel implements Serializable
 	/**
 	 * Sets the new username and updates the uniqueName
 	 * 
-	 * @param name
-	 *            of the new user
+	 * @param name of the new user
 	 */
 	public void setName(String name)
 	{
@@ -70,7 +65,7 @@ public class UserModel implements Serializable
 
 		return uniqueName;
 	}
-
+	
 	/**
 	 * Generates a unique name with the given user name.
 	 * <p>
@@ -104,15 +99,16 @@ public class UserModel implements Serializable
 		this.uniqueName = String.valueOf(userName.hashCode());
 	}
 
-	public Location getLocation()
+	public LocationModel getLocation()
 	{
 
 		return location;
 	}
 
-	public void setLocation(Location location)
+	public void setLocation(LocationModel location)
 	{
 
 		this.location = location;
 	}
+
 }

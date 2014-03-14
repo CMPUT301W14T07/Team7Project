@@ -3,8 +3,10 @@ package ca.ualberta.team7project.views;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.models.PreferenceModel;
 
@@ -44,11 +46,10 @@ public class UserView implements UserListener
 	}
 
 	@Override
-	public void locationSelected(Location location)
+	public void locationUpdated(double longitude, double latitude)
 	{
-
-		// TODO Auto-generated method stub
-		
+		Log.e("debug", "request to update user coordinates");
+		UserController.updateLocationModel(longitude, latitude);
 	}
 
 	@Override
