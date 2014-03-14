@@ -7,24 +7,37 @@
  */
 package ca.ualberta.team7project.views;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.network.ElasticSearchOperation;
 
 public class ThreadListView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	private ThreadListModel listModel;
 	private static Activity activity;
 	private ListView list;
+	//for test
+	private boolean flag = false;
+	
+	//Just to add adpater here.for test.
+	//to be honest, I really don't understand this MVC!
+	private ThreadAdapter adapter;
 	
 	public ThreadListView(ThreadListModel listModel, Activity activity)
 	{
@@ -47,8 +60,12 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		
+        //there was a merge conflict here, not sure if it should be THIS:
         final ThreadAdapter adapter = new ThreadAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, listModel.getTopics(), this);
+        //or THIS:
+        //adapter = new ThreadAdapter(activity, 
+        //		ca.ualberta.team7project.R.layout.thread, listModel.getTopics());
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		list.setAdapter(adapter);
@@ -94,8 +111,32 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Log.e("debug", "Create thread pressed");
 		Log.e("debug", "Thread title:" + title + " comment: " + comment);
-		
+	
+		//create the thread
 		ThreadListController.createThread(title, comment);
+
+		//John's pulling test
+		if (flag == false)
+		{
+		try {
+			ElasticSearchOperation.searchRecipes(null);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		adapter.notifyDataSetChanged();
+		Log.e("debug", "listeners worked!");
+		flag= true;
+		}
+		else{
+			listModel.addThreadCollection(ElasticSearchOperation.buffer);
+			adapter.notifyDataSetChanged();
+			Log.e("debug", "listeners worked!");
+			flag =false;
+		}
 	}
 
 	@Override
@@ -115,6 +156,10 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Log.e("debug", "Edit pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());
+
+		//are we using this to test?
+		//ElasticSearchOperation.searchForThreadModels(null, listModel, activity);
+		adapter.notifyDataSetChanged();
 		
 		ThreadListController.editThread(thread);
 	}

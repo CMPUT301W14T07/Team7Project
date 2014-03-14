@@ -8,13 +8,14 @@ import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
+import ca.ualberta.team7project.network.ElasticSearchOperation;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
 public class ThreadListController extends Activity
 {
 
-	private ThreadListModel listModel;
+	private ThreadListModel listModel =null;
 	private ThreadListView listView;
 	private static Activity activity;
 	
@@ -33,7 +34,6 @@ public class ThreadListController extends Activity
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate();
-		
 		this.listView = new ThreadListView(this.listModel, activity);
 		
 	}
@@ -43,7 +43,8 @@ public class ThreadListController extends Activity
 	 * Once cache and network is up, this is not necessary
 	 */
 	public void debugPopulate()
-	{
+	{	
+		
 		UserModel user = new UserModel("Ash Ketchum");
 		ThreadModel thread = new ThreadModel("Caught Snorelax. Anyone else tired of pokemon examples?" +
 				" I sure am. Guess ill start using movie references. Is elastic search pull working so I don't have " +
@@ -68,7 +69,7 @@ public class ThreadListController extends Activity
 		newListModel.setTopics(threads);
 		setListModel(newListModel);
 	}
-		
+
 	/**
 	 * If a network connection exists, pull the latest and greatest from ElasticSearch
 	 * <p>
