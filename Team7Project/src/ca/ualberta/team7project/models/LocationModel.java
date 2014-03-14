@@ -41,5 +41,4 @@ public class LocationModel
 		setLatitude(latitude);
 	}
 
-
 }

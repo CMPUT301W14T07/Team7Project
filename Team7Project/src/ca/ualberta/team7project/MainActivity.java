@@ -145,7 +145,6 @@ public class MainActivity extends Activity implements IdentityListener
 	
 		MainActivity.mainContext = mainContext;
 	}
-
 	
 	public void setUserController(UserController userController)
 	{

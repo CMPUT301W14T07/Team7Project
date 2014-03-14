@@ -36,14 +36,10 @@ public class ThreadModel
 	 * Constructs the ThreadModel with appropriate parameters. Generic reply
 	 * with a picture
 	 * 
-	 * @param comment
-	 *            associated with the thread
-	 * @param image
-	 *            associated with the thread (may be null)
-	 * @param user
-	 *            associated with the thread
-	 * @param location
-	 *            the thread was written at
+	 * @param comment associated with the thread
+	 * @param image associated with the thread (may be null)
+	 * @param user associated with the thread
+	 * @param location the thread was written at
 	 */
 	public ThreadModel(String comment, Bitmap image, UserModel user,
 			UUID parentUUID, UUID topicUUID)
@@ -68,12 +64,9 @@ public class ThreadModel
 	 * Constructs the ThreadModel with appropriate parameters. Generic reply
 	 * without a picture
 	 * 
-	 * @param comment
-	 *            associated with the thread
-	 * @param user
-	 *            associated with the thread
-	 * @param location
-	 *            the thread was written at
+	 * @param comment associated with the thread
+	 * @param user associated with the thread
+	 * @param location the thread was written at
 	 */
 	public ThreadModel(String comment, UserModel user, UUID parentUUID,
 			UUID topicUUID)
@@ -100,16 +93,11 @@ public class ThreadModel
 	 * Constructs the ThreadModel with appropriate parameters. Top Level post
 	 * with title and picture
 	 * 
-	 * @param comment
-	 *            associated with the thread
-	 * @param image
-	 *            associated with the thread (may be null)
-	 * @param user
-	 *            associated with the thread
-	 * @param location
-	 *            the thread was written at
-	 * @param title
-	 *            of the thread
+	 * @param comment associated with the thread
+	 * @param image associated with the thread (may be null)
+	 * @param user associated with the thread
+	 * @param location the thread was written at
+	 * @param title of the thread
 	 */
 	public ThreadModel(String comment, Bitmap image, UserModel user,
 			String title)
@@ -133,14 +121,10 @@ public class ThreadModel
 	 * Constructs the ThreadModel with appropriate parameters. Top Level post
 	 * without picture
 	 * 
-	 * @param comment
-	 *            associated with the thread
-	 * @param user
-	 *            associated with the thread
-	 * @param location
-	 *            the comment was written at
-	 * @param title
-	 *            of the thread
+	 * @param comment associated with the thread
+	 * @param user associated with the thread
+	 * @param location the comment was written at
+	 * @param title of the thread
 	 */
 	public ThreadModel(String comment, UserModel user, String title)
 	{
@@ -228,13 +212,13 @@ public class ThreadModel
 		this.timestamp = new Date();
 	}
 
-	public Location getLocation()
+	public LocationModel getLocation()
 	{
 
 		return user.getLocation();
 	}
 
-	public void setLocation(Location location)
+	public void setLocation(LocationModel location)
 	{
 
 		this.user.setLocation(location);
@@ -253,7 +237,6 @@ public class ThreadModel
 
 		this.uniqueID = uniqueID;
 
-		// not updating timestamp on purpose
 	}
 
 	public void generateUniqueID()
@@ -261,7 +244,6 @@ public class ThreadModel
 
 		this.uniqueID = UUID.randomUUID();
 
-		// not updating timestamp on purpose
 	}
 
 	public String getTitle()
@@ -323,8 +305,7 @@ public class ThreadModel
 		 * Accepts null as the parameter, in which case the stored string is
 		 * cleared
 		 * 
-		 * @param image
-		 *            a bitmap to be encoded
+		 * @param image a bitmap to be encoded
 		 */
 		public void encode(Bitmap image)
 		{
