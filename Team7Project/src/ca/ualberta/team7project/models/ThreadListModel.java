@@ -66,7 +66,8 @@ public class ThreadListModel
 		this.topics.add(thread);
 		
 		//just to test if it's working
-		ElasticSearchOperation.pushThreadModel(thread);
+		ElasticSearchOperation search = new ElasticSearchOperation();
+		search.pushThreadModel(thread, null);
 	}
 
 	/**

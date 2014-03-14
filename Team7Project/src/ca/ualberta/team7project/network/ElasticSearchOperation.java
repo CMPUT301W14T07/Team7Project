@@ -6,19 +6,19 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.Collection;
-import org.apache.http.HttpEntity;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import android.app.Activity;
+
 import android.util.Log;
-import ca.ualberta.team7project.models.ThreadListModel;
+import ca.ualberta.team7project.interfaces.RefreshListener;
 import ca.ualberta.team7project.models.ThreadModel;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,16 +34,15 @@ public class ElasticSearchOperation
 {
 
 	// change the url to test
-	public static final String SERVER_URL = "http://cmput301.softwareprocess.es:8080/cmput301w14t07/comments/";
-	public static final String LOG_TAG = "ElasticSearch";
+	private final String SERVER_URL = "http://cmput301.softwareprocess.es:8080/cmput301w14t07/comments/";
+	private final String LOG_TAG = "ElasticSearch";
 
-	private static Gson GSON = null;
-	public static Collection<ThreadModel> buffer;
+	private Gson GSON = null;
+	private Collection<ThreadModel> buffer;
 
 	//
 	public ElasticSearchOperation()
 	{
-
 		super();
 		constructGson();
 	}
@@ -64,7 +63,7 @@ public class ElasticSearchOperation
 	 */
 
 	// called when you want to push a new thread to server
-	public static void pushThreadModel(final ThreadModel model)
+	public void pushThreadModel(final ThreadModel model, final RefreshListener refresh)
 	{
 
 		if (GSON == null)
@@ -89,7 +88,7 @@ public class ElasticSearchOperation
 				} catch (UnsupportedEncodingException e)
 				{
 					e.printStackTrace();
-					Log.w(LOG_TAG, "Error encoding the model: "
+					Log.e(LOG_TAG, LOG_TAG+"Error encoding the model: "
 							+ e.getMessage().toString());
 					return;
 				}
@@ -98,13 +97,18 @@ public class ElasticSearchOperation
 				try
 				{
 					response = client.execute(request);
-					Log.i(LOG_TAG, "Response: "
+					Log.e(LOG_TAG, LOG_TAG+"Response: "
 							+ response.getStatusLine().toString());
 				} catch (IOException e)
 				{
 					e.printStackTrace();
-					Log.w(LOG_TAG, "Error sending the model: "
+					Log.e(LOG_TAG, LOG_TAG+"Error sending the model: "
 							+ e.getMessage().toString());
+				}
+				
+				if(refresh != null)
+				{
+					refresh.refreshThreads();
 				}
 
 				// TODO: check http response message
@@ -220,7 +224,7 @@ public class ElasticSearchOperation
 	 * 
 	 * @param parentUUID
 	 */
-	public static Collection<ThreadModel> searchThreads(final String parentUUID)
+	public Collection<ThreadModel> searchThreads(final String parentUUID)
 	{
 
 		if (GSON == null)
@@ -313,7 +317,7 @@ public class ElasticSearchOperation
 	 * Constructs a Gson builder (register a custom serializer/desserializer for
 	 * Bitmaps - may leave this out)
 	 */
-	private static void constructGson()
+	private void constructGson()
 	{
 
 		GsonBuilder builder = new GsonBuilder();

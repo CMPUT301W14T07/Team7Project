@@ -1,23 +1,24 @@
 package ca.ualberta.team7project.controllers;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.UUID;
 
 import android.app.Activity;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.interfaces.RefreshListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
-import ca.ualberta.team7project.models.ThreadPersistenceModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.TopicFetcher;
 import ca.ualberta.team7project.network.TopicUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
-public class ThreadListController extends Activity
+public class ThreadListController extends Activity implements RefreshListener
 {
-
+	private ArrayList<UUID> stack;
+	
 	private ThreadListModel listModel;
 	private static ThreadListView listView;
 	private static Activity activity;
@@ -29,6 +30,8 @@ public class ThreadListController extends Activity
 	
 	public ThreadListController(Activity activity)
 	{
+		stack = new ArrayList<UUID>();
+		stack.add(UUID.fromString(ThreadModel.ROOT));
 		
 		ThreadListController.activity = activity;
 		
@@ -82,15 +85,26 @@ public class ThreadListController extends Activity
 	 */
 	public void refreshThreads()
 	{
-		TopicFetcher fetcher = new TopicFetcher();
+		activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
 		
-		ArrayList<ThreadModel> threads = fetcher.fetchTopics(TopicFetcher.SortMethod.NO_SORT);
+				TopicFetcher fetcher = new TopicFetcher();
+				
+				UUID parent = stack.get(stack.size()-1);
+				
+				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, TopicFetcher.SortMethod.NO_SORT);
+				
+				listModel = new ThreadListModel();
+				listModel.setTopics(threads);
+					
+				//listView = new ThreadListView(this.listModel, activity);
+				listView.notifyListChange(listModel);
 		
-		listModel = new ThreadListModel();
-		listModel.setTopics(threads);
-			
-		//listView = new ThreadListView(this.listModel, activity);
-		listView.notifyListChange(this.listModel);
+			}
+		});
 	}
 
 	/**
@@ -149,7 +163,7 @@ public class ThreadListController extends Activity
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
 		
-		TopicUpdater updater = new TopicUpdater();
+		TopicUpdater updater = new TopicUpdater(this);
 		
 		/* Determine if the user was editing, replying or creating a new thread */
 		if(getEditingTopic() == true)
@@ -174,10 +188,10 @@ public class ThreadListController extends Activity
 			}
 		}
 		
+		updater.sendComment(newThread); //logic path above not working
+		
 		setEditingTopic(false);
-		
-		updater.sendComment(newThread);
-		
+	
 		this.refreshThreads();
 	}
 	

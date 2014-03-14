@@ -2,14 +2,24 @@ package ca.ualberta.team7project.network;
 
 import java.util.UUID;
 
+import ca.ualberta.team7project.interfaces.RefreshListener;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadPersistenceModel;
 
 public class TopicUpdater
 {
+	RefreshListener refresh;
+	
+	public TopicUpdater(RefreshListener refresh)
+	{
+		super();
+		this.refresh = refresh;
+	}
+
 	public void sendComment(ThreadModel comment)
 	{
-		ElasticSearchOperation.pushThreadModel(comment);
+		ElasticSearchOperation search = new ElasticSearchOperation();
+		search.pushThreadModel(comment, refresh);
 	}
 	
 	/*

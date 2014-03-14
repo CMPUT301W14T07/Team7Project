@@ -103,7 +103,8 @@ public class ThreadPersistenceModel
 	 */
 	public void PushTopic(ThreadModel topic)
 	{
-		ElasticSearchOperation.pushThreadModel(topic);
+		ElasticSearchOperation search = new ElasticSearchOperation();
+		search.pushThreadModel(topic, null);
 		
 	}
 
