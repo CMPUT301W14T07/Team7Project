@@ -23,8 +23,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-import android.location.Location;
-
 public class UserModel implements Serializable
 {
 	private String name;
@@ -34,8 +32,7 @@ public class UserModel implements Serializable
 	/**
 	 * Construct the user with the given parameters
 	 * 
-	 * @param userName
-	 *            The name given to the user.
+	 * @param userName The name given to the user.
 	 */
 	public UserModel(String userName)
 	{
@@ -113,6 +110,5 @@ public class UserModel implements Serializable
 
 		this.location = location;
 	}
-
 
 }

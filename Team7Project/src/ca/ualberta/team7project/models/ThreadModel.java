@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.UUID;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.util.Base64;
 
 public class ThreadModel
