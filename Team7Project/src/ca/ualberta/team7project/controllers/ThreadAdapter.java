@@ -7,7 +7,7 @@
  */
 package ca.ualberta.team7project.controllers;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,12 +22,11 @@ import ca.ualberta.team7project.views.ThreadListView;
 public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 {
 
-	private LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
+	private ArrayList<ThreadModel> threads = new ArrayList<ThreadModel>();
 	private Context context;
 	private ThreadListView view;
 		
-	public ThreadAdapter(Context context, int resource,
-			LinkedList<ThreadModel> threads, ThreadListView view)
+	public ThreadAdapter(Context context, int resource, ArrayList<ThreadModel> threads, ThreadListView view)
 	{
 		super(context, resource);
     	this.threads = threads;

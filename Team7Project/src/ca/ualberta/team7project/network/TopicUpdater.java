@@ -7,16 +7,12 @@ import ca.ualberta.team7project.models.ThreadPersistenceModel;
 
 public class TopicUpdater
 {
-	private UUID topmost; //null only if currently browsing topics (comments with no parents)
-	
-	private ThreadPersistenceModel persist;
-	
-	public TopicUpdater(UUID topmost)
+	public void sendComment(ThreadModel comment)
 	{
-		this.topmost = topmost;
-		this.persist = new ThreadPersistenceModel();
+		ElasticSearchOperation.pushThreadModel(comment);
 	}
 	
+	/*
 	//from server
 	private ThreadModel getCurrentTopic(UUID uniqueId)
 	{
@@ -53,4 +49,5 @@ public class TopicUpdater
 		
 		sendUpdatedTopic(oldTopic);
 	}
+	*/
 }

@@ -1,5 +1,6 @@
 package ca.ualberta.team7project.controllers;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import android.app.Activity;
@@ -9,13 +10,15 @@ import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadPersistenceModel;
 import ca.ualberta.team7project.models.UserModel;
+import ca.ualberta.team7project.network.TopicFetcher;
+import ca.ualberta.team7project.network.TopicUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
 public class ThreadListController extends Activity
 {
 
-	private ThreadListModel listModel =null;
+	private ThreadListModel listModel;
 	private static ThreadListView listView;
 	private static Activity activity;
 	
@@ -24,7 +27,8 @@ public class ThreadListController extends Activity
 	private static Boolean editingThread;
 	private static ThreadModel openThread;
 	
-	public ThreadListController(Activity activity){
+	public ThreadListController(Activity activity)
+	{
 		
 		ThreadListController.activity = activity;
 		
@@ -33,9 +37,10 @@ public class ThreadListController extends Activity
 		ThreadListController.openThread = null;
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
-		debugPopulate();
-		ThreadListController.listView = new ThreadListView(this.listModel, activity);
+		listModel = new ThreadListModel();
+		ThreadListController.listView = new ThreadListView(this.listModel, activity, this);
 		
+		this.refreshThreads();
 	}
 	
 	/*
@@ -59,7 +64,7 @@ public class ThreadListController extends Activity
 				+ "Lots and lots of text needs to be written. Soon we can pull from ES and I won't have to write boring "
 				+ "lines of text list this. YEAHHHHHH!", user, "Pokedex four");
 
-		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
+		ArrayList<ThreadModel> threads = new ArrayList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
@@ -77,7 +82,15 @@ public class ThreadListController extends Activity
 	 */
 	public void refreshThreads()
 	{
-		// TODO call the persistence and network classes here
+		TopicFetcher fetcher = new TopicFetcher();
+		
+		ArrayList<ThreadModel> threads = fetcher.fetchTopics(TopicFetcher.SortMethod.NO_SORT);
+		
+		listModel = new ThreadListModel();
+		listModel.setTopics(threads);
+			
+		//listView = new ThreadListView(this.listModel, activity);
+		listView.notifyListChange(this.listModel);
 	}
 
 	/**
@@ -130,13 +143,13 @@ public class ThreadListController extends Activity
 	 * @param title of the thread
 	 * @param body of the thread
 	 */
-	public static void createThread(String title, String comment)
+	public void createThread(String title, String comment)
 	{
 		/* First we need to get the UserModel to associate with a ThreadModel */
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
 		
-		ThreadPersistenceModel persistence = new ThreadPersistenceModel();
+		TopicUpdater updater = new TopicUpdater();
 		
 		/* Determine if the user was editing, replying or creating a new thread */
 		if(getEditingTopic() == true)
@@ -157,16 +170,15 @@ public class ThreadListController extends Activity
 			/* User created new topic. Upload to Elastic Search */
 			else
 			{				
-				persistence.PushTopic(newThread);
+				
 			}
 		}
 		
 		setEditingTopic(false);
 		
-		/* Finished working with model data, now update the view */
-		//ThreadListView.notifyListChange(somethreadlistmodelhere); This requires the updated ThreadListModel 
-		// However for now until persistence methods fully work I have added the following method to the listener interface.
-		listView.notifyThreadInserted(newThread);
+		updater.sendComment(newThread);
+		
+		this.refreshThreads();
 	}
 	
 	/* Your standard getters/setters */
