@@ -8,13 +8,6 @@ import ca.ualberta.team7project.models.ThreadModel;
 
 public class TopicFetcher
 {
-	ElasticSearchOperation search;
-	
-	public TopicFetcher()
-	{
-		search = new ElasticSearchOperation();
-	}
-	
 	public static enum SortMethod //methods for getting the "best/most relevant" topics
 	{
 		NO_SORT, DATE, LOCATION, DATE_LOCATION
@@ -27,7 +20,7 @@ public class TopicFetcher
 	 */
 	public ArrayList<ThreadModel> fetchTopics(SortMethod sort)
 	{
-		return new ArrayList<ThreadModel>(search.searchThreads(ThreadModel.ROOT));
+		return new ArrayList<ThreadModel>(ElasticSearchOperation.searchThreads(ThreadModel.ROOT));
 	}
 	
 	/**
@@ -51,6 +44,6 @@ public class TopicFetcher
 		if(parentID == null)
 			return fetchTopics(sort);
 		
-		return new ArrayList<ThreadModel>(search.searchThreads(parentID.toString()));
+		return new ArrayList<ThreadModel>(ElasticSearchOperation.searchThreads(parentID.toString()));
 	}
 }

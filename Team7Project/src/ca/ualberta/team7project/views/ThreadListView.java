@@ -26,13 +26,14 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	private static Activity activity;
 	private ListView list;
 	private ThreadAdapter adapter;
+	private ThreadListController controller;
 	
-	public ThreadListView(ThreadListModel listModel, Activity activity)
+	public ThreadListView(ThreadListModel listModel, Activity activity, ThreadListController controller)
 	{
 		super();
 		this.listModel = listModel;
 		ThreadListView.activity = activity;
-		
+		this.controller = controller;
 		populateList();
 	}
 
@@ -97,7 +98,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		Log.e("debug", "Create thread pressed");
 		Log.e("debug", "Thread title:" + title);
 		
-		ThreadListController.createThread(title, comment);
+		controller.createThread(title, comment);
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		Log.e("debug", "Edit pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());
 		
-		ThreadListController.editThread(thread);
+		controller.editThread(thread);
 	}
 
 	@Override
@@ -136,6 +137,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		this.listModel = list;
 		adapter.notifyDataSetChanged();		
+		this.populateList();
 	}
 
 	@Override
