@@ -60,12 +60,8 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
         activity.setContentView(ca.ualberta.team7project.R.layout.thread_list_view);
         list = (ListView) activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		
-        //there was a merge conflict here, not sure if it should be THIS:
-        final ThreadAdapter adapter = new ThreadAdapter(activity, 
+        adapter = new ThreadAdapter(activity, 
         		ca.ualberta.team7project.R.layout.thread, listModel.getTopics(), this);
-        //or THIS:
-        //adapter = new ThreadAdapter(activity, 
-        //		ca.ualberta.team7project.R.layout.thread, listModel.getTopics());
 
 		list = (ListView)activity.findViewById(ca.ualberta.team7project.R.id.threads_list);
 		list.setAdapter(adapter);

@@ -28,7 +28,7 @@ public class ThreadModel
 											// byte array
 	private Date timestamp = null; // time of last change of any kind
 	private UUID uniqueID = null; // this is also the Elastic Search index
-	
+
 	private UUID parentUUID = null;
 	private UUID topicUUID = null;
 	private UserModel user;
@@ -47,37 +47,23 @@ public class ThreadModel
 	 * @param location
 	 *            the thread was written at
 	 */
-	public ThreadModel(String comment, Bitmap image, UserModel user, UUID parentUUID, UUID topicUUID)
+	public ThreadModel(String comment, Bitmap image, UserModel user,
+			UUID parentUUID, UUID topicUUID)
 	{
+
 		super();
 		this.comment = comment;
 		this.bitmapData.encode(image);
 		this.user = user;
 		this.title = null;
-		
+
 		this.timestamp = new Date();
-		
+
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
-		
+
 		this.parentUUID = parentUUID;
 		this.topicUUID = parentUUID;
-	}
-
-	public UUID getParentUUID() {
-		return parentUUID;
-	}
-
-	public void setParentUUID(UUID parentUUID) {
-		this.parentUUID = parentUUID;
-	}
-
-	public UUID getTopicUUID() {
-		return topicUUID;
-	}
-
-	public void setTopicUUID(UUID topicUUID) {
-		this.topicUUID = topicUUID;
 	}
 
 	/**
@@ -91,22 +77,25 @@ public class ThreadModel
 	 * @param location
 	 *            the thread was written at
 	 */
-	public ThreadModel(String comment, UserModel user, UUID parentUUID, UUID topicUUID)
+	public ThreadModel(String comment, UserModel user, UUID parentUUID,
+			UUID topicUUID)
 	{
+
 		super();
 		this.comment = comment;
 		this.user = user;
 		this.title = null;
-		this.bitmapData = new BitmapData(); //empty bitmap will be treated as no bitmap
-		
+		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
+											// no bitmap
+
 		this.timestamp = new Date();
-		
+
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
-		
+
 		this.parentUUID = parentUUID;
 		this.topicUUID = topicUUID;
-		
+
 	}
 
 	/**
@@ -127,18 +116,19 @@ public class ThreadModel
 	public ThreadModel(String comment, Bitmap image, UserModel user,
 			String title)
 	{
+
 		super();
 		this.comment = comment;
 		this.bitmapData.encode(image);
 		this.user = user;
 		this.title = title;
-		
+
 		this.timestamp = new Date();
-		
+
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 		this.topicUUID = this.uniqueID;
-		
+
 	}
 
 	/**
@@ -156,20 +146,22 @@ public class ThreadModel
 	 */
 	public ThreadModel(String comment, UserModel user, String title)
 	{
+
 		super();
 		this.comment = comment;
 		this.user = user;
 		this.title = title;
-		this.bitmapData = new BitmapData(); //empty bitmap will be treated as no bitmap
-		
+		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
+											// no bitmap
+
 		this.timestamp = new Date();
-		
+
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 		this.topicUUID = this.uniqueID;
-		//Root UUID is db352350-aa82-11e3-a5e2-0800200c9a66, I just created
+		// Root UUID is db352350-aa82-11e3-a5e2-0800200c9a66, I just created
 		this.parentUUID = UUID.fromString(ROOT);
-		
+
 	}
 
 	public boolean isTopic()
@@ -287,7 +279,30 @@ public class ThreadModel
 		this.timestamp = new Date();
 	}
 
-	
+	public UUID getParentUUID()
+	{
+
+		return parentUUID;
+	}
+
+	public void setParentUUID(UUID parentUUID)
+	{
+
+		this.parentUUID = parentUUID;
+	}
+
+	public UUID getTopicUUID()
+	{
+
+		return topicUUID;
+	}
+
+	public void setTopicUUID(UUID topicUUID)
+	{
+
+		this.topicUUID = topicUUID;
+	}
+
 	/**
 	 * Class that stores a bitmap in json serializable form (a base64 encoded
 	 * byte array)
