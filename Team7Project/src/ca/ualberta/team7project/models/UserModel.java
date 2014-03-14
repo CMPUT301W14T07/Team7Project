@@ -27,7 +27,6 @@ import android.location.Location;
 
 public class UserModel implements Serializable
 {
-	//this is the usermodel we need
 	private String name;
 	private String uniqueName;
 	private Location location = null;

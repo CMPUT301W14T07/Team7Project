@@ -19,6 +19,7 @@ import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.interfaces.UserListener;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
@@ -53,13 +54,11 @@ public class MainActivity extends Activity implements IdentityListener
 		MainActivity.listController = new ThreadListController(this);
 		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
-		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
+		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext). // TODO (~michael Reminder to look at NPE latter)
 				getListController().getListView());
 		this.setUserListener(MainActivity.getUserController().getUserView()); // TODO (~michael Reminder to look at NPE latter)
 
-/*		if(MainActivity.threadListener == null){
-			Log.e("debug", "thread is null");
-		}*/
+		LocationModel location = new LocationModel(getApplicationContext());
 	}
 
 	// TODO Need an onResume()
