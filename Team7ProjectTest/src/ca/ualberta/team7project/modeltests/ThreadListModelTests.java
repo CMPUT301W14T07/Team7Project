@@ -1,6 +1,6 @@
 package ca.ualberta.team7project.modeltests;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
@@ -24,11 +24,13 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
 		threadsList.addTopic(thread);
 		
-		LinkedList<ThreadModel> threads = threadsList.getTopics();
+		ArrayList<ThreadModel> threads = threadsList.getTopics();
 		
 		assertTrue("LinkedList of thread should contain a thread", threads.contains(thread));
 	}
 	
+	//after changing LinkedList to ArrayList, insertion order no longer exists
+	/*
 	public void testInsertionOrder()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
@@ -40,10 +42,11 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		threadsList.addTopic(threadFirst);
 		threadsList.addTopic(threadLast);
 
-		LinkedList<ThreadModel> threads = threadsList.getTopics();
+		ArrayList<ThreadModel> threads = threadsList.getTopics();
 		
 		assertEquals("Last inserted topic in place", threads.getLast(), threadLast);
 	}
+	*/
 	
 	public void testSetTopic()
 	{
@@ -51,7 +54,7 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
 		ThreadModel threadOne = new ThreadModel("Caught Charmander", user, null);
 		
-		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
+		ArrayList<ThreadModel> threads = new ArrayList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
 

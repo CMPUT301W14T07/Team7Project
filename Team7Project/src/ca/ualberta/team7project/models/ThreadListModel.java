@@ -6,6 +6,7 @@
  */
 package ca.ualberta.team7project.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import ca.ualberta.team7project.network.ElasticSearchOperation;
 public class ThreadListModel
 {
 
-	private LinkedList<ThreadModel> topics;
+	private ArrayList<ThreadModel> topics;
 
 	/**
 	 * Construct new, empty list
@@ -23,7 +24,7 @@ public class ThreadListModel
 	public ThreadListModel()
 	{
 		super();
-		this.topics = new LinkedList<ThreadModel>();
+		this.topics = new ArrayList<ThreadModel>();
 	}
 	
 
@@ -32,7 +33,7 @@ public class ThreadListModel
 	 * 
 	 * @param topics list of existing topics
 	 */
-	public ThreadListModel(LinkedList<ThreadModel> topics)
+	public ThreadListModel(ArrayList<ThreadModel> topics)
 	{
 		super();
 		this.topics = topics;
@@ -42,23 +43,29 @@ public class ThreadListModel
 		this.topics.addAll(threads);
 	}
 	
-	public LinkedList<ThreadModel> getTopics()
+	public ArrayList<ThreadModel> getTopics()
 	{
 	
 		return topics;
 	}
 	
-	public void setTopics(LinkedList<ThreadModel> topics)
+	public void setTopics(ArrayList<ThreadModel> topics)
 	{
 	
 		this.topics = topics;
 	}	
 	
+	/**
+	 * Adds a topic
+	 * <p>
+	 * This function is for testing purposes only
+	 * @param thread Topic to be added
+	 */
 	public void addTopic(ThreadModel thread)
 	{
 		this.topics.add(thread);
 		
-		//just to test if it's working wel
+		//just to test if it's working
 		ElasticSearchOperation.pushThreadModel(thread);
 	}
 
@@ -76,22 +83,6 @@ public class ThreadListModel
 	{
 		return this.topics.size();
 	}
-	
-	public ThreadModel getLastTopic()
-	{
-		return topics.getLast();
-	}
-	
-	public ThreadModel getFirstTopic()
-	{
-		return topics.getFirst();
-	}
-	
-	public void insertFirstTopic(ThreadModel thread)
-	{
-		this.topics.addFirst(thread);
-	}
-	
 	
 	/**
 	 * Adds to or updates a topic in the list

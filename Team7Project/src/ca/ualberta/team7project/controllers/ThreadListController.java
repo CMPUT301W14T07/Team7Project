@@ -1,5 +1,6 @@
 package ca.ualberta.team7project.controllers;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import android.app.Activity;
@@ -9,6 +10,7 @@ import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadPersistenceModel;
 import ca.ualberta.team7project.models.UserModel;
+import ca.ualberta.team7project.network.TopicFetcher;
 import ca.ualberta.team7project.views.ThreadListView;
 
 
@@ -59,7 +61,7 @@ public class ThreadListController extends Activity
 				+ "Lots and lots of text needs to be written. Soon we can pull from ES and I won't have to write boring "
 				+ "lines of text list this. YEAHHHHHH!", user, "Pokedex four");
 
-		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
+		ArrayList<ThreadModel> threads = new ArrayList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
@@ -77,7 +79,15 @@ public class ThreadListController extends Activity
 	 */
 	public void refreshThreads()
 	{
-		// TODO call the persistence and network classes here
+		TopicFetcher fetcher = new TopicFetcher();
+		
+		ArrayList<ThreadModel> threads = fetcher.fetchTopics(TopicFetcher.SortMethod.NO_SORT);
+		
+		listModel = new ThreadListModel();
+		listModel.setTopics(threads);
+			
+		listView = new ThreadListView(this.listModel, activity);
+		listView.notifyListChange(this.listModel);
 	}
 
 	/**

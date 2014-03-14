@@ -10,6 +10,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.view.MenuItem;
 import android.widget.Toast;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.LocationLookupAlertView;
@@ -144,7 +145,9 @@ public class ActionBarView extends Activity
 	private void refreshView()
 	{
 		// Just a temporary debug toast.	
-		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
+		//Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
+		
+		((MainActivity)mainContext).getListController().refreshThreads();
 	}
 
 	/**
