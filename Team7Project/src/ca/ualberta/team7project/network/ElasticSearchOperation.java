@@ -9,7 +9,9 @@ import java.util.Collection;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
@@ -126,6 +128,12 @@ public class ElasticSearchOperation
 	 * @param model what is this supposed to do??
 	 * @param activity
 	 */
+	
+	/**
+	 * the Function is not implemented yet
+	 * @param searchObject
+	 */
+	/*
 	public static void  searchForThreadModels(final String searchObject)
 	{	
 		if(GSON == null){
@@ -139,8 +147,8 @@ public class ElasticSearchOperation
 			{
 				HttpClient client = new DefaultHttpClient();
 				HttpPost request = new HttpPost(SERVER_URL + "_search");
-				//String query = 	"{\"query\": {\"query_string\": {\"default_field\": \"parentUUID\",\"query\": \"*" + ThreadModel.ROOT + "*\"}}}";
-				String query = "?parentCCID=db352350-aa82-11e3-a5e2-0800200c9a66";
+				String query = 	"{\"query\": {\"query_string\": {\"default_field\": \"parentUUID\",\"query\": \" + ThreadModel.ROOT + \"}}}";
+				//String query = "parentCCID=db352350-aa82-11e3-a5e2-0800200c9a66";
 				String responseJson = "";
 				Log.w(LOG_TAG, "Debugg!!");
 
@@ -184,12 +192,126 @@ public class ElasticSearchOperation
 				
 				final ElasticSearchSearchResponse<ThreadModel> returnedData = GSON
 						.fromJson(responseJson, elasticSearchSearchResponseType);
-				Log.w(LOG_TAG, ""+returnedData.toString());
+				Log.w(LOG_TAG, ""+returnedData.getSources().size());
 				buffer = returnedData.getSources();
 			}
 		};
 		thread.setPriority(Thread.MAX_PRIORITY);
 		thread.start();
+	}
+	*/
+	
+	/**
+	 * this is not implemented yet
+	 * @param str
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	/*
+	public void getThreads(){
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet getRequest = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab02/999?pretty=1");
+
+			getRequest.addHeader("Accept","application/json");
+
+			HttpResponse response = httpclient.execute(getRequest);
+
+			String status = response.getStatusLine().toString();
+			System.out.println(status);
+			
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader((response.getEntity().getContent())));
+			String output;
+			System.err.println("Output from Server -> ");
+			String json = "";
+			while ((output = br.readLine()) != null) {
+				System.err.println(output);
+				json += output;
+			}
+			// We have to tell GSON what type we expect
+			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<ThreadModel>>(){}.getType();
+			// Now we expect to get a Recipe response
+			ElasticSearchResponse<ThreadModel> esResponse = GSON.fromJson(json, elasticSearchResponseType);
+			// We get the recipe from it!
+			Log.w(this.LOG_TAG, ""+esResponse.getSource());
+			//getRequest.releaseConnection();
+
+		} catch (ClientProtocolException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	/**
+	 * 
+	 * @param parentUUID
+	 */
+	public static Collection<ThreadModel> searchThreads(final String parentUUID){
+		if(GSON ==null){
+			constructGson();
+		}
+		
+		Thread thread = new Thread(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				
+				try {
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpGet searchRequest = new HttpGet(SERVER_URL+ "_search?parentCCID="+parentUUID);
+					searchRequest.setHeader("Accept","application/json");
+					
+					HttpResponse response;
+					response = httpclient.execute(searchRequest);
+					String status = response.getStatusLine().toString();
+					
+					System.out.println(status);
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader((response.getEntity().getContent())));
+					String output;
+					System.err.println("Output from Server -> ");
+					String json = "";
+					while ((output = br.readLine()) != null) {
+						System.err.println(output);
+						json += output;
+					}
+					
+					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<ThreadModel>>(){}.getType();
+					ElasticSearchSearchResponse<ThreadModel> esResponse = GSON.fromJson(json, elasticSearchSearchResponseType);
+					System.err.println(esResponse);
+					System.err.println(""+esResponse.getSources().size());
+					buffer = esResponse.getSources();
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		};
+		
+		thread.start();
+		//current thread is blocked until the http thread finish what it is doing
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//searchRequest.releaseConnection();
+		
+		return buffer;
 	}
 	
 	//TODO: pullThreadModel, pulls one thread by uniqueID/elastic search index

@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
+import ca.ualberta.team7project.interfaces.ThreadListener;
+import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
@@ -24,8 +26,11 @@ public class MainActivity extends Activity implements IdentityListener
 	private UserController userController;
 	private ThreadListController listController;
 	
-	/* mainContext is necessary for casting to all listeners */
+	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
+
+	private static ThreadListener threadListener;
+	private static UserListener userListener;	
 	
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -47,6 +52,15 @@ public class MainActivity extends Activity implements IdentityListener
 		this.userController = new UserController(context, fragment);
 		this.listController = new ThreadListController(this);
 		
+		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
+		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
+				getListController().getListView());
+		this.setUserListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
+				getUserController().getUserView());
+
+/*		if(MainActivity.threadListener == null){
+			Log.e("debug", "thread is null");
+		}*/
 	}
 
 	// TODO Need an onResume()
@@ -139,4 +153,29 @@ public class MainActivity extends Activity implements IdentityListener
 	
 		this.userController = userController;
 	}
+
+	public static ThreadListener getThreadListener()
+	{
+
+		return threadListener;
+	}
+
+	public void setThreadListener(ThreadListener threadListener)
+	{
+
+		MainActivity.threadListener = threadListener;
+	}
+
+	public UserListener getUserListener()
+	{
+
+		return userListener;
+	}
+
+	public void setUserListener(UserListener userListener)
+	{
+
+		MainActivity.userListener = userListener;
+	}
+
 }

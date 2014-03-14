@@ -65,7 +65,10 @@ public class ThreadModelTests extends
 	
 	/*
 	 * The below tests will test whether insertion of child comments is working
+	 * 
+	 * No longer needed, since we can't insert child comments without server interaction
 	 */
+	/*
 	public void testChildThread()
 	{
 		UserModel user = new UserModel("Ash Ketchum");
@@ -79,6 +82,7 @@ public class ThreadModelTests extends
 		
 		assertEquals("Child comments are inserted", parent.getComments(), children);		
 	}
+	*/
 	
 	/*
 	 * Tests below test whether unique ID is working

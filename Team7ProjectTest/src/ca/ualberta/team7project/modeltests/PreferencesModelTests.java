@@ -1,7 +1,8 @@
 package ca.ualberta.team7project.modeltests;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.UUID;
+
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
@@ -51,7 +52,7 @@ public class PreferencesModelTests extends
 	{
 		PreferenceModel preference = new PreferenceModel("BoB");
 
-		ThreadModel thread = new ThreadModel("Bob's favorite movies", preference.getUser());
+		ThreadModel thread = new ThreadModel("Bob's favorite movies", preference.getUser(), UUID.randomUUID(), UUID.randomUUID());
 		preference.addFavoriteTopic(thread);
 		
 		ArrayList<ThreadModel> favorites = new ArrayList<ThreadModel>();
@@ -64,7 +65,7 @@ public class PreferencesModelTests extends
 	{
 		PreferenceModel preference = new PreferenceModel("BoB");
 
-		ThreadModel thread = new ThreadModel("Bob's favorite places to eat", preference.getUser());
+		ThreadModel thread = new ThreadModel("Bob's favorite places to eat", preference.getUser(), UUID.randomUUID(), UUID.randomUUID());
 		preference.addAuthoredComment(thread);
 		
 		ArrayList<ThreadModel> restaurants = new ArrayList<ThreadModel>();

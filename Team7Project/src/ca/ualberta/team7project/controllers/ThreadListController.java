@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import android.app.Activity;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
@@ -18,13 +19,23 @@ public class ThreadListController extends Activity
 	private ThreadListView listView;
 	private static Activity activity;
 	
+	/* Attributes necessary for passing between ThreadAlertView and ThreadListView */
+	private static Boolean inTopic;
+	private static Boolean editingThread;
+	private static ThreadModel openThread;
+	
 	public ThreadListController(Activity activity){
 		
 		ThreadListController.activity = activity;
-				
+		
+		ThreadListController.inTopic = false;
+		ThreadListController.editingThread = false;
+		ThreadListController.openThread = null;
+		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		debugPopulate();
 		this.listView = new ThreadListView(this.listModel, activity);
+		
 	}
 	
 	/*
@@ -44,33 +55,21 @@ public class ThreadListController extends Activity
 				"working. Is it working well? The buttons look ugly. Oh well, ill change them later. " +
 				"They are just here so that ppl can start working on click listeners. Internal monologues are great.", user, 
 				"Pokedex three");
-		
+		ThreadModel threadThree = new ThreadModel("Caught Pidgeo. Just checking if the list will scroll. "
+				+ "Lots and lots of text needs to be written. Soon we can pull from ES and I won't have to write boring "
+				+ "lines of text list this. YEAHHHHHH!", user, "Pokedex four");
+
 		LinkedList<ThreadModel> threads = new LinkedList<ThreadModel>();
 		threads.add(thread);
 		threads.add(threadOne);
 		threads.add(threadTwo);
+		threads.add(threadThree);
 				
 		ThreadListModel newListModel = new ThreadListModel();
 		newListModel.setTopics(threads);
 		setListModel(newListModel);
 	}
-	
-	
-	/**
-	 * A helper method for context sensitive alert dialogs.
-	 * <P>
-	 * When user clicks a reply or post button, the alert dialogs need to know whether
-	 * the user is posting a new topic or replying to an existing topic.
-	 * <P>
-	 * A user is either viewing the home thread of all topics, or is inside a topic.
-	 * 
-	 * @return True if the user is in the child thread of a topic.
-	 */
-	public static Boolean inTopic(){
-		// TODO
-		return true;
-	}
-	
+
 	/**
 	 * If a network connection exists, pull the latest and greatest from ElasticSearch
 	 * <p>
@@ -81,13 +80,92 @@ public class ThreadListController extends Activity
 		// TODO call the persistence and network classes here
 	}
 
+	/**
+	 * Responds to the users desire to edit a thread.
+	 * <p>
+	 * editingTopic is set to true to represent that the user is editing a topic. The thread is saved
+	 * in expectation that the user will finish the prompt and that the new model can be updated and inserted
+	 * into the appropriate persistence models in other methods.
+	 * 
+	 * @param thread that the user is editing
+	 */
+	public static void editThread(ThreadModel thread)
+	{
+		
+		// TODO confirm that the user has permission to edit this thread.
+		
+		ThreadListController.setEditingTopic(true);
+		ThreadListController.setOpenThread(thread);
+		
+		ThreadAlertView threadAlert = new ThreadAlertView();
+		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+				.getFragmentManager(), "New Thread Alert");
+	}
+	
+	/**
+	 * Responds to the users desire to reply to a thread.
+	 * <p>
+	 * editingTopic is set to false to represent that we are not editing a topic, and setInTopic is true
+	 * to represent that we are not creating a new topic and are in an existing topic.
+	 * <p> 
+	 * The thread we are replying to is saved in expectation that the user will finish the prompt and 
+	 * add the reply to the thread, whereupon it is inserted into the appropriate model in other methods 
+	 * 
+	 * @param thread that the user is replying to
+	 */
+	public static void replyThread(ThreadModel thread)
+	{
+		ThreadListController.setEditingTopic(false);
+		ThreadListController.setInTopic(true);
+		ThreadListController.setOpenThread(thread);
+
+		ThreadAlertView threadAlert = new ThreadAlertView();
+		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+				.getFragmentManager(), "New Thread Alert");
+	}
+	
+	/**
+	 * Creates a new thread and inserts it into the model in response to a click listener.
+	 * 
+	 * @param title of the thread
+	 * @param body of the thread
+	 */
+	public static void createThread(String title, String comment)
+	{
+		/* user is null for now, but we have to pull the user model to associate with the thread */
+		ThreadModel newThread = new ThreadModel(comment, null, title);
+
+		/* We must first determine if the user was editing, replying or creating a new thread */
+		if(getEditingTopic() == true)
+		{
+			/* User edited a thread. Update models appropriately */
+			/* Insert newThread in place of the open thread in the models */
+		}
+		else
+		{
+			/* User was not editing thread. Could be replying or creating a topic */
+			if(getInTopic() == true)
+			{
+				/* User replied. Updated models appropriately */
+				/* Append the reply to the openThread and then replace in the model */
+			}
+			else
+			{
+				/* User created new topic. Updated models appropriately */
+				/* Add a new topic to the models */
+			}
+		}
+		
+		setEditingTopic(false);
+	}
+	
+	/* Your standard getters/setters */
 	
 	public ThreadListModel getListModel()
 	{
 	
 		return listModel;
 	}
-
 	
 	public void setListModel(ThreadListModel threads)
 	{
@@ -101,25 +179,57 @@ public class ThreadListController extends Activity
 		return listView;
 	}
 
-	
 	public void setListView(ThreadListView listView)
 	{
 	
 		this.listView = listView;
 	}
-
 	
 	public Activity getActivity()
 	{
 	
 		return activity;
 	}
-
 	
 	public void setActivity(Activity activity)
 	{
-	
-		this.activity = activity;
+		
+		ThreadListController.activity = activity;
 	}
 	
+	public static Boolean getInTopic()
+	{
+		
+		return ThreadListController.inTopic;
+	}
+	
+	public static void setInTopic(Boolean type)
+	{
+		
+		ThreadListController.inTopic = type;
+	}
+		
+	public static Boolean getEditingTopic()
+	{
+		
+		return ThreadListController.editingThread;
+	}
+	
+	public static void setEditingTopic(Boolean type)
+	{
+		
+		ThreadListController.editingThread = type;
+	}
+
+	public static ThreadModel getOpenThread()
+	{
+		
+		return openThread;
+	}
+
+	public static void setOpenThread(ThreadModel openThread)
+	{
+		
+		ThreadListController.openThread = openThread;
+	}
 }
