@@ -127,13 +127,17 @@ public class ActionBarView extends Activity
 	 */
 	private void createTopic()
 	{
+		//old stuff
 /*		ThreadListView threadListView = ((ca.ualberta.team7project.MainActivity)mainContext)
 				.getListController().getListView();
 		
 		ThreadAlertView threadAlert = new ThreadAlertView(threadListView);
 		threadAlert.show(fragment, "New Thread Alert");*/
 		
-		// New method. Old stuff commented until fully tested.
+		//hacking through..
+		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setInTopic(false);
+		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setEditingTopic(false);
+		
 		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(fragment, "New Thread Alert");
 

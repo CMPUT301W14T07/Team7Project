@@ -34,8 +34,9 @@ import ca.ualberta.team7project.views.ThreadListView;
 
 public class ThreadAlertView extends DialogFragment
 {
-	private Boolean replying = true;
-	private Boolean editing = false;
+	private Boolean replying;
+	private Boolean editing;
+	private ThreadListController controller;
 	
 	public interface ThreadAlertListener
 	{
@@ -52,17 +53,14 @@ public class ThreadAlertView extends DialogFragment
 
 		this.listener = ((ca.ualberta.team7project.MainActivity)mainContext).getListController().getListView();
 
+		controller = ((ca.ualberta.team7project.MainActivity)mainContext).getListController();
+		replying = ((ca.ualberta.team7project.MainActivity)mainContext).getListController().getInTopic();
+		editing = ((ca.ualberta.team7project.MainActivity)mainContext).getListController().getEditingTopic();
 	}
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
-
-		/* We need to determine which attributes the AlertDialoig will contain */
-		//this.replying = ThreadController.inTopic();
-		this.replying = ThreadListController.getInTopic();
-		this.editing = ThreadListController.getEditingTopic();
-		
 		/* Create the builder, inflate the layout and set the view to the appropriate xml file */
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflator = getActivity().getLayoutInflater();
@@ -83,7 +81,7 @@ public class ThreadAlertView extends DialogFragment
 			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 			
-			ThreadListController.setInTopic(false);
+			//controller.setInTopic(false);
 			
 		}
 		/* User is creating a new topic */
@@ -102,16 +100,16 @@ public class ThreadAlertView extends DialogFragment
 			builder.setMessage(ca.ualberta.team7project.R.string.edit_thread);
 			
 			/* Show existing title */
-			titleInput.setText(ThreadListController.getOpenThread().getTitle());
+			titleInput.setText(controller.getOpenThread().getTitle());
 			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 
 			/* Show existing comment body */
-			bodyInput.setText(ThreadListController.getOpenThread().getComment());
+			bodyInput.setText(controller.getOpenThread().getComment());
 			bodyInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 			
-			ThreadListController.setEditingTopic(false);
+			//controller.setEditingTopic(false);
 
 		}
 		

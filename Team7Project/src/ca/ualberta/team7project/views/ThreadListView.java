@@ -87,7 +87,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		Log.e("debug", "Reply pressed");
 		Log.e("debug", "Thread title:" + thread.getTitle());			
 
-		ThreadListController.replyThread(thread);
+		controller.replyThread(thread);
 	}
 
 	@Override

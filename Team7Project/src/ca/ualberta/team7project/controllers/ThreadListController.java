@@ -24,9 +24,9 @@ public class ThreadListController extends Activity
 	private static Activity activity;
 	
 	/* Attributes necessary for passing between ThreadAlertView and ThreadListView */
-	private static Boolean inTopic;
-	private static Boolean editingThread;
-	private static ThreadModel openThread;
+	private Boolean inTopic;
+	private Boolean editingThread;
+	private ThreadModel openThread;
 	
 	public ThreadListController(Activity activity)
 	{
@@ -35,9 +35,9 @@ public class ThreadListController extends Activity
 		
 		ThreadListController.activity = activity;
 		
-		ThreadListController.inTopic = false;
-		ThreadListController.editingThread = false;
-		ThreadListController.openThread = null;
+		inTopic = false;
+		editingThread = false;
+		openThread = null;
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
 		listModel = new ThreadListModel();
@@ -116,13 +116,13 @@ public class ThreadListController extends Activity
 	 * 
 	 * @param thread that the user is editing
 	 */
-	public static void editThread(ThreadModel thread)
+	public void editThread(ThreadModel thread)
 	{
 		
 		// TODO confirm that the user has permission to edit this thread.
 		
-		ThreadListController.setEditingTopic(true);
-		ThreadListController.setOpenThread(thread);
+		setEditingTopic(true);
+		setOpenThread(thread);
 		
 		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
@@ -140,11 +140,11 @@ public class ThreadListController extends Activity
 	 * 
 	 * @param thread that the user is replying to
 	 */
-	public static void replyThread(ThreadModel thread)
+	public void replyThread(ThreadModel thread)
 	{
-		ThreadListController.setEditingTopic(false);
-		ThreadListController.setInTopic(true);
-		ThreadListController.setOpenThread(thread);
+		setEditingTopic(false);
+		setInTopic(true);
+		setOpenThread(thread);
 
 		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
@@ -236,39 +236,39 @@ public class ThreadListController extends Activity
 		ThreadListController.activity = activity;
 	}
 	
-	public static Boolean getInTopic()
+	public Boolean getInTopic()
 	{
 		
-		return ThreadListController.inTopic;
+		return inTopic;
 	}
 	
-	public static void setInTopic(Boolean type)
+	public void setInTopic(Boolean type)
 	{
 		
-		ThreadListController.inTopic = type;
+		inTopic = type;
 	}
 		
-	public static Boolean getEditingTopic()
+	public Boolean getEditingTopic()
 	{
 		
-		return ThreadListController.editingThread;
+		return editingThread;
 	}
 	
-	public static void setEditingTopic(Boolean type)
+	public void setEditingTopic(Boolean type)
 	{
 		
-		ThreadListController.editingThread = type;
+		editingThread = type;
 	}
 
-	public static ThreadModel getOpenThread()
+	public ThreadModel getOpenThread()
 	{
 		
 		return openThread;
 	}
 
-	public static void setOpenThread(ThreadModel openThread)
+	public void setOpenThread(ThreadModel openThread)
 	{
 		
-		ThreadListController.openThread = openThread;
+		openThread = openThread;
 	}
 }
