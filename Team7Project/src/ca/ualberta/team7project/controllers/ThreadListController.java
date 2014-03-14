@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
@@ -183,13 +184,19 @@ public class ThreadListController extends Activity
 				/* Append the reply to the openThread and then replace in the model */
 				// TODO thread persistence model needs a method for this
 				
+				if(this.getOpenThread() == null)
+					Log.e("halp", "reply to null thread");
+				UUID parent = this.getOpenThread().getUniqueID();
+				
+				newThread.setParentUUID(parent);
+				updater.sendComment(newThread);
 				Toast.makeText(activity, "Replying", Toast.LENGTH_SHORT).show();
 			}
 			/* User created new topic. Upload to Elastic Search */
 			else
 			{				
-				Toast.makeText(activity, "New topic", Toast.LENGTH_SHORT).show();
 				updater.sendComment(newThread);
+				Toast.makeText(activity, "New topic", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
@@ -268,7 +275,6 @@ public class ThreadListController extends Activity
 
 	public void setOpenThread(ThreadModel openThread)
 	{
-		
-		openThread = openThread;
+		this.openThread = openThread;
 	}
 }

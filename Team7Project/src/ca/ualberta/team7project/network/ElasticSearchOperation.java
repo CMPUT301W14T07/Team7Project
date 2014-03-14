@@ -246,7 +246,7 @@ public class ElasticSearchOperation
 				{
 					HttpClient httpclient = new DefaultHttpClient();
 					HttpGet searchRequest = new HttpGet(SERVER_URL
-							+ "_search?parentUUID=" + parentUUID);
+							+ "_search?q=parentUUID:" + parentUUID);
 					searchRequest.setHeader("Accept", "application/json");
 
 					HttpResponse response;
