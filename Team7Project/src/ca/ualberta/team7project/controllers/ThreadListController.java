@@ -18,7 +18,7 @@ import ca.ualberta.team7project.views.ThreadListView;
 public class ThreadListController extends Activity
 {
 
-	private ThreadListModel listModel =null;
+	private ThreadListModel listModel;
 	private static ThreadListView listView;
 	private static Activity activity;
 	
@@ -27,7 +27,8 @@ public class ThreadListController extends Activity
 	private static Boolean editingThread;
 	private static ThreadModel openThread;
 	
-	public ThreadListController(Activity activity){
+	public ThreadListController(Activity activity)
+	{
 		
 		ThreadListController.activity = activity;
 		
@@ -36,9 +37,10 @@ public class ThreadListController extends Activity
 		ThreadListController.openThread = null;
 		
 		/* ThreadListModel needs to be populated. Either pull from elastic search or cache */
-		debugPopulate();
+		listModel = new ThreadListModel();
 		ThreadListController.listView = new ThreadListView(this.listModel, activity, this);
 		
+		this.refreshThreads();
 	}
 	
 	/*
