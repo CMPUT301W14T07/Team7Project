@@ -60,17 +60,18 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
+		// Commenting out until moved to correct location and error checked with try catch blocks.
 		/* Set the location manager and choose the best provider (GPS or Network) */
-		MainActivity.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+/*		MainActivity.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		this.criteria = new Criteria();
 		this.provider = MainActivity.locationManager.getBestProvider(criteria, false);
 		MainActivity.locationManager.getLastKnownLocation(provider);
 		MainActivity.locationManager.requestLocationUpdates(this.provider, 1, 1, this);
-
+*/
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
-		MainActivity.setLocationController(new LocationController(context, MainActivity.locationManager));
-		
+/*		MainActivity.setLocationController(new LocationController(context, MainActivity.locationManager));
+*/		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
 		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
 				getListController().getListView());
