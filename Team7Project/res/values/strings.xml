@@ -10,11 +10,16 @@
 	<string name="refresh_failed">Refresh Failed: No Network Connection</string>
 	<string name="title">Thread Title</string>
 	
-	<!-- Toats for threads -->
+	<!-- Toasts for threads -->
 	<string name="toast_edit">Edited a thread</string>
 	<string name="toast_reply">Replied to a thread</string>
 	<string name="toast_create">Created thread</string>
 
+	<!-- Toasts for userview -->
+	<string name="location_update">Location has been set</string>
+	<string name="location_fail">Failed to update location</string>
+	
+	
     <!-- General strings for multiple buttons/dialog boxes -->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>

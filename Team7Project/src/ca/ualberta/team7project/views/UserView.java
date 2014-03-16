@@ -58,15 +58,15 @@ public class UserView implements UserListener
 	@Override
 	public void toastLocation(LocationModel location)
 	{
-		Toast.makeText(this.context,
-				"Failed to update location", Toast.LENGTH_SHORT).show();					
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.location_update, 
+				Toast.LENGTH_SHORT).show();					
 	}
 
 	@Override
 	public void updateLocationFailure()
 	{
-		Toast.makeText(this.context,
-				"Failed to update location", Toast.LENGTH_SHORT).show();					
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.location_fail, 
+				Toast.LENGTH_SHORT).show();					
 	}
 
 	@Override

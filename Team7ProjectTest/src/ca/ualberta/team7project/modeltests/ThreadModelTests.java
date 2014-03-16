@@ -1,8 +1,6 @@
 package ca.ualberta.team7project.modeltests;
 
 import java.util.Date;
-import java.util.LinkedList;
-
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.ThreadModel;

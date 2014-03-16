@@ -13,6 +13,13 @@ import ca.ualberta.team7project.network.ElasticSearchOperation;
  */
 public class ThreadPersistenceModel
 {
+	/*
+	 * I suspect this class isn't being used and has been removed from the build path until
+	 * further clarification ~michael.
+	 * 
+	 * See issue https://github.com/CMPUT301W14T07/Team7Project/issues/33
+	 */
+	
 	private ElasticSearchOperation search;
 	//this class should not have any other attributes or things will get messier
 	

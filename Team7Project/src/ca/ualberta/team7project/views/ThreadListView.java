@@ -177,7 +177,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_create, 
 				Toast.LENGTH_SHORT).show();
-
 	}
 
 }

@@ -14,7 +14,6 @@ import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.LocationLookupAlertView;
-import ca.ualberta.team7project.alertviews.SortPreferencesAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 
