@@ -122,11 +122,7 @@ public class LocationController extends Activity implements PositionListener
 			updated = true;
 		}
 
-		/* Notify all active models that coordinates have been updated */
-		if(MainActivity.userListener != null)
-		{
-			//MainActivity.userListener.locationModelUpdate(userLocation);		
-		}	
+		MainActivity.userListener.locationModelUpdate(userLocation);
 		
 		Log.e(MainActivity.DEBUG, "Location has changed");
 		return updated;

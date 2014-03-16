@@ -56,7 +56,6 @@ public class MainActivity extends Activity implements IdentityListener
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
-		//MainActivity.locationController = new LocationController(context, locationManager);
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.locationController = new LocationController(context);

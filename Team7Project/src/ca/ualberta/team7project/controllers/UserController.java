@@ -23,6 +23,7 @@ public class UserController
 	private static PreferenceModel user;
 	private static UserView userView;
 	
+	private static LocationModel cachedLocation;
 	private UserPersistenceModel persistence;
 	
 	public UserController(Context context, FragmentManager fragment)
@@ -30,6 +31,8 @@ public class UserController
 		super();
 		UserController.context = context;
 		this.fragment = fragment;
+		
+		this.cachedLocation = new LocationModel();
 		
 		this.setUserView(new UserView(UserController.context, this.fragment));
 		this.persistence = new UserPersistenceModel(context);
@@ -131,10 +134,27 @@ public class UserController
 		Log.e(MainActivity.DEBUG, "updating user coordinates");
 	}
 	
+	/**
+	 * Update the location of the user or cache the coordinates if no user exists.
+	 * 
+	 * @param location of the phone
+	 */
 	public static void updateLocationModel(LocationModel location)
 	{
-		UserController.user.getUser().setLocation(location);
-		Log.e(MainActivity.DEBUG, "updating user coordinates");
+		/*
+		 * There exists some asynchronous issues if trying to update location
+		 * when app first launches since the user model hasn't been created yet.
+		 * 
+		 * Alternatively, we could possibly run on the UI thread.
+		 */
+		try{
+			UserController.user.getUser().setLocation(location);
+			Log.e(MainActivity.DEBUG, "updating user coordinates");
+		} catch (Exception e) {
+			/* Cache the coordinates for now since the user is still inputing their user name or no user exists*/
+			UserController.cachedLocation = location;
+			Log.e(MainActivity.DEBUG, "Could not update coordinates, user is null");
+		}
 	}
 	
 	public Context getContext()
@@ -152,9 +172,18 @@ public class UserController
 		return user;
 	}
 
+	/**
+	 * Create a new user.
+	 * <p>
+	 * Since GPS updates are infrequent, the users location is set to the current cached location 
+	 * until a new signal is received.
+	 * 
+	 * @param user New user associated with the application.
+	 */
 	public static void setUser(PreferenceModel user)
 	{
-		UserController.user = user;
+		user.getUser().setLocation(cachedLocation);
+		UserController.user = user;	
 		userView.updateViews(user);
 	}
 	
