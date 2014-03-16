@@ -7,9 +7,10 @@ import java.util.UUID;
 import ca.ualberta.team7project.network.ElasticSearchOperation;
 
 /**
- * Class that provides methods for storing and loading from the ElasticSearch
- * server and the disk
- * 
+ * <i>This class is deprecated; do not use it</i>
+ * <p>
+ * Provided methods for storing and loading from the ElasticSearch server and the disk.
+ * Under the new model, this class is no longer referenced by any part of our working project.
  */
 public class ThreadPersistenceModel
 {
@@ -21,7 +22,7 @@ public class ThreadPersistenceModel
 	 */
 	
 	private ElasticSearchOperation search;
-	//this class should not have any other attributes or things will get messier
+	//this class should not have any other attributes
 	
 	public ThreadPersistenceModel()
 	{
@@ -31,7 +32,7 @@ public class ThreadPersistenceModel
 	
 	public static enum SortMethod //methods for getting the "best/most relevant" topics
 	{
-		DATE, LOCATION, DATE_LOCATION
+		NO_SORT, DATE, LOCATION, DATE_LOCATION
 	}
 
 	/**
@@ -44,7 +45,6 @@ public class ThreadPersistenceModel
 	public ThreadModel PullTopic(UUID topicID)
 	{
 
-		// TODO:
 		//pass in the elastic search query?
 		// search by "query" method on ID, or just pull by index
 		// receive a ThreadModel
@@ -70,7 +70,6 @@ public class ThreadPersistenceModel
 	public ArrayList<ThreadModel> PullBestTopics(SortMethod sortMethod, Integer maxTopics)
 	{
 
-		// TODO:
 		// pass in the elastic search query?
 		// receive a list of ThreadModel
 		// (the timestamp needs to be filled in?)
@@ -115,7 +114,6 @@ public class ThreadPersistenceModel
 		
 	}
 
-	// TODO:
 	// ***********************************************************************
 	// How will we add new comments?
 	// approach: push entire updated topic to server
@@ -141,7 +139,7 @@ public class ThreadPersistenceModel
 	public void SaveTopicListToDisk(LinkedList<ThreadModel> topics)
 	{
 
-		// TODO:
+
 
 	}
 
@@ -155,7 +153,7 @@ public class ThreadPersistenceModel
 	public LinkedList<ThreadModel> LoadTopicListFromDisk()
 	{
 
-		// TODO:
+
 
 		return null;
 	}

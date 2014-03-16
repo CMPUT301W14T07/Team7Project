@@ -28,26 +28,7 @@ public class ThreadListModelTests extends ActivityInstrumentationTestCase2<MainA
 		
 		assertTrue("LinkedList of thread should contain a thread", threads.contains(thread));
 	}
-	
-	//after changing LinkedList to ArrayList, insertion order no longer exists
-	/*
-	public void testInsertionOrder()
-	{
-		UserModel user = new UserModel("Ash Ketchum");
-		ThreadListModel threadsList = new ThreadListModel();
 		
-		ThreadModel threadFirst = new ThreadModel("Obtained bicycle!", user, null);
-		ThreadModel threadLast = new ThreadModel("Obtained Helix Fossil!", user, null);
-		
-		threadsList.addTopic(threadFirst);
-		threadsList.addTopic(threadLast);
-
-		ArrayList<ThreadModel> threads = threadsList.getTopics();
-		
-		assertEquals("Last inserted topic in place", threads.getLast(), threadLast);
-	}
-	*/
-	
 	public void testSetTopic()
 	{
 		UserModel user = new UserModel("Ash Ketchum");

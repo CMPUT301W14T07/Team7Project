@@ -19,5 +19,6 @@ public interface UserListener
 	public void locationModelUpdate(LocationModel location);
 	public void toastLocation(LocationModel location);
 	public void updateLocationFailure();
+	public void invalidEditPermissions();
 	
 }

@@ -14,7 +14,7 @@ import ca.ualberta.team7project.models.LocationModel;
 /* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements 
  * This class borrows heavily from the linked code */
 
-// Not it is unlikely that Geocoder functionality will be implemented for the current milestone.
+// It is not likely that Geocoder functionality will be implemented for the current milestone.
 
 /**
  * Handles location functionality for the entire application.
@@ -51,6 +51,8 @@ public class LocationController extends Activity implements PositionListener
 		this.setSortingLocation(new LocationModel());
 		
 		inititiateLocationTracking();
+		
+		MainActivity.positionListener = this;
 	}
 		
 	/* Extends activity so that this class can act as a listener for LocationManager */
@@ -120,10 +122,8 @@ public class LocationController extends Activity implements PositionListener
 			updated = true;
 		}
 
-		/* Notify all active models that coordinates have been updated */
-		MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
-		//MainActivity.threadListener.editToast();
-
+		MainActivity.userListener.locationModelUpdate(userLocation);
+		
 		Log.e(MainActivity.DEBUG, "Location has changed");
 		return updated;
 	}

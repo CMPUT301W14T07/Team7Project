@@ -89,6 +89,7 @@ public class ActionBarView extends Activity
 	 */
 	private void geolocationPreferences()
 	{
+		// Not fully implemented. Next milestone.
 		LocationLookupAlertView location = new LocationLookupAlertView();
 		location.setCancelable(false);
 		location.show(fragment, "Set Location Alert");

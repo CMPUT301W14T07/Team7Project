@@ -2,7 +2,6 @@ package ca.ualberta.team7project.controllers;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
 import android.app.Activity;
 import android.util.Log;
 import ca.ualberta.team7project.MainActivity;
@@ -87,7 +86,7 @@ public class ThreadListController extends Activity
 				
 				UUID parent = stack.get(stack.size()-1);
 				
-				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, TopicFetcher.SortMethod.NO_SORT);
+				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, TopicFetcher.SortMethod.DATE);
 				
 				listModel = new ThreadListModel();
 				listModel.setTopics(threads);
@@ -108,9 +107,17 @@ public class ThreadListController extends Activity
 	 * @param thread that the user is editing
 	 */
 	public void editThread(ThreadModel thread)
-	{
-		// TODO confirm that the user has permission to edit this thread
-		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/31
+	{				
+		//check if editor's uniqueName matches the one associated with the comment
+		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
+		String myUnique = currentUser.getUniqueName();
+		String commUnique = thread.getAuthorUnique();
+		
+		if( !(myUnique.equals(commUnique)))
+		{
+			MainActivity.userListener.invalidEditPermissions();
+			return;
+		}
 		
 		setEditingTopic(true);
 		setOpenThread(thread);

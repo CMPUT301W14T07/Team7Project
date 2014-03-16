@@ -72,7 +72,7 @@ public class ThreadAlertView extends DialogFragment
 		final Button insertImage = (Button) v.findViewById(ca.ualberta.team7project.R.id.thread_image);
 
 		/* User is replying to a topic */
-		if(replying == true & editing == false)
+		if(replying == true && editing == false)
 		{
 			builder.setMessage(ca.ualberta.team7project.R.string.reply_thread);
 			
@@ -85,7 +85,7 @@ public class ThreadAlertView extends DialogFragment
 			
 		}
 		/* User is creating a new topic */
-		else if(replying == false & editing == false)
+		else if(replying == false && editing == false)
 		{
 			builder.setMessage(ca.ualberta.team7project.R.string.create_thread);
 
@@ -95,7 +95,7 @@ public class ThreadAlertView extends DialogFragment
 
 		}
 		/* User is editing an existing thread or topic */
-		else if(replying == false & editing == true)
+		else if(editing == true)
 		{
 			builder.setMessage(ca.ualberta.team7project.R.string.edit_thread);
 			

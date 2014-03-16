@@ -32,7 +32,7 @@ public class PreferencesModelTests extends
 	/*
 	 * This test fails right now.
 	 */
-	/* Succesfully serialize the PreferenceModel to the disk */
+	/* Successfully serialize the PreferenceModel to the disk */
 	public void testPreferenceSerialize()
 	{
 
@@ -53,12 +53,12 @@ public class PreferencesModelTests extends
 		PreferenceModel preference = new PreferenceModel("BoB");
 
 		ThreadModel thread = new ThreadModel("Bob's favorite movies", preference.getUser(), UUID.randomUUID(), UUID.randomUUID());
-		preference.addFavoriteTopic(thread);
+		preference.addFavoriteComment(thread);
 		
 		ArrayList<ThreadModel> favorites = new ArrayList<ThreadModel>();
 		favorites.add(thread);
 		
-		assertEquals("Favorites were inserted correctly", favorites, preference.getFavoriteTopics());
+		assertEquals("Favorites were inserted correctly", favorites, preference.getFavoriteComments());
 	}
 	
 	public void testAuthoredComments()

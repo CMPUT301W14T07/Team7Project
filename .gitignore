@@ -29,4 +29,4 @@ proguard/
 *.log
 
 #javadoc generated files
-Team7Project/doc/
+#Team7Project/doc/
