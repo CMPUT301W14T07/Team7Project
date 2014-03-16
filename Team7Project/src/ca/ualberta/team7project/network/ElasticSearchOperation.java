@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.Collection;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -245,8 +246,9 @@ public class ElasticSearchOperation
 				try
 				{
 					HttpClient httpclient = new DefaultHttpClient();
-					HttpGet searchRequest = new HttpGet(SERVER_URL
-							+ "_search?q=parentUUID:" + parentUUID);
+					HttpPost searchRequest = new HttpPost(SERVER_URL
+							+ "_search?q=parentUUID:" + parentUUID + "&" +
+							"sort=threadTimestamp:desc" + "&" + "size=3");
 					searchRequest.setHeader("Accept", "application/json");
 
 					HttpResponse response;

@@ -10,8 +10,12 @@
 package ca.ualberta.team7project.models;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -23,7 +27,9 @@ public class ThreadModel
 	private String comment = null;
 	private BitmapData bitmapData = null; // bitmap stored as base64-encoded
 											// byte array
-	private Date timestamp = null; // time of last change of any kind
+	
+	//do not change name to timestamp, Elastic Search will complain
+	private String threadTimestamp = null; // time of last change of any kind
 	private UUID uniqueID = null; // this is also the Elastic Search index
 
 	private UUID parentUUID = null;
@@ -50,7 +56,7 @@ public class ThreadModel
 		this.user = user;
 		this.title = null;
 
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
@@ -78,7 +84,7 @@ public class ThreadModel
 		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
 											// no bitmap
 
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
@@ -108,7 +114,7 @@ public class ThreadModel
 		this.user = user;
 		this.title = title;
 
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
@@ -135,7 +141,7 @@ public class ThreadModel
 		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
 											// no bitmap
 
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
@@ -161,7 +167,7 @@ public class ThreadModel
 	{
 
 		this.comment = comment;
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 	}
 
@@ -175,7 +181,7 @@ public class ThreadModel
 	{
 
 		this.bitmapData.encode(image);
-		this.timestamp = new Date();
+		this.resetTimestamp();
 	}
 
 	public String getAuthorName()
@@ -189,7 +195,7 @@ public class ThreadModel
 	{
 
 		this.user.setName(authorName);
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 	}
 
@@ -201,14 +207,28 @@ public class ThreadModel
 
 	public Date getTimestamp()
 	{
-
-		return timestamp;
+		//no spaces in the format, or Elastic Search will complain
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy|HH:mm:ss");
+		Date date = null;
+		
+		try
+		{
+			date = df.parse(this.threadTimestamp);
+		} catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return date;
 	}
 
 	public void resetTimestamp()
 	{
-
-		this.timestamp = new Date();
+		Date date = new Date();
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy|HH:mm:ss");
+		String dateStr = df.format(date);
+				
+		this.threadTimestamp = dateStr;
 	}
 
 	public LocationModel getLocation()
@@ -221,7 +241,7 @@ public class ThreadModel
 	{
 
 		this.user.setLocation(location);
-		this.timestamp = new Date();
+		this.resetTimestamp();
 
 	}
 
@@ -255,7 +275,7 @@ public class ThreadModel
 	{
 
 		this.title = title;
-		this.timestamp = new Date();
+		this.resetTimestamp();
 	}
 
 	public UUID getParentUUID()

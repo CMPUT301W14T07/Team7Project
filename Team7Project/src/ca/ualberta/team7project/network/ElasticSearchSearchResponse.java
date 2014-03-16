@@ -19,8 +19,10 @@ public class ElasticSearchSearchResponse<T>
 
 	public Collection<ElasticSearchResponse<T>> getHits()
 	{
-
-		return hits.getHits();
+		if(hits != null)
+			return hits.getHits();
+		else
+			return new ArrayList<ElasticSearchResponse<T>>();
 	}
 
 	public Collection<T> getSources()
