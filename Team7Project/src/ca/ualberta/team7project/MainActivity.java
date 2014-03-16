@@ -18,6 +18,7 @@ import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListe
 import ca.ualberta.team7project.controllers.LocationController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
+import ca.ualberta.team7project.interfaces.PositionListener;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.views.ActionBarView;
@@ -36,6 +37,7 @@ public class MainActivity extends Activity implements IdentityListener
 	// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
 	public static ThreadListener threadListener;
 	public static UserListener userListener;
+	public static PositionListener positionListener;
 
 	/**
 	 * Creates the state of the application when the activity is initialized

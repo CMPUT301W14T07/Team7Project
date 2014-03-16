@@ -111,10 +111,7 @@ public class ThreadListController extends Activity
 	{
 		// TODO confirm that the user has permission to edit this thread
 		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/31
-		
-		// This is way toooooo long. Too many points of failure.
-		if(thread.getAuthorUnique() != MainActivity.getUserController().getUser().getUser().getUniqueName())
-		
+				
 		setEditingTopic(true);
 		setOpenThread(thread);
 		

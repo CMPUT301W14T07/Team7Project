@@ -36,6 +36,7 @@ public class UserController
 		
 		/* Set the user by retrieving from file system, or creating a new user */
 		setUserInitialRun();
+		
 	}
 	
 	/**

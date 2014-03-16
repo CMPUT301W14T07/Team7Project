@@ -51,6 +51,8 @@ public class LocationController extends Activity implements PositionListener
 		this.setSortingLocation(new LocationModel());
 		
 		inititiateLocationTracking();
+		
+		MainActivity.positionListener = this;
 	}
 		
 	/* Extends activity so that this class can act as a listener for LocationManager */
@@ -121,8 +123,11 @@ public class LocationController extends Activity implements PositionListener
 		}
 
 		/* Notify all active models that coordinates have been updated */
-		//MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
-
+		if(MainActivity.userListener != null)
+		{
+			//MainActivity.userListener.locationModelUpdate(userLocation);		
+		}	
+		
 		Log.e(MainActivity.DEBUG, "Location has changed");
 		return updated;
 	}
