@@ -24,7 +24,7 @@ import java.util.Locale;
 import java.util.Random;
 
 /**
- * Class that stores information for identifying a user
+ * Stores information for identifying a user
  * <p>
  * Since this class is aggregated into ThreadModel, only attributes that need to be attached to
  * the ThreadModel are stored here

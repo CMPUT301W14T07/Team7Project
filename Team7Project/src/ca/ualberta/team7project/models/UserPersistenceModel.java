@@ -17,7 +17,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Class which facilitates storing and loading the PreferenceModel to/from disk
+ * Facilitates storing and loading the PreferenceModel to/from disk
  * <p>
  * Utilizes Java's built-in serialization for objects implementing the Serializable interface
  */

@@ -20,9 +20,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+/**
+ * Represents a single comment
+ * <p>
+ * Aggregates everything neccasary to completely identify the comment
+ */
 public class ThreadModel
 {
-
+	//no spaces in the format, or Elastic Search will complain
+	private String internalDateFormat = "MM/dd/yyyy|HH:mm:ss";
+	
 	private String title = null;
 	private String comment = null;
 	private BitmapData bitmapData = null; // bitmap stored as base64-encoded
@@ -151,12 +158,6 @@ public class ThreadModel
 
 	}
 
-	public boolean isTopic()
-	{
-
-		return (this.title != null);
-	}
-
 	public String getComment()
 	{
 
@@ -191,14 +192,6 @@ public class ThreadModel
 
 	}
 
-	public void setAuthorName(String authorName)
-	{
-
-		this.user.setName(authorName);
-		this.resetTimestamp();
-
-	}
-
 	public String getAuthorUnique()
 	{
 
@@ -207,8 +200,7 @@ public class ThreadModel
 
 	public Date getTimestamp()
 	{
-		//no spaces in the format, or Elastic Search will complain
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy|HH:mm:ss");
+		DateFormat df = new SimpleDateFormat(internalDateFormat);
 		Date date = null;
 		
 		try
@@ -225,7 +217,7 @@ public class ThreadModel
 	public void resetTimestamp()
 	{
 		Date date = new Date();
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy|HH:mm:ss");
+		DateFormat df = new SimpleDateFormat(internalDateFormat);
 		String dateStr = df.format(date);
 				
 		this.threadTimestamp = dateStr;

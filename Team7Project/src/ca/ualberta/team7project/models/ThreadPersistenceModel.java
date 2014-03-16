@@ -7,7 +7,7 @@ import java.util.UUID;
 import ca.ualberta.team7project.network.ElasticSearchOperation;
 
 /**
- * This class is deprecated; do not use it
+ * <i>This class is deprecated; do not use it</i>
  * <p>
  * Provided methods for storing and loading from the ElasticSearch server and the disk.
  * Under the new model, this class is no longer referenced by any part of our working project.
