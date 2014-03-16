@@ -71,7 +71,7 @@ public class PreferencesModelTests extends
 		ArrayList<ThreadModel> restaurants = new ArrayList<ThreadModel>();
 		restaurants.add(thread);
 		
-		assertEquals("Favorites were inserted correctly", restaurants, preference.getFavoriteTopics());
+		assertEquals("Authored comments were inserted correctly", restaurants, preference.getAuthoredComments());
 
 	}
 }
