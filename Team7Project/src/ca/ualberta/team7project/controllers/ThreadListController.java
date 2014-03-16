@@ -2,10 +2,8 @@ package ca.ualberta.team7project.controllers;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
 import android.app.Activity;
 import android.util.Log;
-import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.models.ThreadListModel;

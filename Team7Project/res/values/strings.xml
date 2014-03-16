@@ -20,7 +20,6 @@
 	<string name="location_update">Location has been set</string>
 	<string name="location_fail">Failed to update location</string>
 	<string name="no_edit_permission">Invalid edit permissions</string>
-	<string name="failed_edit">Someone else posted this comment.</string>
 	
     <!-- General strings for multiple buttons/dialog boxes -->
     <string name="confirm">Confirm</string>

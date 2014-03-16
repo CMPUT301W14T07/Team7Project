@@ -1,6 +1,11 @@
 package ca.ualberta.team7project.tests;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -44,44 +49,28 @@ public class ThreadModelTests extends
 		UserModel user = new UserModel("Ash Ketchum");
 		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
 		
-		Date date = new Date();
-		
-		assertEquals("Date is set", thread.getTimestamp(), date);
-		
+		thread.resetTimestamp();
+				
 		/* Now check that the date is updated when we update a thread */
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy|HH:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.HOUR, 1);
+		Date date = calendar.getTime();
+		String dateStr = df.format(date);
+		
 		try
 		{
-			Thread.sleep(1000);
-		} catch (InterruptedException e)
+			date = df.parse(dateStr);
+		} catch (ParseException e)
 		{
 			e.printStackTrace();
 		}
+
 		
-		thread.setTitle("Check this out!");
+		thread.setComment("Check this out!");
 		assertFalse("Date was updated on thread insertion", date.equals(thread.getTimestamp()));
 	}
-	
-	/*
-	 * The below tests will test whether insertion of child comments is working
-	 * 
-	 * No longer needed, since we can't insert child comments without server interaction
-	 */
-	/*
-	public void testChildThread()
-	{
-		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel parent = new ThreadModel("First post!", user, "Ash's Pokedex");
-		ThreadModel child = new ThreadModel("Obtained Charmander", user, null);
 		
-		LinkedList<ThreadModel> children = new LinkedList<ThreadModel>();
-		children.add(child);
-		
-		parent.addComment(child);
-		
-		assertEquals("Child comments are inserted", parent.getComments(), children);		
-	}
-	*/
-	
 	/*
 	 * Tests below test whether unique ID is working
 	 */

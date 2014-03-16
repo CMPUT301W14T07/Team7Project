@@ -32,7 +32,7 @@ public class PreferencesModelTests extends
 	/*
 	 * This test fails right now.
 	 */
-	/* Succesfully serialize the PreferenceModel to the disk */
+	/* Successfully serialize the PreferenceModel to the disk */
 	public void testPreferenceSerialize()
 	{
 

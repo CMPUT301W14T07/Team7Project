@@ -32,14 +32,13 @@ public class UserController
 		UserController.context = context;
 		this.fragment = fragment;
 		
-		this.cachedLocation = new LocationModel();
+		UserController.cachedLocation = new LocationModel();
 		
 		this.setUserView(new UserView(UserController.context, this.fragment));
 		this.persistence = new UserPersistenceModel(context);
 		
 		/* Set the user by retrieving from file system, or creating a new user */
-		setUserInitialRun();
-		
+		setUserInitialRun();	
 	}
 	
 	/**
@@ -136,24 +135,20 @@ public class UserController
 	
 	/**
 	 * Update the location of the user or cache the coordinates if no user exists.
+	 * <p>
+	 * Since the AlertView to create UserModel runs on the UI thread, it is possible
+	 * that no UserModel exists. Therefore, setting the location is wrapped in a try/catch
+	 * block and the location is cached.
 	 * 
 	 * @param location of the phone
 	 */
 	public static void updateLocationModel(LocationModel location)
 	{
-		/*
-		 * There exists some asynchronous issues if trying to update location
-		 * when app first launches since the user model hasn't been created yet.
-		 * 
-		 * Alternatively, we could possibly run on the UI thread.
-		 */
 		try{
-			UserController.user.getUser().setLocation(location);
-			Log.e(MainActivity.DEBUG, "updating user coordinates");
-		} catch (Exception e) {
-			/* Cache the coordinates for now since the user is still inputing their user name or no user exists*/
+			UserController.user.getUser().setLocation(location);		
+		} 
+		catch (Exception e) {
 			UserController.cachedLocation = location;
-			Log.e(MainActivity.DEBUG, "Could not update coordinates, user is null");
 		}
 	}
 	
