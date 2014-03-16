@@ -23,6 +23,15 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+/**
+ * Class that stores information for identifying a user
+ * <p>
+ * Since this class is aggregated into ThreadModel, only attributes that need to be attached to
+ * the ThreadModel are stored here
+ * <p>
+ * This class is also aggregated into PreferenceModel 
+ *
+ */
 public class UserModel implements Serializable
 {
 	private String name;
@@ -30,9 +39,9 @@ public class UserModel implements Serializable
 	private LocationModel location;
 
 	/**
-	 * Construct the user with the given parameters
+	 * Construct a new UserModel with a given username
 	 * 
-	 * @param userName The name given to the user.
+	 * @param userName name the user selected
 	 */
 	public UserModel(String userName)
 	{
@@ -49,9 +58,9 @@ public class UserModel implements Serializable
 	}
 
 	/**
-	 * Sets the new username and updates the uniqueName
+	 * Sets the new username and generates a new uniqueName
 	 * 
-	 * @param name of the new user
+	 * @param name a new name which the user selected
 	 */
 	public void setName(String name)
 	{
