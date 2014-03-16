@@ -14,7 +14,7 @@ import ca.ualberta.team7project.models.LocationModel;
 /* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements 
  * This class borrows heavily from the linked code */
 
-// Not it is unlikely that Geocoder functionality will be implemented for the current milestone.
+// It is not likely that Geocoder functionality will be implemented for the current milestone.
 
 /**
  * Handles location functionality for the entire application.
