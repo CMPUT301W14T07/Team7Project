@@ -224,7 +224,7 @@ public class ElasticSearchOperation
 	 * 
 	 * @param parentUUID
 	 */
-	public Collection<ThreadModel> searchThreads(final String parentUUID)
+	public Collection<ThreadModel> searchThreads(final String searchString)
 	{
 
 		if (GSON == null)
@@ -246,8 +246,7 @@ public class ElasticSearchOperation
 				{
 					HttpClient httpclient = new DefaultHttpClient();
 					HttpPost searchRequest = new HttpPost(SERVER_URL
-							+ "_search?q=parentUUID:" + parentUUID + "&" +
-							"sort=threadTimestamp:desc" + "&" + "size=3");
+							+ searchString);
 					searchRequest.setHeader("Accept", "application/json");
 
 					HttpResponse response;
