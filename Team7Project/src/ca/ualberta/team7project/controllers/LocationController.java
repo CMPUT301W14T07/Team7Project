@@ -1,13 +1,20 @@
 package ca.ualberta.team7project.controllers;
 
+import android.app.Activity;
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.interfaces.PositionListener;
 import ca.ualberta.team7project.models.LocationModel;
 
-/* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements */
+/* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements 
+ * This class borrows heavily from the linked code */
+
+// Not it is unlikely that Geocoder functionality will be implemented for the current milestone.
 
 /**
  * Handles location functionality for the entire application.
@@ -17,11 +24,17 @@ import ca.ualberta.team7project.models.LocationModel;
  * <p>
  * For simplicity (since we aren't concerned with battery life), this LocationController is 
  * always willing to accept connections. 
+ * <p>
+ * This controller makes heavy use of error checking since any errors have multiplicative
+ * effects for the rest of the application. 
  */
-public class LocationController implements PositionListener
+public class LocationController extends Activity implements PositionListener
 {
 	private Context context;
 	private Location location;
+	private LocationManager locationManager;
+	private static Criteria criteria = null;
+	private static String provider = null;
 	
 	private LocationModel userLocation;
 	private LocationModel sortingLocation;
@@ -33,10 +46,54 @@ public class LocationController implements PositionListener
 	{
 		super();
 		this.context = context;
-	
+		
 		this.setUserLocation(new LocationModel());
 		this.setSortingLocation(new LocationModel());
-						
+		
+		inititiateLocationTracking();
+	}
+		
+	@Override
+	public void onCreate(Bundle savedState)
+	{
+		super.onCreate(savedState);
+		//setContentView(R.layout.thread_list_view);
+		//Log.e(MainActivity.DEBUG, "onCreate was called in LocationController");
+	}
+	
+	
+	public void inititiateLocationTracking()
+	{
+		Log.e(MainActivity.DEBUG, "Attempting to initiate tracking - LocationController");
+
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
+		/* Set the location manager */
+		try{
+			locationManager = (LocationManager) MainActivity.getMainContext().getSystemService(LOCATION_SERVICE);
+		}catch (Exception e) {
+			/* Could not initiate location manager. Perhaps not enabled on the phone */
+			// See issue #29 for work to be done in try catch blocks still.
+			Log.e(MainActivity.DEBUG, "Could not initiate location manager - LocationController");
+		}
+
+		/* Find the best provider */
+		try{
+			criteria = new Criteria();
+			provider = locationManager.getBestProvider(criteria, false);
+		}catch (Exception e) {
+			/* Did not find an appropriate provider */
+			Log.e(MainActivity.DEBUG, "Could not find provider - LocationController");
+		}
+		
+		/* Use the provider to find a location */
+		try{
+			location = locationManager.getLastKnownLocation(provider);
+			locationManager.requestLocationUpdates(provider, 0, 0, this);
+		}catch (Exception e) {
+			/* Could not request location */
+			Log.e(MainActivity.DEBUG, "Could not find location - LocationController");
+		}
+		
 	}
 	
 	/**
@@ -67,10 +124,52 @@ public class LocationController implements PositionListener
 		MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
 		
 		Log.e(MainActivity.DEBUG, "Location has changed");
-		
 		return updated;
 	}
 	
+	public void setLocationSettings(Criteria criteria, String provider)
+	{
+		LocationController.setCriteria(criteria);
+		LocationController.setProvider(provider);
+	}
+	
+	@Override
+	public void requestLocationUpdate()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/* Reuse statement #4 
+	 * https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#locationcontroller */
+	/**
+	 * Force a location update from locationManager
+	 * <p>
+	 * Typically called before a user posts a thread to ensure every thread has a location
+	 */
+	@Override
+	public void forceLocationUpdate()
+	{
+		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, null);
+		Log.e("debug", "umm worked");
+	}
+
+
+	@Override
+	public void onLocationChanged(Location location)
+	{
+		updateCoordinates(location);
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras){}
+
+	@Override
+	public void onProviderEnabled(String provider){}
+
+	@Override
+	public void onProviderDisabled(String provider){}
+
 	public Location getLocation()
 	{		
 		return location;
@@ -131,10 +230,40 @@ public class LocationController implements PositionListener
 		this.latitude = latitude;
 	}
 
-	@Override
-	public void requestLocationUpdate()
+	public LocationManager getLocationManager()
 	{
-		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
-		MainActivity.requestLocation();
-	}	
+
+		return locationManager;
+	}
+
+	public void setLocationManager(LocationManager locationManager)
+	{
+
+		this.locationManager = locationManager;
+	}
+
+	public static Criteria getCriteria()
+	{
+
+		return criteria;
+	}
+
+	public static void setCriteria(Criteria criteria)
+	{
+
+		LocationController.criteria = criteria;
+	}
+
+	public static String getProvider()
+	{
+
+		return provider;
+	}
+
+	public static void setProvider(String provider)
+	{
+
+		LocationController.provider = provider;
+	}
+
 }

@@ -42,9 +42,9 @@ public class MainActivity extends Activity implements LocationListener, Identity
 	public static ThreadListener threadListener;
 	public static UserListener userListener;
 	
-	private static LocationManager locationManager = null;
-	private Criteria criteria;
-	private static String provider = null;
+	//private static LocationManager locationManager = null;
+	//private static Criteria criteria;
+	//private static String provider = null;
 
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -63,11 +63,16 @@ public class MainActivity extends Activity implements LocationListener, Identity
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
-		MainActivity.setLocationController(new LocationController(context));
+		//MainActivity.locationController = new LocationController(context, locationManager);
+		MainActivity.locationController = new LocationController(context);
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 
-		inititiateLocationTracking();
+		//inititiateLocationTracking();
+		
+		/* This is a temporary workaround. see issue #29 */
+		//MainActivity.locationController.setLocationSettings(criteria, provider);
+		//MainActivity.locationController.setLocationManager(locationManager);
 		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
 		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
@@ -77,43 +82,6 @@ public class MainActivity extends Activity implements LocationListener, Identity
 
 	}
 		
-	/**
-	 * Initiates the location tracking to an available host (GPS or Network)
-	 * <p>
-	 * Provides error checking and notifies UserView of possible errors.
-	 */
-	public void inititiateLocationTracking()
-	{
-		Log.e(DEBUG, "Attempting to initiate tracking - MainActivity");
-
-		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
-		/* Set the location manager */
-		try{
-			MainActivity.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		}catch (Exception e) {
-			/* Could not initiate location manager. Perhaps not enabled on the phone */
-			// See issue #29 for work to be done in try catch blocks still.
-			Log.e(DEBUG, "Could not initiate location manager - MainActivity");
-		}
-
-		/* Find the best provider */
-		try{
-			this.criteria = new Criteria();
-			MainActivity.provider = MainActivity.locationManager.getBestProvider(criteria, false);
-		}catch (Exception e) {
-			/* Did not find an appropriate provider */
-			Log.e(DEBUG, "Could not find provider - MainActivity");
-		}
-		
-		/* Use the provider to find a location */
-		try{
-			MainActivity.locationManager.getLastKnownLocation(provider);
-			MainActivity.locationManager.requestLocationUpdates(MainActivity.provider, 0, 0, this);
-		}catch (Exception e) {
-			/* Could not request location */
-			Log.e(DEBUG, "Could not find location - MainActivity");
-		}
-	}
 	
 	@Override
 	public void onBackPressed()
@@ -260,21 +228,20 @@ public class MainActivity extends Activity implements LocationListener, Identity
 	}
 	
 	/* See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29 */
-	public static void requestLocation()
+/*	public static void requestLocation()
 	{
 		Log.e(DEBUG, "Location has been requested - MainActivity");
 
-		/* Use the provider to find a location */
+		 Use the provider to find a location 
 		try{
 			MainActivity.locationManager.getLastKnownLocation(provider);
-			MainActivity.locationManager.requestLocationUpdates(MainActivity.provider, 0, 0, 
-					((ca.ualberta.team7project.MainActivity)MainActivity.mainContext));
+			MainActivity.locationManager.requestLocationUpdates(MainActivity.provider, 0, 0, ((ca.ualberta.team7project.MainActivity)MainActivity.mainContext));
 		}catch (Exception e) {
-			/* Could not request location */
+			 Could not request location 
 			Log.e(DEBUG, "Could not request location - MainActivity");
 		}
 	}
-
+*/
 	@Override
 	public void onProviderDisabled(String provider){}
 
