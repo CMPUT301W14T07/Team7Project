@@ -23,6 +23,8 @@ public class UserView implements UserListener
 		super();
 		this.context = context;
 		this.fragment = fragment;
+		
+		MainActivity.userListener = this;
 	}
 
 	@Override

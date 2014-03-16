@@ -53,12 +53,11 @@ public class LocationController extends Activity implements PositionListener
 		inititiateLocationTracking();
 	}
 		
+	/* Extends activity so that this class can act as a listener for LocationManager */
 	@Override
 	public void onCreate(Bundle savedState)
 	{
 		super.onCreate(savedState);
-		//setContentView(R.layout.thread_list_view);
-		//Log.e(MainActivity.DEBUG, "onCreate was called in LocationController");
 	}
 	
 	
@@ -94,6 +93,7 @@ public class LocationController extends Activity implements PositionListener
 			Log.e(MainActivity.DEBUG, "Could not find location - LocationController");
 		}
 		
+		forceLocationUpdate();
 	}
 	
 	/**
@@ -122,7 +122,8 @@ public class LocationController extends Activity implements PositionListener
 
 		/* Notify all active models that coordinates have been updated */
 		MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
-		
+		//MainActivity.threadListener.editToast();
+
 		Log.e(MainActivity.DEBUG, "Location has changed");
 		return updated;
 	}
@@ -132,28 +133,30 @@ public class LocationController extends Activity implements PositionListener
 		LocationController.setCriteria(criteria);
 		LocationController.setProvider(provider);
 	}
-	
-	@Override
-	public void requestLocationUpdate()
-	{
-		// TODO Auto-generated method stub
 		
-	}
-	
 	/* Reuse statement #4 
 	 * https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#locationcontroller */
 	/**
 	 * Force a location update from locationManager
 	 * <p>
-	 * Typically called before a user posts a thread to ensure every thread has a location
+	 * If the user never moves from the original location, then onLocationChanged() is never called.
+	 * Therefore, this method is used to ensure that we have a location for the user.
 	 */
 	@Override
 	public void forceLocationUpdate()
 	{
-		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, null);
-		Log.e("debug", "umm worked");
-	}
+		Log.e(MainActivity.DEBUG, "Forcing location update - LocationController");
 
+		try {
+			location = locationManager.getLastKnownLocation(provider);
+			updateCoordinates(location);
+		}
+		catch (IllegalArgumentException e) {
+			/* If illegal argument, then location was null */
+			// issue # 29, haven't decided how to handle errors yet.
+			Log.e(MainActivity.DEBUG, "Could not force update - LocationController");
+		}
+	}
 
 	@Override
 	public void onLocationChanged(Location location)

@@ -36,7 +36,11 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		this.listModel = listModel;
 		ThreadListView.activity = activity;
 		this.controller = controller;
+		
+		MainActivity.threadListener = this;
+
 		populateList();
+		
 	}
 	
 	public void onRefresh()

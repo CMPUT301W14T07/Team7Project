@@ -11,12 +11,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
@@ -27,7 +22,7 @@ import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.views.ActionBarView;
 
-public class MainActivity extends Activity implements LocationListener, IdentityListener
+public class MainActivity extends Activity implements IdentityListener
 {
 	public static final String DEBUG = "debug"; // Log statements 
 	
@@ -41,10 +36,6 @@ public class MainActivity extends Activity implements LocationListener, Identity
 	// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
 	public static ThreadListener threadListener;
 	public static UserListener userListener;
-	
-	//private static LocationManager locationManager = null;
-	//private static Criteria criteria;
-	//private static String provider = null;
 
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -64,22 +55,16 @@ public class MainActivity extends Activity implements LocationListener, Identity
 		actionBar.show();
 		
 		//MainActivity.locationController = new LocationController(context, locationManager);
-		MainActivity.locationController = new LocationController(context);
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
-
-		//inititiateLocationTracking();
-		
-		/* This is a temporary workaround. see issue #29 */
-		//MainActivity.locationController.setLocationSettings(criteria, provider);
-		//MainActivity.locationController.setLocationManager(locationManager);
+		MainActivity.locationController = new LocationController(context);
 		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
 		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
-		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
+/*		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
 				getListController().getListView());
 		this.setUserListener(MainActivity.getUserController().getUserView());
-
+*/
 	}
 		
 	
@@ -215,40 +200,5 @@ public class MainActivity extends Activity implements LocationListener, Identity
 
 		MainActivity.locationController = locationController;
 	}
-
-	/*
-	 * Would like to move these listeners to LocationController.
-	 * See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
-	 */
-	@Override
-	public void onLocationChanged(Location location)
-	{
-		Log.e(DEBUG, "location has changed");
-		MainActivity.locationController.updateCoordinates(location);
-	}
 	
-	/* See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29 */
-/*	public static void requestLocation()
-	{
-		Log.e(DEBUG, "Location has been requested - MainActivity");
-
-		 Use the provider to find a location 
-		try{
-			MainActivity.locationManager.getLastKnownLocation(provider);
-			MainActivity.locationManager.requestLocationUpdates(MainActivity.provider, 0, 0, ((ca.ualberta.team7project.MainActivity)MainActivity.mainContext));
-		}catch (Exception e) {
-			 Could not request location 
-			Log.e(DEBUG, "Could not request location - MainActivity");
-		}
-	}
-*/
-	@Override
-	public void onProviderDisabled(String provider){}
-
-	@Override
-	public void onProviderEnabled(String provider){}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras){}
-
 }
