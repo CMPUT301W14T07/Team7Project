@@ -49,7 +49,6 @@ public class ActionBarView extends Activity
 	 */
 	public boolean getAction()
 	{
-		// TODO would like to put this into a map.
 		switch (this.item.getItemId())
 		{
 			case R.id.action_home:
@@ -82,8 +81,7 @@ public class ActionBarView extends Activity
 	 */
 	private void topicsHome()
 	{
-
-		// TODO
+		// Next milestone
 	}
 
 	/**
@@ -101,7 +99,7 @@ public class ActionBarView extends Activity
 	 */
 	private void userPreferences()
 	{
-		// TODO. For now, this just updates username.
+		// at the moment this just creates a new user. Next milestone has proper functionality
 		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
 		userAlert.setCancelable(false);
 		userAlert.show(fragment, "New User Name Alert");
@@ -113,7 +111,7 @@ public class ActionBarView extends Activity
 	 */
 	private void addTopicToFavorites()
 	{
-		// TODO
+		// next milestone
 	}
 
 	/**
@@ -125,14 +123,7 @@ public class ActionBarView extends Activity
 	 * @see ThreadListener.java
 	 */
 	private void createTopic()
-	{
-		//old stuff
-/*		ThreadListView threadListView = ((ca.ualberta.team7project.MainActivity)mainContext)
-				.getListController().getListView();
-		
-		ThreadAlertView threadAlert = new ThreadAlertView(threadListView);
-		threadAlert.show(fragment, "New Thread Alert");*/
-		
+	{		
 		//hacking through..
 		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setInTopic(false);
 		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setEditingTopic(false);
