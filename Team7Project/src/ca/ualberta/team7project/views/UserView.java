@@ -1,7 +1,9 @@
 package ca.ualberta.team7project.views;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
@@ -12,7 +14,7 @@ import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 
 
-public class UserView implements UserListener
+public class UserView extends Activity implements UserListener
 {
 
 	private Context context;
@@ -27,6 +29,12 @@ public class UserView implements UserListener
 		MainActivity.userListener = this;
 	}
 
+	@Override
+	public void onCreate(Bundle savedState)
+	{
+		super.onCreate(savedState);
+	}
+	
 	@Override
 	public void updateViews(PreferenceModel user)
 	{
@@ -75,6 +83,13 @@ public class UserView implements UserListener
 	public void locationModelUpdate(LocationModel location)
 	{
 		UserController.updateLocationModel(location);
+	}
+
+	@Override
+	public void invalidEditPermissions()
+	{
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.no_edit_permission, 
+				Toast.LENGTH_SHORT).show();					
 	}
 
 }

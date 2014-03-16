@@ -59,12 +59,6 @@ public class MainActivity extends Activity implements IdentityListener
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.locationController = new LocationController(context);
 		
-		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
-		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
-/*		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
-				getListController().getListView());
-		this.setUserListener(MainActivity.getUserController().getUserView());
-*/
 	}
 		
 	

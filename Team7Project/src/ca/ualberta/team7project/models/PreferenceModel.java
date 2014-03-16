@@ -21,15 +21,7 @@ import java.util.ArrayList;
 public class PreferenceModel implements Serializable
 {
 	private UserModel user;
-	
-	//this should be in a preference model
-	//it also seems like we are double-caching the favorites
-	//and this also makes updating the favorites threads from server kind of weird
-	//we should store a list of UUID's where the user favorited
-	//	and just rely on loading everything from disk on start
 	private ArrayList<ThreadModel> favoriteTopics;
-	
-	//probably not needed at all
 	private ArrayList<ThreadModel> authoredComments;
 	
 	public PreferenceModel(String username)

@@ -121,8 +121,7 @@ public class LocationController extends Activity implements PositionListener
 		}
 
 		/* Notify all active models that coordinates have been updated */
-		MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
-		//MainActivity.threadListener.editToast();
+		//MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
 
 		Log.e(MainActivity.DEBUG, "Location has changed");
 		return updated;
