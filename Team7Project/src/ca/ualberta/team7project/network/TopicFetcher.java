@@ -11,25 +11,37 @@ public class TopicFetcher
 	private ElasticSearchOperation search;
 	private String listSize;
 	
+	/**
+	 * Construct and set max size to the default (15)
+	 */
 	public TopicFetcher()
 	{
+		super();
 		listSize = "size=15";
-		
 		search = new ElasticSearchOperation();
 	}
 	
+	/**
+	 * Construct with a custom max size
+	 * @param maxItems the max number of comments to pull from the server
+	 */
 	public TopicFetcher(int maxItems)
 	{
+		super();
 		listSize = "size=" + Integer.toString(maxItems);
+		search = new ElasticSearchOperation();
 	}
 	
-	public static enum SortMethod //methods for getting the "best/most relevant" topics
+	/**
+	 * Enumeration of methods used to get the "best/most relevant" topics
+	 */
+	public static enum SortMethod
 	{
 		NO_SORT, DATE, LOCATION, DATE_LOCATION
 	}
 	
 	/**
-	 * Fetch comments by location/date
+	 * Fetch comments globally (so not by parent) by location/date
 	 * @param sort sorting method
 	 * @return list of comments/topics
 	 */
@@ -51,8 +63,8 @@ public class TopicFetcher
 	/**
 	 * Fetch comments by parent (and location/date)
 	 * <p>
-	 * Use this to fetch topics (pass parentID = ThreadModel.ROOT)
-	 * @param parentID UUID of parent
+	 * Can be used to fetch only topics (pass parentID = ThreadModel.ROOT)
+	 * @param parentID UUID of parent comment
 	 * @param sort sorting method
 	 * @return list of comments (or topics if parentID = null)
 	 */
