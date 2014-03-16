@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.models.ThreadListModel;
@@ -112,6 +113,18 @@ public class ThreadListController extends Activity
 		// TODO confirm that the user has permission to edit this thread
 		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/31
 				
+		//check if editor's uniqueName matches the one associated with the comment
+		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
+		String myUnique = currentUser.getUniqueName();
+		String commUnique = thread.getAuthorUnique();
+		if( !(myUnique.equals(commUnique)))
+		{
+			//inform the user of what happened
+			Toast.makeText(this.activity, ca.ualberta.team7project.R.string.failed_edit, Toast.LENGTH_SHORT).show();
+			//Log.e("EditThread", currentUser.getUniqueName() + " vs " + thread.getAuthorUnique());
+			return;
+		}
+		
 		setEditingTopic(true);
 		setOpenThread(thread);
 		
