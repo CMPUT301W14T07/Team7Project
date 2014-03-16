@@ -137,6 +137,10 @@ public class ThreadListController extends Activity
 		setInTopic(true);
 		setOpenThread(thread);
 
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
+		// This is not permanent, and more of a hack right now.
+		MainActivity.requestLocation();
+		
 		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
 				.getFragmentManager(), "New Thread Alert");
@@ -152,6 +156,10 @@ public class ThreadListController extends Activity
 	{
 		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/32
 		// Much of this code should actually be in the updater class or persistence.....
+		
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
+		// This is not permanent, and more of a hack right now.
+		MainActivity.requestLocation();
 		
 		/* First we need to get the UserModel to associate with a ThreadModel */
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();

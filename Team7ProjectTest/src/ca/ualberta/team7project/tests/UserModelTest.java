@@ -8,7 +8,7 @@
  * @author Michael Raypold
  */
 
-package ca.ualberta.team7project.modeltests;
+package ca.ualberta.team7project.tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;

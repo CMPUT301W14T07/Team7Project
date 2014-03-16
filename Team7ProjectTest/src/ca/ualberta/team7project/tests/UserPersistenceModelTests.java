@@ -1,4 +1,4 @@
-package ca.ualberta.team7project.modeltests;
+package ca.ualberta.team7project.tests;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;

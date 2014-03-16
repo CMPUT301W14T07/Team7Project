@@ -262,9 +262,13 @@ public class MainActivity extends Activity implements LocationListener, Identity
 	/* See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29 */
 	public static void requestLocation()
 	{
+		Log.e(DEBUG, "Location has been requested - MainActivity");
+
 		/* Use the provider to find a location */
 		try{
 			MainActivity.locationManager.getLastKnownLocation(provider);
+			MainActivity.locationManager.requestLocationUpdates(MainActivity.provider, 0, 0, 
+					((ca.ualberta.team7project.MainActivity)MainActivity.mainContext));
 		}catch (Exception e) {
 			/* Could not request location */
 			Log.e(DEBUG, "Could not request location - MainActivity");

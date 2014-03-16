@@ -1,4 +1,4 @@
-package ca.ualberta.team7project.modeltests;
+package ca.ualberta.team7project.tests;
 
 import java.util.ArrayList;
 import java.util.UUID;
