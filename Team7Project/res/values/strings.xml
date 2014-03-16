@@ -9,6 +9,11 @@
 	<string name="refresh">Refresh Successful</string>
 	<string name="refresh_failed">Refresh Failed: No Network Connection</string>
 	<string name="title">Thread Title</string>
+	
+	<!-- Toats for threads -->
+	<string name="toast_edit">Edited a thread</string>
+	<string name="toast_reply">Replied to a thread</string>
+	<string name="toast_create">Created thread</string>
 
     <!-- General strings for multiple buttons/dialog boxes -->
     <string name="confirm">Confirm</string>

@@ -9,6 +9,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
@@ -27,10 +28,10 @@ public class UserController
 	public UserController(Context context, FragmentManager fragment)
 	{
 		super();
-		this.context = context;
+		UserController.context = context;
 		this.fragment = fragment;
 		
-		this.setUserView(new UserView(this.context, this.fragment));
+		this.setUserView(new UserView(UserController.context, this.fragment));
 		this.persistence = new UserPersistenceModel(context);
 		
 		/* Set the user by retrieving from file system, or creating a new user */
@@ -82,10 +83,9 @@ public class UserController
 		return persistence.deserializeUser();
 	}
 
-	
-	/* The following two methods should be moved to a persistence class or the main activity 
-	 * Low on the TODO list right now.
-	 * */
+	/* The following two methods are to be moved
+	 * See issue https://github.com/CMPUT301W14T07/Team7Project/issues/30
+	 */
 	
 	/**
 	 * A simple check to determine if the application has ever been run on this
@@ -98,7 +98,7 @@ public class UserController
 	public boolean firstRun()
 	{
 
-		SharedPreferences persistence = this.context
+		SharedPreferences persistence = UserController.context
 				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 
 		return persistence.getBoolean("firstRun", true);
@@ -111,7 +111,7 @@ public class UserController
 	public void setFirstRun()
 	{
 		
-		SharedPreferences persistence = this.context
+		SharedPreferences persistence = UserController.context
 				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = persistence.edit();
 
@@ -123,11 +123,17 @@ public class UserController
 	/**
 	 * The new longitude/latitude coordinates for the UserModel are set
 	 */
-	public static void updateLocationModel(double longitude, double latitude)
+	public static void updateLocation(double longitude, double latitude)
 	{
 		LocationModel location = new LocationModel(longitude, latitude);
 		UserController.user.getUser().setLocation(location);
-		Log.e("debug", "updating user coordinates");
+		Log.e(MainActivity.DEBUG, "updating user coordinates");
+	}
+	
+	public static void updateLocationModel(LocationModel location)
+	{
+		UserController.user.getUser().setLocation(location);
+		Log.e(MainActivity.DEBUG, "updating user coordinates");
 	}
 	
 	public Context getContext()
@@ -137,7 +143,7 @@ public class UserController
 
 	public void setContext(Context context)
 	{
-		this.context = context;
+		UserController.context = context;
 	}
 
 	public PreferenceModel getUser()
@@ -178,7 +184,7 @@ public class UserController
 
 	public void setUserView(UserView userView)
 	{
-		this.userView = userView;
+		UserController.userView = userView;
 	}
 
 }

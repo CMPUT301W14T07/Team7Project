@@ -1,19 +1,13 @@
 package ca.ualberta.team7project.controllers;
 
-import android.app.Activity;
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
+import android.util.Log;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.interfaces.PositionListener;
 import ca.ualberta.team7project.models.LocationModel;
 
-/* Sources of reference 
- * http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/ as a reference
- * http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-geo-point-type.html
- */
+/* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements */
 
 /**
  * Handles location functionality for the entire application.
@@ -24,46 +18,55 @@ import ca.ualberta.team7project.models.LocationModel;
  * For simplicity (since we aren't concerned with battery life), this LocationController is 
  * always willing to accept connections. 
  */
-public class LocationController
+public class LocationController implements PositionListener
 {
 	private Context context;
 	private Location location;
-	private static LocationManager locationManager;
 	
 	private LocationModel userLocation;
 	private LocationModel sortingLocation;
 		
 	private double longitude;
 	private double latitude;
-	
-	Criteria criteria;
-	LocationManager manager;
-	String provider;
-	
-	public LocationController(Context context, LocationManager locationManager)
+		
+	public LocationController(Context context)
 	{
 		super();
 		this.context = context;
-		this.setLocationManager(locationManager);
 	
 		this.setUserLocation(new LocationModel());
 		this.setSortingLocation(new LocationModel());
-				
+						
 	}
-
+	
+	/**
+	 * Is called when the GPS/Network updates the position.
+	 * <p>
+	 * Longitude/Latitude are saved and UserModel is updated.
+	 * 
+	 * @param location of the GPS or network position
+	 * @return update True if the location was updated properly.
+	 */
 	public Boolean updateCoordinates(Location location)
 	{
 		Boolean updated = false;
 		
 		if(location != null)
 		{
-			this.setLatitude(location.getLatitude());
-			this.setLongitude(location.getLongitude());
+			setLatitude(location.getLatitude());
+			setLongitude(location.getLongitude());
+			
+			/* Notify UserModel of the changes */
+			LocationModel locationModel = new LocationModel(longitude, latitude);
+			setUserLocation(locationModel);
+			
 			updated = true;
 		}
 
 		/* Notify all active models that coordinates have been updated */
 		MainActivity.userListener.locationUpdated(this.longitude, this.latitude);
+		
+		Log.e(MainActivity.DEBUG, "Location has changed");
 		
 		return updated;
 	}
@@ -127,16 +130,11 @@ public class LocationController
 	{
 		this.latitude = latitude;
 	}
-	
-	public LocationManager getLocationManager()
-	{
 
-		return locationManager;
-	}
-
-	public void setLocationManager(LocationManager locationManager)
+	@Override
+	public void requestLocationUpdate()
 	{
-		LocationController.locationManager = locationManager;
-	}
-	
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
+		MainActivity.requestLocation();
+	}	
 }

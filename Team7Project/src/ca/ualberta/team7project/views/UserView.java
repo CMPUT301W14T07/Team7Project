@@ -1,12 +1,11 @@
 package ca.ualberta.team7project.views;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
-import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.models.LocationModel;
@@ -47,17 +46,20 @@ public class UserView implements UserListener
 		userAlert.show(this.fragment, "New User Name Alert");			
 	}
 
+	/* Deprecated, but left until fully tested. Use locationModelUpdate now */
 	@Override
 	public void locationUpdated(double longitude, double latitude)
 	{
-		Log.e("debug", "request to update user coordinates");
-		UserController.updateLocationModel(longitude, latitude);
+		Log.e(MainActivity.DEBUG, "request to update user coordinates");
+		UserController.updateLocation(longitude, latitude);
 	}
 
+	/* Only called when address location has been changed...Not GPS location */
 	@Override
 	public void toastLocation(LocationModel location)
 	{
-		// TODO
+		Toast.makeText(this.context,
+				"Failed to update location", Toast.LENGTH_SHORT).show();					
 	}
 
 	@Override
@@ -65,6 +67,12 @@ public class UserView implements UserListener
 	{
 		Toast.makeText(this.context,
 				"Failed to update location", Toast.LENGTH_SHORT).show();					
+	}
+
+	@Override
+	public void locationModelUpdate(LocationModel location)
+	{
+		UserController.updateLocationModel(location);
 	}
 
 }

@@ -1,10 +1,7 @@
 package ca.ualberta.team7project.network;
 
-import java.util.UUID;
-
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
-import ca.ualberta.team7project.models.ThreadPersistenceModel;
 
 public class TopicUpdater
 {

@@ -47,38 +47,6 @@ public class ThreadListController extends Activity
 		this.refreshThreads();
 	}
 	
-	/*
-	 * NOTE THIS IS JUST A DEBUG METHOD FOR TESTING LISTVIEW RIGHT NOW
-	 * Once cache and network is up, this is not necessary
-	 */
-	public void debugPopulate()
-	{	
-		
-		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel thread = new ThreadModel("Caught Snorelax. Anyone else tired of pokemon examples?" +
-				" I sure am. Guess ill start using movie references. Is elastic search pull working so I don't have " +
-				"to do this anymore?", user, "Pokedex one");
-		ThreadModel threadOne = new ThreadModel("Caught Charmander. Lots and lots of text. WOOOOOOT. " +
-				"MORE TEXT. Stop writing already.", user, "Pokedex two");
-		ThreadModel threadTwo = new ThreadModel("Caught Pidgeo. Keep adding text to see how the layout is " +
-				"working. Is it working well? The buttons look ugly. Oh well, ill change them later. " +
-				"They are just here so that ppl can start working on click listeners. Internal monologues are great.", user, 
-				"Pokedex three");
-		ThreadModel threadThree = new ThreadModel("Caught Pidgeo. Just checking if the list will scroll. "
-				+ "Lots and lots of text needs to be written. Soon we can pull from ES and I won't have to write boring "
-				+ "lines of text list this. YEAHHHHHH!", user, "Pokedex four");
-
-		ArrayList<ThreadModel> threads = new ArrayList<ThreadModel>();
-		threads.add(thread);
-		threads.add(threadOne);
-		threads.add(threadTwo);
-		threads.add(threadThree);
-				
-		ThreadListModel newListModel = new ThreadListModel();
-		newListModel.setTopics(threads);
-		setListModel(newListModel);
-	}
-
 	/**
 	 * Backs up to parent thread
 	 * 
@@ -125,7 +93,6 @@ public class ThreadListController extends Activity
 				listModel = new ThreadListModel();
 				listModel.setTopics(threads);
 					
-				//listView = new ThreadListView(this.listModel, activity);
 				listView.notifyListChange(listModel);
 		
 			}
@@ -143,8 +110,8 @@ public class ThreadListController extends Activity
 	 */
 	public void editThread(ThreadModel thread)
 	{
-		
-		// TODO confirm that the user has permission to edit this thread.
+		// TODO confirm that the user has permission to edit this thread
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/31
 		
 		setEditingTopic(true);
 		setOpenThread(thread);
@@ -184,6 +151,9 @@ public class ThreadListController extends Activity
 	 */
 	public void createThread(String title, String comment)
 	{
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/32
+		// Much of this code should actually be in the updater class or persistence.....
+		
 		/* First we need to get the UserModel to associate with a ThreadModel */
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
@@ -194,18 +164,16 @@ public class ThreadListController extends Activity
 		if(getEditingTopic() == true)
 		{
 			/* User edited a thread. Update models appropriately */
-			/* Insert newThread in place of the open thread in the models */
-			// TODO thread persistence model needs a method for this.
-			
+			/* Insert newThread in place of the open thread in the models */			
 			if(this.getOpenThread() == null)
-				Log.e("halp", "editing null thread");
+				Log.e(MainActivity.DEBUG, "Editing null thread");
 			
 			newThread.setUniqueID(this.getOpenThread().getUniqueID());
 			newThread.setParentUUID(this.getOpenThread().getParentUUID());
 			newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
 			
 			updater.sendComment(newThread);
-			Toast.makeText(activity, "Editing", Toast.LENGTH_SHORT).show();
+			ThreadListController.listView.editToast();
 		}
 		else
 		{
@@ -214,21 +182,23 @@ public class ThreadListController extends Activity
 			{
 				/* User replied. Updated models appropriately */
 				/* Append the reply to the openThread and then replace in the model */
-				// TODO thread persistence model needs a method for this
+				// TODO thread persistence model needs a method for this (or TopicUpdate)
+				// see https://github.com/CMPUT301W14T07/Team7Project/issues/32
 				
 				if(this.getOpenThread() == null)
-					Log.e("halp", "reply to null thread");
+					Log.e(MainActivity.DEBUG, "reply to null thread");
 				UUID parent = this.getOpenThread().getUniqueID();
 				
 				newThread.setParentUUID(parent);
 				updater.sendComment(newThread);
-				Toast.makeText(activity, "Replying", Toast.LENGTH_SHORT).show();
+				
+				ThreadListController.listView.replyingToast();
 			}
 			/* User created new topic. Upload to Elastic Search */
 			else
 			{				
 				updater.sendComment(newThread);
-				Toast.makeText(activity, "New topic", Toast.LENGTH_SHORT).show();
+				ThreadListController.listView.newTopicToast();
 			}
 		}
 		
@@ -236,8 +206,6 @@ public class ThreadListController extends Activity
 	
 		this.refreshThreads();
 	}
-	
-	/* Your standard getters/setters */
 	
 	public ThreadListModel getListModel()
 	{
