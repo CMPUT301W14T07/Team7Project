@@ -87,7 +87,7 @@ public class ThreadListController extends Activity
 				
 				UUID parent = stack.get(stack.size()-1);
 				
-				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, TopicFetcher.SortMethod.NO_SORT);
+				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, TopicFetcher.SortMethod.DATE);
 				
 				listModel = new ThreadListModel();
 				listModel.setTopics(threads);

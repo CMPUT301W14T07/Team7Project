@@ -8,26 +8,24 @@ import ca.ualberta.team7project.models.ThreadModel;
 
 public class TopicFetcher
 {
-	ElasticSearchOperation search;
+	private ElasticSearchOperation search;
+	private String listSize;
 	
 	public TopicFetcher()
 	{
+		listSize = "size=15";
+		
 		search = new ElasticSearchOperation();
+	}
+	
+	public TopicFetcher(int maxItems)
+	{
+		listSize = "size=" + Integer.toString(maxItems);
 	}
 	
 	public static enum SortMethod //methods for getting the "best/most relevant" topics
 	{
 		NO_SORT, DATE, LOCATION, DATE_LOCATION
-	}
-	
-	/**
-	 * Fetch topics (by location/date)
-	 * @param sort sorting method
-	 * @return list of topics
-	 */
-	public ArrayList<ThreadModel> fetchTopics(SortMethod sort)
-	{
-		return new ArrayList<ThreadModel>(search.searchThreads(ThreadModel.ROOT));
 	}
 	
 	/**
@@ -37,20 +35,40 @@ public class TopicFetcher
 	 */
 	public ArrayList<ThreadModel> fetchComments(SortMethod sort)
 	{
-		return null;
+		String sortString = null;
+		switch(sort)
+		{
+			case DATE:
+				sortString = "_search?sort=threadTimestamp:desc" + "&" + listSize;
+				break;
+			case NO_SORT:
+			default:
+				sortString = "_search" + "?" + listSize;
+		}
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString));
 	}
 	
 	/**
 	 * Fetch comments by parent (and location/date)
+	 * <p>
+	 * Use this to fetch topics (pass parentID = ThreadModel.ROOT)
 	 * @param parentID UUID of parent
 	 * @param sort sorting method
 	 * @return list of comments (or topics if parentID = null)
 	 */
 	public ArrayList<ThreadModel> fetchChildComments(UUID parentID, SortMethod sort)
 	{
-		if(parentID == null)
-			return fetchTopics(sort);
-		
-		return new ArrayList<ThreadModel>(search.searchThreads(parentID.toString()));
+		String sortString = null;
+		switch(sort)
+		{
+			case DATE:
+				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" +
+						"sort=threadTimestamp:desc" + "&" + listSize;
+				break;
+			case NO_SORT:
+			default:
+				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
+		}
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString));
 	}
 }
