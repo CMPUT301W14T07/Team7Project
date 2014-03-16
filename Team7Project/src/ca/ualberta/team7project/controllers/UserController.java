@@ -16,11 +16,11 @@ import ca.ualberta.team7project.views.UserView;
 
 public class UserController
 {
-	private Context context;
+	private static Context context;
 	private FragmentManager fragment;
 	
 	private static PreferenceModel user;
-	private UserView userView;
+	private static UserView userView;
 	
 	private UserPersistenceModel persistence;
 	
@@ -40,11 +40,11 @@ public class UserController
 	/**
 	 * Creates a new PreferenceModel, saves the model to the file system and updates the appropriate views.
 	 */
-	public void createNewUser(String userName)
+	public static void createNewUser(String userName)
 	{
 		PreferenceModel newUser = new PreferenceModel(userName);
 
-		UserPersistenceModel persistence = new UserPersistenceModel(this.context);
+		UserPersistenceModel persistence = new UserPersistenceModel(context);
 		persistence.serializeUser(newUser);
 		setUser(newUser);
 		
@@ -145,9 +145,9 @@ public class UserController
 		return user;
 	}
 
-	public void setUser(PreferenceModel user)
+	public static void setUser(PreferenceModel user)
 	{
-		this.user = user;
+		UserController.user = user;
 		userView.updateViews(user);
 	}
 	

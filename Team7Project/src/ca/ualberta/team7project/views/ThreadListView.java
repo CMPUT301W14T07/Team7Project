@@ -117,6 +117,8 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	public void onPhotoClick(ThreadModel thread)
 	{
 		// Haven't implemented the button for this yet.
+		Log.e("debug", "Image pressed");
+
 	}
 
 	@Override

@@ -6,7 +6,7 @@
 
 package ca.ualberta.team7project.interfaces;
 
-import android.location.Location;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 
 public interface UserListener
@@ -16,5 +16,7 @@ public interface UserListener
 	public void toastUser(String userName);
 	public void promptIdentityAlertView();
 	public void locationUpdated(double longitude, double latitude);
-	public void toastLocation(Location location);
+	public void toastLocation(LocationModel location);
+	public void updateLocationFailure();
+	
 }

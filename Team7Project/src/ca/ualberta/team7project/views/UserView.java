@@ -1,13 +1,15 @@
 package ca.ualberta.team7project.views;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
+import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.interfaces.UserListener;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 
 
@@ -53,14 +55,16 @@ public class UserView implements UserListener
 	}
 
 	@Override
-	public void toastLocation(Location location)
+	public void toastLocation(LocationModel location)
 	{
+		// TODO
+	}
 
-		/* A variety of things could go wrong when the user selects a location.
-		 * After location has been selected. A prompt should be shown displaying the
-		 * results
-		 */
-		
+	@Override
+	public void updateLocationFailure()
+	{
+		Toast.makeText(this.context,
+				"Failed to update location", Toast.LENGTH_SHORT).show();					
 	}
 
 }

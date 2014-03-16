@@ -27,7 +27,7 @@ import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.views.ActionBarView;
 
-public class MainActivity extends Activity implements IdentityListener, LocationListener
+public class MainActivity extends Activity implements LocationListener, IdentityListener
 {
 	private static UserController userController;
 	private static ThreadListController listController;
@@ -36,8 +36,9 @@ public class MainActivity extends Activity implements IdentityListener, Location
 	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
 
-	public static ThreadListener threadListener; // Would like to make these private, but get lots of NPE when so.
-	public static UserListener userListener;	
+	// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
+	public static ThreadListener threadListener;
+	public static UserListener userListener;
 	
 	private static LocationManager locationManager;
 	private Criteria criteria;
@@ -60,23 +61,54 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
-		// Commenting out until moved to correct location and error checked with try catch blocks.
-		/* Set the location manager and choose the best provider (GPS or Network) */
-/*		MainActivity.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		this.criteria = new Criteria();
-		this.provider = MainActivity.locationManager.getBestProvider(criteria, false);
-		MainActivity.locationManager.getLastKnownLocation(provider);
-		MainActivity.locationManager.requestLocationUpdates(this.provider, 1, 1, this);
-*/
+		/* Initiate GPS/Network tracking right now to pass to locationController */
+		inititiateLocationTracking();
+		
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
-/*		MainActivity.setLocationController(new LocationController(context, MainActivity.locationManager));
-*/		
+		MainActivity.setLocationController(new LocationController(context, MainActivity.locationManager));
+		
 		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
 		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
 				getListController().getListView());
 		this.setUserListener(MainActivity.getUserController().getUserView());
 
+	}
+		
+	/**
+	 * Initiates the location tracking to an available host (GPS or Network)
+	 * <p>
+	 * Provides error checking and notifies UserView of possible errors.
+	 */
+	public void inititiateLocationTracking()
+	{
+		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
+		/* Set the location manager */
+		try{
+			MainActivity.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		}catch (Exception e) {
+			/* Could not initiate location manager. Perhaps not enabled on the phone */
+			
+		}
+
+		/* Find the best provider */
+		try{
+			this.criteria = new Criteria();
+			this.provider = MainActivity.locationManager.getBestProvider(criteria, false);
+		}catch (Exception e) {
+			/* Did not find an appropriate provider */
+			
+		}
+		
+		/* Use the provider to find a location */
+		try{
+			MainActivity.locationManager.getLastKnownLocation(provider);
+			MainActivity.locationManager.requestLocationUpdates(this.provider, 0, 0, this);
+		}catch (Exception e) {
+			/* Could not request location */
+			
+		}
 	}
 	
 	@Override
@@ -89,7 +121,7 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		}
 	}
 
-	// TODO onResume ~ was crashing application when I tried to insert it here.
+	// TODO onResume https://github.com/CMPUT301W14T07/Team7Project/issues/26
 
 	/**
 	 * Places all items for the action bar in the application menu.
@@ -118,21 +150,21 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		return actionBarView.getAction();
 	}
 	
-	// TODO onIdentityPositiveClick should be moved to UserView. However, getting null pointer.
+	/*
+	 * TODO Move onIdentityCreate to UserView - There exist some null pointer errors when moved right now.
+	 * https://github.com/CMPUT301W14T07/Team7Project/issues/27
+	 */
 	
 	/**
 	 * Takes the user name and updates the user model.
 	 * <p>
-	 * An onDialigPositiveClick is received only when creating a new UserModel.
+	 * An onIdentityCreate is received only when creating a new UserModel.
 	 */
 	@Override
 	public void onIdentityCreate(String userName)
 	{				
-		userController.setContext(getApplicationContext());
-		userController.setFragment(getFragmentManager());
-		userController.createNewUser(userName);
+		UserController.createNewUser(userName);
 	}
-
 	
 	public static UserController getUserController()
 	{
@@ -140,13 +172,11 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		return userController;
 	}
 
-	
 	public void setController(UserController userController)
 	{
 	
 		MainActivity.userController = userController;
 	}
-
 	
 	public ThreadListController getListController()
 	{
@@ -154,7 +184,6 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		return listController;
 	}
 
-	
 	public void setListController(ThreadListController listController)
 	{
 	
@@ -215,6 +244,11 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		MainActivity.locationController = locationController;
 	}
 
+	/*
+	 * Would like to move these listeners to LocationController.
+	 * See issue https://github.com/CMPUT301W14T07/Team7Project/issues/29
+	 */
+	
 	@Override
 	public void onLocationChanged(Location location)
 	{

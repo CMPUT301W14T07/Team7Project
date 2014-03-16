@@ -1,8 +1,12 @@
 package ca.ualberta.team7project.controllers;
 
+import android.app.Activity;
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.LocationModel;
 
@@ -32,12 +36,16 @@ public class LocationController
 	private double longitude;
 	private double latitude;
 	
+	Criteria criteria;
+	LocationManager manager;
+	String provider;
+	
 	public LocationController(Context context, LocationManager locationManager)
 	{
 		super();
 		this.context = context;
 		this.setLocationManager(locationManager);
-		
+	
 		this.setUserLocation(new LocationModel());
 		this.setSortingLocation(new LocationModel());
 				

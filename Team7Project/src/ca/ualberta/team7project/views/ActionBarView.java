@@ -148,10 +148,8 @@ public class ActionBarView extends Activity
 	 */
 	private void refreshView()
 	{
-		// Just a temporary debug toast.	
-		//Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
-		
 		((MainActivity)mainContext).getListController().refreshThreads();
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
