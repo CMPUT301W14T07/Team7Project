@@ -9,6 +9,9 @@ package ca.ualberta.team7project.interfaces;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 
+/**
+ * Listener for the UserView
+ */
 public interface UserListener
 {
 

@@ -5,7 +5,12 @@ import java.util.UUID;
 
 import ca.ualberta.team7project.models.ThreadModel;
 
-
+/**
+ * Fetches comments from the server
+ * <p>
+ * Prepares search strings for ElasticSearchOperation
+ *
+ */
 public class TopicFetcher
 {
 	private ElasticSearchOperation search;

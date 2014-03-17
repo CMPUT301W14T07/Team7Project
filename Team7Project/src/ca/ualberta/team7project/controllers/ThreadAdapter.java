@@ -19,6 +19,9 @@ import android.widget.TextView;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
+/**
+ * Custom adapter for ThreadModel
+ */
 public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 {
 

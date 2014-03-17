@@ -11,6 +11,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
+/**
+ * <i>Current unimplemented</i>
+ */
 public class SortPreferencesAlertView extends DialogFragment
 {
 

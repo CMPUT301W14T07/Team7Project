@@ -17,6 +17,9 @@ import ca.ualberta.team7project.alertviews.LocationLookupAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 
+/**
+ * View for the Android action bar
+ */
 public class ActionBarView extends Activity
 {
 

@@ -13,7 +13,13 @@ import ca.ualberta.team7project.network.TopicFetcher;
 import ca.ualberta.team7project.network.TopicUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 
-
+/**
+ * Manages the active list of comments
+ * <p>
+ * Contains methods for refreshing, adding, and editing comments
+ * <p>
+ * Manages the internal comment-nesting stack and handles navigation between different nesting levels
+ */
 public class ThreadListController extends Activity
 {
 	private ArrayList<UUID> stack;

@@ -13,7 +13,9 @@ import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 
-
+/**
+ * Creates toasts and manages alert views related to user and preferences
+ */
 public class UserView extends Activity implements UserListener
 {
 

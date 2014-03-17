@@ -22,6 +22,9 @@ import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
+/**
+ * Prepares views and contains listeners for the ListView of comments
+ */
 public class ThreadListView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	private ThreadListModel listModel;

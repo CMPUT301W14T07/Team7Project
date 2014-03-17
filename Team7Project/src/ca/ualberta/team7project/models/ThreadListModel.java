@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import ca.ualberta.team7project.network.ElasticSearchOperation;
 
+/**
+ * Holds a list of comments to be displayed
+ *
+ */
 public class ThreadListModel
 {
 
