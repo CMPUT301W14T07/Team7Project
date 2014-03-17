@@ -78,4 +78,20 @@ public class PreferencesModelTests extends
 
 	}
 	
+	public void testSetUser()
+	{
+		PreferenceModel preference = new PreferenceModel("BoB");
+		UserModel user = new UserModel("Bill");
+		preference.setUser(user);
+		
+		assertEquals("The user should now be Bill",preference.getUser(),user);
+	}
+	
+	public void testGetUser()
+	{
+		PreferenceModel preference = new PreferenceModel("BoB");
+		
+		assertEquals("The user should be BoB", preference.getUser().getName(),"BoB");
+	}	
+	
 }

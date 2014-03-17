@@ -12,6 +12,7 @@ package ca.ualberta.team7project.tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.UserModel;
 
 public class UserModelTest extends
@@ -46,15 +47,21 @@ public class UserModelTest extends
 		assertNotNull("User is not null", user);
 		assertEquals("User's name is properly set", "Jerry Maguire", user.getName());
 		assertNotNull("User has a unique name", user.getUniqueName());
+		assertEquals("User has a null location", user.getLocation(), (LocationModel) null);
 	}
 	
-	/**
-	 * Ensure that the location is correct
-	 */
-	public void testUserLocation()
+	public void testSetName()
 	{
-		// TODO
+		UserModel userOne = new UserModel("Ash Ketchum");
+		String uniqueNameOne = userOne.getUniqueName();
+		LocationModel locationOne = userOne.getLocation();
+		
+		userOne.setName("Jerry Maguire");
+		
+		assertEquals("User should now be Jerry Maguire",userOne.getName(), "Jerry Maguire");
+		assertNotSame("Unique name should not be the same", userOne.getUniqueName(), uniqueNameOne);
+		/* and should do so without changing other parameters */
+		assertEquals("Location should be the same", userOne.getLocation(), locationOne);
 	}
-	
 	
 }
