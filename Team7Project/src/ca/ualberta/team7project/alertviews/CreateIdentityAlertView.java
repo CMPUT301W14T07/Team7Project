@@ -16,6 +16,9 @@ import android.text.InputType;
 import android.widget.EditText;
 import ca.ualberta.team7project.models.UserPersistenceModel;
 
+/**
+ * Allows the user to select a new username and generate a new identity
+ */
 public class CreateIdentityAlertView extends DialogFragment
 {
 	private Context context;

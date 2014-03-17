@@ -15,6 +15,9 @@ import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
 import ca.ualberta.team7project.views.UserView;
 
+/**
+ * Manages the user and their preferences
+ */
 public class UserController
 {
 	private static Context context;

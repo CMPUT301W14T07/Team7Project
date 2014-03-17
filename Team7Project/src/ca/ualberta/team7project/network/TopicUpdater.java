@@ -3,6 +3,11 @@ package ca.ualberta.team7project.network;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
 
+/**
+ * Updates the comments on the server
+ * <p>
+ * Passes comments on to ElasticSearchOperation
+ */
 public class TopicUpdater
 {
 	ThreadListener refresh;

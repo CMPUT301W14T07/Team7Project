@@ -31,7 +31,6 @@ import ca.ualberta.team7project.views.ThreadListView;
  * @author raypold
  *
  */
-
 public class ThreadAlertView extends DialogFragment
 {
 	private Boolean replying;
