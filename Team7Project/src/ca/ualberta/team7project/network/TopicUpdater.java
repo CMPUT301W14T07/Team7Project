@@ -1,21 +1,45 @@
 package ca.ualberta.team7project.network;
 
-import java.util.UUID;
-
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
-import ca.ualberta.team7project.models.ThreadPersistenceModel;
 
+/**
+ * Updates the comments on the server
+ * <p>
+ * Passes comments on to ElasticSearchOperation
+ */
 public class TopicUpdater
 {
 	ThreadListener refresh;
 	
+	/**
+	 * Construct a TopicUpdater with no refresh callback
+	 */
+	public TopicUpdater()
+	{
+		super();
+		this.refresh = null;
+	}
+	
+	/**
+	 * Construct a TopicUpdater with an onRefresh() callback
+	 * @param refresh an object implementing ThreadListener
+	 */
 	public TopicUpdater(ThreadListener refresh)
 	{
 		super();
 		this.refresh = refresh;
 	}
 
+	/**
+	 * Pushes a single comment to the server
+	 * <p>
+	 * If editing, the old comment will be overwritten automatically
+	 * <p>
+	 * If a refresh callback was provided, it will be called after
+	 * receiving a response from the server
+	 * @param comment a comment/topic to be pushed
+	 */
 	public void sendComment(ThreadModel comment)
 	{
 		ElasticSearchOperation search = new ElasticSearchOperation();

@@ -3,6 +3,9 @@ package ca.ualberta.team7project.interfaces;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
+/**
+ * Listener for the ThreadListView
+ */
 public interface ThreadListener
 {
 	public void onFavoriteClick(ThreadModel thread);
@@ -14,4 +17,7 @@ public interface ThreadListener
 	public void notifyListChange(ThreadListModel list);
 	public void notifyThreadInserted(ThreadModel thread);
 	public void onRefresh();
+	public void editToast();
+	public void replyingToast();
+	public void newTopicToast();
 }

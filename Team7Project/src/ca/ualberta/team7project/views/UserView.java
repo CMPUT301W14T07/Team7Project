@@ -1,17 +1,22 @@
 package ca.ualberta.team7project.views;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.location.Location;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.interfaces.UserListener;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 
-
-public class UserView implements UserListener
+/**
+ * Creates toasts and manages alert views related to user and preferences
+ */
+public class UserView extends Activity implements UserListener
 {
 
 	private Context context;
@@ -22,8 +27,16 @@ public class UserView implements UserListener
 		super();
 		this.context = context;
 		this.fragment = fragment;
+		
+		MainActivity.userListener = this;
 	}
 
+	@Override
+	public void onCreate(Bundle savedState)
+	{
+		super.onCreate(savedState);
+	}
+	
 	@Override
 	public void updateViews(PreferenceModel user)
 	{
@@ -45,22 +58,40 @@ public class UserView implements UserListener
 		userAlert.show(this.fragment, "New User Name Alert");			
 	}
 
+	/* Deprecated, but left until fully tested. Use locationModelUpdate now */
 	@Override
 	public void locationUpdated(double longitude, double latitude)
 	{
-		Log.e("debug", "request to update user coordinates");
-		UserController.updateLocationModel(longitude, latitude);
+		Log.e(MainActivity.DEBUG, "request to update user coordinates");
+		UserController.updateLocation(longitude, latitude);
+	}
+
+	/* Only called when address location has been changed...Not GPS location */
+	@Override
+	public void toastLocation(LocationModel location)
+	{
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.location_update, 
+				Toast.LENGTH_SHORT).show();					
 	}
 
 	@Override
-	public void toastLocation(Location location)
+	public void updateLocationFailure()
 	{
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.location_fail, 
+				Toast.LENGTH_SHORT).show();					
+	}
 
-		/* A variety of things could go wrong when the user selects a location.
-		 * After location has been selected. A prompt should be shown displaying the
-		 * results
-		 */
-		
+	@Override
+	public void locationModelUpdate(LocationModel location)
+	{
+		UserController.updateLocationModel(location);
+	}
+
+	@Override
+	public void invalidEditPermissions()
+	{
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.no_edit_permission, 
+				Toast.LENGTH_SHORT).show();					
 	}
 
 }

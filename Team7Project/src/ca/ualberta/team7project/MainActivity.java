@@ -11,24 +11,22 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.controllers.LocationController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
+import ca.ualberta.team7project.interfaces.PositionListener;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.views.ActionBarView;
 
-public class MainActivity extends Activity implements IdentityListener, LocationListener
+public class MainActivity extends Activity implements IdentityListener
 {
+	public static final String DEBUG = "debug"; // Log statements 
+	
 	private static UserController userController;
 	private static ThreadListController listController;
 	private static LocationController locationController;
@@ -36,12 +34,10 @@ public class MainActivity extends Activity implements IdentityListener, Location
 	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
 
-	public static ThreadListener threadListener; // Would like to make these private, but get lots of NPE when so.
-	public static UserListener userListener;	
-	
-	private static LocationManager locationManager;
-	private Criteria criteria;
-	private String provider = null;
+	// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
+	public static ThreadListener threadListener;
+	public static UserListener userListener;
+	public static PositionListener positionListener;
 
 	/**
 	 * Creates the state of the application when the activity is initialized
@@ -60,24 +56,12 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
-		// Commenting out until moved to correct location and error checked with try catch blocks.
-		/* Set the location manager and choose the best provider (GPS or Network) */
-/*		MainActivity.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		this.criteria = new Criteria();
-		this.provider = MainActivity.locationManager.getBestProvider(criteria, false);
-		MainActivity.locationManager.getLastKnownLocation(provider);
-		MainActivity.locationManager.requestLocationUpdates(this.provider, 1, 1, this);
-*/
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
-/*		MainActivity.setLocationController(new LocationController(context, MainActivity.locationManager));
-*/		
-		/* Cast the listeners to the MainActivity for passing button clicks between asynchronous classes */
-		this.setThreadListener(((ca.ualberta.team7project.MainActivity)MainActivity.mainContext).
-				getListController().getListView());
-		this.setUserListener(MainActivity.getUserController().getUserView());
-
+		MainActivity.locationController = new LocationController(context);
+		
 	}
+		
 	
 	@Override
 	public void onBackPressed()
@@ -89,7 +73,7 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		}
 	}
 
-	// TODO onResume ~ was crashing application when I tried to insert it here.
+	// TODO onResume https://github.com/CMPUT301W14T07/Team7Project/issues/26
 
 	/**
 	 * Places all items for the action bar in the application menu.
@@ -118,21 +102,21 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		return actionBarView.getAction();
 	}
 	
-	// TODO onIdentityPositiveClick should be moved to UserView. However, getting null pointer.
+	/*
+	 * TODO Move onIdentityCreate to UserView - There exist some null pointer errors when moved right now.
+	 * https://github.com/CMPUT301W14T07/Team7Project/issues/27
+	 */
 	
 	/**
 	 * Takes the user name and updates the user model.
 	 * <p>
-	 * An onDialigPositiveClick is received only when creating a new UserModel.
+	 * An onIdentityCreate is received only when creating a new UserModel.
 	 */
 	@Override
 	public void onIdentityCreate(String userName)
 	{				
-		userController.setContext(getApplicationContext());
-		userController.setFragment(getFragmentManager());
-		userController.createNewUser(userName);
+		UserController.createNewUser(userName);
 	}
-
 	
 	public static UserController getUserController()
 	{
@@ -140,13 +124,11 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		return userController;
 	}
 
-	
 	public void setController(UserController userController)
 	{
 	
 		MainActivity.userController = userController;
 	}
-
 	
 	public ThreadListController getListController()
 	{
@@ -154,7 +136,6 @@ public class MainActivity extends Activity implements IdentityListener, Location
 		return listController;
 	}
 
-	
 	public void setListController(ThreadListController listController)
 	{
 	
@@ -214,21 +195,5 @@ public class MainActivity extends Activity implements IdentityListener, Location
 
 		MainActivity.locationController = locationController;
 	}
-
-	@Override
-	public void onLocationChanged(Location location)
-	{
-		Log.e("debug", "location has changed");
-		MainActivity.locationController.updateCoordinates(location);
-	}
-
-	@Override
-	public void onProviderDisabled(String provider){}
-
-	@Override
-	public void onProviderEnabled(String provider){}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras){}
-
+	
 }

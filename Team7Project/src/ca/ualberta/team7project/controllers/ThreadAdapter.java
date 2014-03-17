@@ -19,6 +19,9 @@ import android.widget.TextView;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
+/**
+ * Custom adapter for ThreadModel
+ */
 public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 {
 
@@ -41,6 +44,10 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 
         View rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
 
+        /* Set the author name */
+        TextView authorView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.authorName);
+        authorView.setText(getItem(position).getAuthorName());
+        
         /* Ensure the title is not null before setting it in the layout */
         TextView titleView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTitle);
         String title = getItem(position).getTitle();
@@ -60,7 +67,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         	bodyView.setText("");        
         
         /* Set picture */
-        // TODO
+        // next milestone
         
         /* Favorite button on click listener */
         ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);

@@ -9,42 +9,49 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
 import ca.ualberta.team7project.views.UserView;
 
+/**
+ * Manages the user and their preferences
+ */
 public class UserController
 {
-	private Context context;
+	private static Context context;
 	private FragmentManager fragment;
 	
 	private static PreferenceModel user;
-	private UserView userView;
+	private static UserView userView;
 	
+	private static LocationModel cachedLocation;
 	private UserPersistenceModel persistence;
 	
 	public UserController(Context context, FragmentManager fragment)
 	{
 		super();
-		this.context = context;
+		UserController.context = context;
 		this.fragment = fragment;
 		
-		this.setUserView(new UserView(this.context, this.fragment));
+		UserController.cachedLocation = new LocationModel();
+		
+		this.setUserView(new UserView(UserController.context, this.fragment));
 		this.persistence = new UserPersistenceModel(context);
 		
 		/* Set the user by retrieving from file system, or creating a new user */
-		setUserInitialRun();
+		setUserInitialRun();	
 	}
 	
 	/**
 	 * Creates a new PreferenceModel, saves the model to the file system and updates the appropriate views.
 	 */
-	public void createNewUser(String userName)
+	public static void createNewUser(String userName)
 	{
 		PreferenceModel newUser = new PreferenceModel(userName);
 
-		UserPersistenceModel persistence = new UserPersistenceModel(this.context);
+		UserPersistenceModel persistence = new UserPersistenceModel(context);
 		persistence.serializeUser(newUser);
 		setUser(newUser);
 		
@@ -82,10 +89,9 @@ public class UserController
 		return persistence.deserializeUser();
 	}
 
-	
-	/* The following two methods should be moved to a persistence class or the main activity 
-	 * Low on the TODO list right now.
-	 * */
+	/* The following two methods are to be moved
+	 * See issue https://github.com/CMPUT301W14T07/Team7Project/issues/30
+	 */
 	
 	/**
 	 * A simple check to determine if the application has ever been run on this
@@ -98,7 +104,7 @@ public class UserController
 	public boolean firstRun()
 	{
 
-		SharedPreferences persistence = this.context
+		SharedPreferences persistence = UserController.context
 				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 
 		return persistence.getBoolean("firstRun", true);
@@ -111,7 +117,7 @@ public class UserController
 	public void setFirstRun()
 	{
 		
-		SharedPreferences persistence = this.context
+		SharedPreferences persistence = UserController.context
 				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = persistence.edit();
 
@@ -123,11 +129,30 @@ public class UserController
 	/**
 	 * The new longitude/latitude coordinates for the UserModel are set
 	 */
-	public static void updateLocationModel(double longitude, double latitude)
+	public static void updateLocation(double longitude, double latitude)
 	{
 		LocationModel location = new LocationModel(longitude, latitude);
 		UserController.user.getUser().setLocation(location);
-		Log.e("debug", "updating user coordinates");
+		Log.e(MainActivity.DEBUG, "updating user coordinates");
+	}
+	
+	/**
+	 * Update the location of the user or cache the coordinates if no user exists.
+	 * <p>
+	 * Since the AlertView to create UserModel runs on the UI thread, it is possible
+	 * that no UserModel exists. Therefore, setting the location is wrapped in a try/catch
+	 * block and the location is cached.
+	 * 
+	 * @param location of the phone
+	 */
+	public static void updateLocationModel(LocationModel location)
+	{
+		try{
+			UserController.user.getUser().setLocation(location);		
+		} 
+		catch (Exception e) {
+			UserController.cachedLocation = location;
+		}
 	}
 	
 	public Context getContext()
@@ -137,7 +162,7 @@ public class UserController
 
 	public void setContext(Context context)
 	{
-		this.context = context;
+		UserController.context = context;
 	}
 
 	public PreferenceModel getUser()
@@ -145,9 +170,18 @@ public class UserController
 		return user;
 	}
 
-	public void setUser(PreferenceModel user)
+	/**
+	 * Create a new user.
+	 * <p>
+	 * Since GPS updates are infrequent, the users location is set to the current cached location 
+	 * until a new signal is received.
+	 * 
+	 * @param user New user associated with the application.
+	 */
+	public static void setUser(PreferenceModel user)
 	{
-		this.user = user;
+		user.getUser().setLocation(cachedLocation);
+		UserController.user = user;	
 		userView.updateViews(user);
 	}
 	
@@ -178,7 +212,7 @@ public class UserController
 
 	public void setUserView(UserView userView)
 	{
-		this.userView = userView;
+		UserController.userView = userView;
 	}
 
 }

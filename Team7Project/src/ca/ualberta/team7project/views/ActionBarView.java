@@ -14,10 +14,12 @@ import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.LocationLookupAlertView;
-import ca.ualberta.team7project.alertviews.SortPreferencesAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 
+/**
+ * View for the Android action bar
+ */
 public class ActionBarView extends Activity
 {
 
@@ -50,7 +52,6 @@ public class ActionBarView extends Activity
 	 */
 	public boolean getAction()
 	{
-		// TODO would like to put this into a map.
 		switch (this.item.getItemId())
 		{
 			case R.id.action_home:
@@ -83,8 +84,7 @@ public class ActionBarView extends Activity
 	 */
 	private void topicsHome()
 	{
-
-		// TODO
+		// Next milestone
 	}
 
 	/**
@@ -92,6 +92,7 @@ public class ActionBarView extends Activity
 	 */
 	private void geolocationPreferences()
 	{
+		// Not fully implemented. Next milestone.
 		LocationLookupAlertView location = new LocationLookupAlertView();
 		location.setCancelable(false);
 		location.show(fragment, "Set Location Alert");
@@ -102,7 +103,7 @@ public class ActionBarView extends Activity
 	 */
 	private void userPreferences()
 	{
-		// TODO. For now, this just updates username.
+		// at the moment this just creates a new user. Next milestone has proper functionality
 		CreateIdentityAlertView userAlert = new CreateIdentityAlertView();
 		userAlert.setCancelable(false);
 		userAlert.show(fragment, "New User Name Alert");
@@ -114,7 +115,7 @@ public class ActionBarView extends Activity
 	 */
 	private void addTopicToFavorites()
 	{
-		// TODO
+		// next milestone
 	}
 
 	/**
@@ -126,14 +127,7 @@ public class ActionBarView extends Activity
 	 * @see ThreadListener.java
 	 */
 	private void createTopic()
-	{
-		//old stuff
-/*		ThreadListView threadListView = ((ca.ualberta.team7project.MainActivity)mainContext)
-				.getListController().getListView();
-		
-		ThreadAlertView threadAlert = new ThreadAlertView(threadListView);
-		threadAlert.show(fragment, "New Thread Alert");*/
-		
+	{		
 		//hacking through..
 		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setInTopic(false);
 		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setEditingTopic(false);
@@ -148,10 +142,8 @@ public class ActionBarView extends Activity
 	 */
 	private void refreshView()
 	{
-		// Just a temporary debug toast.	
-		//Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh_failed, Toast.LENGTH_SHORT).show();			
-		
 		((MainActivity)mainContext).getListController().refreshThreads();
+		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh, Toast.LENGTH_SHORT).show();
 	}
 
 	/**

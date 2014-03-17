@@ -25,8 +25,7 @@ public class LocationModel
 		this.location = new double[2];
 		setLocation(longitude, latitude);
 	}
-
-
+		
 	public void setLongitude(double longitude)
 	{
 		this.location[0] = longitude;
@@ -35,6 +34,16 @@ public class LocationModel
 	public void setLatitude(double latitude)
 	{
 		this.location[1] = latitude;
+	}
+	
+	public double getLongitude()
+	{
+		return this.location[0];
+	}
+	
+	public double getLatitude()
+	{
+		return this.location[1];
 	}
 	
 	public double[] getLocation()
