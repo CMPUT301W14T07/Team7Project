@@ -8,6 +8,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
 
 
@@ -61,6 +62,8 @@ public class PreferencesModelTests extends
 		assertEquals("Favorites were inserted correctly", favorites, preference.getFavoriteTopics());
 	}
 	
+	
+	/* Add to authored comments */
 	public void testAuthoredComments()
 	{
 		PreferenceModel preference = new PreferenceModel("BoB");
@@ -74,4 +77,5 @@ public class PreferencesModelTests extends
 		assertEquals("Authored comments were inserted correctly", restaurants, preference.getAuthoredComments());
 
 	}
+	
 }
