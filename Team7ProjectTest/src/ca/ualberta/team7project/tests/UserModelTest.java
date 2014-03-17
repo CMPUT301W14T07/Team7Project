@@ -36,6 +36,7 @@ public class UserModelTest extends
 		assertFalse("uniqueName for two users with the same name is unique",
 				userOne.getUniqueName().equals(userTwo.getUniqueName()));
 	}
+	
 
 	/**
 	 * Ensure that basic properties of UserModel are set
@@ -48,6 +49,13 @@ public class UserModelTest extends
 		assertEquals("User's name is properly set", "Jerry Maguire", user.getName());
 		assertNotNull("User has a unique name", user.getUniqueName());
 		assertEquals("User has a null location", user.getLocation(), (LocationModel) null);
+	}
+	
+	public void testGetName()
+	{
+		UserModel userOne = new UserModel("Ash Ketchum");
+		
+		assertEquals("This should return Ash Ketchum", userOne.getName(), "Ash Ketchum");
 	}
 	
 	public void testSetName()
