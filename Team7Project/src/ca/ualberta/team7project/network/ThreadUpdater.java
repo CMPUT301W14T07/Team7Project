@@ -8,14 +8,14 @@ import ca.ualberta.team7project.models.ThreadModel;
  * <p>
  * Passes comments on to ElasticSearchOperation
  */
-public class TopicUpdater
+public class ThreadUpdater
 {
 	ThreadListener refresh;
 	
 	/**
 	 * Construct a TopicUpdater with no refresh callback
 	 */
-	public TopicUpdater()
+	public ThreadUpdater()
 	{
 		super();
 		this.refresh = null;
@@ -25,7 +25,7 @@ public class TopicUpdater
 	 * Construct a TopicUpdater with an onRefresh() callback
 	 * @param refresh an object implementing ThreadListener
 	 */
-	public TopicUpdater(ThreadListener refresh)
+	public ThreadUpdater(ThreadListener refresh)
 	{
 		super();
 		this.refresh = refresh;

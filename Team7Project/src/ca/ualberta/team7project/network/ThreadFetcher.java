@@ -11,7 +11,7 @@ import ca.ualberta.team7project.models.ThreadModel;
  * Prepares search strings for ElasticSearchOperation
  *
  */
-public class TopicFetcher
+public class ThreadFetcher
 {
 	private ElasticSearchOperation search;
 	private String listSize;
@@ -19,7 +19,7 @@ public class TopicFetcher
 	/**
 	 * Construct and set max size to the default (15)
 	 */
-	public TopicFetcher()
+	public ThreadFetcher()
 	{
 		super();
 		listSize = "size=15";
@@ -30,7 +30,7 @@ public class TopicFetcher
 	 * Construct with a custom max size
 	 * @param maxItems the max number of comments to pull from the server
 	 */
-	public TopicFetcher(int maxItems)
+	public ThreadFetcher(int maxItems)
 	{
 		super();
 		listSize = "size=" + Integer.toString(maxItems);
