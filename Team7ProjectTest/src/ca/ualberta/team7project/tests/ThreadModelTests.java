@@ -35,15 +35,6 @@ public class ThreadModelTests extends
 		assertEquals("Image should be null", null, thread.getImage());
 	}
 	
-	public void testImageNoTitle()
-	{
-		UserModel user = new UserModel("Ash Ketchum");
-		ThreadModel thread = new ThreadModel("Caught Snorelax", user, null);
-//		thread.setImage(image);	//Find an image to insert as test
-		
-		assertNotNull("The image should not be null", thread.getImage());
-	}
-	
 	public void testWithTitle()
 	{
 		UserModel user = new UserModel("Ash Ketchum");

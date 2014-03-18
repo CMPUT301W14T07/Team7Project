@@ -9,8 +9,8 @@ import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
-import ca.ualberta.team7project.network.ThreadFetcher;
-import ca.ualberta.team7project.network.ThreadUpdater;
+import ca.ualberta.team7project.network.TopicFetcher;
+import ca.ualberta.team7project.network.TopicUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 
 /**
@@ -88,11 +88,11 @@ public class ThreadListController extends Activity
 			public void run()
 			{
 		
-				ThreadFetcher fetcher = new ThreadFetcher();
+				TopicFetcher fetcher = new TopicFetcher();
 				
 				UUID parent = stack.get(stack.size()-1);
 				
-				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, ThreadFetcher.SortMethod.DATE);
+				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, TopicFetcher.SortMethod.DATE);
 				
 				listModel = new ThreadListModel();
 				listModel.setTopics(threads);
@@ -170,7 +170,7 @@ public class ThreadListController extends Activity
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
 		
-		ThreadUpdater updater = new ThreadUpdater(listView);
+		TopicUpdater updater = new TopicUpdater(listView);
 		
 		/* Determine if the user was editing, replying or creating a new thread */
 		if(getEditingTopic() == true)
