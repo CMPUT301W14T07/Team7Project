@@ -38,7 +38,11 @@ public class ThreadFetcher
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Enumeration of methods used to get the "best/most relevant" thread
+=======
+	 * Enumeration of methods used to get the "best/most relevant" topics
+>>>>>>> 6d3378dc532510f93d67ee6cc660f58bcc7b3335
 	 */
 	public static enum SortMethod
 	{
