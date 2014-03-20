@@ -25,13 +25,7 @@
 	      android:icon="@drawable/ic_action_preferences"
 	      android:title="@string/user_preferences"
 	      android:showAsAction="ifRoom"/>
-		
-	<!-- Add current topic to favorites button -->
-	<item android:id="@+id/action_add_favorite" 
-	      android:icon="@drawable/ic_action_favorite"
-	      android:title="@string/add_topic_favorites"
-	      android:showAsAction="ifRoom"/>
-	
+			
 	<!-- Create topic button -->
 	<item android:id="@+id/action_create_topic" 
 	      android:icon="@drawable/ic_action_new_thread"

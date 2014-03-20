@@ -63,9 +63,6 @@ public class ActionBarView extends Activity
 			case R.id.action_user_preferences:
 				userPreferences();
 				return true;
-			case R.id.action_add_favorite:
-				addTopicToFavorites();
-				return true;
 			case R.id.action_create_topic:
 				createTopic();
 				return true;
@@ -108,14 +105,6 @@ public class ActionBarView extends Activity
 		userAlert.setCancelable(false);
 		userAlert.show(fragment, "New User Name Alert");
 
-	}
-
-	/**
-	 * Handles the user's request to add current topic to favorites
-	 */
-	private void addTopicToFavorites()
-	{
-		// next milestone
 	}
 
 	/**
