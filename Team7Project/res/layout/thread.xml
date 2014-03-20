@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
     <TableLayout
         android:id="@+id/threadLeft"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
+        android:layout_height="match_parent" >
 
         <TableRow
             android:id="@+id/threadImageRow"
@@ -28,37 +27,40 @@
 
     <TableLayout
         android:id="@+id/threadRight"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5" >
+        android:layout_weight="4" >
 
         <TableRow
             android:id="@+id/header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="0.1"
+            
             android:gravity="center_horizontal|left" >
 
             <TextView
                 android:id="@+id/threadTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="bottom|left"
                 android:text="@string/title"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
 
         <TableRow
             android:id="@+id/body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="2" >
 
             <TextView
                 android:id="@+id/threadBody"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_weight="0.08"
                 android:text="@string/enter_comment"
+                android:gravity="bottom|left"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </TableRow>
 
@@ -75,6 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.48"
                 android:text="@string/author"
+                android:gravity="bottom|left"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <ImageButton
