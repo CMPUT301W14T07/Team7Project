@@ -2,10 +2,9 @@
 <resources>
     <string-array
         name="sorting_preferences_array">
-        <item>Sort threads by time</item>
+        <item>Sort threads by date</item>
         <item>Sort threads by pictures</item>
         <item>Sort threads by rating</item>
-        <item></item>
     </string-array>
 </resources>
 
