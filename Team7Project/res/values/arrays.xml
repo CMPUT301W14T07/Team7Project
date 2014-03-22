@@ -9,8 +9,16 @@
     
     <string-array
         name="location_preferences_array">
-        <item>Current GPS Location</item>
-        <item>Prior Set Location</item>
+        <item>@string/current_gps</item>
+        <item>@string/alternate_location</item>
     </string-array>
+    
+    <string-array
+        name="location_preferences_array_editing">
+        <item>@string/existing_thread_loc</item>
+        <item>@string/current_gps</item>
+        <item>@string/alternate_location</item>
+    </string-array>
+    
 </resources>
 

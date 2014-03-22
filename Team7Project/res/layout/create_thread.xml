@@ -51,7 +51,6 @@
         android:id="@+id/select_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/location_preferences_array"
         android:gravity="center|fill" />
 
     <Button

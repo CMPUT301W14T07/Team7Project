@@ -161,7 +161,7 @@ public class ThreadListController extends Activity
 	 * @param title of the thread
 	 * @param body of the thread
 	 */
-	public void createThread(String title, String comment)
+	public void createThread(String title, String comment, long spinnerId)
 	{
 		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/32
 		// Much of this code should actually be in the updater class or persistence.....

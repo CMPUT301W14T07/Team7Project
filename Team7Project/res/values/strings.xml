@@ -71,4 +71,9 @@
 	<string name="address">Address</string>
 	<string name="reset_location">Use Current Position</string>
 	
+	<!-- Strings for arrays in arrays.xml -->
+	<string name="alternate_location">Alternate Set Location</string>
+	<string name="current_gps">Current GPS Location</string>
+	<string name="existing_thread_loc">Existing Thread Location</string>
+	
 </resources>

@@ -107,12 +107,12 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	}
 
 	@Override
-	public void createThread(String title, String comment)
+	public void createThread(String title, String comment, long spinnerId)
 	{	
 		Log.e(MainActivity.DEBUG, "Create thread pressed");
 		Log.e(MainActivity.DEBUG, "Thread title:" + title);
 		
-		controller.createThread(title, comment);
+		controller.createThread(title, comment, spinnerId);
 	}
 
 	@Override
