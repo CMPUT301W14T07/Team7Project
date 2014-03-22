@@ -12,7 +12,8 @@ import ca.ualberta.team7project.interfaces.PositionListener;
 import ca.ualberta.team7project.models.LocationModel;
 
 /* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements 
- * This class borrows heavily from the linked code */
+ * This class borrows heavily from the linked code 
+ * */
 
 // It is not likely that Geocoder functionality will be implemented for the current milestone.
 
@@ -37,7 +38,7 @@ public class LocationController extends Activity implements PositionListener
 	private static String provider = null;
 	
 	private LocationModel userLocation;
-	private LocationModel sortingLocation;
+	private LocationModel alternateLocation;
 		
 	private double longitude;
 	private double latitude;
@@ -205,12 +206,12 @@ public class LocationController extends Activity implements PositionListener
 
 	public LocationModel getSortingLocation()
 	{
-		return sortingLocation;
+		return alternateLocation;
 	}
 
 	public void setSortingLocation(LocationModel sortingLocation)
 	{
-		this.sortingLocation = sortingLocation;
+		this.alternateLocation = sortingLocation;
 	}
 
 	public double getLongitude()

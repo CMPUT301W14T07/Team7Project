@@ -60,6 +60,7 @@ public class UserModelTest extends
 		
 		assertEquals("User should now be Jerry Maguire",userOne.getName(), "Jerry Maguire");
 		assertNotSame("Unique name should not be the same", userOne.getUniqueName(), uniqueNameOne);
+		
 		/* and should do so without changing other parameters */
 		assertEquals("Location should be the same", userOne.getLocation(), locationOne);
 	}

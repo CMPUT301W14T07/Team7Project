@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.11"
-        android:hint="@string/enter_title"
         android:gravity="center"
+        android:hint="@string/enter_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -31,10 +31,11 @@
         android:id="@+id/address_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/location_prompt"
         android:gravity="center"
+        android:text="@string/select_thread_location"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+<!--
     <EditText
         android:id="@+id/address_entry"
         android:layout_width="match_parent"
@@ -44,6 +45,14 @@
         android:hint="@string/address_thread_hint"
         android:gravity="center"
         android:inputType="textPostalAddress" />
+-->
+
+    <Spinner
+        android:id="@+id/select_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/location_preferences_array"
+        android:gravity="center|fill" />
 
     <Button
         android:id="@+id/thread_image"

@@ -49,12 +49,12 @@ public class LocationModelTest extends ActivityInstrumentationTestCase2<MainActi
 	/* This test fails for some reason */
 	public void testGetLocation()
 	{
-		LocationModel lm = new LocationModel(200.0,150.0);
+		LocationModel lm = new LocationModel(200.0, 150.0);
 		double[] testarray = new double[2];
 		testarray[0] = (double) 200.0;
 		testarray[1] = (double) 150.0;
 		
-		assertTrue("This is supposed to return same location", lm.getLocation().equals(testarray));
+		assertEquals("Location is returned correctly", lm.getLocation(), testarray);
 	}
 	
 	public void testSetLocation()

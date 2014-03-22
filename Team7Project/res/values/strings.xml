@@ -51,7 +51,10 @@
 	<string name="enter_comment">Comment</string>
 	<string name="insert_image">Insert Image</string>
 	<string name="location_prompt">Enter address or leave blank to use GPS location</string>
+	<string name="select_thread_location">Select location to use</string>
 	<string name="address_thread_hint">Address (optional)</string>
+	<string name="use_set_location">Use Set Location</string>
+	<string name="use_gps">Use Current Location</string>
 	
 	<!-- Strings for the UI buttons for each thread in list view -->
 	<string name="edit_thread">Edit Thread</string>
@@ -60,11 +63,12 @@
 	<string name="image_thread">Thread Image</string>
 	
 	<!-- Strings for the LocationLookupAlertView -->
-	<string name="set_location">Set Location For Sorting Threads</string>
-	<string name="location_message">Enter an address or set longitude/latitude</string>
+	<string name="set_location">Set Alternate Location</string>
+	<string name="location_message">Enter an address</string>
 	<string name="address_hint">Address</string>
 	<string name="longitude">Longitude</string>
 	<string name="latitude">Latitude</string>
 	<string name="address">Address</string>
+	<string name="reset_location">Use Current Position</string>
 	
 </resources>

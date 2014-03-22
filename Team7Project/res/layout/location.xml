@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+<!--  
     <TextView
         android:id="@+id/locationMessage"
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:hint="@string/address_hint"
         android:text="@string/location_message"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+-->
     <TextView
         android:id="@+id/locationAddress"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
 
         <requestFocus />
     </EditText>
-
+<!--
     <TextView
         android:id="@+id/locationLong"
         android:layout_width="match_parent"
@@ -62,4 +62,12 @@
         android:ems="10"
         android:inputType="numberSigned" />
 
+    <Button
+        android:id="@+id/resetLocation"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_location"
+        android:background="?android:selectableItemBackground" />
+-->
 </LinearLayout>

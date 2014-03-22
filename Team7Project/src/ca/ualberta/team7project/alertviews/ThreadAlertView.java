@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.views.ThreadListView;
@@ -33,6 +35,10 @@ import ca.ualberta.team7project.views.ThreadListView;
  */
 public class ThreadAlertView extends DialogFragment
 {
+	/* Reuse Statements
+	 * https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#threadalertview
+	 */
+	
 	private Boolean replying;
 	private Boolean editing;
 	private ThreadListController controller;
@@ -63,13 +69,14 @@ public class ThreadAlertView extends DialogFragment
 		/* Create the builder, inflate the layout and set the view to the appropriate xml file */
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflator = getActivity().getLayoutInflater();
+		
 		View v = inflator.inflate(ca.ualberta.team7project.R.layout.create_thread, null);
 		builder.setView(v);
 		
 		final EditText titleInput = (EditText) v.findViewById(ca.ualberta.team7project.R.id.thread_title);
 		final EditText bodyInput = (EditText) v.findViewById(ca.ualberta.team7project.R.id.thread_body);
 		final Button insertImage = (Button) v.findViewById(ca.ualberta.team7project.R.id.thread_image);
-
+		
 		/* User is replying to a topic */
 		if(replying == true && editing == false)
 		{
