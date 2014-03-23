@@ -56,7 +56,7 @@ public class LocationController extends Activity implements PositionListener
 		this.context = context;
 		
 		this.setUserLocation(new LocationModel());
-		this.setSortingLocation(new LocationModel());
+		this.setAlternateLocation(new LocationModel());
 		
 		inititiateLocationTracking();
 		
@@ -211,14 +211,14 @@ public class LocationController extends Activity implements PositionListener
 		this.userLocation = userLocation;
 	}
 
-	public LocationModel getSortingLocation()
+	public LocationModel getAlternateLocation()
 	{
 		return alternateLocation;
 	}
 
-	public void setSortingLocation(LocationModel sortingLocation)
+	public void setAlternateLocation(LocationModel alternateLocation)
 	{
-		this.alternateLocation = sortingLocation;
+		this.alternateLocation = alternateLocation;
 	}
 
 	public double getLongitude()

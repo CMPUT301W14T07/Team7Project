@@ -3,7 +3,6 @@ package ca.ualberta.team7project.tests;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.UiThreadTest;
 import android.widget.Button;
 import ca.ualberta.team7project.MainActivity;
 

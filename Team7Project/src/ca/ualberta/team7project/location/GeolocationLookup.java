@@ -2,12 +2,10 @@ package ca.ualberta.team7project.location;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ca.ualberta.team7project.MainActivity;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * A helper class to handle multithreading and asynchronous server responses with locations
@@ -44,14 +42,10 @@ public class GeolocationLookup extends AsyncTask<String, Void, ArrayList<Address
 			{
 				addresses = coder.getFromLocationName(address, 1);	
 				locations.add(addresses.get(0));
-	    		Log.e("debug", "nope1");
-
 			}
 			catch (Exception e)
 			{
 				// Do nothing..But don't crash the application either. Location will not be used.
-	    		Log.e("debug", "exception1");
-
 			}
 		}
 
@@ -68,12 +62,10 @@ public class GeolocationLookup extends AsyncTask<String, Void, ArrayList<Address
     	try
     	{
         	MainActivity.getLocationController().updateSetLocation(locations.get(0));
-    		Log.e("debug", "nope");
-
     	}
     	catch (Exception e)
     	{
-    		Log.e("debug", "exception");
+			// Do nothing..But don't crash the application either.
     	}
     }
 
