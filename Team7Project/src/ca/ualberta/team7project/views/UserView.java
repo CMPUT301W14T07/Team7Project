@@ -94,4 +94,13 @@ public class UserView extends Activity implements UserListener
 				Toast.LENGTH_SHORT).show();					
 	}
 
+	@Override
+	public void toastAddress(String address)
+	{
+		String message = context.getString(ca.ualberta.team7project.R.string.set_address_toast);
+		message = message + " " + address;
+		
+		Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show();					
+	}
+
 }

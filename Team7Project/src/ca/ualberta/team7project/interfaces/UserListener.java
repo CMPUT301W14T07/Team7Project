@@ -23,5 +23,5 @@ public interface UserListener
 	public void toastLocation(LocationModel location);
 	public void updateLocationFailure();
 	public void invalidEditPermissions();
-	
+	public void toastAddress(String address);
 }
