@@ -20,4 +20,5 @@ public interface ThreadListener
 	public void editToast();
 	public void replyingToast();
 	public void newTopicToast();
+	public void favoriteToast();
 }

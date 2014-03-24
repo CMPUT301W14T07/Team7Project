@@ -15,6 +15,7 @@
 	<string name="toast_edit">Edited a thread</string>
 	<string name="toast_reply">Replied to a thread</string>
 	<string name="toast_create">Created thread</string>
+	<string name="toast_favorite">Thread favorited</string>
 
 	<!-- Toasts for userview -->
 	<string name="location_update">Location has been set</string>

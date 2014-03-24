@@ -111,7 +111,12 @@ public class ThreadListController extends Activity
 	public void addFavorite(ThreadModel thread)
 	{
 		MainActivity.getUserController().getUser().addFavoriteComment(thread);
-		
+		ThreadListController.listView.favoriteToast();
+	}
+	
+	public ArrayList<UUID> getCache()
+	{
+		return MainActivity.getUserController().getUser().getFavoriteComments();
 	}
 
 	/**

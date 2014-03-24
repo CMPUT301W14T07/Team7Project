@@ -113,6 +113,8 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Log.e(MainActivity.DEBUG, "Cache pressed");
 		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
+		
+		controller.getCache();
 	}
 
 	@Override
@@ -193,6 +195,12 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_create, 
 				Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void favoriteToast()
+	{
+		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_favorite, Toast.LENGTH_SHORT).show();
 	}
 
 }
