@@ -102,6 +102,17 @@ public class ThreadListController extends Activity
 			}
 		});
 	}
+	
+	/**
+	 * When a user clicks on the Fav button, the ThreadModel is added
+	 * @param thread
+	 */
+	
+	public void addFavorite(ThreadModel thread)
+	{
+		MainActivity.getUserController().getUser().addFavoriteComment(thread);
+		
+	}
 
 	/**
 	 * Responds to the users desire to edit a thread.

@@ -82,11 +82,20 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		});
 	}
 
+	/**
+	 * Add the ThreadModel to the user's favorites
+	 *  
+	 * Called when the Fav button for a ThreadModel in the ThreadListModel
+	 * is clicked. See ThreadListController.java
+	 */
 	@Override
 	public void onFavoriteClick(ThreadModel thread)
 	{
 		Log.e(MainActivity.DEBUG, "Favorite pressed");
 		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
+		
+		controller.addFavorite(thread);
+	
 	}
 
 	@Override
