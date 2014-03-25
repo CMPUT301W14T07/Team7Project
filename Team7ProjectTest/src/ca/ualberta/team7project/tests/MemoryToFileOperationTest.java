@@ -16,18 +16,16 @@ public class MemoryToFileOperationTest extends
 		super(MainActivity.class);
 	}
 	
-	
 	public void testSaveInFileWithPoolEmpty(){
 		
 		ac = this.getActivity();
 		MemoryToFileOperation tool = new MemoryToFileOperation(ac);
-		ThreadModelPool.threadModelPool.clear();
+		//ThreadModelPool.threadModelPool.clear();
 		tool.saveInFile();
 		tool.loadFromFile();
 		
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 0);
 	}
-
 	
 	public void testSaveInFilePopulated(){
 		ac = this.getActivity();

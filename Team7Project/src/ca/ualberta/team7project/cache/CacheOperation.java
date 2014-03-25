@@ -36,7 +36,7 @@ public class CacheOperation {
 	 * Technically, if there is no network connected, this is the first function to call to set the cache up
 	 * @param context
 	 */
-	public void MemorySyncToFS(Context context){
+	public void memorySyncToFS(Context context){
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.loadFromFile();	
 	}
@@ -46,9 +46,9 @@ public class CacheOperation {
 	 * Call this when you want ThreadModelPool in file system to be consistent with the one in memory
 	 * @param context
 	 */
-	public void FSSyncToMemory(Context context){
+	public void fsSyncToMemory(Context context){
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
-		transferTool.loadFromFile();
+		transferTool.saveInFile();
 	}
 	
 	
@@ -86,7 +86,6 @@ public class CacheOperation {
 				}
 			}
 		}
-			
 		return collection;
 	}
 	
