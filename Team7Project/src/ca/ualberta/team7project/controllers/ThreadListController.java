@@ -102,6 +102,32 @@ public class ThreadListController extends Activity
 			}
 		});
 	}
+	
+	/**
+	 * When a user clicks on the Fav button, the ThreadModel UUID is added
+	 * A toast is also displayed immediately
+	 * @param thread
+	 */
+	
+	public void addFavorite(ThreadModel thread)
+	{
+		ThreadListController.listView.favoriteToast();
+		MainActivity.getUserController().getUser().addFavoriteComment(thread);
+		
+	}
+	/**
+	 * When user clicks on the Cache button, UUID is added
+	 * A toast is also displayed. This may be redundant, especially
+	 * since functionally speaking Caching and Favoriting are 
+	 * identical actions, but how we handle the categories may be
+	 * different
+	 * @return
+	 */
+	public void addCache(ThreadModel thread)
+	{
+		ThreadListController.listView.cacheToast();
+		MainActivity.getUserController().getUser().addCache(thread);
+	}
 
 	/**
 	 * Responds to the users desire to edit a thread.

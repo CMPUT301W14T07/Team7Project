@@ -82,11 +82,20 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		});
 	}
 
+	/**
+	 * Add the ThreadModel to the user's favorites
+	 *  
+	 * Called when the Fav button for a ThreadModel in the ThreadListModel
+	 * is clicked. See ThreadListController.java
+	 */
 	@Override
 	public void onFavoriteClick(ThreadModel thread)
 	{
 		Log.e(MainActivity.DEBUG, "Favorite pressed");
 		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
+		
+		controller.addFavorite(thread);
+	
 	}
 
 	@Override
@@ -104,6 +113,8 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		Log.e(MainActivity.DEBUG, "Cache pressed");
 		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
+		
+		controller.addCache(thread);
 	}
 
 	@Override
@@ -185,5 +196,17 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_create, 
 				Toast.LENGTH_SHORT).show();
 	}
+	
+	@Override
+	public void favoriteToast()
+	{
+		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_favorite, Toast.LENGTH_SHORT).show();
+	}
 
+	@Override
+	public void cacheToast()
+	{
+		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_cache, Toast.LENGTH_SHORT).show();
+	}
+	
 }

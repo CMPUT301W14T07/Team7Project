@@ -51,28 +51,50 @@ public class PreferencesModelTests extends
 	/* Add favorites */
 	public void testAddFavorite()
 	{
-		PreferenceModel preference = new PreferenceModel("BoB");
+		PreferenceModel preference = new PreferenceModel("Bob");
 
-		ThreadModel thread = new ThreadModel("Bob's favorite movies", preference.getUser(), UUID.randomUUID(), UUID.randomUUID());
+		ThreadModel thread = new ThreadModel("Pokemon: The Movie", preference.getUser(), "Bob's favorite movies");
 		preference.addFavoriteComment(thread);
 		
-		ArrayList<ThreadModel> favorites = new ArrayList<ThreadModel>();
-		favorites.add(thread);
+		ArrayList<UUID> favorites = new ArrayList<UUID>();
+		favorites.add(thread.getUniqueID());
 		
-		assertEquals("Favorites were inserted correctly", favorites, preference.getFavoriteComments());
+		assertEquals("Favorites were inserted correctly", preference.getFavoriteComments(), favorites);
+		
+		
+		favorites.add(thread.getUniqueID());
+		favorites.add(thread.getUniqueID());
+		assertEquals("No duplicates were entered into ArrayList", preference.getFavoriteComments().size(), 1);
 	}
 	
+	public void testAddCache()
+	{
+		PreferenceModel preference = new PreferenceModel("Bob");
+
+		ThreadModel thread = new ThreadModel("Pokemon: The Movie", preference.getUser(), "Bob's favorite movies");
+		preference.addCache(thread);
+		
+		ArrayList<UUID> cached = new ArrayList<UUID>();
+		cached.add(thread.getUniqueID());
+		
+		assertEquals("Cached thread inserted correctly", preference.getCacheComments(), cached);
+		
+		
+		cached.add(thread.getUniqueID());
+		cached.add(thread.getUniqueID());
+		assertEquals("No duplicates were entered into ArrayList", preference.getCacheComments().size(), 1);
+	}
 	
 	/* Add to authored comments */
 	public void testAuthoredComments()
 	{
 		PreferenceModel preference = new PreferenceModel("BoB");
 
-		ThreadModel thread = new ThreadModel("Bob's favorite places to eat", preference.getUser(), UUID.randomUUID(), UUID.randomUUID());
+		ThreadModel thread = new ThreadModel("Tim Horton's", preference.getUser(), "Bob's favorite places to eat");
 		preference.addAuthoredComment(thread);
 		
-		ArrayList<ThreadModel> restaurants = new ArrayList<ThreadModel>();
-		restaurants.add(thread);
+		ArrayList<UUID> restaurants = new ArrayList<UUID>();
+		restaurants.add(thread.getUniqueID());
 		
 		assertEquals("Authored comments were inserted correctly", restaurants, preference.getAuthoredComments());
 
