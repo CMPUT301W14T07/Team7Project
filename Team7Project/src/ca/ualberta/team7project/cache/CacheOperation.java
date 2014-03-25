@@ -7,12 +7,51 @@ import java.util.UUID;
 import android.content.Context;
 import ca.ualberta.team7project.models.ThreadModel;
 
+
+/**
+ * Helper class, Cache programming interface<p>
+ * MemorySyncToFS(context) probably would be the first function to call,
+ * if you want the threadModelPool in the memory to be loaded.
+ * <p>
+ * this class provides the essential operation for the cache,
+ * like searching by uuid in the cache in the memory, 
+ * or adding threadModel to cache(this is, these threadModels are cached)
+ * <p>
+ * If you worry your memory would lose, like user shutting down the app
+ * you could call FSSyncToMemory(context), which make file to be consistent with memory
+ * <p>
+ * if you want to have direct access to ThreadModelPool in the Main Memory,
+ * I have made it to be singleton, which is static and would last in the app as app last,(I guess)
+ * @author wzhong3
+ *
+ */
 public class CacheOperation {
 	
 	public static int BY_PARENTID = 1;
 	public static int BY_ITSELFID = 2;
 	public static int BY_TOPICID =3;
 
+	/**
+	 * Make ThreadModelPool in the memory synchronized to the pool in the File System<p>
+	 * Technically, if there is no network connected, this is the first function to call to set the cache up
+	 * @param context
+	 */
+	public void MemorySyncToFS(Context context){
+		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
+		transferTool.loadFromFile();	
+	}
+	
+	/**
+	 * Make threadModelPool in the file synchronized to the pool in the current memory<p>
+	 * Call this when you want ThreadModelPool in file system to be consistent with the one in memory
+	 * @param context
+	 */
+	public void FSSyncToMemory(Context context){
+		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
+		transferTool.loadFromFile();
+	}
+	
+	
 	/**
 	 * Search the threadModelPool by UUID and mode<p>
 	 * it has three modes, by_parentid, by_itselfid, and by_topicid.
@@ -22,7 +61,7 @@ public class CacheOperation {
 	 * @param mode
 	 * @return
 	 */
-	public Collection<ThreadModel> loadByUUID(UUID uuid, int mode){
+	public Collection<ThreadModel> searchByUUID(UUID uuid, int mode){
 		
 		Collection<ThreadModel> collection = new ArrayList<ThreadModel>();
 		
@@ -85,24 +124,6 @@ public class CacheOperation {
 		}
 	}
 	
-	/**
-	 * Make ThreadModelPool in the memory synchronized to the pool in the File System<p>
-	 * Technically, if there is no network connected, this is the first function to call to set the cache up
-	 * @param context
-	 */
-	public void MemorySyncToFS(Context context){
-		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
-		transferTool.loadFromFile();	
-	}
 	
-	/**
-	 * Make threadModelPool in the file synchronized to the pool in the current memory<p>
-	 * Call this when you want ThreadModelPool in file system to be consistent with the one in memory
-	 * @param context
-	 */
-	public void FSSyncToMemory(Context context){
-		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
-		transferTool.loadFromFile();
-	}
 
 }
