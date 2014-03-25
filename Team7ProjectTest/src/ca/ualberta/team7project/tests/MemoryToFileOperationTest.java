@@ -6,12 +6,12 @@ import ca.ualberta.team7project.cache.MemoryToFileOperation;
 import ca.ualberta.team7project.cache.ThreadModelPool;
 import ca.ualberta.team7project.models.ThreadModel;
 
-public class CacheBasicOperationTest extends
+public class MemoryToFileOperationTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 	
 	private MainActivity ac;
 
-	public CacheBasicOperationTest()
+	public MemoryToFileOperationTest()
 	{
 		super(MainActivity.class);
 	}
@@ -21,6 +21,7 @@ public class CacheBasicOperationTest extends
 		
 		ac = this.getActivity();
 		MemoryToFileOperation tool = new MemoryToFileOperation(ac);
+		ThreadModelPool.threadModelPool.clear();
 		tool.saveInFile();
 		tool.loadFromFile();
 		
@@ -28,7 +29,7 @@ public class CacheBasicOperationTest extends
 	}
 
 	
-	public void testSaveInFilePupulated(){
+	public void testSaveInFilePopulated(){
 		ac = this.getActivity();
 		
 		//populate pool with several examples

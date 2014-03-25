@@ -7,7 +7,7 @@ import java.util.UUID;
 import android.content.Context;
 import ca.ualberta.team7project.models.ThreadModel;
 
-public class CacheOepration {
+public class CacheOperation {
 	
 	public static int BY_PARENTID = 1;
 	public static int BY_ITSELFID = 2;
