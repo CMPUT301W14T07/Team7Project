@@ -10,7 +10,7 @@ import ca.ualberta.team7project.models.ThreadModel;
 
 /**
  * Helper class, Cache programming interface<p>
- * MemorySyncToFS(context) probably would be the first function to call,
+ * MemorySyncWithFS(context) probably would be the first function to call,
  * if you want the threadModelPool in the memory to be loaded.
  * <p>
  * this class provides the essential operation for the cache,
@@ -18,7 +18,7 @@ import ca.ualberta.team7project.models.ThreadModel;
  * or adding threadModel to cache(this is, these threadModels are cached)
  * <p>
  * If you worry your memory would lose, like user shutting down the app
- * you could call FSSyncToMemory(context), which make file to be consistent with memory
+ * you could call FSSyncWithMemory(context), which make file to be consistent with memory
  * <p>
  * if you want to have direct access to ThreadModelPool in the Main Memory,
  * I have made it to be singleton, which is static and would last in the app as app last,(I guess)
@@ -36,7 +36,7 @@ public class CacheOperation {
 	 * Technically, if there is no network connected, this is the first function to call to set the cache up
 	 * @param context
 	 */
-	public void memorySyncToFS(Context context){
+	public void memorySyncWithFS(Context context){
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.loadFromFile();	
 	}
@@ -46,7 +46,7 @@ public class CacheOperation {
 	 * Call this when you want ThreadModelPool in file system to be consistent with the one in memory
 	 * @param context
 	 */
-	public void fsSyncToMemory(Context context){
+	public void fsSyncWithMemory(Context context){
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.saveInFile();
 	}
