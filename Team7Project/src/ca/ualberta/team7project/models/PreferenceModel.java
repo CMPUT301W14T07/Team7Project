@@ -29,6 +29,7 @@ public class PreferenceModel implements Serializable
 	private UserModel user;
 	private ArrayList<UUID> favoriteComments;
 	private ArrayList<UUID> authoredComments;
+	private ArrayList<UUID> cacheComments;
 	
 	/**
 	 * Constructs the PreferenceModel with a given username
@@ -39,6 +40,7 @@ public class PreferenceModel implements Serializable
 		super();
 		this.authoredComments = new ArrayList<UUID>();
 		this.favoriteComments = new ArrayList<UUID>();
+		this.cacheComments = new ArrayList<UUID>();
 		this.user = new UserModel(username);
 	}
 
@@ -64,13 +66,33 @@ public class PreferenceModel implements Serializable
 
 		return favoriteComments;
 	}
-
+	/**
+	 * Only add the UUID to the list if it is not already in the ArrayList
+	 * @param comment
+	 */
 	public void addFavoriteComment(ThreadModel comment)
 	{
 
-		this.favoriteComments.add(comment.getUniqueID());
+		if (!this.favoriteComments.contains(comment))
+		{
+			this.favoriteComments.add(comment.getUniqueID());
+		}
+		
+	}
+	
+	public void addCache(ThreadModel thread)
+	{
+		if (!this.cacheComments.contains(thread))
+		{
+			this.cacheComments.add(thread.getUniqueID());
+		}
 	}
 
+	public ArrayList<UUID> getCacheComments()
+	{
+		return cacheComments;
+	}
+	
 	/**
 	 * Without knowing how the cache works, for now just return
 	 * ArrayList of UUIDs, see getFavoriteComments.
@@ -84,8 +106,10 @@ public class PreferenceModel implements Serializable
 
 	public void addAuthoredComment(ThreadModel authoredComment)
 	{
-
-		this.authoredComments.add(authoredComment.getUniqueID());
+		if (!this.favoriteComments.contains(authoredComment))
+		{
+			this.authoredComments.add(authoredComment.getUniqueID());
+		}
 	}
 
 }

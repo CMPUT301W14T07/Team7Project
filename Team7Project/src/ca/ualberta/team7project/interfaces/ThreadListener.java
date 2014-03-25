@@ -21,4 +21,5 @@ public interface ThreadListener
 	public void replyingToast();
 	public void newTopicToast();
 	public void favoriteToast();
+	public void cacheToast();
 }
