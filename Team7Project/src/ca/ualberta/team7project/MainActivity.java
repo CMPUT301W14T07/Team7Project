@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
-		MainActivity.locationController = new LocationController(context);
+		MainActivity.locationController = new LocationController();
 		
 	}
 		

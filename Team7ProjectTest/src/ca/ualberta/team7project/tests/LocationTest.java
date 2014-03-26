@@ -30,7 +30,6 @@ public class LocationTest extends ActivityInstrumentationTestCase2<MainActivity>
 		mainActivity = getActivity();
 	}
 
-
 	/**
 	 * Ensure that address lookup is returning a non null result and that the location is properly set
 	 */
