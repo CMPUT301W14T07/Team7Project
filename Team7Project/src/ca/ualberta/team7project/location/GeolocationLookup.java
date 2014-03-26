@@ -2,6 +2,7 @@ package ca.ualberta.team7project.location;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import ca.ualberta.team7project.MainActivity;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,7 +17,7 @@ import android.os.AsyncTask;
  *
  */
 public class GeolocationLookup extends AsyncTask<String, Void, ArrayList<Address>>
-{
+{	
 	/* Reuse statements
 	 * https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#geolocationlookup
 	 */
@@ -52,21 +53,22 @@ public class GeolocationLookup extends AsyncTask<String, Void, ArrayList<Address
 		return locations;
 	}
 
+	/**
+	 * For each location tell the location controller to update the setLocation.
+	 * <p>
+	 * This is always called after the thread finishes executing it's task.
+	 */
     protected void onPostExecute(ArrayList<Address> locations) 
     {
-    	/*
-    	 * For now just use the first address.
-    	 * 
-    	 * If time, implement an option for the user to save multiple addresses.
-    	 */
-    	try
+    	try 
     	{
-        	MainActivity.getLocationController().updateSetLocation(locations.get(0));
+    		for(Address location : locations)
+    			MainActivity.getLocationController().updateSetLocation(location);
     	}
-    	catch (Exception e)
+    	catch (Exception e) 
     	{
-			// Do nothing..But don't crash the application either.
+			// Do nothing..But don't crash the application either. Location will not be used.
     	}
     }
-
+    
 }

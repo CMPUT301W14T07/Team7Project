@@ -15,14 +15,7 @@ import ca.ualberta.team7project.models.LocationModel;
 
 /* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements 
  * This class borrows heavily from the linked code 
- * */
-
-// It is not likely that Geocoder functionality will be implemented for the current milestone.
-
-/*
- *  This class is a major work in progress. If you aren't using google avd, this will most likely crash....
  */
-
 
 /**
  * Handles location functionality for the entire application.
@@ -41,8 +34,8 @@ public class LocationController extends Activity implements PositionListener
 	private Context context;
 	private Location location;
 	private LocationManager locationManager;
-	private static Criteria criteria = null;
-	private static String provider = null;
+	private Criteria criteria = null;
+	private String provider = null;
 	
 	private LocationModel userLocation;
 	private LocationModel alternateLocation;
@@ -70,6 +63,38 @@ public class LocationController extends Activity implements PositionListener
 		super.onCreate(savedState);
 	}
 	
+	/**
+	 * Updates the alternate location LocationModel and displays a toast to user with new address
+	 */
+	@Override
+	public void updateSetLocation(Address address)
+	{	
+		alternateLocation.setLongitude(address.getLongitude());
+		alternateLocation.setLatitude(address.getLatitude());
+		
+		/* Toast the user with the new location */
+		String local = address.getThoroughfare();
+		
+		if(local != null)
+			MainActivity.userListener.toastAddress(local);
+		else
+		{
+			// Try a broader address, since thoroughfare could not be found.
+			local = address.getLocality();
+			
+			if(local != null)
+				MainActivity.userListener.toastAddress(local);
+		}
+	}
+
+	/**
+	 * Performs an address lookup in response to the LocationLookupAlertView
+	 */
+	@Override
+	public void addressLookup(String address)
+	{
+		new GeolocationLookup().execute(address);
+	}
 	
 	public void inititiateLocationTracking()
 	{
@@ -138,8 +163,8 @@ public class LocationController extends Activity implements PositionListener
 	
 	public void setLocationSettings(Criteria criteria, String provider)
 	{
-		LocationController.setCriteria(criteria);
-		LocationController.setProvider(provider);
+		this.setCriteria(criteria);
+		this.setProvider(provider);
 	}
 		
 	/* Reuse statement #4 
@@ -253,58 +278,23 @@ public class LocationController extends Activity implements PositionListener
 		this.locationManager = locationManager;
 	}
 
-	public static Criteria getCriteria()
+
+	public void setCriteria(Criteria criteria)
 	{
 
-		return criteria;
+		this.criteria = criteria;
 	}
 
-	public static void setCriteria(Criteria criteria)
-	{
-
-		LocationController.criteria = criteria;
-	}
-
-	public static String getProvider()
+	public String getProvider()
 	{
 
 		return provider;
 	}
 
-	public static void setProvider(String provider)
+	public void setProvider(String provider)
 	{
 
-		LocationController.provider = provider;
-	}
-
-	/**
-	 * Updates the alternate location LocationModel and displays a toast to user with new address
-	 */
-	@Override
-	public void updateSetLocation(Address address)
-	{	
-		alternateLocation.setLongitude(address.getLongitude());
-		alternateLocation.setLatitude(address.getLatitude());
-		
-		/* Toast the user with the new location */
-		String local = address.getThoroughfare();
-		
-		if(local != null)
-			MainActivity.userListener.toastAddress(local);
-		else
-		{
-			// Try a broader address, since thoroughfare could not be found.
-			local = address.getLocality();
-			
-			if(local != null)
-				MainActivity.userListener.toastAddress(local);
-		}
-	}
-
-	@Override
-	public void addressLookup(String address)
-	{
-		new GeolocationLookup().execute(address);
+		this.provider = provider;
 	}
 
 }
