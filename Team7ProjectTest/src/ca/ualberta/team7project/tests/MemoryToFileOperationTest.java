@@ -33,11 +33,19 @@ public class MemoryToFileOperationTest extends
 		//populate pool with several examples
 		ThreadModel tm = new ThreadModel("some text", null, "some text too");
 		MemoryToFileOperation tool = new MemoryToFileOperation(ac);
+		
+		//check to see if pool is empty
+		assertEquals("Starts empty", true, ThreadModelPool.threadModelPool.size() == 0);
+		//add the ThreadModel
 		ThreadModelPool.threadModelPool.add(tm);
 		
 		tool.saveInFile();
-		tool.loadFromFile();
+		//clear and check it's empty again
+		ThreadModelPool.threadModelPool.clear();
+		assertEquals("Pool should be cleared", true, ThreadModelPool.threadModelPool.size() == 0);
 		
+		//load from file and check that it is back
+		tool.loadFromFile();
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 1);
 	}
 	

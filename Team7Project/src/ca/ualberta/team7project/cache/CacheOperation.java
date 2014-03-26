@@ -36,7 +36,7 @@ public class CacheOperation {
 	 * Technically, if there is no network connected, this is the first function to call to set the cache up
 	 * @param context
 	 */
-	public void memorySyncWithFS(Context context){
+	public void loadFile(Context context){
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.loadFromFile();	
 	}
@@ -46,7 +46,7 @@ public class CacheOperation {
 	 * Call this when you want ThreadModelPool in file system to be consistent with the one in memory
 	 * @param context
 	 */
-	public void fsSyncWithMemory(Context context){
+	public void saveFile(Context context){
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.saveInFile();
 	}
@@ -95,7 +95,7 @@ public class CacheOperation {
 	 * it would check the UUID, and prevent from inserting a duplicated threadModel.
 	 * @param threadModel
 	 */
-	public void SaveInCache(ThreadModel threadModel){	
+	public void saveThread(ThreadModel threadModel){	
 		UUID uuid = threadModel.getUniqueID();
 		//I assume the inserted threadModel is always the latest model
 		//I don't know if this assumption is right or not
@@ -117,9 +117,9 @@ public class CacheOperation {
 	 * the same as inserting the single one, except for collection this time
 	 * @param collection
 	 */
-	public void SaveInCache(Collection<ThreadModel> collection){
+	public void saveCollection(Collection<ThreadModel> collection){
 		for(ThreadModel threadModel: collection){
-			SaveInCache(threadModel);
+			saveThread(threadModel);
 		}
 	}
 	
