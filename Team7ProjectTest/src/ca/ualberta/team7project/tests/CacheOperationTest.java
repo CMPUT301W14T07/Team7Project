@@ -18,13 +18,13 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		super(MainActivity.class);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public void testSaveInCache1(){
 		ac = this.getActivity();
 		CacheOperation tool = new CacheOperation();
 		
 		//to make file empty
-		tool.fsSyncWithMemory(ac);
+		tool.saveFile(ac);
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 0);
 	}
 	
@@ -36,11 +36,17 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		
 		ThreadModel tm = new ThreadModel("some text", null, "some text too");
 		//load the pool from file to memory
-		tool.memorySyncWithFS(ac);
+		tool.loadFile(ac);
 		//add one pool from memory
-		tool.SaveInCache(tm);
+		tool.saveThread(tm);
 		
+		//This test doesn't really test anything outside of the .saveThread method, 
+		//something that isn't in CacheOperation.java
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 1);
+		
+		//this test clears the pool in our app and loads what has been saved previously
+		tool.loadFile(ac);
+		assertEquals("The threadModelPool should be emptied because the file is empty", false, ThreadModelPool.threadModelPool.size() == 1);
 	}
 	
 	//at this point, pool in the file has 0 threadModel
@@ -51,15 +57,18 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		ThreadModel tm = new ThreadModel("some text", null, "some text too");
 		ThreadModel tm2 = new ThreadModel("haha", null, "haha");
 		//load the pool from file to memory
-		tool.memorySyncWithFS(ac);
+		tool.loadFile(ac);
 		//add one pool from memory
-		tool.SaveInCache(tm);
+		tool.saveThread(tm);
 		//make file synchronized to memory
-		tool.fsSyncWithMemory(ac);
+		tool.saveFile(ac);
 		
-		tool.SaveInCache(tm2);
+		tool.saveThread(tm2);
 		
+		//again, this doesn't test a method in CacheOperation.java. We know that
+		//saveThread works, so this test is just a repeat of test2 
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 2);
+		
 	}
 	
 	//at this point, pool in the file has 1 threadModel
@@ -68,7 +77,7 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		CacheOperation tool = new CacheOperation();
 		
 		//load the pool from file to memory
-		tool.memorySyncWithFS(ac);
+		tool.loadFile(ac);
 		
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 1);
 	}
@@ -79,7 +88,7 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		CacheOperation tool = new CacheOperation();
 		
 		//load the pool from file to memory
-		tool.memorySyncWithFS(ac);
+		tool.loadFile(ac);
 		ThreadModel tm = new ThreadModel("some text", null, "some text too");
 		ThreadModel tm2 = new ThreadModel("haha", null, "haha");
 		
@@ -88,14 +97,14 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		collection.add(tm2);
 		
 		//add a collection of threadModel(which are 2 of them) to the cache in memory
-		tool.SaveInCache(collection);
+		tool.saveCollection(collection);
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 3);
 		
 		//synchronize File sytem with pool in the memory
-		tool.fsSyncWithMemory(ac);
+		tool.saveFile(ac);
 		
 		//Synchronize pool in the memory with the pool in the file
-		tool.memorySyncWithFS(ac);
+		tool.loadFile(ac);
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 3);
 			
 	}
@@ -106,7 +115,7 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		CacheOperation tool = new CacheOperation();
 		
 		//load the pool from file to memory
-		tool.memorySyncWithFS(ac);
+		tool.loadFile(ac);
 		ThreadModel tm = new ThreadModel("some text", null, "some text too");
 		ThreadModel tm2 = new ThreadModel("haha", null, "haha");
 		
@@ -115,7 +124,7 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		collection.add(tm2);
 		
 		//save into cache in memory
-		tool.SaveInCache(collection);
+		tool.saveCollection(collection);
 		
 		Collection<ThreadModel> c1 = tool.searchByUUID(UUID.fromString(ThreadModel.ROOT), CacheOperation.BY_PARENTID);
 		Collection<ThreadModel> c2 = tool.searchByUUID(tm.getUniqueID(), CacheOperation.BY_ITSELFID);
@@ -134,8 +143,8 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		
 		ThreadModelPool.threadModelPool.clear();
 		//to make file empty
-		tool.fsSyncWithMemory(ac);
-		tool.memorySyncWithFS(ac);
+		tool.saveFile(ac);
+		tool.loadFile(ac);
 		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 0);
 	}
 	
