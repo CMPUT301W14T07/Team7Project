@@ -62,8 +62,7 @@ public class LocationController extends Activity implements PositionListener
 	@Override
 	public void updateSetLocation(Address address)
 	{	
-		alternateLocation.setLongitude(address.getLongitude());
-		alternateLocation.setLatitude(address.getLatitude());
+		alternateLocation = new LocationModel(address.getLongitude(), address.getLatitude());
 		
 		/* Toast the user with the new location */
 		String local = address.getThoroughfare();
@@ -132,15 +131,11 @@ public class LocationController extends Activity implements PositionListener
 		
 		if(location != null)
 		{			
-			/* Notify UserModel of the changes */
-			LocationModel locationModel = new LocationModel(location.getLongitude(), location.getLatitude());
-			this.userLocation = locationModel;
-			
+			this.userLocation = new LocationModel(location.getLongitude(), location.getLatitude());			
 			updated = true;
-		}
+		}		
 
 		MainActivity.userListener.locationModelUpdate(userLocation);
-		
 		return updated;
 	}
 	
