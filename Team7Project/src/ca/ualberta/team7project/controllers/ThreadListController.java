@@ -77,12 +77,8 @@ public class ThreadListController extends Activity
 	
 	public void topicsHome()
 	{
-		Log.e("debug", "clicked3");
-
 		if(stack.size() > 1)
 		{
-			Log.e("debug", "clicked2");
-
 			stack.subList(1, stack.size()).clear();
 			refreshThreads();
 		}

@@ -83,7 +83,6 @@ public class ActionBarView extends Activity
 	 */
 	private void topicsHome()
 	{
-		Log.e("debug", "clicked");
 		((MainActivity)mainContext).getListController().topicsHome();
 	}
 
