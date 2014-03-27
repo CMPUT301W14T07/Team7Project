@@ -5,6 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
+    
+    <!-- Sorting Preferences -->
+    <string name="sort_date">Sort threads by date</string>
+    <string name="sort_pictures">Sort threads by pictures</string>
+    <string name="sort_rating">Sort threads by rating</string>
+    <string name="sort_location">Sort threads by location</string>
+    
     <!-- Strings used for general application toasts -->
 	<string name="refresh">Refresh Successful</string>
 	<string name="refresh_failed">Refresh Failed: No Network Connection</string>

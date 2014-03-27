@@ -75,6 +75,19 @@ public class ThreadListController extends Activity
 		refreshThreads();
 	}
 	
+	public void topicsHome()
+	{
+		Log.e("debug", "clicked3");
+
+		if(stack.size() > 1)
+		{
+			Log.e("debug", "clicked2");
+
+			stack.subList(1, stack.size()).clear();
+			refreshThreads();
+		}
+	}
+	
 	/**
 	 * If a network connection exists, pull the latest and greatest from ElasticSearch
 	 * <p>
@@ -104,17 +117,14 @@ public class ThreadListController extends Activity
 	}
 	
 	/**
-	 * When a user clicks on the Fav button, the ThreadModel UUID is added
-	 * A toast is also displayed immediately
-	 * @param thread
+	 * When a user clicks on the Favorite button, the ThreadModel UUID is added
+	 * @param thread which the user clicked on
 	 */
-	
 	public void addFavorite(ThreadModel thread)
 	{
-		ThreadListController.listView.favoriteToast();
 		MainActivity.getUserController().getUser().addFavoriteComment(thread);
-		
 	}
+	
 	/**
 	 * When user clicks on the Cache button, UUID is added
 	 * A toast is also displayed. This may be redundant, especially

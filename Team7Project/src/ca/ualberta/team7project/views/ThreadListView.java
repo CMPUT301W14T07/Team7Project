@@ -28,7 +28,7 @@ import ca.ualberta.team7project.models.ThreadModel;
 public class ThreadListView extends Activity implements ThreadAlertListener, ThreadListener
 {
 	private ThreadListModel listModel;
-	private static Activity activity;
+	private Activity activity;
 	private ListView list;
 	private ThreadAdapter adapter;
 	private ThreadListController controller;
@@ -37,7 +37,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	{
 		super();
 		this.listModel = listModel;
-		ThreadListView.activity = activity;
+		this.activity = activity;
 		this.controller = controller;
 		
 		MainActivity.threadListener = this;
@@ -90,39 +90,26 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	 */
 	@Override
 	public void onFavoriteClick(ThreadModel thread)
-	{
-		Log.e(MainActivity.DEBUG, "Favorite pressed");
-		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
-		
+	{		
 		controller.addFavorite(thread);
-	
+		favoriteToast();
 	}
 
 	@Override
 	public void onReplyClick(ThreadModel thread)
 	{
-					
-		Log.e(MainActivity.DEBUG, "Reply pressed");
-		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());			
-
 		controller.replyThread(thread);
 	}
 
 	@Override
 	public void onCacheClick(ThreadModel thread)
 	{
-		Log.e(MainActivity.DEBUG, "Cache pressed");
-		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
-		
 		controller.addCache(thread);
 	}
 
 	@Override
 	public void createThread(String title, String comment, long spinnerId)
 	{	
-		Log.e(MainActivity.DEBUG, "Create thread pressed");
-		Log.e(MainActivity.DEBUG, "Thread title:" + title);
-		
 		controller.createThread(title, comment, spinnerId);
 	}
 
@@ -144,19 +131,12 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onEditClick(ThreadModel thread)
 	{
-		Log.e(MainActivity.DEBUG, "Edit pressed");
-		Log.e(MainActivity.DEBUG, "Thread title:" + thread.getTitle());
-		
 		controller.editThread(thread);
 	}
 
 	@Override
 	public void onThreadClick(ThreadModel thread)
 	{
-		// This method should allow the user to move forward through the replies
-		Log.e(MainActivity.DEBUG, "Thread pressed");
-		Log.e(MainActivity.DEBUG, "Thread title: " + thread.getTitle());
-		
 		controller.enterThread(thread);
 	}
 
@@ -207,6 +187,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	public void cacheToast()
 	{
 		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_cache, Toast.LENGTH_SHORT).show();
+		
 	}
 	
 }

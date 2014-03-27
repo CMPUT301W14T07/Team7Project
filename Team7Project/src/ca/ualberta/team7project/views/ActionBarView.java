@@ -8,6 +8,7 @@ package ca.ualberta.team7project.views;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
@@ -82,7 +83,8 @@ public class ActionBarView extends Activity
 	 */
 	private void topicsHome()
 	{
-		// Next milestone
+		Log.e("debug", "clicked");
+		((MainActivity)mainContext).getListController().topicsHome();
 	}
 
 	/**
@@ -90,7 +92,6 @@ public class ActionBarView extends Activity
 	 */
 	private void geolocationPreferences()
 	{
-		// Not fully implemented. Next milestone.
 		LocationLookupAlertView location = new LocationLookupAlertView();
 		location.setCancelable(false);
 		location.show(fragment, "Set Location Alert");
@@ -118,7 +119,6 @@ public class ActionBarView extends Activity
 	 */
 	private void createTopic()
 	{		
-		//hacking through..
 		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setInTopic(false);
 		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setEditingTopic(false);
 		
