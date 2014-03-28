@@ -7,10 +7,10 @@
     
     
     <!-- Sorting Preferences -->
-    <string name="sort_date">Sort threads by date</string>
-    <string name="sort_pictures">Sort threads by pictures</string>
+    <string name="sort_date">Sort comments by date</string>
+    <string name="sort_pictures">View only comments with pictures</string>
     <string name="sort_rating">Sort threads by rating</string>
-    <string name="sort_location">Sort threads by location</string>
+    <string name="sort_location">Sort comments by proximity</string>
     
     <!-- Strings used for general application toasts -->
 	<string name="refresh">Refresh Successful</string>

@@ -2,14 +2,20 @@ package ca.ualberta.team7project.controllers;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
+import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ThreadFetcher;
+import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 import ca.ualberta.team7project.network.ThreadUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 
@@ -20,7 +26,7 @@ import ca.ualberta.team7project.views.ThreadListView;
  * <p>
  * Manages the internal comment-nesting stack and handles navigation between different nesting levels
  */
-public class ThreadListController extends Activity
+public class ThreadListController extends Activity implements SortPreferencesAlertListener
 {
 	private ArrayList<UUID> stack;
 	
@@ -32,6 +38,14 @@ public class ThreadListController extends Activity
 	private Boolean inTopic;
 	private Boolean editingThread;
 	private ThreadModel openThread;
+	
+	private static enum PictureFilterMode
+	{
+		NO_FILTER, FILTER_PICTURE, FILTER_NO_PICTURE
+	}
+	private PictureFilterMode picFilter = PictureFilterMode.NO_FILTER;
+	
+	private SortMethod sortMethod = SortMethod.DATE;
 	
 	public ThreadListController(Activity activity)
 	{
@@ -98,10 +112,21 @@ public class ThreadListController extends Activity
 			{
 		
 				ThreadFetcher fetcher = new ThreadFetcher();
+				PreferenceModel prefs = MainActivity.getUserController().getUser();
+				if(prefs == null)
+					return;
+				UserModel currentUser = prefs.getUser();
+				fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
 				
 				UUID parent = stack.get(stack.size()-1);
 				
-				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, ThreadFetcher.SortMethod.DATE);
+				MainActivity mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
+				ThreadListController controller = mainActivity.getListController();
+				
+				if(controller == null)
+					return;
+				
+				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, controller.getSortMethod());
 				
 				listModel = new ThreadListModel();
 				listModel.setTopics(threads);
@@ -320,5 +345,44 @@ public class ThreadListController extends Activity
 	public void setOpenThread(ThreadModel openThread)
 	{
 		this.openThread = openThread;
+	}
+	
+	public void setSortPreferences(SortPreference newPreference)
+	{
+		switch(newPreference)
+		{
+			case BY_DATE:
+				sortMethod = SortMethod.DATE;
+				Toast.makeText(activity, "Set sort by date", Toast.LENGTH_SHORT).show();
+				this.refreshThreads();
+				break;
+				
+			case BY_LOCATION:
+				sortMethod = SortMethod.LOCATION;
+				Toast.makeText(activity, "Set sort by location", Toast.LENGTH_SHORT).show();
+				this.refreshThreads();
+				break;
+				
+			case FILTER_PICTURE:
+				if(picFilter != PictureFilterMode.FILTER_PICTURE)
+					picFilter = PictureFilterMode.FILTER_PICTURE;
+				else
+					picFilter = PictureFilterMode.NO_FILTER;
+				
+				this.refreshThreads();
+				break;
+		}
+	}
+
+	public PictureFilterMode getPicFilter()
+	{
+		
+		return picFilter;
+	}
+
+	public SortMethod getSortMethod()
+	{
+		
+		return sortMethod;
 	}
 }

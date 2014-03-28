@@ -15,6 +15,8 @@ public class ThreadFetcher
 {
 	private ElasticSearchOperation search;
 	private String listSize;
+	double lat = 0;
+	double lon = 0;
 	
 	/**
 	 * Construct and set max size to the default (15)
@@ -38,15 +40,17 @@ public class ThreadFetcher
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Enumeration of methods used to get the "best/most relevant" thread
-=======
 	 * Enumeration of methods used to get the "best/most relevant" topics
->>>>>>> 6d3378dc532510f93d67ee6cc660f58bcc7b3335
 	 */
 	public static enum SortMethod
 	{
 		NO_SORT, DATE, LOCATION, DATE_LOCATION
+	}
+	
+	public void SetLocation(double latitude, double longitude)
+	{
+		this.lat = latitude;
+		this.lon = longitude;
 	}
 	
 	/**
@@ -57,16 +61,27 @@ public class ThreadFetcher
 	public ArrayList<ThreadModel> fetchComments(SortMethod sort)
 	{
 		String sortString = null;
+		String sortEntity = null;
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?sort=threadTimestamp:desc" + "&" + listSize;
+				sortEntity = null;
+				break;
+			case LOCATION:
+				sortString = "_search" + "?" + listSize;
+				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += Double.toString(lat);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lon);
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
 				break;
 			case NO_SORT:
 			default:
 				sortString = "_search" + "?" + listSize;
+				sortEntity = null;
 		}
-		return new ArrayList<ThreadModel>(search.searchThreads(sortString));
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
 	/**
@@ -80,16 +95,27 @@ public class ThreadFetcher
 	public ArrayList<ThreadModel> fetchChildComments(UUID parentID, SortMethod sort)
 	{
 		String sortString = null;
+		String sortEntity = null;
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" +
 						"sort=threadTimestamp:desc" + "&" + listSize;
+				sortEntity = null;
+				break;
+			case LOCATION:
+				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
+				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += Double.toString(lat);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lon);
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
 				break;
 			case NO_SORT:
 			default:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
+				sortEntity = null;
 		}
-		return new ArrayList<ThreadModel>(search.searchThreads(sortString));
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 }

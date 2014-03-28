@@ -136,7 +136,7 @@ public class ElasticSearchOperation
 	 * @param searchString the full search string, which is passed directly to Elastic Search
 	 * @return list of comments/topics that match the search string
 	 */
-	public Collection<ThreadModel> searchThreads(final String searchString)
+	public Collection<ThreadModel> searchThreads(final String searchString, final String searchEntity)
 	{
 
 		if (GSON == null)
@@ -157,18 +157,28 @@ public class ElasticSearchOperation
 				try
 				{
 					HttpClient httpclient = new DefaultHttpClient();
-					HttpPost searchRequest = new HttpPost(SERVER_URL
-							+ searchString);
+					HttpPost searchRequest = new HttpPost(SERVER_URL + searchString);
 					searchRequest.setHeader("Accept", "application/json");
+					
+					if(searchEntity != null)
+					{
+						//add search entity
+						try
+						{
+							searchRequest.setEntity(new StringEntity(searchEntity));
+						} catch (UnsupportedEncodingException exception)
+						{
+							Log.w(LOG_TAG, "Error encoding search query: " + exception.getMessage());
+							return;
+						}
+					}
 
 					HttpResponse response;
 					response = httpclient.execute(searchRequest);
 					String status = response.getStatusLine().toString();
 
 					System.out.println(status);
-					BufferedReader br = new BufferedReader(
-							new InputStreamReader(
-									(response.getEntity().getContent())));
+					BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 					String output;
 					System.err.println("Output from Server -> ");
 					String json = "";
@@ -178,11 +188,8 @@ public class ElasticSearchOperation
 						json += output;
 					}
 
-					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<ThreadModel>>()
-					{
-					}.getType();
-					ElasticSearchSearchResponse<ThreadModel> esResponse = GSON
-							.fromJson(json, elasticSearchSearchResponseType);
+					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<ThreadModel>>(){}.getType();
+					ElasticSearchSearchResponse<ThreadModel> esResponse = GSON.fromJson(json, elasticSearchSearchResponseType);
 					System.err.println(esResponse);
 					System.err.println("" + esResponse.getSources().size());
 					buffer = esResponse.getSources();

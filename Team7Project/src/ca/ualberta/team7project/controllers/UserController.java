@@ -23,7 +23,7 @@ public class UserController
 	private static Context context;
 	private FragmentManager fragment;
 	
-	private static PreferenceModel user;
+	private static PreferenceModel user = null;
 	private static UserView userView;
 	
 	private static LocationModel cachedLocation;

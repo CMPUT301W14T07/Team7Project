@@ -4,7 +4,6 @@
         name="sorting_preferences_array">
         <item>@string/sort_date</item>
         <item>@string/sort_pictures</item>
-        <item>@string/sort_rating</item>
         <item>@string/sort_location</item>
     </string-array>
     

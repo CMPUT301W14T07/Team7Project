@@ -36,7 +36,7 @@ public class UserModel implements Serializable
 {
 	private String name;
 	private String uniqueName;
-	private LocationModel location;
+	private LocationModel locationModel; //renamed for ES
 
 	/**
 	 * Construct a new UserModel with a given username
@@ -111,13 +111,13 @@ public class UserModel implements Serializable
 	public LocationModel getLocation()
 	{
 
-		return location;
+		return locationModel;
 	}
 
 	public void setLocation(LocationModel location)
 	{
 
-		this.location = location;
+		this.locationModel = location;
 	}
 
 }

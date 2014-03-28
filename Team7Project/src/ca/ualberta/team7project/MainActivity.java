@@ -55,11 +55,13 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
-		
+	
+		//must create userController before listController
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.locationController = new LocationController();
 		
+		listController.refreshThreads();
 	}
 		
 	
@@ -116,6 +118,7 @@ public class MainActivity extends Activity implements IdentityListener
 	public void onIdentityCreate(String userName)
 	{				
 		UserController.createNewUser(userName);
+		listController.refreshThreads();
 	}
 	
 	public static UserController getUserController()
