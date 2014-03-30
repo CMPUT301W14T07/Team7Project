@@ -8,7 +8,6 @@ package ca.ualberta.team7project.views;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;

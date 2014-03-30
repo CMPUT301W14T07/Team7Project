@@ -1,4 +1,4 @@
-package ca.ualberta.team7project.tests;
+package ca.ualberta.team7project.locationtesting;
 
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.LocationModel;

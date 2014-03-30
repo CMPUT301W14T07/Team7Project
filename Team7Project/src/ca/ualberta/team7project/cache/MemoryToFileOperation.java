@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import android.app.Activity;
 import android.content.Context;
 import ca.ualberta.team7project.models.ThreadModel;
 

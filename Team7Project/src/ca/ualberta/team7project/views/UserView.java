@@ -58,13 +58,7 @@ public class UserView extends Activity implements UserListener
 		userAlert.show(this.fragment, "New User Name Alert");			
 	}
 
-	/* Deprecated, but left until fully tested. Use locationModelUpdate now */
-	@Override
-	public void locationUpdated(double longitude, double latitude)
-	{
-		Log.e(MainActivity.DEBUG, "request to update user coordinates");
-		UserController.updateLocation(longitude, latitude);
-	}
+
 
 	/* Only called when address location has been changed...Not GPS location */
 	@Override

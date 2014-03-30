@@ -126,15 +126,14 @@ public class UserController
 
 	}
 	
-	/**
+/*	*//**
 	 * The new longitude/latitude coordinates for the UserModel are set
-	 */
+	 *//*
 	public static void updateLocation(double longitude, double latitude)
 	{
 		LocationModel location = new LocationModel(longitude, latitude);
 		UserController.user.getUser().setLocation(location);
-		Log.e(MainActivity.DEBUG, "updating user coordinates");
-	}
+	}*/
 	
 	/**
 	 * Update the location of the user or cache the coordinates if no user exists.

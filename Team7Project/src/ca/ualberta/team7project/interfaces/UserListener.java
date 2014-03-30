@@ -18,7 +18,6 @@ public interface UserListener
 	public void updateViews(PreferenceModel user);
 	public void toastUser(String userName);
 	public void promptIdentityAlertView();
-	public void locationUpdated(double longitude, double latitude);
 	public void locationModelUpdate(LocationModel location);
 	public void toastLocation(LocationModel location);
 	public void updateLocationFailure();

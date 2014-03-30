@@ -1,4 +1,4 @@
-package ca.ualberta.team7project.tests;
+package ca.ualberta.team7project.locationtesting;
 
 import java.util.Locale;
 
@@ -12,9 +12,14 @@ import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserModel;
 
+
 public class LocationTest extends ActivityInstrumentationTestCase2<MainActivity>
 {
 
+	/*
+	 * Must be using a Google AVD to run these tests properly
+	 */
+	
 	MainActivity mainActivity;
 
 	public LocationTest()
@@ -32,6 +37,8 @@ public class LocationTest extends ActivityInstrumentationTestCase2<MainActivity>
 
 	/**
 	 * Ensure that address lookup is returning a non null result and that the location is properly set
+	 * 
+	 * Sometimes this test fails from geolocation api query response time.
 	 */
 	@SuppressWarnings("static-access")
 	public void testAlternateLocation()
