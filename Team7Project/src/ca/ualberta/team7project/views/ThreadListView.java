@@ -8,17 +8,17 @@
 package ca.ualberta.team7project.views;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
@@ -108,23 +108,21 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	}
 
 	@Override
-	public void createThread(String title, String comment, long spinnerId)
+	public void createThread(String title, String comment, LocationModel location)
 	{	
-		controller.createThread(title, comment, spinnerId);
+		controller.createThread(title, comment, location);
 	}
 
 	@Override
 	public void insertImage()
 	{
 		// Next milestone
-		Log.e(MainActivity.DEBUG, "Insert image pressed");
 	}
 
 	@Override
 	public void onPhotoClick(ThreadModel thread)
 	{
 		// Next milestone
-		Log.e(MainActivity.DEBUG, "Image pressed");
 
 	}
 

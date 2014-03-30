@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.controllers.ThreadListController;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
 /**
@@ -50,12 +51,12 @@ public class ThreadAlertView extends DialogFragment
 	private Boolean replying;
 	private Boolean editing;
 	private ThreadListController controller;
-	private long spinnerId;
+	private LocationModel location;
 
 	public interface ThreadAlertListener
 	{
 		public void insertImage();
-		public void createThread(String title, String body, long spinnerId);
+		public void createThread(String title, String comment, LocationModel location);
 	}
 
 	ThreadAlertListener listener;
@@ -133,7 +134,7 @@ public class ThreadAlertView extends DialogFragment
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id)
 			{
-				spinnerId = parent.getItemIdAtPosition(position);
+				location = getLocationModel(spinner.getSelectedItem().toString());
 			}
 
 			@Override
@@ -151,8 +152,6 @@ public class ThreadAlertView extends DialogFragment
 					.setHint(ca.ualberta.team7project.R.string.enter_title_optional);
 			titleInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
-
-			// controller.setInTopic(false);
 
 		}
 		/* User is creating a new topic */
@@ -179,8 +178,6 @@ public class ThreadAlertView extends DialogFragment
 			bodyInput.setText(controller.getOpenThread().getComment());
 			bodyInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
-
-			// controller.setEditingTopic(false);
 
 		}
 
@@ -219,7 +216,7 @@ public class ThreadAlertView extends DialogFragment
 						String title = titleInput.getText().toString();
 						String body = bodyInput.getText().toString();
 						
-						listener.createThread(title, body, spinnerId);
+						listener.createThread(title, body, location);
 					}
 				});
 		builder.setNegativeButton(ca.ualberta.team7project.R.string.cancel,
@@ -228,11 +225,20 @@ public class ThreadAlertView extends DialogFragment
 
 					public void onClick(DialogInterface dialog, int id)
 					{
-
 						// Nothing needs to happen if user selects cancel.
 					}
 				});
 
 		return builder.create();
+	}
+	
+	public LocationModel getLocationModel(String selectedSpinner)
+	{
+		if(selectedSpinner == getString(ca.ualberta.team7project.R.string.current_gps))
+			return MainActivity.getUserController().getUser().getUser().getLocation();
+		else if(selectedSpinner == getString(ca.ualberta.team7project.R.string.alternate_location))
+			return MainActivity.getLocationController().getAlternateLocation();
+		else
+			return controller.getOpenThread().getLocation();
 	}
 }

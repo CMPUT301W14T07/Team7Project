@@ -8,8 +8,6 @@ package ca.ualberta.team7project.controllers;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
@@ -125,16 +123,7 @@ public class UserController
 		editor.commit();
 
 	}
-	
-/*	*//**
-	 * The new longitude/latitude coordinates for the UserModel are set
-	 *//*
-	public static void updateLocation(double longitude, double latitude)
-	{
-		LocationModel location = new LocationModel(longitude, latitude);
-		UserController.user.getUser().setLocation(location);
-	}*/
-	
+		
 	/**
 	 * Update the location of the user or cache the coordinates if no user exists.
 	 * <p>

@@ -22,6 +22,10 @@ public class LocationTest extends ActivityInstrumentationTestCase2<MainActivity>
 	
 	MainActivity mainActivity;
 
+	double latitude = 53.0;
+	double longitude = 100.0;
+
+	
 	public LocationTest()
 	{
 		super(MainActivity.class);
@@ -69,10 +73,7 @@ public class LocationTest extends ActivityInstrumentationTestCase2<MainActivity>
 	public void testLocationUpdates()
 	{
 		LocationController locationController = mainActivity.getLocationController();
-		
-		double latitude = 53.0;
-		double longitude = 100.0;
-		
+				
 		/* Check that a call from the AlertView will update the setLocation correctly */
 		Address address = new Address(Locale.getDefault());
 		address.setLongitude(longitude);

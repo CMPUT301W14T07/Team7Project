@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -218,13 +218,11 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 * @param title of the thread
 	 * @param body of the thread
 	 */
-	public void createThread(String title, String comment, long spinnerId)
+	public void createThread(String title, String comment, LocationModel location)
 	{
-		// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/32
-		// Much of this code should actually be in the updater class or persistence.....
-				
 		/* First we need to get the UserModel to associate with a ThreadModel */
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
+		currentUser.setLocation(location);
 		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
 		
 		ThreadUpdater updater = new ThreadUpdater(listView);
@@ -233,10 +231,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		if(getEditingTopic() == true)
 		{
 			/* User edited a thread. Update models appropriately */
-			/* Insert newThread in place of the open thread in the models */			
-			if(this.getOpenThread() == null)
-				Log.e(MainActivity.DEBUG, "Editing null thread");
-			
+			/* Insert newThread in place of the open thread in the models */						
 			newThread.setUniqueID(this.getOpenThread().getUniqueID());
 			newThread.setParentUUID(this.getOpenThread().getParentUUID());
 			newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
@@ -251,11 +246,6 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			{
 				/* User replied. Updated models appropriately */
 				/* Append the reply to the openThread and then replace in the model */
-				// TODO thread persistence model needs a method for this (or TopicUpdate)
-				// see https://github.com/CMPUT301W14T07/Team7Project/issues/32
-				
-				if(this.getOpenThread() == null)
-					Log.e(MainActivity.DEBUG, "reply to null thread");
 				UUID parent = this.getOpenThread().getUniqueID();
 				
 				newThread.setParentUUID(parent);

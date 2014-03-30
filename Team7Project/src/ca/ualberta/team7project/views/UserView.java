@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;

@@ -1,6 +1,7 @@
 package ca.ualberta.team7project.locationtesting;
 
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
@@ -17,6 +18,9 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 	MainActivity mainActivity;
 	UserController userController;
 	PreferenceModel preference;
+	
+	double longitude = 50;
+	double latitude = -20;
 
 	public ThreadLocationInsertTests()
 	{
@@ -42,10 +46,13 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 	public void testThreadLocation() 
 	{
 		/* Inject a new user location into the user */				
-		UserController.updateLocationModel(new LocationModel(50, -20));
+		UserController.updateLocationModel(new LocationModel(longitude, latitude));
 		UserModel user = preference.getUser();
 		
-		assertEquals("User location was set", user.getLocation().getLongitude(), (double)50);
+		assertEquals("User location was set", user.getLocation().getLongitude(), longitude);
+		
+		//ThreadListController.createThread("Title", "Comment", new LocationModel(longitude + 1, latitude +1)));
+		
 	}
 	
 }
