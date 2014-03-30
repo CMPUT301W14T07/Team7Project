@@ -92,7 +92,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	public void onFavoriteClick(ThreadModel thread)
 	{		
 		controller.addFavorite(thread);
-		favoriteToast();
 	}
 
 	@Override

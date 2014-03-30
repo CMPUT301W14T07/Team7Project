@@ -16,6 +16,7 @@ import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainActivity> 
 {
 
+	/*
 	public UUID topSelf = UUID.fromString("62a0e338-4743-4b2e-83b6-570d097cccb8");
 	public UUID topParent =UUID.fromString("db352350-aa82-11e3-a5e2-0800200c9a66"); //root
 	public UUID topTopic = UUID.fromString("62a0e338-4743-4b2e-83b6-570d097cccb8");
@@ -27,6 +28,10 @@ public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainAct
 	public UUID lowSelf = UUID.fromString("02f219bc-c6c8-45b6-86cf-8e59cae76ed3");
 	public UUID lowParent = UUID.fromString("56c6ee32-ce1e-4fb3-8b2c-532864b35e03");
 	public UUID lowTopic = UUID.fromString("02f219bc-c6c8-45b6-86cf-8e59cae76ed3");
+	*/
+	//
+	public UUID search = UUID.fromString("f6d73367-d471-4613-9fc8-3d32c8f38385");
+	
 	public ThreadFetcherTests()
 	{
 		super(MainActivity.class);
@@ -36,10 +41,13 @@ public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainAct
 	{
 		ThreadFetcher fetcher = new ThreadFetcher();
 		
-		ArrayList<ThreadModel> threads = fetcher.fetchChildComments(lowTopic, SortMethod.DATE);
+		
+		ArrayList<ThreadModel> threads = fetcher.fetchChildComments(search, SortMethod.DATE);
 		
 		
 		assertNotNull(threads);
+		assertEquals("1?", 1, threads.size());
+		assertEquals("2?", 2, threads.size());
 		
 	}
 }
