@@ -142,6 +142,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 */
 	public void addFavorite(ThreadModel thread)
 	{
+		ThreadListController.listView.favoriteToast();
 		MainActivity.getUserController().getUser().addFavoriteComment(thread);
 	}
 	
@@ -246,8 +247,10 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				/* User replied. Updated models appropriately */
 				/* Append the reply to the openThread and then replace in the model */
 				UUID parent = this.getOpenThread().getUniqueID();
+				UUID topic = this.getOpenThread().getTopicUUID();
 				
 				newThread.setParentUUID(parent);
+				newThread.setTopicUUID(topic);
 				updater.sendComment(newThread);
 				
 				ThreadListController.listView.replyingToast();

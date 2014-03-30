@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
+import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.controllers.LocationController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
@@ -38,7 +39,10 @@ public class MainActivity extends Activity implements IdentityListener
 	public static ThreadListener threadListener;
 	public static UserListener userListener;
 	public static PositionListener positionListener;
-
+	
+	//CacheOperation needed for saving threads offline
+	CacheOperation tool = new CacheOperation();
+	
 	/**
 	 * Creates the state of the application when the activity is initialized
 	 */
