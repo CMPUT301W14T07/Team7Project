@@ -1,12 +1,17 @@
 package ca.ualberta.team7project.locationtesting;
 
+import java.util.Locale;
+
+import android.location.Address;
+import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.controllers.LocationController;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserModel;
-import android.test.ActivityInstrumentationTestCase2;
 
 /**
  * Covers functionality of location within threads and topics.
@@ -17,6 +22,8 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 {
 	MainActivity mainActivity;
 	UserController userController;
+	ThreadListController threadController;
+	LocationController locationController;
 	PreferenceModel preference;
 	
 	double longitude = 50;
@@ -35,7 +42,11 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 		
 		/* Create a new user we need for all the tests */
 		UserController.createNewUser("Mark Watney");
+		
 		userController = MainActivity.getUserController();
+		threadController = MainActivity.getListController();
+		locationController = MainActivity.getLocationController();
+		
 		preference = userController.getUser();
 	}
 
@@ -45,13 +56,28 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 	 */
 	public void testThreadLocation() 
 	{
+		LocationModel model = new LocationModel(longitude, latitude);
+		
 		/* Inject a new user location into the user */				
-		UserController.updateLocationModel(new LocationModel(longitude, latitude));
+		UserController.updateLocationModel(model);
 		UserModel user = preference.getUser();
 		
 		assertEquals("User location was set", user.getLocation().getLongitude(), longitude);
 		
-		//ThreadListController.createThread("Title", "Comment", new LocationModel(longitude + 1, latitude +1)));
+		/* Inject an alternate location with a different location*/
+		Address address = new Address(Locale.getDefault());
+		address.setLongitude(longitude);
+		address.setLatitude(latitude);
+		
+		locationController.updateSetLocation(address);
+	
+		assertEquals("Alternate location was set", locationController.getAlternateLocation(), model);
+		
+		/* Test that the alert view is able to correctly attach the locations when the spinner asks for them */
+		ThreadAlertView alert = new ThreadAlertView();
+		
+		LocationModel threadLocation = new LocationModel();
+		//threadLocation = alert.getLocationModel(selectedSpinner)
 		
 	}
 	
