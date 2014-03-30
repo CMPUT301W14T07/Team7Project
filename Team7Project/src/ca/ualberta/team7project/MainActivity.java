@@ -133,7 +133,7 @@ public class MainActivity extends Activity implements IdentityListener
 		MainActivity.userController = userController;
 	}
 	
-	public ThreadListController getListController()
+	public static ThreadListController getListController()
 	{
 	
 		return listController;

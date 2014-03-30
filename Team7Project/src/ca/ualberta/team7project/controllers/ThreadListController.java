@@ -120,8 +120,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				
 				UUID parent = stack.get(stack.size()-1);
 				
-				MainActivity mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
-				ThreadListController controller = mainActivity.getListController();
+				ThreadListController controller = MainActivity.getListController();
 				
 				if(controller == null)
 					return;

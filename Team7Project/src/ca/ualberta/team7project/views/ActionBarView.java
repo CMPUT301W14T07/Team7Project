@@ -82,7 +82,7 @@ public class ActionBarView extends Activity
 	 */
 	private void topicsHome()
 	{
-		((MainActivity)mainContext).getListController().topicsHome();
+		MainActivity.getListController().topicsHome();
 	}
 
 	/**
@@ -117,8 +117,8 @@ public class ActionBarView extends Activity
 	 */
 	private void createTopic()
 	{		
-		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setInTopic(false);
-		((ca.ualberta.team7project.MainActivity)mainContext).getListController().setEditingTopic(false);
+		MainActivity.getListController().setInTopic(false);
+		MainActivity.getListController().setEditingTopic(false);
 		
 		ThreadAlertView threadAlert = new ThreadAlertView();
 		threadAlert.show(fragment, "New Thread Alert");
@@ -130,7 +130,7 @@ public class ActionBarView extends Activity
 	 */
 	private void refreshView()
 	{
-		((MainActivity)mainContext).getListController().refreshThreads();
+		MainActivity.getListController().refreshThreads();
 		Toast.makeText(this.context, ca.ualberta.team7project.R.string.refresh, Toast.LENGTH_SHORT).show();
 	}
 

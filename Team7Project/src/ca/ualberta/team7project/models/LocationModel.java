@@ -57,5 +57,29 @@ public class LocationModel
 		setLongitude(longitude);
 		setLatitude(latitude);
 	}
-
+	
+	/**
+	 * Overrides the java equals method
+	 */
+	public boolean equals(Object obj)
+	{
+		/* http://stackoverflow.com/questions/27581/overriding-equals-and-hashcode-in-java*/
+		if (obj == null)
+            return false;
+        if (obj == this)
+            return true;
+        if (!(obj instanceof LocationModel))
+            return false;
+        
+        LocationModel model = (LocationModel) obj;
+        
+        if(model.getLongitude() != this.getLongitude())
+        	return false;
+        			
+        if(model.getLatitude() != this.getLatitude())
+        	return false;
+        
+        return true;
+	}
+	
 }

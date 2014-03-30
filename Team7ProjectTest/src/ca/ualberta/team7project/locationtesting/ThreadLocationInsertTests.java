@@ -77,8 +77,14 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 		ThreadAlertView alert = new ThreadAlertView();
 		
 		LocationModel threadLocation = new LocationModel();
-		//threadLocation = alert.getLocationModel(selectedSpinner)
 		
+		// Spinner handles the mainActivity.getResources().getString(ca.ualberta.team7project.R.string.current_gps) in the actual class implementation.
+		// Not really this long of a statement.
+		threadLocation = alert.getLocationModel(mainActivity.getResources().getString(ca.ualberta.team7project.R.string.current_gps));
+		assertEquals("Alert got GPS location", user.getLocation(), threadLocation);
+
+		threadLocation = alert.getLocationModel(mainActivity.getResources().getString(ca.ualberta.team7project.R.string.alternate_location));
+		assertEquals("Alert got alternate location", locationController.getAlternateLocation(), threadLocation);		
 	}
 	
 }

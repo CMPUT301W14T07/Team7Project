@@ -3,10 +3,10 @@ package ca.ualberta.team7project.alertviews;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,17 +65,12 @@ public class ThreadAlertView extends DialogFragment
 	{
 
 		super();
-		Context mainContext = MainActivity.getMainContext();
 
-		this.listener = ((ca.ualberta.team7project.MainActivity) mainContext)
-				.getListController().getListView();
+		this.listener = MainActivity.getListController().getListView();
 
-		controller = ((ca.ualberta.team7project.MainActivity) mainContext)
-				.getListController();
-		replying = ((ca.ualberta.team7project.MainActivity) mainContext)
-				.getListController().getInTopic();
-		editing = ((ca.ualberta.team7project.MainActivity) mainContext)
-				.getListController().getEditingTopic();
+		controller = MainActivity.getListController();
+		replying = MainActivity.getListController().getInTopic();
+		editing = MainActivity.getListController().getEditingTopic();
 	}
 
 	@Override
@@ -134,7 +129,7 @@ public class ThreadAlertView extends DialogFragment
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id)
 			{
-				location = getLocationModel(spinner.getSelectedItem().toString());
+				location = getLocationModel((String) spinner.getSelectedItem().toString());
 			}
 
 			@Override
@@ -234,9 +229,9 @@ public class ThreadAlertView extends DialogFragment
 	
 	public LocationModel getLocationModel(String selectedSpinner)
 	{
-		if(selectedSpinner == getString(ca.ualberta.team7project.R.string.current_gps))
+		if(selectedSpinner.equals(getResources().getString(ca.ualberta.team7project.R.string.current_gps)))
 			return MainActivity.getUserController().getUser().getUser().getLocation();
-		else if(selectedSpinner == getString(ca.ualberta.team7project.R.string.alternate_location))
+		else if(selectedSpinner.equals(getResources().getString(ca.ualberta.team7project.R.string.alternate_location)))
 			return MainActivity.getLocationController().getAlternateLocation();
 		else
 			return controller.getOpenThread().getLocation();
