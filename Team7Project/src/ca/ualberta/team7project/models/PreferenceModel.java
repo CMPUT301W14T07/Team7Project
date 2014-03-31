@@ -35,6 +35,7 @@ public class PreferenceModel implements Serializable
 	private ArrayList<UUID> favoriteComments;
 	private ArrayList<UUID> authoredComments;
 	private ArrayList<UUID> cacheComments;
+	//needed for getting the context of the activity for the tool
 	private Context context;
 	private CacheOperation tool;
 	
@@ -86,6 +87,7 @@ public class PreferenceModel implements Serializable
 		{
 			this.favoriteComments.add(comment.getUniqueID());
 			this.tool.saveThread(comment);
+			this.tool.saveFile(context);
 			
 		}
 		
@@ -97,6 +99,7 @@ public class PreferenceModel implements Serializable
 		{
 			this.cacheComments.add(thread.getUniqueID());
 			this.tool.saveThread(thread);
+			this.tool.saveFile(context);
 		}
 	}
 

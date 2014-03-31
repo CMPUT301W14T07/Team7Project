@@ -122,24 +122,24 @@ public class ThreadFetcher
 	/**
 	 * This is the same code as above. By using the above method however, there 
 	 * might be an issue with the default condition which wouldn't work for the 
-	 * topic ID. 
-	 * @param parentID
+	 * Unique ID. 
+	 * @param Unique ID
 	 * @param sort
 	 * @return
 	 */
-	public ArrayList<ThreadModel> fetchAllDescendents(UUID topicID, SortMethod sort)
+	public ArrayList<ThreadModel> fetchComments(UUID uniqueID, SortMethod sort)
 	{
 		String sortString = null;
 		String sortEntity = null;
 		switch(sort)
 		{
 			case DATE:
-				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" +
+				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" +
 						"sort=threadTimestamp:desc" + "&" + listSize;
 				sortEntity = null;
 				break;
 			case LOCATION:
-				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" + listSize;
 				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
@@ -148,7 +148,7 @@ public class ThreadFetcher
 				break;
 			case NO_SORT:
 			default:
-				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" + listSize;
 				sortEntity = null;
 		}
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));

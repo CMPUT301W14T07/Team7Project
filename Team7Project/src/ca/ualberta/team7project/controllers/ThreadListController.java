@@ -148,6 +148,24 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	}
 	
 	/**
+	 * When called, PreferenceModel will return the UUIDs of favoriteComments.
+	 * These UUIDs will be searched for in using ThreadFetcher 
+	 * the ThreadListView
+	 * @return
+	 */
+	public ArrayList<ThreadModel> getFavorite()
+	{
+		ArrayList<UUID> favs = MainActivity.getUserController().getUser().getFavoriteComments();
+		ArrayList<ThreadModel> results = null;
+		
+		for (UUID id : favs)
+		{
+			
+		}
+		return results;
+	}
+	
+	/**
 	 * When user clicks on the Cache button, UUID is added
 	 * A toast is also displayed. This may be redundant, especially
 	 * since functionally speaking Caching and Favoriting are 
