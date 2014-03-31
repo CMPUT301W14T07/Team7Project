@@ -87,7 +87,7 @@ public class ThreadFetcher
 	/**
 	 * Fetch comments by parent (and location/date)
 	 * <p>
-	 * Can be used to fetch only topics (pass parentID = ThreadModel.ROOT)
+	 * Can be used to fetch only direct children of a thread (pass parentID = ThreadModel.ROOT)
 	 * @param parentID UUID of parent comment
 	 * @param sort sorting method
 	 * @return list of comments (or topics if parentID = null)
@@ -118,4 +118,40 @@ public class ThreadFetcher
 		}
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
+	
+	/**
+	 * This is the same code as above. By using the above method however, there 
+	 * might be an issue with the default condition which wouldn't work for the 
+	 * topic ID. 
+	 * @param parentID
+	 * @param sort
+	 * @return
+	 */
+	public ArrayList<ThreadModel> fetchAllDescendents(UUID topicID, SortMethod sort)
+	{
+		String sortString = null;
+		String sortEntity = null;
+		switch(sort)
+		{
+			case DATE:
+				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" +
+						"sort=threadTimestamp:desc" + "&" + listSize;
+				sortEntity = null;
+				break;
+			case LOCATION:
+				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += Double.toString(lat);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lon);
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
+				break;
+			case NO_SORT:
+			default:
+				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+				sortEntity = null;
+		}
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
+	}
+	
 }
