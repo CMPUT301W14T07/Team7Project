@@ -127,7 +127,7 @@ public class ThreadFetcher
 	 * @param sort
 	 * @return
 	 */
-	public ArrayList<ThreadModel> fetchComments(UUID uniqueID, SortMethod sort)
+	public ArrayList<ThreadModel> fetchByUnique(UUID uniqueID, SortMethod sort)
 	{
 		String sortString = null;
 		String sortEntity = null;

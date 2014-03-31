@@ -12,5 +12,9 @@ public class ThreadListControllerTest extends ActivityInstrumentationTestCase2<M
 		super(MainActivity.class);
 	}
 	
-
+	public void testGetFavorite()
+	{
+		
+	}
+	
 }

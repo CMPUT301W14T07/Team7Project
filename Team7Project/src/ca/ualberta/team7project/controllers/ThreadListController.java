@@ -155,13 +155,17 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 */
 	public ArrayList<ThreadModel> getFavorite()
 	{
+		ThreadFetcher fetch = new ThreadFetcher();
 		ArrayList<UUID> favs = MainActivity.getUserController().getUser().getFavoriteComments();
-		ArrayList<ThreadModel> results = null;
-		
+		ArrayList<ThreadModel> results = new ArrayList<ThreadModel>();
+
 		for (UUID id : favs)
 		{
-			
+			ArrayList<ThreadModel> thread = fetch.fetchByUnique(id, SortMethod.DATE);
+			results.add(thread.get(0));
+
 		}
+		
 		return results;
 	}
 	
