@@ -39,9 +39,7 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		tool.loadFile(ac);
 		//add one pool from memory
 		tool.saveThread(tm);
-		
-		//This test doesn't really test anything outside of the .saveThread method, 
-		//something that isn't in CacheOperation.java
+
 		assertEquals(true, ThreadModelPool.threadModelPool.size() == 1);
 		
 		//this test clears the pool in our app and loads what has been saved previously
@@ -64,9 +62,8 @@ public class CacheOperationTest extends ActivityInstrumentationTestCase2<MainAct
 		tool.saveFile(ac);
 		
 		tool.saveThread(tm2);
-		
-		//again, this doesn't test a method in CacheOperation.java. We know that
-		//saveThread works, so this test is just a repeat of test2 
+
+		//repeat of previous tests?
 		assertEquals(true, ThreadModelPool.threadModelPool.size() == 2);
 		
 	}
