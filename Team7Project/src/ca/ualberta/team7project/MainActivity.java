@@ -11,6 +11,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +43,7 @@ public class MainActivity extends Activity implements IdentityListener
 	
 	//CacheOperation needed for saving threads offline
 	CacheOperation tool = new CacheOperation();
-	
+		
 	/**
 	 * Creates the state of the application when the activity is initialized
 	 */
@@ -82,6 +83,14 @@ public class MainActivity extends Activity implements IdentityListener
 	// TODO onResume https://github.com/CMPUT301W14T07/Team7Project/issues/26
 
 	/**
+	 * Retrieves results from intents and passes them up to dialogfragments who are interested
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(resultCode, resultCode, data);
+	}
+
+	/**
 	 * Places all items for the action bar in the application menu.
 	 */
 	@Override
@@ -92,7 +101,7 @@ public class MainActivity extends Activity implements IdentityListener
 
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	
 	/**
 	 * Handles button clicks in the action bar
 	 * <p>

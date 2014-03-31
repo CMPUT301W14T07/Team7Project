@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,11 +54,14 @@ public class ThreadAlertView extends DialogFragment
 	private Boolean editing;
 	private ThreadListController controller;
 	private LocationModel location;
-
+	
+	private Bitmap cameraPhoto;
+	private final int REQUEST_IMAGE_CAPTURE = 1;
+	
 	public interface ThreadAlertListener
 	{
 		public void insertImage();
-		public void createThread(String title, String comment, LocationModel location);
+		public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto);
 	}
 
 	ThreadAlertListener listener;
@@ -186,19 +191,16 @@ public class ThreadAlertView extends DialogFragment
 			@Override
 			public void onClick(View v)
 			{
+				Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-				/*
-				 * This is going to be a tricky bit of code.
-				 * 
-				 * We will have to hide this dialog box, open up a new one to
-				 * select the image and the reopen this current dialog box after
-				 * the user has chosen the image.
-				 */
-				listener.insertImage();
+				if(takePictureIntent.resolveActivity(MainActivity.getMainContext().getPackageManager()) != null)
+				{
+					startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+				}
 			}
 
 		});
-
+	
 		/* Exit out of prompt through cancel or confirm buttons */
 		builder.setCancelable(true);
 		builder.setPositiveButton(ca.ualberta.team7project.R.string.confirm,
@@ -211,7 +213,7 @@ public class ThreadAlertView extends DialogFragment
 						String title = titleInput.getText().toString();
 						String body = bodyInput.getText().toString();
 						
-						listener.createThread(title, body, location);
+						listener.createThread(title, body, location, cameraPhoto);
 					}
 				});
 		builder.setNegativeButton(ca.ualberta.team7project.R.string.cancel,
@@ -235,5 +237,23 @@ public class ThreadAlertView extends DialogFragment
 			return MainActivity.getLocationController().getAlternateLocation();
 		else
 			return controller.getOpenThread().getLocation();
+	}
+	
+	/**
+	 * Retrieves the result of a camera based intent and stores it as a Bitmap
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == REQUEST_IMAGE_CAPTURE) {
+	    	
+	    	try
+	    	{
+		        Bundle extras = data.getExtras();
+		        this.cameraPhoto = (Bitmap) extras.get("data");
+	    	} catch (Exception e)
+	    	{
+	    		
+	    	}
+	    }
 	}
 }

@@ -8,6 +8,7 @@
 package ca.ualberta.team7project.views;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -107,9 +108,9 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	}
 
 	@Override
-	public void createThread(String title, String comment, LocationModel location)
+	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto)
 	{	
-		controller.createThread(title, comment, location);
+		controller.createThread(title, comment, location, cameraPhoto);
 	}
 
 	@Override
