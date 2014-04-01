@@ -36,8 +36,7 @@ public class PreferenceModel implements Serializable
 	private ArrayList<UUID> authoredComments;
 	private ArrayList<UUID> cacheComments;
 	//needed for getting the context of the activity for the tool
-	private Context context;
-	private CacheOperation tool;
+
 	
 	/**
 	 * Constructs the PreferenceModel with a given username
@@ -50,8 +49,7 @@ public class PreferenceModel implements Serializable
 		this.favoriteComments = new ArrayList<UUID>();
 		this.cacheComments = new ArrayList<UUID>();
 		this.user = new UserModel(username);
-		this.context = MainActivity.getMainContext();
-		this.tool = MainActivity.getCacheOperation();
+
 	}
 
 	public UserModel getUser()
@@ -87,8 +85,8 @@ public class PreferenceModel implements Serializable
 			this.favoriteComments.add(comment.getUniqueID());
 			
 			//this should be redundant 100% of the time
-			this.tool.saveThread(comment);
-			this.tool.saveFile(context);
+
+
 			
 		}
 		
@@ -99,8 +97,7 @@ public class PreferenceModel implements Serializable
 		if (!this.cacheComments.contains(thread))
 		{
 			this.cacheComments.add(thread.getUniqueID());
-			this.tool.saveThread(thread);
-			this.tool.saveFile(context);
+
 		}
 	}
 

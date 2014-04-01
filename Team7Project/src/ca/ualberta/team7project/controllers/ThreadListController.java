@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
+import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadListModel;
@@ -242,8 +244,15 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 */
 	public void addFavorite(ThreadModel thread)
 	{
+		CacheOperation operation = MainActivity.getCacheOperation();
+		Context context = MainActivity.getMainContext();
 		ThreadListController.listView.favoriteToast();
+		//save UUID
 		MainActivity.getUserController().getUser().addFavoriteComment(thread);
+		//save to cache
+		operation.saveThread(thread);
+		//save to file
+		operation.saveFile(context);
 	}
 	
 
