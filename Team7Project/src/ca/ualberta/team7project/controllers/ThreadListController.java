@@ -148,29 +148,29 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				
 				ArrayList<ThreadModel> threads = null;
 				
-				if(currentPage.getMode() == NavigatorMode.PARENT)
+				if(NavigatorMode.PARENT == currentPage.getMode())
 				{
 					UUID parent = (stack.get(stack.size()-1)).getUuid();
 					
 					threads = fetcher.fetchChildComments(parent, currSort);
 				}
-				else if(currentPage.getMode() == NavigatorMode.FAVORITE)
+				else if(NavigatorMode.FAVORITE == currentPage.getMode())
 				{
 					ArrayList<UUID> favs = prefs.getFavoriteComments();
 					
 					threads = fetcher.fetchFavorites(favs, currSort);
 				}
-				else if(currentPage.getMode() == NavigatorMode.TAG)
+				else if(NavigatorMode.TAG == currentPage.getMode())
 				{
 					String tag = currentPage.getTag();
 					
 					//TODO: fetch by tag
 				}
-				else if(currentPage.getMode() == NavigatorMode.GLOBAL) //this works, just need the GUI for it
+				else if(NavigatorMode.GLOBAL == currentPage.getMode()) //this works, just need the GUI for it
 				{
 					threads = fetcher.fetchComments(currSort);
 				}
-				else return; //threads is equal to null so return
+				else return;
 				
 				listModel = new ThreadListModel();
 				listModel.setTopics(threads);
