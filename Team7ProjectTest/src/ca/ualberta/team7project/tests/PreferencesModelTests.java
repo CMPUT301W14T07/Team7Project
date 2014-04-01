@@ -6,6 +6,8 @@ import java.util.UUID;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.cache.CacheOperation;
+import ca.ualberta.team7project.cache.ThreadModelPool;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.UserModel;
@@ -52,7 +54,12 @@ public class PreferencesModelTests extends
 	public void testAddFavorite()
 	{
 		PreferenceModel preference = new PreferenceModel("Bob");
-
+		CacheOperation tool = new CacheOperation();
+		//nice thing about initializing CacheOperation here is we can directly load the save file
+		ThreadModelPool.threadModelPool.clear();
+		assertEquals("ThreadModelPool should be empty", 0, ThreadModelPool.threadModelPool.size());
+		tool.saveFile(activity);
+		
 		ThreadModel thread = new ThreadModel("Pokemon: The Movie", preference.getUser(), "Bob's favorite movies");
 		preference.addFavoriteComment(thread);
 		
@@ -61,10 +68,18 @@ public class PreferencesModelTests extends
 		
 		assertEquals("Favorites were inserted correctly", preference.getFavoriteComments(), favorites);
 		
-		
 		favorites.add(thread.getUniqueID());
 		favorites.add(thread.getUniqueID());
 		assertEquals("No duplicates were entered into ArrayList", preference.getFavoriteComments().size(), 1);
+
+		assertEquals("Should now have one item", 1, ThreadModelPool.threadModelPool.size());
+		ThreadModel thread2 = new ThreadModel("Pokemon2: Pikachu's Revenge", preference.getUser(), "More favs");
+		//change the threadModelPool directly
+		ThreadModelPool.threadModelPool.add(thread2);
+		
+		tool.loadFile(activity);
+		assertEquals("Should be 1 again", 1, ThreadModelPool.threadModelPool.size());
+		
 	}
 	
 	public void testAddCache()

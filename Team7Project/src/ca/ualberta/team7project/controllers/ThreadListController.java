@@ -29,7 +29,12 @@ import ca.ualberta.team7project.views.ThreadListView;
  */
 public class ThreadListController extends Activity implements SortPreferencesAlertListener
 {
-	private ArrayList<UUID> stack;
+	protected enum NavigatorMode
+	{
+		PARENT, GLOBAL, FAVORITE, TAG
+	}
+	
+	private ArrayList<Navigator> stack;
 	
 	private ThreadListModel listModel;
 	private static ThreadListView listView;
@@ -50,8 +55,8 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	
 	public ThreadListController(Activity activity)
 	{
-		stack = new ArrayList<UUID>();
-		stack.add(UUID.fromString(ThreadModel.ROOT));
+		stack = new ArrayList<Navigator>();
+		stack.add(new Navigator(UUID.fromString(ThreadModel.ROOT)));
 		
 		ThreadListController.activity = activity;
 		
@@ -85,9 +90,14 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		UUID id = thread.getUniqueID();
 		
-		stack.add(id);
+		stack.add(new Navigator(id));
 		
 		refreshThreads();
+	}
+	
+	public void enterFavorites()
+	{
+		stack.add(new Navigator(NavigatorMode.FAVORITE));
 	}
 	
 	public void topicsHome()
@@ -113,29 +123,104 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			{
 		
 				ThreadFetcher fetcher = new ThreadFetcher();
+				
+				//get current location and feed it to the ThreadFetcher
 				PreferenceModel prefs = MainActivity.getUserController().getUser();
 				if(prefs == null)
 					return;
 				UserModel currentUser = prefs.getUser();
 				fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
 				
-				UUID parent = stack.get(stack.size()-1);
+				//get current sorting method
+				MainActivity mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
+				ThreadListController controller = mainActivity.getListController();
+				if(controller == null)
+					return;
+				SortMethod currSort = controller.getSortMethod();
+				
+				Navigator currentPage = stack.get(stack.size()-1);
+				
+				if(currentPage.getMode() == NavigatorMode.PARENT)
+				{
+					UUID parent = (stack.get(stack.size()-1)).getUuid();
+					
+					ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, currSort);
+					
+					listModel = new ThreadListModel();
+					listModel.setTopics(threads);
+						
+					listView.notifyListChange(listModel);
+				}
+				else if(currentPage.getMode() == NavigatorMode.FAVORITE)
+				{
+					ArrayList<UUID> favs = prefs.getFavoriteComments();
+					
+					ArrayList<ThreadModel> threads = fetcher.fetchFavorites(favs, currSort);
+					
+					listModel = new ThreadListModel();
+					listModel.setTopics(threads);
+						
+					listView.notifyListChange(listModel);
+				}
+			}
+		});
+	}
+	
+	/**
+	 * This code is identical as above, but co-opted for now to run a separate listView with
+	 * our favorite threads
+	 * @author Eden
+	 */
+	/*
+	public void viewFavorites()
+	{
+		activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+		
+				ThreadFetcher fetcher = new ThreadFetcher();
+				PreferenceModel prefs = MainActivity.getUserController().getUser();
+				ArrayList<UUID> favs =prefs.getFavoriteComments();
+				ArrayList<ThreadModel> results = new ArrayList<ThreadModel>();
+				
+				if(prefs == null)
+					return;
+				UserModel currentUser = prefs.getUser();
+				fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
+				
+				//unsure how to return to a previous view using the stack
+				UUID parent = (stack.get(stack.size()-1)).getUuid();
 				
 				ThreadListController controller = MainActivity.getListController();
 				
 				if(controller == null)
 					return;
 				
-				ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, controller.getSortMethod());
+				//ThreadFetcher returns an array of ThreadModels, but to remain consistent, 
+				//the view the user sees should be similar to start up, that is a list of top
+				//level comments. Because of this, can only feed ThreadFetcher the uniqueID of
+				//a favorited thread and it will only return one item in the arraylist. As such,
+				//have to add each result to a general results variable and then pass it to the 
+				//ThreadListModel
+				for (UUID id : favs)
+				{
+					ArrayList<ThreadModel> threads = fetcher.fetchChildComments(id, controller.getSortMethod());
+					results.add(threads.get(0));					
+				}
+				
+				
 				
 				listModel = new ThreadListModel();
-				listModel.setTopics(threads);
+				listModel.setTopics(results);
 					
 				listView.notifyListChange(listModel);
 		
 			}
 		});
 	}
+	*/
 	
 	/**
 	 * When a user clicks on the Favorite button, the ThreadModel UUID is added
@@ -145,6 +230,16 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		ThreadListController.listView.favoriteToast();
 		MainActivity.getUserController().getUser().addFavoriteComment(thread);
+	}
+	
+
+	/**
+	 * When called, PreferenceModel will return the UUIDs of favoriteComments.
+	 * @return
+	 */
+	public ArrayList<UUID> getFavorites()
+	{		
+		return MainActivity.getUserController().getUser().getFavoriteComments();
 	}
 	
 	/**
@@ -380,5 +475,36 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		
 		return sortMethod;
+	}
+	
+	/**
+	 * Used to represent a single page in our navigation,
+	 * such as a page of child comments or a page of favorites
+	 */
+	private class Navigator
+	{
+		private NavigatorMode mode;
+		private UUID uuid;
+		
+		public Navigator(NavigatorMode mode)
+		{
+			this.mode = mode;
+		}
+		
+		public Navigator(UUID uuid)
+		{
+			this.mode = NavigatorMode.PARENT;
+			this.uuid = uuid;
+		}
+		
+		public NavigatorMode getMode()
+		{
+			return mode;
+		}
+		
+		public UUID getUuid()
+		{
+			return uuid;
+		}
 	}
 }

@@ -48,13 +48,24 @@ public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainAct
 		assertEquals("Should have only 1", 1, threads2.size());
 	}
 	
-	public void testFetchDescendentComments()
+	public void testFetchComments()
 	{
 		ThreadFetcher fetcher = new ThreadFetcher();
-		//should have two descendents, but because of topic itself it returns 3, don't know if 
-		//this is considered correct behavior yet
-		ArrayList<ThreadModel> threads3 = fetcher.fetchAllDescendents(topSelf, SortMethod.DATE);
-		assertEquals("Should have 2", 2, threads3.size());
+
+		ArrayList<ThreadModel> search = fetcher.fetchByUnique(topSelf, SortMethod.DATE);
+		//return only one thing in ArrayList, make sure can access it
+		assertEquals("Should have 1", 1, search.size());
+		ThreadModel thread  = search.get(0);
+
+		for (ThreadModel tm : search)
+		{
+			assertEquals("Should have the same UUID", topSelf, tm.getUniqueID());
+		}
+		//use parentUUID to ensure it has same properties
+		assertEquals("Same UUID", thread.getParentUUID(), topParent);
+		//this fails, index out of bounds so nothing else there
+		ThreadModel thread2 = search.get(1);
+
 		
 	}
 }

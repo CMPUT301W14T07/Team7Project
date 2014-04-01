@@ -120,26 +120,77 @@ public class ThreadFetcher
 	}
 	
 	/**
+	 * Fetch comments by a list of their own UUID's
+	 * <p>
+	 * Used to fetch the list of favorited comments from server
+	 * 
+	 * @param favorites list of UUID's for favorited comments
+	 * @param sort sorting method
+	 * @return list of favorited comments
+	 */
+	public ArrayList<ThreadModel> fetchFavorites(ArrayList<UUID> favorites, SortMethod sort)
+	{
+		String sortString = null;
+		String sortEntity = null;
+		String favoritesSize = "size=" + Integer.toString(favorites.size());
+		
+		switch(sort)
+		{
+			case DATE:
+				sortString = "_search?sort=threadTimestamp:desc" + "&" + favoritesSize;
+				sortEntity = "{";
+				break;
+			case LOCATION:
+				sortString = "_search?" + favoritesSize;
+				sortEntity = "{";
+				
+				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += Double.toString(lat);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lon);
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
+				break;
+			case NO_SORT:
+			default:
+				sortString = "_search?" + favoritesSize;
+				sortEntity = "{";
+		}
+		
+		sortEntity += "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
+		
+		//insert space-seperated UUID's into the sortEntity (extra space at end is OK)
+		for(UUID fav : favorites)
+		{
+			sortEntity += fav.toString() + " ";
+		}
+		
+		sortEntity += ")\"}}";
+		sortEntity += "}";
+		
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
+	}
+	
+	/**
 	 * This is the same code as above. By using the above method however, there 
 	 * might be an issue with the default condition which wouldn't work for the 
-	 * topic ID. 
-	 * @param parentID
+	 * Unique ID. 
+	 * @param Unique ID
 	 * @param sort
 	 * @return
 	 */
-	public ArrayList<ThreadModel> fetchAllDescendents(UUID topicID, SortMethod sort)
+	public ArrayList<ThreadModel> fetchByUnique(UUID uniqueID, SortMethod sort)
 	{
 		String sortString = null;
 		String sortEntity = null;
 		switch(sort)
 		{
 			case DATE:
-				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" +
+				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" +
 						"sort=threadTimestamp:desc" + "&" + listSize;
 				sortEntity = null;
 				break;
 			case LOCATION:
-				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" + listSize;
 				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
@@ -148,7 +199,7 @@ public class ThreadFetcher
 				break;
 			case NO_SORT:
 			default:
-				sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" + listSize;
 				sortEntity = null;
 		}
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));

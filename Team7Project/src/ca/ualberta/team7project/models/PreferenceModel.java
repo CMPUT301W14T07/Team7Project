@@ -19,6 +19,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import android.content.Context;
+import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.cache.CacheOperation;
+import ca.ualberta.team7project.cache.ThreadModelPool;
+
 /**
  * Stores the user's settings, including their UserModel
  * <p>
@@ -30,6 +35,9 @@ public class PreferenceModel implements Serializable
 	private ArrayList<UUID> favoriteComments;
 	private ArrayList<UUID> authoredComments;
 	private ArrayList<UUID> cacheComments;
+	//needed for getting the context of the activity for the tool
+	private Context context;
+	private CacheOperation tool;
 	
 	/**
 	 * Constructs the PreferenceModel with a given username
@@ -38,10 +46,12 @@ public class PreferenceModel implements Serializable
 	public PreferenceModel(String username)
 	{
 		super();
-		this.authoredComments = new ArrayList<UUID>();
+		//this.authoredComments = new ArrayList<UUID>();
 		this.favoriteComments = new ArrayList<UUID>();
 		this.cacheComments = new ArrayList<UUID>();
 		this.user = new UserModel(username);
+		this.context = MainActivity.getMainContext();
+		this.tool = MainActivity.getCacheOperation();
 	}
 
 	public UserModel getUser()
@@ -63,7 +73,6 @@ public class PreferenceModel implements Serializable
 	 */
 	public ArrayList<UUID> getFavoriteComments()
 	{
-
 		return favoriteComments;
 	}
 	/**
@@ -73,9 +82,14 @@ public class PreferenceModel implements Serializable
 	public void addFavoriteComment(ThreadModel comment)
 	{
 
-		if (!this.favoriteComments.contains(comment))
+		if (!this.favoriteComments.contains(comment.getUniqueID())) //contains uses equals()
 		{
 			this.favoriteComments.add(comment.getUniqueID());
+			
+			//this should be redundant 100% of the time
+			this.tool.saveThread(comment);
+			this.tool.saveFile(context);
+			
 		}
 		
 	}
@@ -85,6 +99,8 @@ public class PreferenceModel implements Serializable
 		if (!this.cacheComments.contains(thread))
 		{
 			this.cacheComments.add(thread.getUniqueID());
+			this.tool.saveThread(thread);
+			this.tool.saveFile(context);
 		}
 	}
 
@@ -111,5 +127,4 @@ public class PreferenceModel implements Serializable
 			this.authoredComments.add(authoredComment.getUniqueID());
 		}
 	}
-
 }

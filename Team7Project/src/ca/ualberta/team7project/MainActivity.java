@@ -42,8 +42,8 @@ public class MainActivity extends Activity implements IdentityListener
 	public static PositionListener positionListener;
 	
 	//CacheOperation needed for saving threads offline
-	CacheOperation tool = new CacheOperation();
-		
+	public static CacheOperation tool = new CacheOperation();
+	
 	/**
 	 * Creates the state of the application when the activity is initialized
 	 */
@@ -67,6 +67,10 @@ public class MainActivity extends Activity implements IdentityListener
 		MainActivity.locationController = new LocationController();
 		
 		listController.refreshThreads();
+		
+		//haven't decoupled from being online all the time, so just overwrite
+		//for now
+		tool.saveFile(context);
 	}
 		
 	
@@ -210,6 +214,11 @@ public class MainActivity extends Activity implements IdentityListener
 	{
 
 		MainActivity.locationController = locationController;
+	}
+	
+	public static CacheOperation getCacheOperation()
+	{
+		return tool;
 	}
 	
 }
