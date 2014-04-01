@@ -46,7 +46,7 @@ public class PreferenceModel implements Serializable
 	public PreferenceModel(String username)
 	{
 		super();
-		this.authoredComments = new ArrayList<UUID>();
+		//this.authoredComments = new ArrayList<UUID>();
 		this.favoriteComments = new ArrayList<UUID>();
 		this.cacheComments = new ArrayList<UUID>();
 		this.user = new UserModel(username);
@@ -73,7 +73,6 @@ public class PreferenceModel implements Serializable
 	 */
 	public ArrayList<UUID> getFavoriteComments()
 	{
-
 		return favoriteComments;
 	}
 	/**
@@ -83,9 +82,11 @@ public class PreferenceModel implements Serializable
 	public void addFavoriteComment(ThreadModel comment)
 	{
 
-		if (!this.favoriteComments.contains(comment))
+		if (!this.favoriteComments.contains(comment.getUniqueID())) //contains uses equals()
 		{
 			this.favoriteComments.add(comment.getUniqueID());
+			
+			//this should be redundant 100% of the time
 			this.tool.saveThread(comment);
 			this.tool.saveFile(context);
 			
@@ -126,5 +127,4 @@ public class PreferenceModel implements Serializable
 			this.authoredComments.add(authoredComment.getUniqueID());
 		}
 	}
-
 }
