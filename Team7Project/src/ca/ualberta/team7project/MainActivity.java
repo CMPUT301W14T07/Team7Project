@@ -59,6 +59,8 @@ public class MainActivity extends Activity implements IdentityListener
 		mainContext = this;
 		
 		ActionBar actionBar = getActionBar();
+		actionBar.setCustomView(R.layout.action_top);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.show();
 	
 		//must create userController before listController
@@ -118,7 +120,7 @@ public class MainActivity extends Activity implements IdentityListener
 		ActionBarView actionBarView = new ActionBarView(item, getFragmentManager(), 
 				getApplicationContext(), this);
 		
-		return actionBarView.getAction();
+		return actionBarView.getAction(item);
 	}
 	
 	/*

@@ -11,7 +11,6 @@ import android.content.Context;
 import android.view.MenuItem;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.R;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
 import ca.ualberta.team7project.alertviews.LocationLookupAlertView;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView;
@@ -51,32 +50,43 @@ public class ActionBarView extends Activity
 	 * @return Boolean representing whether a method has been called associated
 	 *         with button.
 	 */
-	public boolean getAction()
+	public boolean getAction(MenuItem item)
 	{
-		switch (this.item.getItemId())
+		switch (item.getItemId())
 		{
-			case R.id.action_home:
+			case ca.ualberta.team7project.R.id.action_home:
 				topicsHome();
 				return true;
-			case R.id.action_geo_location:
-				geolocationPreferences();
+			case ca.ualberta.team7project.R.id.action_show_favorites:
+				showFavorites();
 				return true;
-			case R.id.action_user_preferences:
-				userPreferences();
-				return true;
-			case R.id.action_create_topic:
+			case ca.ualberta.team7project.R.id.action_create_topic:
 				createTopic();
 				return true;
-			case R.id.action_refresh:
+			case ca.ualberta.team7project.R.id.action_sort:
+				sortPreferences();
+				return true;
+			case ca.ualberta.team7project.R.id.action_geo_location:
+				geolocationPreferences();
+				return true;
+			case ca.ualberta.team7project.R.id.action_refresh:
 				refreshView();
 				return true;
-			case R.id.action_sort:
-				sortPreferences();
+			case ca.ualberta.team7project.R.id.action_user_preferences:
+				userPreferences();
 				return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Handles the users request to show favorite threads
+	 */
+	private void showFavorites()
+	{
+		MainActivity.getListController().enterFavorites();
+	}
+	
 	/**
 	 * Handles the user's request to return to main topic listings
 	 */

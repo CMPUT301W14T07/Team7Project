@@ -43,6 +43,9 @@
     <string name="create_topic">Create a new topic</string>
     <string name="refresh_topic">Refresh the current topic</string>
     <string name="sorting_options">Sorting preferences</string>
+    <string name="show_favorites">Show favorites</string>
+    <string name="tag_search_hint">Search thread tags</string>
+    <string name="search">Search</string>
     
     <!-- Strings for the CreateIdentityAlertView -->
     <string name="create_identity">Create User Identity</string>
