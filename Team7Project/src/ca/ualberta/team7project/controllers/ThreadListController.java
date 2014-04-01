@@ -31,6 +31,10 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 {
 	protected enum NavigatorMode
 	{
+		//PARENT: view a page of child (or top-level comments)
+		//GLOBAL: view a page of comments, not constrained by parent
+		//FAVORITE: view a page of all favorited comments
+		//TAG: view a page of comments tagged with some tag
 		PARENT, GLOBAL, FAVORITE, TAG
 	}
 	
@@ -142,28 +146,36 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				
 				Navigator currentPage = stack.get(stack.size()-1);
 				
+				ArrayList<ThreadModel> threads = null;
+				
 				if(currentPage.getMode() == NavigatorMode.PARENT)
 				{
 					UUID parent = (stack.get(stack.size()-1)).getUuid();
 					
-					ArrayList<ThreadModel> threads = fetcher.fetchChildComments(parent, currSort);
-					
-					listModel = new ThreadListModel();
-					listModel.setTopics(threads);
-						
-					listView.notifyListChange(listModel);
+					threads = fetcher.fetchChildComments(parent, currSort);
 				}
 				else if(currentPage.getMode() == NavigatorMode.FAVORITE)
 				{
 					ArrayList<UUID> favs = prefs.getFavoriteComments();
 					
-					ArrayList<ThreadModel> threads = fetcher.fetchFavorites(favs, currSort);
-					
-					listModel = new ThreadListModel();
-					listModel.setTopics(threads);
-						
-					listView.notifyListChange(listModel);
+					threads = fetcher.fetchFavorites(favs, currSort);
 				}
+				else if(currentPage.getMode() == NavigatorMode.TAG)
+				{
+					String tag = currentPage.getTag();
+					
+					//TODO: fetch by tag
+				}
+				else if(currentPage.getMode() == NavigatorMode.GLOBAL) //this works, just need the GUI for it
+				{
+					threads = fetcher.fetchComments(currSort);
+				}
+				else return; //threads is equal to null so return
+				
+				listModel = new ThreadListModel();
+				listModel.setTopics(threads);
+					
+				listView.notifyListChange(listModel);
 			}
 		});
 	}
@@ -487,6 +499,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		private NavigatorMode mode;
 		private UUID uuid;
+		private String tag;
 		
 		public Navigator(NavigatorMode mode)
 		{
@@ -499,6 +512,12 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			this.uuid = uuid;
 		}
 		
+		public Navigator(String tag)
+		{
+			this.mode = NavigatorMode.TAG;
+			this.tag = tag;
+		}
+		
 		public NavigatorMode getMode()
 		{
 			return mode;
@@ -507,6 +526,11 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		public UUID getUuid()
 		{
 			return uuid;
+		}
+		
+		public String getTag()
+		{
+			return tag;
 		}
 	}
 }
