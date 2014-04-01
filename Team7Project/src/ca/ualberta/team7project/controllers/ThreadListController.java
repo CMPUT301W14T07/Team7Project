@@ -98,6 +98,8 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	public void enterFavorites()
 	{
 		stack.add(new Navigator(NavigatorMode.FAVORITE));
+		
+		refreshThreads();
 	}
 	
 	public void topicsHome()
