@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -27,6 +28,8 @@ import android.util.Base64;
  */
 public class ThreadModel
 {
+	/* Reuse statements https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#threadmodel */
+	
 	//no spaces in the format, or Elastic Search will complain
 	private String internalDateFormat = "MM/dd/yyyy|HH:mm:ss";
 	
@@ -64,8 +67,6 @@ public class ThreadModel
 		this.title = null;
 
 		this.resetTimestamp();
-
-		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 
 		this.parentUUID = parentUUID;
@@ -90,10 +91,7 @@ public class ThreadModel
 		this.title = null;
 		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
 											// no bitmap
-
 		this.resetTimestamp();
-
-		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 
 		this.parentUUID = parentUUID;
@@ -122,9 +120,8 @@ public class ThreadModel
 		this.title = title;
 
 		this.resetTimestamp();
-
-		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
+		
 		this.topicUUID = this.uniqueID;
 
 	}
@@ -147,57 +144,47 @@ public class ThreadModel
 		this.title = title;
 		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
 											// no bitmap
-
 		this.resetTimestamp();
 
-		// every thread has a uniqueID, either topic or comment
 		this.generateUniqueID();
 		this.topicUUID = this.uniqueID;
-		// Root UUID is db352350-aa82-11e3-a5e2-0800200c9a66, I just created
 		this.parentUUID = UUID.fromString(ROOT);
 
 	}
 
 	public String getComment()
 	{
-
 		return comment;
 	}
 
 	public void setComment(String comment)
 	{
-
 		this.comment = comment;
 		this.resetTimestamp();
-
 	}
 
 	public Bitmap getImage()
 	{
-
 		return this.bitmapData.decode();
 	}
 
 	public void setImage(Bitmap image)
 	{
-
 		this.bitmapData.encode(image);
 		this.resetTimestamp();
 	}
 
 	public String getAuthorName()
 	{
-
 		return user.getName();
-
 	}
 
 	public String getAuthorUnique()
 	{
-
 		return user.getUniqueName();
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public Date getTimestamp()
 	{
 		DateFormat df = new SimpleDateFormat(internalDateFormat);
@@ -214,6 +201,7 @@ public class ThreadModel
 		return date;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public void resetTimestamp()
 	{
 		Date date = new Date();
@@ -225,84 +213,64 @@ public class ThreadModel
 
 	public LocationModel getLocation()
 	{
-
 		return user.getLocation();
 	}
-
+	
 	public void setLocation(LocationModel location)
 	{
-
 		this.user.setLocation(location);
 		this.resetTimestamp();
-
 	}
 
 	public UUID getUniqueID()
 	{
-
 		return this.uniqueID;
 	}
 
 	public void setUniqueID(UUID uniqueID)
 	{
-
 		this.uniqueID = uniqueID;
-
 	}
 
 	public void generateUniqueID()
 	{
-
 		this.uniqueID = UUID.randomUUID();
-
 	}
 
 	public String getTitle()
 	{
-
 		return title;
 	}
 
 	public void setTitle(String title)
 	{
-
 		this.title = title;
 		this.resetTimestamp();
 	}
 
 	public UUID getParentUUID()
 	{
-
 		return parentUUID;
 	}
 
 	public void setParentUUID(UUID parentUUID)
 	{
-
 		this.parentUUID = parentUUID;
 	}
 
 	public UUID getTopicUUID()
 	{
-
 		return topicUUID;
 	}
 
 	public void setTopicUUID(UUID topicUUID)
 	{
-
 		this.topicUUID = topicUUID;
 	}
 
 	/**
 	 * Class that stores a bitmap in json serializable form (a base64 encoded
 	 * byte array)
-	 * <p>
-	 * See the following:
-	 * <ul>
-	 * <li>http://stackoverflow.com/questions/5871482</li>
-	 * <li>http://mobile.cs.fsu.edu/converting-images-to-json-objects/</li>
-	 * </ul>
 	 */
 	protected class BitmapData
 	{
@@ -352,4 +320,5 @@ public class ThreadModel
 		}
 
 	}
+	
 }

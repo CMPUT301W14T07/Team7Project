@@ -36,7 +36,7 @@ public class UserModel implements Serializable
 {
 	private String name;
 	private String uniqueName;
-	private LocationModel locationModel; //renamed for ES
+	private LocationModel locationModel;
 
 	/**
 	 * Construct a new UserModel with a given username
