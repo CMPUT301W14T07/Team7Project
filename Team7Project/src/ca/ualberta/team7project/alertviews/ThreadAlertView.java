@@ -178,7 +178,8 @@ public class ThreadAlertView extends DialogFragment
 			bodyInput.setText(controller.getOpenThread().getComment());
 			bodyInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
-
+			
+			this.cameraPhoto = controller.getOpenThread().getImage();
 		}
 
 		/*
