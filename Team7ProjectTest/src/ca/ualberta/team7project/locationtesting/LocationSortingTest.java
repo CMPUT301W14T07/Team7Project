@@ -7,12 +7,19 @@ import java.util.Random;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.location.GeolocationSorting;
+import ca.ualberta.team7project.location.LocationComparator;
 import ca.ualberta.team7project.models.LocationModel;
+import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.UserModel;
 
 
 public class LocationSortingTest extends ActivityInstrumentationTestCase2<MainActivity>
 {
+
+	private UserModel user;
+	private int longitude = 50;
+	private int latitude = 50;
 
 	public LocationSortingTest()
 	{
@@ -22,52 +29,67 @@ public class LocationSortingTest extends ActivityInstrumentationTestCase2<MainAc
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		this.user = new UserModel("Ash");
+		this.user.setLocation(new LocationModel(longitude, latitude));
 	}
 
-
 	/**
-	 * Compare two threads to find the 
+	 * Compare distance between two threads.
 	 */
-	
-	
-	/**
-	 * Tests the ability to sort an ArrayList of threads by location to a set LocationModel
-	 */
-	public void testFindClosestThreads()
+	public void testDistanceDelta()
 	{
-		ArrayList<LocationModel> locationModels = new ArrayList<LocationModel>();
-		ArrayList<ThreadModel> threadModels = new ArrayList<ThreadModel>();
-		
 		int longitude = 50;
 		int latitude = 50;
 		
-		LocationModel setLocation = new LocationModel(longitude, latitude);
+		UserModel userModel = this.user;
+		userModel.setLocation(new LocationModel(longitude, latitude));
 		
+		ThreadModel modelClose = new ThreadModel("Hello", userModel, null, null);
+		
+		userModel.setLocation(new LocationModel(++longitude, ++latitude));
+		ThreadModel modelFar = new ThreadModel("Hello", userModel, null, null);
+		
+		LocationComparator comparator = new LocationComparator();
+		double distance = comparator.distanceDelta(modelClose, modelFar);
+		
+		/* The distance between [50, 50] and [51, 51] is 131800 meters 
+		 * For the test, this may not be accurate, so an approximate is used
+		 */
+		int intDistance = (int) Math.round(distance);
+		
+		assertEquals("Distance between two threads is correct", intDistance, 131800);
+	}
+
+	/**
+	 * Tests the ability to sort an ThreadListModle by geolocation
+	 */
+	public void testFindClosestThreads()
+	{
+		ThreadListModel listModel = new ThreadListModel();
+
+		/*
+		 * Add a thread to threadlistmodel with a new and different location model.
+		 */
 		for(int i = 0; i < 10; i++)
 		{
-			LocationModel model = new LocationModel(longitude++, latitude++);
-			locationModels.add(model);
-			// add to threadModels...Should actually be ThreadListModel. Will fix tomorrow morning. Too late tonight
+			user.setLocation(new LocationModel(longitude++, latitude++));
+			listModel.addTopic(new ThreadModel("hello", user, null, null));
 		}
 		
-		ArrayList<LocationModel> oldSorted = locationModels;
+		ArrayList<ThreadModel> oldSorted = listModel.getTopics();
+		ArrayList<ThreadModel> shuffled = oldSorted;
 		
 		/* Shuffle the list of locations  so it is no longer in order*/
-		Collections.shuffle(locationModels, new Random());
+		Collections.shuffle(shuffled, new Random());
 			
 		GeolocationSorting sorting = new GeolocationSorting();
 		
-		ArrayList<LocationModel> sortedLocations = sorting.locationSort(setLocation, locationModels);
+		ThreadListModel shuffledModel = new ThreadListModel(shuffled);
+		ThreadListModel sortedLocations = sorting.locationSort(shuffledModel);
+
+		/* The returned sortedLocations should be the same as oldSorted */
+		assertEquals("ThreadListModel sorted by location", sortedLocations.getTopics(), oldSorted);
 		
-		/* Locations should now be in order */
-		assertEquals("sortArray returned a properly sorted array by location", sortedLocations, oldSorted);
-		
-		/* Further confirmation */
-		assertEquals("First location is correct", sortedLocations.get(0), setLocation);
-		
-		setLocation = new LocationModel(longitude, latitude);
-		
-		assertEquals("Last location is correct", sortedLocations.get(sortedLocations.size()), setLocation);
 	}
 	
 	/**

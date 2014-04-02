@@ -1,8 +1,9 @@
 package ca.ualberta.team7project.location;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-import ca.ualberta.team7project.models.LocationModel;
+import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
 /**
@@ -14,9 +15,15 @@ import ca.ualberta.team7project.models.ThreadModel;
 public class GeolocationSorting
 {
 
-	public ArrayList<ThreadModel> locationSort(LocationModel location, ArrayList<ThreadModel> threads)
+	public ThreadListModel locationSort(ThreadListModel threadList)
 	{		
-		return null;
+		ArrayList<ThreadModel> threads = threadList.getTopics();
+		
+		Collections.sort(threads, new LocationComparator());
+		
+		threadList.setTopics(threads);
+		
+		return threadList;
 	}
 
 	
