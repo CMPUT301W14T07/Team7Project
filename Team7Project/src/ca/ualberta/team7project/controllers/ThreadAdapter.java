@@ -44,8 +44,24 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
     {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
+        View rowView;
 
+        /* Use a different layout depending on whether the thread has an image */
+        Bitmap bitmap = getItem(position).getImage();
+
+        ImageView image;
+
+        if(bitmap != null)
+        {
+        	rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
+            image = (ImageView) rowView.findViewById(ca.ualberta.team7project.R.id.threadImage);
+        	image.setImageBitmap(bitmap);
+        }
+        else
+        {
+        	rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread_no_images, parent, false);
+        }
+        
         /* Set the author name */
         TextView authorView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.authorName);
         authorView.setText(getItem(position).getAuthorName());
@@ -67,13 +83,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         	bodyView.setText(body);
         else 
         	bodyView.setText("");        
-        
-        /* Set picture */
-        ImageView image = (ImageView) rowView.findViewById(ca.ualberta.team7project.R.id.threadImage);
-        Bitmap bitmap = getItem(position).getImage();
-        if(bitmap != null)
-        	image.setImageBitmap(bitmap);
-        
+                
         /* Favorite button on click listener */
         ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);
         

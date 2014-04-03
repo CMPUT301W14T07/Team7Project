@@ -19,11 +19,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import android.content.Context;
-import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.cache.CacheOperation;
-import ca.ualberta.team7project.cache.ThreadModelPool;
-
 /**
  * Stores the user's settings, including their UserModel
  * <p>
