@@ -28,7 +28,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/editTags"
+        android:id="@+id/edit_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.11"
@@ -44,18 +44,6 @@
         android:gravity="center"
         android:text="@string/select_thread_location"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-<!--
-    <EditText
-        android:id="@+id/address_entry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.11"
-        android:ems="10"
-        android:hint="@string/address_thread_hint"
-        android:gravity="center"
-        android:inputType="textPostalAddress" />
--->
 
     <Spinner
         android:id="@+id/select_location"

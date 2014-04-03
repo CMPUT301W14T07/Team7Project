@@ -99,6 +99,8 @@ public class ThreadAlertView extends DialogFragment
 				.findViewById(ca.ualberta.team7project.R.id.thread_body);
 		final Button insertImage = (Button) v
 				.findViewById(ca.ualberta.team7project.R.id.thread_image);
+		final EditText tagInput = (EditText) v
+				.findViewById(ca.ualberta.team7project.R.id.edit_tags);
 
 		/*
 		 * If the user is editing the topic, we need to add the option to keep
@@ -179,6 +181,10 @@ public class ThreadAlertView extends DialogFragment
 			bodyInput.setInputType(InputType.TYPE_CLASS_TEXT
 					| InputType.TYPE_TEXT_VARIATION_NORMAL);
 			
+			/* Show existing tags */
+			// Temporary for now...No error checking hasb been done yet.
+			tagInput.setText(controller.getOpenThread().getTags().commaFormatTag());
+						
 			this.cameraPhoto = controller.getOpenThread().getImage();
 		}
 
@@ -217,14 +223,12 @@ public class ThreadAlertView extends DialogFragment
 						listener.createThread(title, body, location, cameraPhoto);
 					}
 				});
+		
+		/* If user selects cancel, nothing needs to happen */
 		builder.setNegativeButton(ca.ualberta.team7project.R.string.cancel,
 				new DialogInterface.OnClickListener()
 				{
-
-					public void onClick(DialogInterface dialog, int id)
-					{
-						// Nothing needs to happen if user selects cancel.
-					}
+					public void onClick(DialogInterface dialog, int id){}
 				});
 
 		return builder.create();

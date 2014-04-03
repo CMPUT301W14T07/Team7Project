@@ -37,6 +37,8 @@ public class ThreadModel
 	private String comment = null;
 	private BitmapData bitmapData = null; // bitmap stored as base64-encoded
 											// byte array
+
+	private ThreadTagModel tags;
 	
 	//do not change name to timestamp, Elastic Search will complain
 	private String threadTimestamp = null; // time of last change of any kind
@@ -65,7 +67,8 @@ public class ThreadModel
 		this.bitmapData.encode(image);
 		this.user = user;
 		this.title = null;
-
+		this.setTags(new ThreadTagModel());
+		
 		this.resetTimestamp();
 		this.generateUniqueID();
 
@@ -91,6 +94,8 @@ public class ThreadModel
 		this.title = null;
 		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
 											// no bitmap
+		this.setTags(new ThreadTagModel());
+
 		this.resetTimestamp();
 		this.generateUniqueID();
 
@@ -118,7 +123,8 @@ public class ThreadModel
 		this.bitmapData.encode(image);
 		this.user = user;
 		this.title = title;
-
+		this.setTags(new ThreadTagModel());
+		
 		this.resetTimestamp();
 		this.generateUniqueID();
 		
@@ -144,6 +150,8 @@ public class ThreadModel
 		this.title = title;
 		this.bitmapData = new BitmapData(); // empty bitmap will be treated as
 											// no bitmap
+		this.setTags(new ThreadTagModel());
+
 		this.resetTimestamp();
 
 		this.generateUniqueID();
@@ -267,6 +275,20 @@ public class ThreadModel
 	{
 		this.topicUUID = topicUUID;
 	}
+
+	
+	public ThreadTagModel getTags()
+	{
+
+		return tags;
+	}
+
+	public void setTags(ThreadTagModel tags)
+	{
+
+		this.tags = tags;
+	}
+
 
 	/**
 	 * Class that stores a bitmap in json serializable form (a base64 encoded
