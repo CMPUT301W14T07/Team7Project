@@ -27,6 +27,16 @@
         <requestFocus />
     </EditText>
 
+    <EditText
+        android:id="@+id/editTags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.11"
+        android:ems="10" 
+        android:gravity="center"
+        android:hint="@string/tag_hint"
+        />
+
     <TextView
         android:id="@+id/address_hint"
         android:layout_width="match_parent"

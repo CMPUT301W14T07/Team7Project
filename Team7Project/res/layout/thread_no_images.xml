@@ -6,6 +6,7 @@
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
+    <!-- Android warns on this...But it is wrong. -->
     <TableLayout
         android:id="@+id/threadRight"
         android:layout_width="0dp"

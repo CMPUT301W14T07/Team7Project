@@ -4,25 +4,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+	 >
 
     <TableLayout
         android:id="@+id/threadLeft"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"  >
 
-        <TableRow
-            android:id="@+id/threadImageRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/threadImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="@string/image_thread"
-                android:src="@drawable/ic_launcher" />
-        </TableRow>
+        <ImageView
+        	android:id="@+id/threadImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/image_thread"
+            android:src="@drawable/ic_launcher" />
+            
     </TableLayout>
 
     <TableLayout

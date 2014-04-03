@@ -68,7 +68,8 @@
 	<string name="address_thread_hint">Address (optional)</string>
 	<string name="use_set_location">Use Set Location</string>
 	<string name="use_gps">Use Current Location</string>
-	
+	<string name="tag_hint">Thread Tags</string>
+		
 	<!-- Strings for the UI buttons for each thread in list view -->
 	<string name="edit_thread">Edit Thread</string>
 	<string name="favorite_thread">Favorite Thread</string>
