@@ -62,8 +62,24 @@
                 android:text="@string/enter_comment"
                 android:gravity="bottom|left"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+            
         </TableRow>
-
+        
+        <TableRow
+            android:id="@+id/tags"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.01" >
+            
+            <TextView
+                android:id="@+id/threadTags"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/spacer"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+        </TableRow>
+        
         <LinearLayout
             android:id="@+id/threadButtons"
             android:layout_width="wrap_content"
