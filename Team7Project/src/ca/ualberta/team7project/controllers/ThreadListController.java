@@ -262,13 +262,13 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		CacheOperation operation = MainActivity.getCacheOperation();
 		Context context = MainActivity.getMainContext();
+		
 		ThreadListController.listView.favoriteToast();
-		//save UUID
+
 		MainActivity.getUserController().getUser().addFavoriteComment(thread);
-		//save to cache
 		operation.saveThread(thread);
-		//save to file
 		operation.saveFile(context);
+		
 	}
 	
 

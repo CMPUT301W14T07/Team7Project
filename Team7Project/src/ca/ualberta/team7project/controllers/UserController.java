@@ -134,4 +134,12 @@ public class UserController
 		userView.updateViews(user);
 	}
 	
+	/**
+	 * Save the user to the fileystem and return the user that was saved
+	 */
+	public void saveOpenUser()
+	{
+		UserPersistenceModel persistence = new UserPersistenceModel(context);
+		persistence.serializeUser(UserController.user);
+	}
 }

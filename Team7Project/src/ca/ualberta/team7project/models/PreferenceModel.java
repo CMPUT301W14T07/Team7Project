@@ -18,6 +18,8 @@ package ca.ualberta.team7project.models;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import ca.ualberta.team7project.MainActivity;
+
 /**
  * Stores the user's settings, including their UserModel
  * <p>
@@ -75,6 +77,7 @@ public class PreferenceModel
 		if (!this.favoriteComments.contains(comment.getUniqueID()))
 		{
 			this.favoriteComments.add(comment.getUniqueID());
+			MainActivity.getUserController().saveOpenUser();
 		}
 		
 	}
@@ -84,7 +87,7 @@ public class PreferenceModel
 		if (!this.cacheComments.contains(thread))
 		{
 			this.cacheComments.add(thread.getUniqueID());
-
+			MainActivity.getUserController().saveOpenUser();
 		}
 	}
 
@@ -109,6 +112,7 @@ public class PreferenceModel
 		if (!this.favoriteComments.contains(authoredComment))
 		{
 			this.authoredComments.add(authoredComment.getUniqueID());
+			MainActivity.getUserController().saveOpenUser();
 		}
 	}
 }
