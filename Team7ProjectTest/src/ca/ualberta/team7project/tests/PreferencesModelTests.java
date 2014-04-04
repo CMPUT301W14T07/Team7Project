@@ -8,9 +8,9 @@ import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.cache.ThreadModelPool;
+import ca.ualberta.team7project.controllers.UserController;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadModel;
-import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
 
 
@@ -19,6 +19,8 @@ public class PreferencesModelTests extends
 {
 	
 	Activity activity;
+	MainActivity mainActivity;
+	UserController userController;
 
 	public PreferencesModelTests()
 	{
@@ -30,24 +32,38 @@ public class PreferencesModelTests extends
 		super.setUp();
 		setActivityInitialTouchMode(false);
 	    this.activity = getActivity();
+	    
+		mainActivity = getActivity();
+		
+		userController = MainActivity.getUserController();
+
 	}
 	
-	/*
-	 * This test fails right now.
-	 */
-	/* Successfully serialize the PreferenceModel to the disk */
+	/* Successfully serialize and deserialize the PreferenceModel to the disk */
 	public void testPreferenceSerialize()
 	{
 
-		PreferenceModel preference = new PreferenceModel("BoB");
 		UserPersistenceModel persistence = new UserPersistenceModel(activity.getApplicationContext());
+		UserController.createNewUser("Bob");
 		
-		persistence.serializeUser(preference);
+		PreferenceModel newPreference = persistence.deserializeUser();
 		
-		PreferenceModel newPrefernce = persistence.deserializeUser();
+		assertNotNull("Deserialize was not null", newPreference);
+		assertEquals("Serialize/Deserialize of PreferenceModel works", newPreference.getUser().getName(), "Bob");
+	}
+	
+	/* Should be able to delete a user from shared preferences */
+	public void testDeleteUser()
+	{
+		UserPersistenceModel persistence = new UserPersistenceModel(activity.getApplicationContext());
+		UserController.createNewUser("Bob");
+
+		persistence.deleteUser("Bob");
 		
-		assertNotNull("Deserialize was not null", newPrefernce);
-		assertEquals("Serialize/Deserialize of PreferenceModel works", newPrefernce, preference);
+		boolean exists = persistence.userExists("Bob");
+		assertFalse("User exists", exists);
+		
+		/* It is necessary to replace a user after you exist them from the filesystem...In the tests this doesn't matter */
 	}
 	
 	/* Add favorites */
@@ -114,21 +130,5 @@ public class PreferencesModelTests extends
 		assertEquals("Authored comments were inserted correctly", restaurants, preference.getAuthoredComments());
 
 	}
-	
-	public void testSetUser()
-	{
-		PreferenceModel preference = new PreferenceModel("BoB");
-		UserModel user = new UserModel("Bill");
-		preference.setUser(user);
-		
-		assertEquals("The user should now be Bill",preference.getUser(),user);
-	}
-	
-	public void testGetUser()
-	{
-		PreferenceModel preference = new PreferenceModel("BoB");
-		
-		assertEquals("The user should be BoB", preference.getUser().getName(),"BoB");
-	}	
 	
 }

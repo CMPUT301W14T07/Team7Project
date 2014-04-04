@@ -15,7 +15,6 @@
 
 package ca.ualberta.team7project.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -24,14 +23,12 @@ import java.util.UUID;
  * <p>
  * In addition to attributes of UserModel, a list of favorited comments is stored
  */
-public class PreferenceModel implements Serializable
+public class PreferenceModel
 {
 	private UserModel user;
 	private ArrayList<UUID> favoriteComments;
 	private ArrayList<UUID> authoredComments;
 	private ArrayList<UUID> cacheComments;
-	//needed for getting the context of the activity for the tool
-
 	
 	/**
 	 * Constructs the PreferenceModel with a given username
@@ -40,7 +37,7 @@ public class PreferenceModel implements Serializable
 	public PreferenceModel(String username)
 	{
 		super();
-		//this.authoredComments = new ArrayList<UUID>();
+		this.authoredComments = new ArrayList<UUID>();
 		this.favoriteComments = new ArrayList<UUID>();
 		this.cacheComments = new ArrayList<UUID>();
 		this.user = new UserModel(username);
@@ -75,14 +72,9 @@ public class PreferenceModel implements Serializable
 	public void addFavoriteComment(ThreadModel comment)
 	{
 
-		if (!this.favoriteComments.contains(comment.getUniqueID())) //contains uses equals()
+		if (!this.favoriteComments.contains(comment.getUniqueID()))
 		{
 			this.favoriteComments.add(comment.getUniqueID());
-			
-			//this should be redundant 100% of the time
-
-
-			
 		}
 		
 	}

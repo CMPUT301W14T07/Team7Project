@@ -6,15 +6,11 @@
 
 package ca.ualberta.team7project.models;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
 
 /**
  * Facilitates storing and loading the PreferenceModel to/from disk
@@ -34,33 +30,31 @@ public class UserPersistenceModel extends Activity
 	}
 
 	/**
-	 * Serialize the user with the filename set as the user name
+	 * Serialize the user to the filesystem with the filename set as the user name
 	 * 
-	 * @param user
-	 *            A non-null UserModel object
+	 * @param user A non-null UserModel object
 	 */
 	public void serializeUser(PreferenceModel user)
-	{
+	{   
+	    try
+	    {
+	    	String userName = user.getUser().getName();
+	    	
+			SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = persistence.edit();
 
-		try
-		{
-			FileOutputStream fileStream = context.openFileOutput(user.getUser().getName()
-					.concat(".dat"), 0);
-			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
-			objectStream.writeObject(user);
-
-			fileStream.flush();
-			objectStream.flush();
-			objectStream.close();
-			fileStream.close();
-
-			setLastOpenUser(user.getUser().getName());
-
-		} catch (IOException e)
-		{
-
-			e.printStackTrace();
-		}
+			Gson gson = new Gson();
+			String json = gson.toJson(user);
+			
+			editor.putString(userName, json);
+			editor.commit();	
+			
+			setLastOpenUser(userName);
+			
+	    } catch (Exception e)
+	    {
+	    	e.printStackTrace();
+	    }	    
 	}
 
 	/**
@@ -74,37 +68,25 @@ public class UserPersistenceModel extends Activity
 		String userName = lastOpenUser();
 		PreferenceModel newUser = null;
 
-		// TODO perform file exists check
-
 		if (userName != null)
 		{
 			try
 			{
-				FileInputStream fileStream = context.openFileInput(userName
-						.concat(".dat"));
-				ObjectInputStream objectStream = new ObjectInputStream(
-						fileStream);
-				newUser = (PreferenceModel) objectStream.readObject();
-
-				objectStream.close();
-				fileStream.close();
-
+				SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+				
+				Gson gson = new Gson();
+				String json = persistence.getString(userName, null);
+				
+				newUser = gson.fromJson(json, PreferenceModel.class);
+				
 				return newUser;
-			} catch (IOException e)
+			} catch (Exception e)
 			{
 
 				e.printStackTrace();
-			} catch (ClassNotFoundException c)
-			{
-
-				c.printStackTrace();
 			}
 		}
 
-		/*
-		 * If return is null, then userName was null. Caller needs to create a
-		 * new user
-		 */
 		return newUser;
 	}
 
@@ -151,14 +133,38 @@ public class UserPersistenceModel extends Activity
 	}
 	
 	/**
-	 * An error checking function to ensure that the file exists on disk.
+	 * Delete a user from the SharedPreferences system
+	 * @return
 	 */
-	public boolean fileExists(String file)
+	public void deleteUser(String userName)
 	{
+	    try
+	    {
+			SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = persistence.edit();
 
-		// TODO
-		return true;
+			editor.remove(userName);
+			editor.commit();	
+	    } catch (Exception e)
+	    {
+	    	e.printStackTrace();
+	    }	    
 	}
 
-	// TODO delete user from disk method
+	/**
+	 * Determine if a user exists on the filesystem
+	 * @param userName of the user we are searching for
+	 * @return boolean representing whether the user exists
+	 */
+	public boolean userExists(String userName)
+	{
+		boolean exists = false;
+		
+		SharedPreferences persistence = context.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+
+		if(persistence.getString(userName, null) != null)
+			exists = true;
+		
+		return exists;
+	}
 }

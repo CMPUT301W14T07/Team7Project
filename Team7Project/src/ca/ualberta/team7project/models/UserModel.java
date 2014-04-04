@@ -15,7 +15,6 @@
 
 package ca.ualberta.team7project.models;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +31,7 @@ import java.util.Random;
  * This class is also aggregated into PreferenceModel 
  *
  */
-public class UserModel implements Serializable
+public class UserModel
 {
 	private String name;
 	private String uniqueName;

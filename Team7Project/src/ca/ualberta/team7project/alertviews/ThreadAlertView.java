@@ -20,7 +20,6 @@ import android.widget.Spinner;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.models.LocationModel;
-import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
 /**

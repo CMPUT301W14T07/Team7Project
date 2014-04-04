@@ -43,7 +43,7 @@ public class UserController
 	public static void createNewUser(String userName)
 	{
 		PreferenceModel newUser = new PreferenceModel(userName);
-
+		
 		UserPersistenceModel persistence = new UserPersistenceModel(context);
 		persistence.serializeUser(newUser);
 		setUser(newUser);
