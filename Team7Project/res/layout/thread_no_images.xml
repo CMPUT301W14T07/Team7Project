@@ -27,7 +27,18 @@
                 android:layout_height="fill_parent"
                 android:gravity="bottom|left"
                 android:text="@string/title"
+                android:layout_weight="3"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/authorName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|right"
+                android:text="@string/author"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </TableRow>
 
         <TableRow
@@ -68,28 +79,35 @@
             android:gravity="center_horizontal|right"
             android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/authorName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.48"
-                android:text="@string/author"
-                android:gravity="bottom|left"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
             <ImageButton
                 android:id="@+id/threadEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/edit_thread"
                 android:focusable="false"
                 android:src="@drawable/ic_thread_edit" />
 
+
+            <ImageButton
+                android:id="@+id/threadTagsEdit"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="@string/tag_thread"
+                android:focusable="false"
+                android:src="@drawable/ic_thread_tag" />
+
             <ImageButton
                 android:id="@+id/threadFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/favorite_thread"
                 android:focusable="false"
@@ -97,8 +115,10 @@
 
             <ImageButton
                 android:id="@+id/threadReply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/reply_thread"
                 android:focusable="false"
@@ -106,8 +126,10 @@
 
             <ImageButton
                 android:id="@+id/threadCache"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/save_thread"
                 android:focusable="false"

@@ -84,7 +84,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         else 
         	bodyView.setText("");        
                 
-        /* Favorite button on click listener */
+        /* Edit button on click listener */
         ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);
         
         editButton.setFocusable(false);
@@ -109,6 +109,20 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			}
         	
         });
+        
+        /* Tag button on click listener */
+        ImageButton tagButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadTagsEdit);
+        
+        tagButton.setFocusable(false);
+        tagButton.setOnClickListener(new ImageButton.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				view.onTagClick(getItem(position));
+			}
+        	
+        });
+
         
         /* Reply button on click listener */
         ImageButton replyButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadReply);

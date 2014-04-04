@@ -194,4 +194,11 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		//Toast.makeText(activity, "Searching: " + searchText,  Toast.LENGTH_LONG).show();
 		controller.enterTags(searchText);
 	}
+
+	@Override
+	public void onTagClick(ThreadModel thread)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
