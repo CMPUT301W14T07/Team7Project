@@ -178,8 +178,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				{
 					ThreadTagModel tagModel = currentPage.getTags();
 					
-					//TODO: fetch by tag
+					ArrayList<String> tags = tagModel.getTags();
 					
+					threads = fetcher.fetchTaggedComments(tags);
 				}
 				else if(NavigatorMode.GLOBAL == currentPage.getMode()) //this works, just need the GUI for it
 				{

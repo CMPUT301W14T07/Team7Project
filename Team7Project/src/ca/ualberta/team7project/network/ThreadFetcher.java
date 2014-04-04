@@ -53,6 +53,25 @@ public class ThreadFetcher
 		this.lon = longitude;
 	}
 	
+	public ArrayList<ThreadModel> fetchTaggedComments(ArrayList<String> tags)
+	{
+		String sortString = "_search?sort=threadTimestamp:desc" + "&" + "size=40";
+		String sortEntity = "{";
+
+		sortEntity += "\"query\":{\"query_string\":{\"query\":\"innerTags:(";
+		
+		//insert space-seperated UUID's into the sortEntity (extra space at end is OK)
+		for(String tag : tags)
+		{
+			sortEntity += tag + " ";
+		}
+		
+		sortEntity += ")\"}}";
+		sortEntity += "}";
+		
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
+	}
+	
 	/**
 	 * Fetch comments globally (so not by parent) by location/date
 	 * @param sort sorting method
