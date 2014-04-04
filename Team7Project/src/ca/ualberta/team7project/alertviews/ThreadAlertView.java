@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.models.LocationModel;
+import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
 /**
@@ -81,7 +82,7 @@ public class ThreadAlertView extends DialogFragment
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
-
+		
 		/*
 		 * Create the builder, inflate the layout and set the view to the
 		 * appropriate xml file

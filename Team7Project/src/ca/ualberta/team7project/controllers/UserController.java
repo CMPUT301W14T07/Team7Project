@@ -7,7 +7,7 @@ package ca.ualberta.team7project.controllers;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.SharedPreferences;
+import ca.ualberta.team7project.models.ApplicationStateModel;
 import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.UserPersistenceModel;
@@ -19,7 +19,6 @@ import ca.ualberta.team7project.views.UserView;
 public class UserController
 {
 	private static Context context;
-	private FragmentManager fragment;
 	
 	private static PreferenceModel user = null;
 	private static UserView userView;
@@ -29,16 +28,12 @@ public class UserController
 	
 	public UserController(Context context, FragmentManager fragment)
 	{
-		super();
 		UserController.context = context;
-		this.fragment = fragment;
-		
 		UserController.cachedLocation = new LocationModel();
 		
-		this.setUserView(new UserView(UserController.context, this.fragment));
+		UserController.userView = new UserView(UserController.context, fragment);
 		this.persistence = new UserPersistenceModel(context);
 		
-		/* Set the user by retrieving from file system, or creating a new user */
 		setUserInitialRun();	
 	}
 	
@@ -62,7 +57,9 @@ public class UserController
 	{
 		PreferenceModel newUser = null;
 
-		if (firstRun() == true)
+		ApplicationStateModel appState = new ApplicationStateModel(context);
+		
+		if (appState.firstRun() == true)
 		{
 			userView.promptIdentityAlertView();			
 		} else
@@ -79,7 +76,7 @@ public class UserController
 			}
 		}
 
-		setFirstRun();	
+		appState.setFirstRun();	
 	}
 	
 	private PreferenceModel deserializeUser()
@@ -87,42 +84,6 @@ public class UserController
 		return persistence.deserializeUser();
 	}
 
-	/* The following two methods are to be moved
-	 * See issue https://github.com/CMPUT301W14T07/Team7Project/issues/30
-	 */
-	
-	/**
-	 * A simple check to determine if the application has ever been run on this
-	 * phone.
-	 * <p>
-	 * This is necessary to set the user in this is the first time the application 
-	 * has launched.
-	 * @return Boolean True if application has run before.
-	 */
-	public boolean firstRun()
-	{
-
-		SharedPreferences persistence = UserController.context
-				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
-
-		return persistence.getBoolean("firstRun", true);
-	}
-
-	/**
-	 * Create a setting to represent that the application has now run for the
-	 * first time.
-	 */
-	public void setFirstRun()
-	{
-		
-		SharedPreferences persistence = UserController.context
-				.getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = persistence.edit();
-
-		editor.putBoolean("firstRun", false);
-		editor.commit();
-
-	}
 		
 	/**
 	 * Update the location of the user or cache the coordinates if no user exists.
@@ -173,34 +134,4 @@ public class UserController
 		userView.updateViews(user);
 	}
 	
-	public UserPersistenceModel getPersistence()
-	{
-		return persistence;
-	}
-
-	public void setPersistence(UserPersistenceModel persistence)
-	{
-		this.persistence = persistence;
-	}
-	
-	public FragmentManager getFragment()
-	{
-		return fragment;
-	}
-
-	public void setFragment(FragmentManager fragment)
-	{
-		this.fragment = fragment;
-	}
-
-	public UserView getUserView()
-	{
-		return userView;
-	}
-
-	public void setUserView(UserView userView)
-	{
-		UserController.userView = userView;
-	}
-
 }
