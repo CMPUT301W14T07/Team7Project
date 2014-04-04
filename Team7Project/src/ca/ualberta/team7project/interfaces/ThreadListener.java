@@ -22,4 +22,5 @@ public interface ThreadListener
 	public void newTopicToast();
 	public void favoriteToast();
 	public void cacheToast();
+	public void onTagSearch(String searchText);
 }

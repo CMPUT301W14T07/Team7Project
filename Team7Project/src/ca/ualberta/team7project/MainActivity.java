@@ -15,6 +15,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView.IdentityListener;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.controllers.LocationController;
@@ -44,6 +48,9 @@ public class MainActivity extends Activity implements IdentityListener
 	//CacheOperation needed for saving threads offline
 	public static CacheOperation tool = new CacheOperation();
 	
+	ImageButton searchButton;
+	EditText searchText;
+	
 	/**
 	 * Creates the state of the application when the activity is initialized
 	 */
@@ -62,13 +69,28 @@ public class MainActivity extends Activity implements IdentityListener
 		actionBar.setCustomView(R.layout.action_top);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.show();
-	
+		
 		//must create userController before listController
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.locationController = new LocationController();
 		
 		listController.refreshThreads();
+		
+		searchButton = (ImageButton) findViewById(ca.ualberta.team7project.R.id.action_search);
+		searchText = (EditText) findViewById(ca.ualberta.team7project.R.id.tag_search_box);
+		
+		if(searchButton != null)
+		{
+			searchButton.setOnClickListener(new OnClickListener()
+			{
+			  @Override
+			  public void onClick(View v) 
+			  {
+				  threadListener.onTagSearch(searchText.getText().toString());
+			  }    
+			});
+		}
 		
 		//haven't decoupled from being online all the time, so just overwrite
 		//for now

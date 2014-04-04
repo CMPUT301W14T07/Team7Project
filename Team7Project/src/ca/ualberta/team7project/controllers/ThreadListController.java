@@ -109,6 +109,17 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		refreshThreads();
 	}
 	
+	public void enterTags(String tags)
+	{
+		String tempTags = tags.replace(" ", "");
+		ThreadTagModel tagModel = new ThreadTagModel();
+		tagModel.parseAndSet(tempTags, ",");
+		
+		stack.add(new Navigator(tagModel));
+		
+		refreshThreads();
+	}
+	
 	public void topicsHome()
 	{
 		if(stack.size() > 1)
@@ -165,9 +176,10 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				}
 				else if(NavigatorMode.TAG == currentPage.getMode())
 				{
-					String tag = currentPage.getTag();
+					ThreadTagModel tagModel = currentPage.getTags();
 					
 					//TODO: fetch by tag
+					
 				}
 				else if(NavigatorMode.GLOBAL == currentPage.getMode()) //this works, just need the GUI for it
 				{
@@ -176,7 +188,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				else return;
 				
 				listModel = new ThreadListModel();
-				listModel.setTopics(threads);
+				
+				if(threads != null)
+					listModel.setTopics(threads);
 					
 				listView.notifyListChange(listModel);
 			}
@@ -514,7 +528,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		private NavigatorMode mode;
 		private UUID uuid;
-		private String tag;
+		private ThreadTagModel tags;
 		
 		public Navigator(NavigatorMode mode)
 		{
@@ -527,10 +541,10 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			this.uuid = uuid;
 		}
 		
-		public Navigator(String tag)
+		public Navigator(ThreadTagModel tags)
 		{
 			this.mode = NavigatorMode.TAG;
-			this.tag = tag;
+			this.tags = tags;
 		}
 		
 		public NavigatorMode getMode()
@@ -543,9 +557,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			return uuid;
 		}
 		
-		public String getTag()
+		public ThreadTagModel getTags()
 		{
-			return tag;
+			return tags;
 		}
 	}
 }
