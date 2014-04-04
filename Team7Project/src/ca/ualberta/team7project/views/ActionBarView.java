@@ -5,7 +5,6 @@
  */
 package ca.ualberta.team7project.views;
 
-import android.R;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;

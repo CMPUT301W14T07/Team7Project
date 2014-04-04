@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +44,11 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        final ThreadModel thread = getItem(position);
         View rowView;
 
         /* Use a different layout depending on whether the thread has an image */
-        Bitmap bitmap = getItem(position).getImage();
+        Bitmap bitmap = thread.getImage();
 
         ImageView image;
 
@@ -66,11 +65,11 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         
         /* Set the author name */
         TextView authorView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.authorName);
-        authorView.setText(getItem(position).getAuthorName());
+        authorView.setText(thread.getAuthorName());
         
         /* Ensure the title is not null before setting it in the layout */
         TextView titleView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTitle);
-        String title = getItem(position).getTitle();
+        String title = thread.getTitle();
         
         if(title != null)
         	titleView.setText(title);
@@ -79,7 +78,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 
         /* Set comment body. Body should never be null, so this is just a precaution */
         TextView bodyView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadBody);
-        String body = getItem(position).getComment();
+        String body = thread.getComment();
         
         if(body != null)
         	bodyView.setText(body);
@@ -88,7 +87,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         
         /* Set tags */
         TextView tagView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTags);
-        ThreadTagModel tags = getItem(position).getTags();
+        ThreadTagModel tags = thread.getTags();
         
         if(tags != null)
         	tagView.setText("Tags: " + tags.customFormatTag(", "));
@@ -103,7 +102,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			@Override
 			public void onClick(View v)
 			{
-				view.onEditClick(getItem(position));
+				view.onEditClick(thread);
 			}
         	
         });
@@ -116,7 +115,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			@Override
 			public void onClick(View v)
 			{
-				view.onFavoriteClick(getItem(position));
+				view.onFavoriteClick(thread);
 			}
         	
         });
@@ -129,7 +128,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			@Override
 			public void onClick(View v)
 			{
-				view.onTagClick(getItem(position));
+				view.onTagClick(thread);
 			}
         	
         });
@@ -143,7 +142,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			@Override
 			public void onClick(View v)
 			{
-				view.onReplyClick(getItem(position));
+				view.onReplyClick(thread);
 			}	
 			
         });
@@ -157,7 +156,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			@Override
 			public void onClick(View v)
 			{
-				view.onCacheClick(getItem(position));
+				view.onCacheClick(thread);
 			}	
 			
         });
@@ -172,6 +171,11 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         return threads.size();
     }
     
+    /**
+     * Retrieve a ThreadModel for a particular position in the listview.
+     * @param The position within the listview to retrieve.
+     * @return The thread at a particular position in the listview.
+     */
     @Override
     public ThreadModel getItem(int position) {
         return threads.get(position);
