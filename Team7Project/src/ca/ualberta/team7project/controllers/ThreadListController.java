@@ -16,6 +16,7 @@ import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ThreadFetcher;
 import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
@@ -337,7 +338,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 * @param title of the thread
 	 * @param body of the thread
 	 */
-	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto)
+	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
 	{
 		/* First we need to get the UserModel to associate with a ThreadModel */
 		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
@@ -348,6 +349,11 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		
 		if(cameraPhoto != null)
 			newThread.setImage(cameraPhoto);
+		
+		String spacelessTags = tags.replace(" ", "");
+		ThreadTagModel tagModel = new ThreadTagModel();
+		tagModel.parseAndSet(spacelessTags, ",");
+		newThread.setTags(tagModel);
 		
 		/* Determine if the user was editing, replying or creating a new thread */
 		if(getEditingTopic() == true)

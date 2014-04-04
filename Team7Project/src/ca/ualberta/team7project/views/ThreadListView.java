@@ -108,9 +108,9 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	}
 
 	@Override
-	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto)
+	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
 	{	
-		controller.createThread(title, comment, location, cameraPhoto);
+		controller.createThread(title, comment, location, cameraPhoto, tags);
 	}
 
 	@Override

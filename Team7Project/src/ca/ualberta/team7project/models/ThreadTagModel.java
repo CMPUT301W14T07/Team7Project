@@ -19,11 +19,11 @@ import java.util.Iterator;
 public class ThreadTagModel
 {
 	
-	private ArrayList<String> tags;
+	private ArrayList<String> innerTags;
 	
 	public ThreadTagModel()
 	{
-		this.tags = new ArrayList<String>();
+		this.innerTags = new ArrayList<String>();
 	}
 	
 	/**
@@ -51,13 +51,13 @@ public class ThreadTagModel
 	
 	public void addTag(String tag)
 	{
-		this.tags.add(tag);
-		this.tags = sort(this.tags);
+		this.innerTags.add(tag);
+		this.innerTags = sort(this.innerTags);
 	}
 	
 	public void removeTag(String tag)
 	{
-		this.tags.remove(tag);
+		this.innerTags.remove(tag);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class ThreadTagModel
 	 */
 	public boolean contains(String tag)
 	{
-		return this.tags.contains(tag);
+		return this.innerTags.contains(tag);
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class ThreadTagModel
 	{
 		StringBuilder builder = new StringBuilder();
 				
-		for(String tag :this.tags)
+		for(String tag :this.innerTags)
 		{
 			builder.append(tag);
 			builder.append(delimiter); 
@@ -130,13 +130,13 @@ public class ThreadTagModel
 	public ArrayList<String> getTags()
 	{
 	
-		return tags;
+		return innerTags;
 	}
 	
 	public void setTags(ArrayList<String> tags)
 	{
 	
-		this.tags = sort(tags);
+		this.innerTags = sort(tags);
 	}
 	
 }

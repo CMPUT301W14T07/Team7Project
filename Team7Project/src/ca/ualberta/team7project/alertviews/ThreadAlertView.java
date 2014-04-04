@@ -61,7 +61,7 @@ public class ThreadAlertView extends DialogFragment
 	public interface ThreadAlertListener
 	{
 		public void insertImage();
-		public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto);
+		public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags);
 	}
 
 	ThreadAlertListener listener;
@@ -219,8 +219,9 @@ public class ThreadAlertView extends DialogFragment
 
 						String title = titleInput.getText().toString();
 						String body = bodyInput.getText().toString();
+						String tags = tagInput.getText().toString();
 						
-						listener.createThread(title, body, location, cameraPhoto);
+						listener.createThread(title, body, location, cameraPhoto, tags);
 					}
 				});
 		
