@@ -23,6 +23,7 @@ public class ThreadTagModelTest extends ActivityInstrumentationTestCase2<MainAct
 		super.setUp();
 	}
 	
+	
 	/**
 	 * ThreadTagModel needs to be able to tag a string of tags, parse it and add it to the arraylist
 	 */

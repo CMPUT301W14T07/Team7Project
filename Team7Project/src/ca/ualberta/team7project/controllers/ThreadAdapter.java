@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
 /**
@@ -83,7 +85,16 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         	bodyView.setText(body);
         else 
         	bodyView.setText("");        
-                
+        
+        /* Set tags */
+        TextView tagView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTags);
+        ThreadTagModel tags = getItem(position).getTags();
+        
+        if(tags != null)
+        	tagView.setText("Tags: " + tags.customFormatTag(", "));
+        else
+        	tagView.setText("");
+        
         /* Edit button on click listener */
         ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);
         
