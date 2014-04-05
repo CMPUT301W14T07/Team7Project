@@ -20,6 +20,9 @@ public class ThreadFetcher
 	
 	boolean isPictureSort = false;
 	
+	private final String pictureFilterEntityString = "\"query\":{\"constant_score\":{\"filter\":"
+			+ "{\"exists\":{\"field\":\"innerBitmapData\"}}}}";
+	
 	/**
 	 * Construct and set max size to the default (15)
 	 */
@@ -74,6 +77,10 @@ public class ThreadFetcher
 		}
 		
 		sortEntity += ")\"}}";
+		
+		if(isPictureSort)
+			sortEntity += pictureFilterEntityString;
+		
 		sortEntity += "}";
 		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
@@ -87,26 +94,30 @@ public class ThreadFetcher
 	public ArrayList<ThreadModel> fetchComments(SortMethod sort)
 	{
 		String sortString = null;
-		String sortEntity = null;
+		String sortEntity = "{";
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?sort=threadTimestamp:desc" + "&" + listSize;
-				sortEntity = null;
 				break;
 			case LOCATION:
 				sortString = "_search" + "?" + listSize;
-				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
-				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
 			default:
 				sortString = "_search" + "?" + listSize;
-				sortEntity = null;
 		}
+		
+		if(isPictureSort)
+			sortEntity += pictureFilterEntityString;	
+		
+		sortEntity += "}";
+		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
@@ -121,17 +132,17 @@ public class ThreadFetcher
 	public ArrayList<ThreadModel> fetchChildComments(UUID parentID, SortMethod sort)
 	{
 		String sortString = null;
-		String sortEntity = null;
+		String sortEntity = "{";
+		
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" +
 						"sort=threadTimestamp:desc" + "&" + listSize;
-				sortEntity = null;
 				break;
 			case LOCATION:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
-				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
@@ -140,8 +151,13 @@ public class ThreadFetcher
 			case NO_SORT:
 			default:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
-				sortEntity = null;
 		}
+		
+		if(isPictureSort)
+			sortEntity += pictureFilterEntityString;	
+		
+		sortEntity += "}";
+		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
@@ -191,6 +207,10 @@ public class ThreadFetcher
 		}
 		
 		sortEntity += ")\"}}";
+		
+		if(isPictureSort)
+			sortEntity += pictureFilterEntityString;
+		
 		sortEntity += "}";
 		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
