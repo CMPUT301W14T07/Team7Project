@@ -7,21 +7,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
-import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
-import ca.ualberta.team7project.alertviews.TagDeleteAlertView;
 import ca.ualberta.team7project.alertviews.TagInsertAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.LocationModel;
-import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ConnectionDetector;
-import ca.ualberta.team7project.network.ThreadFetcher;
-import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 import ca.ualberta.team7project.network.ThreadUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 import ca.ualberta.team7project.views.ThreadListView.FavoriteMode;
@@ -219,7 +213,8 @@ public class ThreadListController extends Activity
 	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
 	{	
 		ConnectionDetector detector = new ConnectionDetector(MainActivity.getMainContext());
-		if(detector.isConnectingToInternet()){
+		if(detector.isConnectingToInternet())
+		{
 			/* First we need to get the UserModel to associate with a ThreadModel */
 			UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 			currentUser.setLocation(location);
@@ -273,7 +268,8 @@ public class ThreadListController extends Activity
 	
 			this.refreshThreads();
 		}
-		else{
+		else
+		{
 			MainActivity.userListener.postFailToast();
 		}
 	}
