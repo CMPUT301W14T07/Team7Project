@@ -187,9 +187,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 					threads = fetcher.fetchTaggedComments(tags);
 				}
 				else if(NavigatorMode.GLOBAL == currentPage.getMode())
-				{
-					//TODO: implement global sorting
-					
+				{				
 					threads = fetcher.fetchComments(currSort);
 				}
 				else return;
