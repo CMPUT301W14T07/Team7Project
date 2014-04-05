@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,13 +88,14 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         
         /* Set tags */
         TextView tagView = (TextView) rowView.findViewById(ca.ualberta.team7project.R.id.threadTags);
-        ThreadTagModel tags = thread.getTags();
-        
-        if(tags != null)
-        	tagView.setText("Tags: " + tags.customFormatTag(", "));
-        else
-        	tagView.setText("");
-        
+        tagView.setTextColor(Color.GRAY);
+
+        ThreadTagModel tags = thread.getTags();        
+        String tag = context.getResources().getString(ca.ualberta.team7project.R.string.tag);
+
+        if(tags != null && tags.tagCount() >= 2)
+            tagView.setText(tag + tags.customFormatTag(", "));
+                
         /* Edit button on click listener */
         ImageButton editButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadEdit);
         
@@ -132,7 +134,6 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			}
         	
         });
-
         
         /* Reply button on click listener */
         ImageButton replyButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadReply);
@@ -147,7 +148,6 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			
         });
         
-        
         /* Cache button on click listener */
         ImageButton cacheButton = (ImageButton) rowView.findViewById(ca.ualberta.team7project.R.id.threadCache);
         
@@ -160,7 +160,6 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			}	
 			
         });
-        
         
 		return rowView;
     }

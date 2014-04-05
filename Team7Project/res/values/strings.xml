@@ -45,6 +45,7 @@
     <string name="sorting_options">Sorting preferences</string>
     <string name="show_favorites">Show favorites</string>
     <string name="tag_search_hint">Search thread tags</string>
+    <string name="show_cache">Show cached comments</string>
     <string name="search">Search</string>
     
     <!-- Strings for the CreateIdentityAlertView -->

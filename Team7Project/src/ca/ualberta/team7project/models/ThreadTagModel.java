@@ -26,13 +26,22 @@ public class ThreadTagModel
 	}
 	
 	/**
-	 * Parse a string and set the current Model's tags
+	 * Parse a string and set the current Model's tags after trimming whitespace
 	 * @param tags to be parsed
 	 * @param delimiter the character sequence between tokens
 	 */
 	public void parseAndSet(String tags, String delimiter)
 	{
-		setTags(sort(parseTags(tags, delimiter)));
+		setTags(sort(parseTags(tags.trim(), delimiter)));
+	}
+	
+	/**
+	 * Retrieve how many tags are contained in the model
+	 * @return the number of tags in the model
+	 */
+	public int tagCount()
+	{
+		return this.innerTags.size();
 	}
 	
 	/**
