@@ -198,61 +198,6 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		});
 	}
 	
-	/**
-	 * This code is identical as above, but co-opted for now to run a separate listView with
-	 * our favorite threads
-	 * @author Eden
-	 */
-	/*
-	public void viewFavorites()
-	{
-		activity.runOnUiThread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-		
-				ThreadFetcher fetcher = new ThreadFetcher();
-				PreferenceModel prefs = MainActivity.getUserController().getUser();
-				ArrayList<UUID> favs =prefs.getFavoriteComments();
-				ArrayList<ThreadModel> results = new ArrayList<ThreadModel>();
-				
-				if(prefs == null)
-					return;
-				UserModel currentUser = prefs.getUser();
-				fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
-				
-				//unsure how to return to a previous view using the stack
-				UUID parent = (stack.get(stack.size()-1)).getUuid();
-				
-				ThreadListController controller = MainActivity.getListController();
-				
-				if(controller == null)
-					return;
-				
-				//ThreadFetcher returns an array of ThreadModels, but to remain consistent, 
-				//the view the user sees should be similar to start up, that is a list of top
-				//level comments. Because of this, can only feed ThreadFetcher the uniqueID of
-				//a favorited thread and it will only return one item in the arraylist. As such,
-				//have to add each result to a general results variable and then pass it to the 
-				//ThreadListModel
-				for (UUID id : favs)
-				{
-					ArrayList<ThreadModel> threads = fetcher.fetchChildComments(id, controller.getSortMethod());
-					results.add(threads.get(0));					
-				}
-				
-				
-				
-				listModel = new ThreadListModel();
-				listModel.setTopics(results);
-					
-				listView.notifyListChange(listModel);
-		
-			}
-		});
-	}
-	*/
 	
 	/**
 	 * When a user clicks on the Favorite button, the ThreadModel UUID is added
