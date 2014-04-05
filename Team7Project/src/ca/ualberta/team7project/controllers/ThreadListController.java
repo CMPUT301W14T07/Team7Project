@@ -219,7 +219,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 
 	/**
 	 * When called, PreferenceModel will return the UUIDs of favoriteComments.
-	 * @return
+	 * @return ArrayList of UUIDs marked as favorites
 	 */
 	public ArrayList<UUID> getFavorites()
 	{		
@@ -228,16 +228,13 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	
 	/**
 	 * When user clicks on the Cache button, UUID is added
-	 * A toast is also displayed. This may be redundant, especially
-	 * since functionally speaking Caching and Favoriting are 
-	 * identical actions, but how we handle the categories may be
-	 * different
+	 * A toast is also displayed. 
 	 * @return
 	 */
 	public void addCache(ThreadModel thread)
 	{
 		ThreadListController.listView.cacheToast();
-		MainActivity.getUserController().getUser().addCache(thread);
+		MainActivity.getUserController().getUser().addFavoriteComment(thread);
 	}
 
 	/**

@@ -104,7 +104,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onCacheClick(ThreadModel thread)
 	{
-		controller.addCache(thread);
+		controller.addFavorite(thread);
 	}
 
 	@Override

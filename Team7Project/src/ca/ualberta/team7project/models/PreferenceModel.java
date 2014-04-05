@@ -30,7 +30,7 @@ public class PreferenceModel
 	private UserModel user;
 	private ArrayList<UUID> favoriteComments;
 	private ArrayList<UUID> authoredComments;
-	private ArrayList<UUID> cacheComments;
+
 	
 	/**
 	 * Constructs the PreferenceModel with a given username
@@ -41,7 +41,6 @@ public class PreferenceModel
 		super();
 		this.authoredComments = new ArrayList<UUID>();
 		this.favoriteComments = new ArrayList<UUID>();
-		this.cacheComments = new ArrayList<UUID>();
 		this.user = new UserModel(username);
 
 	}
@@ -81,26 +80,7 @@ public class PreferenceModel
 		}
 		
 	}
-	
-	public void addCache(ThreadModel thread)
-	{
-		if (!this.cacheComments.contains(thread))
-		{
-			this.cacheComments.add(thread.getUniqueID());
-			MainActivity.getUserController().saveOpenUser();
-		}
-	}
 
-	public ArrayList<UUID> getCacheComments()
-	{
-		return cacheComments;
-	}
-	
-	/**
-	 * Without knowing how the cache works, for now just return
-	 * ArrayList of UUIDs, see getFavoriteComments.
-	 * @return
-	 */
 	public ArrayList<UUID> getAuthoredComments()
 	{
 

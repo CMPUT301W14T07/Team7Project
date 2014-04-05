@@ -98,24 +98,6 @@ public class PreferencesModelTests extends
 		
 	}
 	
-	public void testAddCache()
-	{
-		PreferenceModel preference = new PreferenceModel("Bob");
-
-		ThreadModel thread = new ThreadModel("Pokemon: The Movie", preference.getUser(), "Bob's favorite movies");
-		preference.addCache(thread);
-		
-		ArrayList<UUID> cached = new ArrayList<UUID>();
-		cached.add(thread.getUniqueID());
-		
-		assertEquals("Cached thread inserted correctly", preference.getCacheComments(), cached);
-		
-		
-		cached.add(thread.getUniqueID());
-		cached.add(thread.getUniqueID());
-		assertEquals("No duplicates were entered into ArrayList", preference.getCacheComments().size(), 1);
-	}
-	
 	/* Add to authored comments */
 	public void testAuthoredComments()
 	{
