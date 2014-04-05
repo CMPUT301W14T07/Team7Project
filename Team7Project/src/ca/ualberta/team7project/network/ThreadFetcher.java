@@ -3,6 +3,8 @@ package ca.ualberta.team7project.network;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.ThreadModel;
 
 /**
@@ -14,6 +16,7 @@ import ca.ualberta.team7project.models.ThreadModel;
 public class ThreadFetcher
 {
 	private ElasticSearchOperation search;
+	private CacheOperation cache;
 	private String listSize;
 	double lat = 0;
 	double lon = 0;
@@ -21,6 +24,8 @@ public class ThreadFetcher
 	boolean isPictureSort = false;
 	
 	private final String pictureFilterEntityString = "\"filter\":{\"exists\":{\"field\":\"innerBitmapData\"}}";
+	
+	private ConnectionDetector detector;
 	
 	/**
 	 * Construct and set max size to the default (15)
@@ -30,6 +35,7 @@ public class ThreadFetcher
 		super();
 		listSize = "size=15";
 		search = new ElasticSearchOperation();
+		detector = new ConnectionDetector(MainActivity.getMainContext());
 	}
 	
 	/**
@@ -41,6 +47,7 @@ public class ThreadFetcher
 		super();
 		listSize = "size=" + Integer.toString(maxItems);
 		search = new ElasticSearchOperation();
+		detector = new ConnectionDetector(MainActivity.getMainContext());
 	}
 	
 	/**
@@ -72,6 +79,16 @@ public class ThreadFetcher
 		this.lon = longitude;
 	}
 	
+	public void InitCacheOperation(SortMethod sort)
+	{
+		cache = new CacheOperation();
+		
+		cache.SetSortMethod(sort);
+		cache.SetMaxResults(20);
+		cache.SetFilterPicture(isPictureSort);
+		cache.SetLocation(lat, lon);
+	}
+	
 	/**
 	 * Fetch comments that match a set of tags
 	 * <p>
@@ -81,6 +98,12 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchTaggedComments(ArrayList<String> tags)
 	{
+		if(! detector.isConnectingToInternet())
+		{
+			InitCacheOperation(SortMethod.NO_SORT);
+			return cache.searchTags(tags);
+		}
+		
 		String sortString = "_search?sort=threadTimestamp:desc" + "&" + "size=40";
 		String sortEntity = "{";
 
@@ -109,6 +132,12 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchComments(SortMethod sort)
 	{
+		if(! detector.isConnectingToInternet())
+		{
+			InitCacheOperation(sort);
+			return cache.searchAll();
+		}
+		
 		String sortString = null;
 		String sortEntity = "{";
 		switch(sort)
@@ -147,6 +176,12 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchChildComments(UUID parentID, SortMethod sort)
 	{
+		if(! detector.isConnectingToInternet())
+		{
+			InitCacheOperation(sort);
+			return cache.searchChildren(parentID);
+		}
+		
 		String sortString = null;
 		String sortEntity = "{";
 		
@@ -187,6 +222,12 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchFavorites(ArrayList<UUID> favorites, SortMethod sort)
 	{
+		if(! detector.isConnectingToInternet())
+		{
+			InitCacheOperation(sort);
+			return cache.searchFavorites(favorites);
+		}
+		
 		String sortString = null;
 		String sortEntity = null;
 		String favoritesSize = "size=" + Integer.toString(favorites.size());

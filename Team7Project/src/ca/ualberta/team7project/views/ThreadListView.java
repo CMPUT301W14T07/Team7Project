@@ -135,7 +135,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	public void onThreadClick(ThreadModel thread)
 	{
 		controller.addFavorite(thread, FavoriteMode.PREV_READ);
-		controller.enterThread(thread);
+		controller.getNavigation().enterThread(thread);
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onTagSearch(String searchText)
 	{
-		controller.enterTags(searchText);
+		controller.getNavigation().enterTags(searchText);
 	}
 
 	@Override

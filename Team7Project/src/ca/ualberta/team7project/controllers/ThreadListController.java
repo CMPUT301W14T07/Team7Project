@@ -7,20 +7,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import ca.ualberta.team7project.MainActivity;
-import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
-import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
 import ca.ualberta.team7project.alertviews.TagInsertAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.LocationModel;
-import ca.ualberta.team7project.models.PreferenceModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ConnectionDetector;
-import ca.ualberta.team7project.network.ThreadFetcher;
-import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 import ca.ualberta.team7project.network.ThreadUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 import ca.ualberta.team7project.views.ThreadListView.FavoriteMode;
@@ -32,19 +27,8 @@ import ca.ualberta.team7project.views.ThreadListView.FavoriteMode;
  * <p>
  * Manages the internal comment-nesting stack and handles navigation between different nesting levels
  */
-public class ThreadListController extends Activity implements SortPreferencesAlertListener
+public class ThreadListController extends Activity
 {
-	protected enum NavigatorMode
-	{
-		//PARENT: view a page of child (or top-level comments)
-		//GLOBAL: view a page of comments, not constrained by parent
-		//FAVORITE: view a page of all favorited comments
-		//TAG: view a page of comments tagged with some tag
-		PARENT, GLOBAL, FAVORITE, TAG
-	}
-	
-	private ArrayList<Navigator> stack;
-	
 	private ThreadListModel listModel;
 	private static ThreadListView listView;
 	private static Activity activity;
@@ -54,20 +38,10 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	private Boolean editingThread;
 	private ThreadModel openThread;
 	
-	private static enum PictureFilterMode
-	{
-		NO_FILTER_PICTURE, FILTER_PICTURE
-	}
-	private PictureFilterMode picFilter = PictureFilterMode.NO_FILTER_PICTURE;
-	
-	//NO_SORT, DATE, LOCATION
-	private SortMethod sortMethod = SortMethod.DATE;
+	NavigationController navigation;
 	
 	public ThreadListController(Activity activity)
 	{
-		stack = new ArrayList<Navigator>();
-		stack.add(new Navigator(UUID.fromString(ThreadModel.ROOT)));
-		
 		ThreadListController.activity = activity;
 		
 		inTopic = false;
@@ -78,58 +52,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		listModel = new ThreadListModel();
 		ThreadListController.listView = new ThreadListView(this.listModel, activity, this);
 		
+		navigation = new NavigationController(listView, activity);
+		
 		this.refreshThreads();
-	}
-	
-	/**
-	 * Backs up to parent thread
-	 * 
-	 * @return true if there was a thread to exit to, false if there is no parent thread
-	 */
-	public boolean exitThread()
-	{
-		if(stack.size() == 1)
-			return false;
-		
-		stack.remove(stack.size()-1);
-		refreshThreads();
-		return true;
-	}
-	
-	public void enterThread(ThreadModel thread)
-	{
-		UUID id = thread.getUniqueID();
-		
-		stack.add(new Navigator(id));
-		
-		refreshThreads();
-	}
-	
-	public void enterFavorites()
-	{
-		stack.add(new Navigator(NavigatorMode.FAVORITE));
-		
-		refreshThreads();
-	}
-	
-	public void enterTags(String tags)
-	{
-		String tempTags = tags.replace(" ", "");
-		ThreadTagModel tagModel = new ThreadTagModel();
-		tagModel.parseAndSet(tempTags, ",");
-		
-		stack.add(new Navigator(tagModel));
-		
-		refreshThreads();
-	}
-	
-	public void topicsHome()
-	{
-		if(stack.size() > 1)
-		{
-			stack.subList(1, stack.size()).clear();
-			refreshThreads();
-		}
 	}
 	
 	/**
@@ -144,58 +69,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			@Override
 			public void run()
 			{
-		
-				ThreadFetcher fetcher = new ThreadFetcher();
-				
-				//get current location and feed it to the ThreadFetcher
-				PreferenceModel prefs = MainActivity.getUserController().getUser();
-				if(prefs == null)
-					return;
-				UserModel currentUser = prefs.getUser();
-				fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
-				
-				//get current sorting method
-				MainActivity mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
-				ThreadListController controller = mainActivity.getListController();
-				if(controller == null)
-					return;
-				SortMethod currSort = controller.getSortMethod();
-				
-				Navigator currentPage = stack.get(stack.size()-1);
-				
-				ArrayList<ThreadModel> threads = null;
-				
-				//add picture filter in if enabled
-				if(picFilter == PictureFilterMode.FILTER_PICTURE)
-					fetcher.EnablePictureSort();
-				
-				if(NavigatorMode.PARENT == currentPage.getMode())
-				{
-					UUID parent = (stack.get(stack.size()-1)).getUuid();
-					
-					threads = fetcher.fetchChildComments(parent, currSort);
-				}
-				else if(NavigatorMode.FAVORITE == currentPage.getMode())
-				{
-					ArrayList<UUID> favs = prefs.getFavoriteComments();
-					
-					threads = fetcher.fetchFavorites(favs, currSort);
-				}
-				else if(NavigatorMode.TAG == currentPage.getMode())
-				{
-					ThreadTagModel tagModel = currentPage.getTags();
-					
-					ArrayList<String> tags = tagModel.getTags();
-					
-					threads = fetcher.fetchTaggedComments(tags);
-				}
-				else if(NavigatorMode.GLOBAL == currentPage.getMode())
-				{				
-					threads = fetcher.fetchComments(currSort);
-				}
-				else return;
-				
 				listModel = new ThreadListModel();
+				
+				ArrayList<ThreadModel> threads = navigation.getRefreshedThreads();
 				
 				if(threads != null)
 					listModel.setTopics(threads);
@@ -341,7 +217,8 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
 	{	
 		ConnectionDetector detector = new ConnectionDetector(MainActivity.getMainContext());
-		if(detector.isConnectingToInternet()){
+		if(detector.isConnectingToInternet())
+		{
 			/* First we need to get the UserModel to associate with a ThreadModel */
 			UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 			currentUser.setLocation(location);
@@ -395,74 +272,39 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	
 			this.refreshThreads();
 		}
-		else{
+		else
+		{
 			MainActivity.userListener.postFailToast();
 		}
 	}
 	
-	public ThreadListModel getListModel()
-	{
-	
-		return listModel;
-	}
-	
-	public void setListModel(ThreadListModel threads)
-	{
-	
-		this.listModel = threads;
-	}
-	
 	public ThreadListView getListView()
 	{
-	
 		return listView;
 	}
 
-	public void setListView(ThreadListView listView)
-	{
-	
-		ThreadListController.listView = listView;
-	}
-	
-	public Activity getActivity()
-	{
-	
-		return activity;
-	}
-	
-	public void setActivity(Activity activity)
-	{
-		
-		ThreadListController.activity = activity;
-	}
-	
 	public Boolean getInTopic()
 	{
-		
 		return inTopic;
 	}
 	
 	public void setInTopic(Boolean type)
 	{
-		
 		inTopic = type;
 	}
 		
 	public Boolean getEditingTopic()
 	{
-		
 		return editingThread;
 	}
 	
 	public void setEditingTopic(Boolean type)
 	{
-		
 		editingThread = type;
 	}
 
 	public ThreadModel getOpenThread()
 	{
-		
 		return openThread;
 	}
 
@@ -470,101 +312,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	{
 		this.openThread = openThread;
 	}
-	
-	public void setSortPreferences(SortPreference newPreference)
-	{
-		switch(newPreference)
-		{
-			case BY_DATE:
-				sortMethod = SortMethod.DATE;
-				this.refreshThreads();
-				break;
-				
-			case BY_LOCATION:
-				sortMethod = SortMethod.LOCATION;
-				this.refreshThreads();
-				break;
-				
-			case FILTER_PICTURE:
-				picFilter = PictureFilterMode.FILTER_PICTURE;
-				this.refreshThreads();
-				break;
-				
-			case UNFILTER_PICTURE:
-				picFilter = PictureFilterMode.NO_FILTER_PICTURE;
-				this.refreshThreads();
-				break;
-				
-			case BY_PARENTS:
-				//change navigation mode to PARENT
-				//takes the user home
-				stack = new ArrayList<Navigator>();
-				stack.add(new Navigator(UUID.fromString(ThreadModel.ROOT)));
-				this.refreshThreads();
-				break;
-				
-			case GLOBALLY:
-				//change the navigation mode to GLOBAL
-				//takes the user home
-				stack = new ArrayList<Navigator>();
-				stack.add(new Navigator(NavigatorMode.GLOBAL));
-				this.refreshThreads();
-				break;
-		}
-	}
 
-	public PictureFilterMode getPicFilter()
+	public NavigationController getNavigation()
 	{
-		
-		return picFilter;
-	}
-
-	public SortMethod getSortMethod()
-	{
-		
-		return sortMethod;
-	}
-	
-	/**
-	 * Used to represent a single page in our navigation,
-	 * such as a page of child comments or a page of favorites
-	 */
-	private class Navigator
-	{
-		private NavigatorMode mode;
-		private UUID uuid;
-		private ThreadTagModel tags;
-		
-		public Navigator(NavigatorMode mode)
-		{
-			this.mode = mode;
-		}
-		
-		public Navigator(UUID uuid)
-		{
-			this.mode = NavigatorMode.PARENT;
-			this.uuid = uuid;
-		}
-		
-		public Navigator(ThreadTagModel tags)
-		{
-			this.mode = NavigatorMode.TAG;
-			this.tags = tags;
-		}
-		
-		public NavigatorMode getMode()
-		{
-			return mode;
-		}
-		
-		public UUID getUuid()
-		{
-			return uuid;
-		}
-		
-		public ThreadTagModel getTags()
-		{
-			return tags;
-		}
+		return navigation;
 	}
 }

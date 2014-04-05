@@ -95,7 +95,7 @@ public class ActionBarView extends Activity
 	 */
 	private void showFavorites()
 	{
-		MainActivity.getListController().enterFavorites();
+		MainActivity.getListController().getNavigation().enterFavorites();
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class ActionBarView extends Activity
 	 */
 	private void topicsHome()
 	{
-		MainActivity.getListController().topicsHome();
+		MainActivity.getListController().getNavigation().topicsHome();
 	}
 
 	/**
