@@ -164,7 +164,9 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				
 				ArrayList<ThreadModel> threads = null;
 				
-				//TODO: add picture filter in if enabled
+				//add picture filter in if enabled
+				if(picFilter == PictureFilterMode.FILTER_PICTURE)
+					fetcher.EnablePictureSort();
 				
 				if(NavigatorMode.PARENT == currentPage.getMode())
 				{
