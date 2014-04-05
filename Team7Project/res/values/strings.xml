@@ -76,6 +76,7 @@
 	<string name="save_thread">Save Thread</string>
 	<string name="image_thread">Thread Image</string>
 	<string name="tag_thread">Add Tag</string>
+	<string name="tag">Tags:</string>
 	
 	<!-- Strings for the LocationLookupAlertView -->
 	<string name="set_location">Set Alternate Location</string>

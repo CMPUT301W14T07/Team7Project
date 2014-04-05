@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
@@ -118,12 +119,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	}
 
 	@Override
-	public void insertImage()
-	{
-		// Next milestone
-	}
-
-	@Override
 	public void onPhotoClick(ThreadModel thread)
 	{
 		// Next milestone
@@ -161,7 +156,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onTagSearch(String searchText)
 	{
-		//Toast.makeText(activity, "Searching: " + searchText,  Toast.LENGTH_LONG).show();
 		controller.enterTags(searchText);
 	}
 

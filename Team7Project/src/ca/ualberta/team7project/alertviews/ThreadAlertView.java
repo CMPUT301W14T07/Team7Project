@@ -60,7 +60,6 @@ public class ThreadAlertView extends DialogFragment
 	
 	public interface ThreadAlertListener
 	{
-		public void insertImage();
 		public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags);
 	}
 

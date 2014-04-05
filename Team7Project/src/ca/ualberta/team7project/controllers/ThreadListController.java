@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.Toast;
+
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
