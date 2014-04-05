@@ -44,7 +44,7 @@ public class ThreadFetcher
 	 */
 	public static enum SortMethod
 	{
-		NO_SORT, DATE, LOCATION, DATE_LOCATION
+		NO_SORT, DATE, LOCATION
 	}
 	
 	public void SetLocation(double latitude, double longitude)

@@ -6,7 +6,6 @@ import java.util.UUID;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.Toast;
 
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
@@ -56,10 +55,11 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	
 	private static enum PictureFilterMode
 	{
-		NO_FILTER, FILTER_PICTURE, FILTER_NO_PICTURE
+		NO_FILTER_PICTURE, FILTER_PICTURE
 	}
-	private PictureFilterMode picFilter = PictureFilterMode.NO_FILTER;
+	private PictureFilterMode picFilter = PictureFilterMode.NO_FILTER_PICTURE;
 	
+	//NO_SORT, DATE, LOCATION
 	private SortMethod sortMethod = SortMethod.DATE;
 	
 	public ThreadListController(Activity activity)
@@ -164,6 +164,8 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				
 				ArrayList<ThreadModel> threads = null;
 				
+				//TODO: add picture filter in if enabled
+				
 				if(NavigatorMode.PARENT == currentPage.getMode())
 				{
 					UUID parent = (stack.get(stack.size()-1)).getUuid();
@@ -184,8 +186,10 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 					
 					threads = fetcher.fetchTaggedComments(tags);
 				}
-				else if(NavigatorMode.GLOBAL == currentPage.getMode()) //this works, just need the GUI for it
+				else if(NavigatorMode.GLOBAL == currentPage.getMode())
 				{
+					//TODO: implement global sorting
+					
 					threads = fetcher.fetchComments(currSort);
 				}
 				else return;
@@ -439,22 +443,37 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		{
 			case BY_DATE:
 				sortMethod = SortMethod.DATE;
-				Toast.makeText(activity, "Set sort by date", Toast.LENGTH_SHORT).show();
 				this.refreshThreads();
 				break;
 				
 			case BY_LOCATION:
 				sortMethod = SortMethod.LOCATION;
-				Toast.makeText(activity, "Set sort by location", Toast.LENGTH_SHORT).show();
 				this.refreshThreads();
 				break;
 				
 			case FILTER_PICTURE:
-				if(picFilter != PictureFilterMode.FILTER_PICTURE)
-					picFilter = PictureFilterMode.FILTER_PICTURE;
-				else
-					picFilter = PictureFilterMode.NO_FILTER;
+				picFilter = PictureFilterMode.FILTER_PICTURE;
+				this.refreshThreads();
+				break;
 				
+			case UNFILTER_PICTURE:
+				picFilter = PictureFilterMode.NO_FILTER_PICTURE;
+				this.refreshThreads();
+				break;
+				
+			case BY_PARENTS:
+				//change navigation mode to PARENT
+				//takes the user home
+				stack = new ArrayList<Navigator>();
+				stack.add(new Navigator(UUID.fromString(ThreadModel.ROOT)));
+				this.refreshThreads();
+				break;
+				
+			case GLOBALLY:
+				//change the navigation mode to GLOBAL
+				//takes the user home
+				stack = new ArrayList<Navigator>();
+				stack.add(new Navigator(NavigatorMode.GLOBAL));
 				this.refreshThreads();
 				break;
 		}

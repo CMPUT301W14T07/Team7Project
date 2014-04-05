@@ -96,5 +96,8 @@
 	<!-- String for adding tags to the thread -->
 	<string name="append_tag">Append Tag</string>
 	<string name="tag_name">Tag name</string>
+	<string name="sort_pictures_disable">Don\'t view only comments with pictures</string>
+	<string name="sort_global">Sort comments globally</string>
+	<string name="sort_parents">Sort by parent</string>
 	
 </resources>

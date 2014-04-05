@@ -23,7 +23,7 @@ public class SortPreferencesAlertView extends DialogFragment
 	
 	public static enum SortPreference
 	{
-		BY_DATE, FILTER_PICTURE, BY_LOCATION
+		BY_DATE, FILTER_PICTURE, BY_LOCATION, UNFILTER_PICTURE, GLOBALLY, BY_PARENTS
 	}
 	
 	public interface SortPreferencesAlertListener
@@ -67,22 +67,38 @@ public class SortPreferencesAlertView extends DialogFragment
 								switch(which)
 								{
 									case 0:
-										// Sort threads by date
+										// Sort threads by date (default)
 										Log.e(MainActivity.DEBUG, "sort by date");
 										listener.setSortPreferences(SortPreference.BY_DATE);
-										
 										break;
 									case 1:
-										// Sort threads by picture										
+										// Sort threads by proximity
+										Log.e(MainActivity.DEBUG, "sort by proximity");
+										listener.setSortPreferences(SortPreference.BY_LOCATION);
+										break;								
+										
+									case 2:	
+										// Sort threads by pictures									
 										Log.e(MainActivity.DEBUG, "sort by picture");
 										listener.setSortPreferences(SortPreference.FILTER_PICTURE);
-										
 										break;
-									case 2:
-										// Sort threads by proximity
-										Log.e(MainActivity.DEBUG, "sort by rating");
-										listener.setSortPreferences(SortPreference.BY_LOCATION);
+									
+									case 3:
+										// Disable sort by picture
+										Log.e(MainActivity.DEBUG, "disabled sort by picture");
+										listener.setSortPreferences(SortPreference.UNFILTER_PICTURE);									
+										break;
 										
+									case 4:
+										// Sort by parent (default)
+										Log.e(MainActivity.DEBUG, "view by parents");
+										listener.setSortPreferences(SortPreference.BY_PARENTS);									
+										break;
+										
+									case 5:
+										// Sort globally
+										Log.e(MainActivity.DEBUG, "view comments globally");
+										listener.setSortPreferences(SortPreference.GLOBALLY);
 										break;
 								}
 							}
