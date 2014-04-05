@@ -20,8 +20,7 @@ public class ThreadFetcher
 	
 	boolean isPictureSort = false;
 	
-	private final String pictureFilterEntityString = "\"query\":{\"constant_score\":{\"filter\":"
-			+ "{\"exists\":{\"field\":\"innerBitmapData\"}}}}";
+	private final String pictureFilterEntityString = "\"filter\":{\"exists\":{\"field\":\"innerBitmapData\"}}";
 	
 	/**
 	 * Construct and set max size to the default (15)
@@ -79,7 +78,7 @@ public class ThreadFetcher
 		sortEntity += ")\"}}";
 		
 		if(isPictureSort)
-			sortEntity += pictureFilterEntityString;
+			sortEntity += "," + pictureFilterEntityString;
 		
 		sortEntity += "}";
 		
@@ -154,7 +153,7 @@ public class ThreadFetcher
 		}
 		
 		if(isPictureSort)
-			sortEntity += pictureFilterEntityString;	
+			sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") + pictureFilterEntityString;	
 		
 		sortEntity += "}";
 		
@@ -176,16 +175,16 @@ public class ThreadFetcher
 		String sortEntity = null;
 		String favoritesSize = "size=" + Integer.toString(favorites.size());
 		
+		sortEntity = "{";
+		
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?sort=threadTimestamp:desc" + "&" + favoritesSize;
-				sortEntity = "{";
 				break;
 			case LOCATION:
 				sortString = "_search?" + favoritesSize;
-				sortEntity = "{";
-				
+			
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
@@ -195,7 +194,6 @@ public class ThreadFetcher
 			case NO_SORT:
 			default:
 				sortString = "_search?" + favoritesSize;
-				sortEntity = "{";
 		}
 		
 		sortEntity += "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
@@ -209,7 +207,7 @@ public class ThreadFetcher
 		sortEntity += ")\"}}";
 		
 		if(isPictureSort)
-			sortEntity += pictureFilterEntityString;
+			sortEntity += "," + pictureFilterEntityString;
 		
 		sortEntity += "}";
 		
