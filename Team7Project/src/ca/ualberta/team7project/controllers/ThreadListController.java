@@ -196,11 +196,15 @@ public class ThreadListController extends Activity
 		setOpenThread(thread);
 
 		TagInsertAlertView tagAlert = TagInsertAlertView.newInstance(thread);
+		tagAlert.setCancelable(false);
 		tagAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
 				.getFragmentManager(), "New Tag Alert");
 	}
 		
-
+	/**
+	 * Persist a new or updated thread into the cache and elastic search
+	 * @param thread to be inserted
+	 */
 	public void InsertThread(ThreadModel thread)
 	{
 		ThreadUpdater updater = new ThreadUpdater(listView);

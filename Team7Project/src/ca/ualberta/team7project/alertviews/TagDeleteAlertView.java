@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import ca.ualberta.team7project.OpenThreadInstance;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 
@@ -47,21 +48,25 @@ public class TagDeleteAlertView extends DialogFragment
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{		
 		String json = getArguments().getString("ThreadModel");
-		ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
-		ThreadTagModel threadTags = thread.getTags();
-		String[] tags = getList(threadTags);
+		final ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
+		final ThreadTagModel threadTags = thread.getTags();
+		
+		final String[] tags = getList(threadTags);
+		final ArrayList<String> toDelete = new ArrayList<String>();
 				
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(ca.ualberta.team7project.R.string.append_tag);
 		builder.setMultiChoiceItems(tags, null,  new DialogInterface.OnMultiChoiceClickListener(){
 
+			/* Save which tags to delete, but do not delete them immediately incase the user changes their mind */
 			@Override
 			public void onClick(DialogInterface dialog, int which,
 					boolean isChecked)
 			{
-
-				// TODO Auto-generated method stub
-				
+				if(isChecked == true)
+					toDelete.add(tags[which]);
+				if(isChecked == false)
+					toDelete.remove(tags[which]);
 			}
 			
 		});
@@ -71,8 +76,15 @@ public class TagDeleteAlertView extends DialogFragment
 
 					public void onClick(DialogInterface dialog, int id)
 					{
+						OpenThreadInstance openedThread = OpenThreadInstance.getInstance();
+						ThreadModel threadModel = openedThread.getThread();
+						
+						ThreadTagModel threadTags = threadModel.getTags();
 
+						for(String tag : toDelete)
+							threadTags.removeTag(tag);
 
+						threadModel.setTags(threadTags);
 					}
 				});
 
