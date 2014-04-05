@@ -145,7 +145,7 @@ public class CacheOperation {
 	{
 		//TODO: get the top <maxResults> threads
 		
-		return null;
+		return pool;
 	}
 	
 	/**
@@ -292,19 +292,22 @@ public class CacheOperation {
 	 */
 	public void saveThread(ThreadModel threadModel)
 	{	
-		UUID uuid = threadModel.getUniqueID();
-		//I assume the inserted threadModel is always the latest model
-		//I don't know if this assumption is right or not
-		int i;
-		for(i=0; i<ThreadModelPool.threadModelPool.size();i++){
-			UUID tempUUID = ThreadModelPool.threadModelPool.get(i).getUniqueID();
-			if(tempUUID.equals(uuid)){
-				ThreadModelPool.threadModelPool.set(i, threadModel);
-				return;
+		if(threadModel == null)
+			return;
+		
+		//we can assume the inserted threadModel is always the latest model
+		
+		//if an older/identical version of the thread already exists in pool, remove it
+		for(ThreadModel thread : ThreadModelPool.threadModelPool)
+		{
+			if(threadModel.getUniqueID().equals(thread.getUniqueID()))
+			{
+				ThreadModelPool.threadModelPool.remove(thread);
+				break;
 			}
 		}
 		
-		//otherwise, pool add one more threadModel
+		//add the up-to-date version of the thread to the pool
 		ThreadModelPool.threadModelPool.add(threadModel);
 	}
 	
@@ -315,8 +318,12 @@ public class CacheOperation {
 	 */
 	public void saveCollection(Collection<ThreadModel> collection)
 	{
-		for(ThreadModel threadModel: collection){
-			saveThread(threadModel);
+		if(collection != null)
+		{
+			for(ThreadModel threadModel: collection)
+			{
+				saveThread(threadModel);
+			}
 		}
 	}
 }

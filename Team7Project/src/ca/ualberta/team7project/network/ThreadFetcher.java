@@ -3,6 +3,7 @@ package ca.ualberta.team7project.network;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -15,6 +16,11 @@ import ca.ualberta.team7project.models.ThreadModel;
  */
 public class ThreadFetcher
 {
+	void CacheToast()
+	{
+		//Toast.makeText(MainActivity.getMainContext(), "Pulling from cache", Toast.LENGTH_SHORT).show();
+	}
+	
 	private ElasticSearchOperation search;
 	private CacheOperation cache;
 	private String listSize;
@@ -101,6 +107,7 @@ public class ThreadFetcher
 		if(! detector.isConnectingToInternet())
 		{
 			InitCacheOperation(SortMethod.NO_SORT);
+			CacheToast();
 			return cache.searchTags(tags);
 		}
 		
@@ -135,6 +142,7 @@ public class ThreadFetcher
 		if(! detector.isConnectingToInternet())
 		{
 			InitCacheOperation(sort);
+			CacheToast();
 			return cache.searchAll();
 		}
 		
@@ -179,6 +187,7 @@ public class ThreadFetcher
 		if(! detector.isConnectingToInternet())
 		{
 			InitCacheOperation(sort);
+			CacheToast();
 			return cache.searchChildren(parentID);
 		}
 		
@@ -225,6 +234,7 @@ public class ThreadFetcher
 		if(! detector.isConnectingToInternet())
 		{
 			InitCacheOperation(sort);
+			CacheToast();
 			return cache.searchFavorites(favorites);
 		}
 		

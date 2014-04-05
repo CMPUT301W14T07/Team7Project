@@ -77,6 +77,10 @@ public class ThreadListController extends Activity
 					listModel.setTopics(threads);
 					
 				listView.notifyListChange(listModel);
+				
+				CacheOperation saveCache = new CacheOperation();
+				saveCache.saveCollection(threads);
+				saveCache.saveFile(activity);
 			}
 		});
 	}
