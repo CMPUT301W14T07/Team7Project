@@ -23,4 +23,9 @@ public interface UserListener
 	public void updateLocationFailure();
 	public void invalidEditPermissions();
 	public void toastAddress(String address);
+	public void editToast();
+	public void replyingToast();
+	public void newTopicToast();
+	public void favoriteToast();
+	public void cacheToast();
 }

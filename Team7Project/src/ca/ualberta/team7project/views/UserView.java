@@ -95,5 +95,40 @@ public class UserView extends Activity implements UserListener
 		
 		Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show();					
 	}
+	
+	@Override
+	public void editToast()
+	{
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_edit, 
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void replyingToast()
+	{
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_reply, 
+				Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void newTopicToast()
+	{
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_create, 
+				Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void favoriteToast()
+	{
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_favorite, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void cacheToast()
+	{
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_cache, Toast.LENGTH_SHORT).show();
+		
+	}
 
 }

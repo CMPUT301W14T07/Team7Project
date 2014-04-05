@@ -40,7 +40,7 @@ public class MainActivity extends Activity implements IdentityListener
 	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
 
-	// See issue https://github.com/CMPUT301W14T07/Team7Project/issues/28
+
 	public static ThreadListener threadListener;
 	public static UserListener userListener;
 	public static PositionListener positionListener;
@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements IdentityListener
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.show();
 		
-		//must create userController before listController
+
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.locationController = new LocationController();

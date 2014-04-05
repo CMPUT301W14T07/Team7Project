@@ -18,10 +18,5 @@ public interface ThreadListener
 	public void notifyListChange(ThreadListModel list);
 	public void notifyThreadInserted(ThreadModel thread);
 	public void onRefresh();
-	public void editToast();
-	public void replyingToast();
-	public void newTopicToast();
-	public void favoriteToast();
-	public void cacheToast();
 	public void onTagSearch(String searchText);
 }

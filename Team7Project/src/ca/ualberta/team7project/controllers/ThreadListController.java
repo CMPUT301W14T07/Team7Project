@@ -212,14 +212,14 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		switch(fm)
 		{
 			case FAVORITE:
-				ThreadListController.listView.favoriteToast();
+				MainActivity.userListener.favoriteToast();
 				MainActivity.getUserController().getUser().addFavoriteComment(thread);
 				operation.saveThread(thread);
 				operation.saveFile(context);
 				break;
 				
 			case READ_LATER:
-				ThreadListController.listView.cacheToast();
+				MainActivity.userListener.cacheToast();
 				MainActivity.getUserController().getUser().addFavoriteComment(thread);
 				operation.saveThread(thread);
 				operation.saveFile(context);
@@ -330,7 +330,7 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 			newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
 			
 			updater.sendComment(newThread);
-			ThreadListController.listView.editToast();
+			MainActivity.userListener.editToast();
 		}
 		else
 		{
@@ -346,13 +346,13 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				newThread.setTopicUUID(topic);
 				updater.sendComment(newThread);
 				
-				ThreadListController.listView.replyingToast();
+				MainActivity.userListener.replyingToast();
 			}
 			/* User created new topic. Upload to Elastic Search */
 			else
 			{				
 				updater.sendComment(newThread);
-				ThreadListController.listView.newTopicToast();
+				MainActivity.userListener.newTopicToast();
 			}
 		}
 		

@@ -158,41 +158,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		this.listModel.addTopic(thread);
 		adapter.notifyDataSetChanged();
 	}
-
-	@Override
-	public void editToast()
-	{
-		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_edit, 
-				Toast.LENGTH_SHORT).show();
-
-	}
-
-	@Override
-	public void replyingToast()
-	{
-		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_reply, 
-				Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void newTopicToast()
-	{
-		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_create, 
-				Toast.LENGTH_SHORT).show();
-	}
-	
-	@Override
-	public void favoriteToast()
-	{
-		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_favorite, Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void cacheToast()
-	{
-		Toast.makeText(activity, ca.ualberta.team7project.R.string.toast_cache, Toast.LENGTH_SHORT).show();
-		
-	}
 	
 	@Override
 	public void onTagSearch(String searchText)
