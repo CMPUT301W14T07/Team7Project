@@ -3,15 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:weightSum="6" >
-
-    <ListView
-        android:id="@+id/tag_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-         >
-    </ListView>
+    android:weightSum="3" >
 
     <EditText
         android:id="@+id/text_add_tag"
@@ -23,11 +15,12 @@
     </EditText>
 
     <Button
-        android:id="@+id/button_add_tag"
+        android:id="@+id/button_delete_tag"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/append_tag" />
+        android:background="?android:selectableItemBackground"
+        android:text="@string/delete_tag" />
 
 </LinearLayout>

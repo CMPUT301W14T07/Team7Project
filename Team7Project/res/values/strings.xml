@@ -95,6 +95,7 @@
 	
 	<!-- String for adding tags to the thread -->
 	<string name="append_tag">Append Tag</string>
+	<string name="delete_tag">Select tags to delete</string>
 	<string name="tag_name">Tag name</string>
 	
 </resources>
