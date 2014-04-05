@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.location.GeolocationSorting;
 import ca.ualberta.team7project.location.LocationComparator;
@@ -55,15 +56,29 @@ public class LocationSortingTest extends ActivityInstrumentationTestCase2<MainAc
 		/* The distance between [50, 50] and [51, 51] is 131800 meters 
 		 * For the test, this may not be accurate, so an approximate is used
 		 */
+		Log.e("debug", String.valueOf(distance));
+
 		int intDistance = (int) Math.round(distance);
 		
-		assertEquals("Distance between two threads is correct", intDistance, 131800);
+		//assertEquals("Distance between two threads is correct", intDistance, 131800);
+		Log.e("debug", String.valueOf(intDistance));
+		assertTrue("Distance between two threads is correct", approximateDistance(intDistance, 131800, 1000));
+	}
+	/*
+	 * Helper function to check if distance is approximately correct. Not concerned with accuracy, just that a reasonable distance is returned.
+	 * Reuse #1 https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#miscellaneous
+	 */
+	private boolean approximateDistance(int positionA, int positionB,
+			int rounding)
+	{
+		return Math.abs(positionA - positionB) <= rounding;
 	}
 
+		
 	/**
 	 * Tests the ability to sort an ThreadListModle by geolocation
 	 */
-	public void testFindClosestThreads()
+	public void testThreadSort()
 	{
 		ThreadListModel listModel = new ThreadListModel();
 
@@ -92,12 +107,5 @@ public class LocationSortingTest extends ActivityInstrumentationTestCase2<MainAc
 		
 	}
 	
-	/**
-	 * Tests the ability to take an unsorted list of threads and sort with the closest thread to current location first.
-	 */
-	public void testThreadSort()
-	{
-		
-	}
 	
 }

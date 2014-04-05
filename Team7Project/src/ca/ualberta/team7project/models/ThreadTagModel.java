@@ -82,6 +82,9 @@ public class ThreadTagModel
 	
 	/**
 	 * Takes a delimiter and returns a formatted string of tags
+	 * <p>
+	 * A more complicated for loop is used so as to not append an extra delimiter
+	 * at the end of the StringBuilder.
 	 * @param delimiter the sequence of characters between string tags
 	 * @return a formatted string of tags
 	 */
@@ -89,10 +92,19 @@ public class ThreadTagModel
 	{
 		StringBuilder builder = new StringBuilder();
 				
-		for(String tag :this.innerTags)
+		int size = this.innerTags.size();
+		
+		if(size > 0)
 		{
-			builder.append(tag);
-			builder.append(delimiter); 
+			int i = 0;
+			
+			for(i = 0; i < size - 1; i++)
+			{
+				builder.append(this.innerTags.get(i));
+				builder.append(delimiter);
+			}
+			
+			builder.append(this.innerTags.get(i));
 		}
 		
 		return builder.toString();
