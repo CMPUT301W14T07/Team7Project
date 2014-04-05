@@ -93,4 +93,8 @@
 	<string name="current_gps">Current GPS Location</string>
 	<string name="existing_thread_loc">Existing Thread Location</string>
 	
+	<!-- String for adding tags to the thread -->
+	<string name="append_tag">Append Tag</string>
+	<string name="tag_name">Tag name</string>
+	
 </resources>

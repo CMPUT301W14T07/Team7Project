@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="6" >
+
+    <ListView
+        android:id="@+id/tag_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+         >
+    </ListView>
+
+    <EditText
+        android:id="@+id/text_add_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:hint="@string/tag_name" >
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button_add_tag"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/append_tag" />
+
+</LinearLayout>
