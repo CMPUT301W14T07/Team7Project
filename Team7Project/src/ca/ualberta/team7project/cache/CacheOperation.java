@@ -112,6 +112,8 @@ public class CacheOperation {
 	 */
 	private ArrayList<ThreadModel> sortPool(ArrayList<ThreadModel> pool)
 	{	
+		ArrayList<ThreadModel> poolCopy = new ArrayList<ThreadModel>(pool);
+		
 		switch(sortMethod)
 		{		
 			/*
@@ -121,11 +123,11 @@ public class CacheOperation {
 			 * 
 			 */
 			case DATE:
-				//TODO: date sort
+				//TODO: date sort the poolCopy
 				
 				break;
 			case LOCATION:
-				//TODO: proximity sort
+				//TODO: proximity sort the poolCopy
 				
 				break;
 			case NO_SORT:
@@ -134,7 +136,7 @@ public class CacheOperation {
 				break;
 		}
 		
-		return pool;
+		return poolCopy;
 	}
 	
 	private ArrayList<ThreadModel> getTop(ArrayList<ThreadModel> pool)
@@ -145,7 +147,7 @@ public class CacheOperation {
 	}
 	
 	/**
-	 * Get a list of favorited comments from the cache
+	 * Pull favorited comments from the cache
 	 * @param favorites list of favorite UUID's
 	 * @return list of favorited comments
 	 */
@@ -167,7 +169,7 @@ public class CacheOperation {
 	}
 	
 	/**
-	 * Get a list of child comments from the cache
+	 * Pull child comments from the cache
 	 * @param parent
 	 * @return list of child comments
 	 */
@@ -188,6 +190,10 @@ public class CacheOperation {
 		return getTop(childPool);
 	}
 	
+	/**
+	 * Pull comments globally from the cache
+	 * @return list of comments
+	 */
 	public ArrayList<ThreadModel> searchAll()
 	{
 		ArrayList<ThreadModel> pool = grabCurrentPool();
@@ -196,6 +202,13 @@ public class CacheOperation {
 		return getTop(pool);
 	}
 	
+	/**
+	 * Pull comments matching a set of tags from the cache
+	 * <p>
+	 * Pulls only comments that contain <i>all</i> the specified tags
+	 * @param tags list of tags to match
+	 * @return list of comments matching the passed tags
+	 */
 	public ArrayList<ThreadModel> searchTags(ArrayList<String> tags)
 	{
 		ArrayList<ThreadModel> pool = grabCurrentPool();
