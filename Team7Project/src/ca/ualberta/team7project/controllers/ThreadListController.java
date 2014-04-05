@@ -22,6 +22,7 @@ import ca.ualberta.team7project.network.ThreadFetcher;
 import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 import ca.ualberta.team7project.network.ThreadUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
+import ca.ualberta.team7project.views.ThreadListView.FavoriteMode;
 
 /**
  * Manages the active list of comments
@@ -203,17 +204,34 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 * When a user clicks on the Favorite button, the ThreadModel UUID is added
 	 * @param thread which the user clicked on
 	 */
-	public void addFavorite(ThreadModel thread)
+	public void addFavorite(ThreadModel thread, FavoriteMode fm)
 	{
 		CacheOperation operation = MainActivity.getCacheOperation();
 		Context context = MainActivity.getMainContext();
 		
-		ThreadListController.listView.favoriteToast();
+		switch(fm)
+		{
+			case FAVORITE:
+				ThreadListController.listView.favoriteToast();
+				MainActivity.getUserController().getUser().addFavoriteComment(thread);
+				operation.saveThread(thread);
+				operation.saveFile(context);
+				break;
+				
+			case READ_LATER:
+				ThreadListController.listView.cacheToast();
+				MainActivity.getUserController().getUser().addFavoriteComment(thread);
+				operation.saveThread(thread);
+				operation.saveFile(context);
+				break;
+				
+			case PREV_READ:
+				MainActivity.getUserController().getUser().addFavoriteComment(thread);
+				operation.saveThread(thread);
+				operation.saveFile(context);
+				break;
+		}
 
-		MainActivity.getUserController().getUser().addFavoriteComment(thread);
-		operation.saveThread(thread);
-		operation.saveFile(context);
-		
 	}
 	
 
@@ -226,16 +244,6 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		return MainActivity.getUserController().getUser().getFavoriteComments();
 	}
 	
-	/**
-	 * When user clicks on the Cache button, UUID is added
-	 * A toast is also displayed. 
-	 * @return
-	 */
-	public void addCache(ThreadModel thread)
-	{
-		ThreadListController.listView.cacheToast();
-		MainActivity.getUserController().getUser().addFavoriteComment(thread);
-	}
 
 	/**
 	 * Responds to the users desire to edit a thread.

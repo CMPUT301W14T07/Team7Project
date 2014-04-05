@@ -83,6 +83,11 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 		});
 	}
 
+	
+	public static enum FavoriteMode
+	{
+		FAVORITE, READ_LATER, PREV_READ
+	}
 	/**
 	 * Add the ThreadModel to the user's favorites
 	 *  
@@ -91,8 +96,8 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	 */
 	@Override
 	public void onFavoriteClick(ThreadModel thread)
-	{		
-		controller.addFavorite(thread);
+	{	
+		controller.addFavorite(thread, FavoriteMode.FAVORITE);
 	}
 
 	@Override
@@ -104,7 +109,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onCacheClick(ThreadModel thread)
 	{
-		controller.addFavorite(thread);
+		controller.addFavorite(thread, FavoriteMode.READ_LATER);
 	}
 
 	@Override
@@ -135,6 +140,7 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onThreadClick(ThreadModel thread)
 	{
+		controller.addFavorite(thread, FavoriteMode.PREV_READ);
 		controller.enterThread(thread);
 	}
 
