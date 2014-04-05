@@ -11,13 +11,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.OpenThreadInstance;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 
 import com.google.gson.Gson;
 
 /**
- * Displays a textbox for the user to insert new thread tags
+ * Displays a text view for the user to insert new thread tags
  * @author michael
  *
  */
@@ -46,7 +47,9 @@ public class TagInsertAlertView extends DialogFragment
 	{		
 		String json = getArguments().getString("ThreadModel");
 		final ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
-		final ThreadTagModel threadTags = thread.getTags();
+		
+		OpenThreadInstance openThread = OpenThreadInstance.getInstance();
+		openThread.setThread(thread);		
 				
 		LayoutInflater inflator = getActivity().getLayoutInflater();
 		final View view = inflator.inflate(ca.ualberta.team7project.R.layout.tag_select, null);
@@ -62,7 +65,10 @@ public class TagInsertAlertView extends DialogFragment
 			public void onClick(View v)
 			{
 
-				// TODO Auto-generated method stub
+				TagDeleteAlertView tagAlert = TagDeleteAlertView.newInstance(thread);
+				tagAlert.setCancelable(false);
+				tagAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+						.getFragmentManager(), "New Tag Alert");
 				
 			}
 			
@@ -77,10 +83,14 @@ public class TagInsertAlertView extends DialogFragment
 						EditText tags = (EditText) view.findViewById(ca.ualberta.team7project.R.id.text_add_tag);
 						String strTags = tags.getText().toString();
 						
-						threadTags.parseAndAppend(strTags);
-						thread.setTags(threadTags);
+						OpenThreadInstance openedThread = OpenThreadInstance.getInstance();
+						ThreadModel threadModel = openedThread.getThread();
 						
-						MainActivity.getListController().InsertThread(thread);
+						ThreadTagModel threadTags = threadModel.getTags();
+						threadTags.parseAndAppend(strTags);
+						threadModel.setTags(threadTags);
+						
+						MainActivity.getListController().InsertThread(threadModel);
 					}
 				});
 
@@ -90,7 +100,9 @@ public class TagInsertAlertView extends DialogFragment
 
 					public void onClick(DialogInterface dialog, int id)
 					{
-						// Do nothing on cancel
+						OpenThreadInstance openedThread = OpenThreadInstance.getInstance();
+						ThreadModel threadModel = openedThread.getThread();
+						MainActivity.getListController().InsertThread(threadModel);
 					}
 				});
 			

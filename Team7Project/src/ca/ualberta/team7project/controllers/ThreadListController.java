@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
-import ca.ualberta.team7project.alertviews.TagDeleteAlertView;
 import ca.ualberta.team7project.alertviews.TagInsertAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.cache.CacheOperation;
@@ -317,11 +316,15 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 		setOpenThread(thread);
 
 		TagInsertAlertView tagAlert = TagInsertAlertView.newInstance(thread);
+		tagAlert.setCancelable(false);
 		tagAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
 				.getFragmentManager(), "New Tag Alert");
 	}
 		
-
+	/**
+	 * Persist a new or updated thread into the cache and elastic search
+	 * @param thread to be inserted
+	 */
 	public void InsertThread(ThreadModel thread)
 	{
 		ThreadUpdater updater = new ThreadUpdater(listView);
