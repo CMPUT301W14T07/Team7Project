@@ -24,6 +24,7 @@
 	<string name="toast_create">Created thread</string>
 	<string name="toast_favorite">Thread favorited</string>
 	<string name="toast_cache">Thread added to cache</string>
+	<string name="toast_network_fail_push">There is no network connection, you can not post comments or topics</string>
 
 	<!-- Toasts for userview -->
 	<string name="location_update">Location has been set</string>
@@ -100,5 +101,6 @@
 	<string name="sort_pictures_disable">Don\'t view only comments with pictures</string>
 	<string name="sort_global">Sort comments globally</string>
 	<string name="sort_parents">Sort by parent</string>
+	
 	
 </resources>
