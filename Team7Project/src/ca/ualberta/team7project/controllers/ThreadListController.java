@@ -202,6 +202,14 @@ public class ThreadListController extends Activity
 				.getFragmentManager(), "New Tag Alert");
 	}
 		
+
+	public void InsertThread(ThreadModel thread)
+	{
+		ThreadUpdater updater = new ThreadUpdater(listView);
+		updater.sendComment(thread);
+		this.refreshThreads();
+	}
+	
 	/**
 	 * Creates a new thread and inserts it into the model in response to a click listener.
 	 * 
@@ -216,13 +224,11 @@ public class ThreadListController extends Activity
 			UserModel currentUser = MainActivity.getUserController().getUser().getUser();
 			currentUser.setLocation(location);
 			ThreadModel newThread = new ThreadModel(comment, currentUser, title);
-		
-			ThreadUpdater updater = new ThreadUpdater(listView);
-		
+				
 			if(cameraPhoto != null)
 				newThread.setImage(cameraPhoto);
 		
-			String spacelessTags = tags.replace(" ", "");
+			String spacelessTags = tags.replace(" ", ",");
 			ThreadTagModel tagModel = new ThreadTagModel();
 			tagModel.parseAndSet(spacelessTags, ",");
 			newThread.setTags(tagModel);
@@ -236,7 +242,7 @@ public class ThreadListController extends Activity
 				newThread.setParentUUID(this.getOpenThread().getParentUUID());
 				newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
 			
-				updater.sendComment(newThread);
+				InsertThread(newThread);
 				MainActivity.userListener.editToast();
 			}
 			else
@@ -251,14 +257,14 @@ public class ThreadListController extends Activity
 				
 					newThread.setParentUUID(parent);
 					newThread.setTopicUUID(topic);
-					updater.sendComment(newThread);
+					InsertThread(newThread);
 				
 					MainActivity.userListener.replyingToast();
 				}
 				/* User created new topic. Upload to Elastic Search */
 				else
 				{				
-					updater.sendComment(newThread);
+					InsertThread(newThread);
 					MainActivity.userListener.newTopicToast();
 				}
 			}

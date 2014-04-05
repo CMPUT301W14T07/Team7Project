@@ -94,10 +94,20 @@ public class MainActivity extends Activity implements IdentityListener
 		
 		//haven't decoupled from being online all the time, so just overwrite
 		//for now
-		tool.saveFile(context);
+		tool.loadFile(context);
 	}
 		
 	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		//when app exit, save the pool in file system
+		tool.saveFile(mainContext);
+		
+	}
+
+
 	@Override
 	public void onBackPressed()
 	{
@@ -107,6 +117,7 @@ public class MainActivity extends Activity implements IdentityListener
 			finish();
 		}
 	}
+	
 
 	// TODO onResume https://github.com/CMPUT301W14T07/Team7Project/issues/26
 

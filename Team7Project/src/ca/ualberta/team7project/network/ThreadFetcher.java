@@ -3,6 +3,7 @@ package ca.ualberta.team7project.network;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.ThreadModel;
 
 /**
@@ -14,6 +15,7 @@ import ca.ualberta.team7project.models.ThreadModel;
 public class ThreadFetcher
 {
 	private ElasticSearchOperation search;
+	private CacheOperation cache;
 	private String listSize;
 	double lat = 0;
 	double lon = 0;

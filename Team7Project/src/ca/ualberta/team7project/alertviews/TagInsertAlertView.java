@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 
@@ -44,8 +45,8 @@ public class TagInsertAlertView extends DialogFragment
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{		
 		String json = getArguments().getString("ThreadModel");
-		ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
-		ThreadTagModel threadTags = thread.getTags();
+		final ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
+		final ThreadTagModel threadTags = thread.getTags();
 				
 		LayoutInflater inflator = getActivity().getLayoutInflater();
 		final View view = inflator.inflate(ca.ualberta.team7project.R.layout.tag_select, null);
@@ -73,8 +74,13 @@ public class TagInsertAlertView extends DialogFragment
 
 					public void onClick(DialogInterface dialog, int id)
 					{
-
-
+						EditText tags = (EditText) view.findViewById(ca.ualberta.team7project.R.id.text_add_tag);
+						String strTags = tags.getText().toString();
+						
+						threadTags.parseAndAppend(strTags);
+						thread.setTags(threadTags);
+						
+						MainActivity.getListController().InsertThread(thread);
 					}
 				});
 
