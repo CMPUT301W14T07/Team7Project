@@ -10,6 +10,7 @@ import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
 import ca.ualberta.team7project.alertviews.TagDeleteAlertView;
+import ca.ualberta.team7project.alertviews.TagInsertAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.LocationModel;
@@ -311,8 +312,8 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	public void editTags(ThreadModel thread)
 	{
 		setOpenThread(thread);
-		
-		TagDeleteAlertView tagAlert = TagDeleteAlertView.newInstance(thread);
+
+		TagInsertAlertView tagAlert = TagInsertAlertView.newInstance(thread);
 		tagAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
 				.getFragmentManager(), "New Tag Alert");
 	}
