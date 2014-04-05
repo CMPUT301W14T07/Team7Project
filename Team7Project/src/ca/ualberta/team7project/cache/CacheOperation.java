@@ -56,6 +56,8 @@ public class CacheOperation {
 	private double lat = 0;
 	private double lon = 0;
 	
+	private Integer maxResults = 20;
+	
 	public CacheOperation()
 	{
 		super();
@@ -77,6 +79,11 @@ public class CacheOperation {
 		this.isFilterPicture = isFilterPicture;
 	}
 	
+	public void SetMaxResults(Integer maxResults)
+	{
+		this.maxResults = maxResults;
+	}
+	
 	public void RestoreDefaults()
 	{
 		lat = 0;
@@ -91,6 +98,10 @@ public class CacheOperation {
 	//then do the sort
 	//then return the top some number of threads
 	
+	/**
+	 * Retrieves a <i>copy</i> of the current cache pool and returns it after applying the picture filter
+	 * @return filtered list of comments that were in the pool
+	 */
 	private ArrayList<ThreadModel> grabCurrentPool()
 	{
 		ArrayList<ThreadModel> pool = new ArrayList<ThreadModel>(ThreadModelPool.threadModelPool);
@@ -111,14 +122,53 @@ public class CacheOperation {
 		return pool;
 	}
 	
+	/**
+	 * Sort a pool of threads by the current sorting method
+	 * <p>
+	 * The passed pool should be post-filter and post-search
+	 * @param unsorted pool
+	 * @return sorted pool
+	 */
 	private ArrayList<ThreadModel> sortPool(ArrayList<ThreadModel> pool)
+	{	
+		switch(sortMethod)
+		{		
+			/*
+			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
+			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
+			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
+			 * 
+			 */
+			case DATE:
+				//TODO: date sort
+				
+				break;
+			case LOCATION:
+				//TODO: proximity sort
+				
+				break;
+			case NO_SORT:
+			default:
+				//do nothing (just return the argument)
+				break;
+		}
+		
+		return pool;
+	}
+	
+	private ArrayList<ThreadModel> getTop(ArrayList<ThreadModel> pool)
 	{
-		//TODO
+		//TODO: get the top <maxResults> threads
 		
 		return null;
 	}
 	
-	public ArrayList<ThreadModel> searchFavorites(ArrayList<String> favorites)
+	/**
+	 * Get a list of favorited comments from the cache
+	 * @param favorites list of favorite UUID's
+	 * @return list of favorited comments
+	 */
+	public ArrayList<ThreadModel> searchFavorites(ArrayList<UUID> favorites)
 	{
 		ArrayList<ThreadModel> pool = grabCurrentPool();
 		
@@ -132,7 +182,49 @@ public class CacheOperation {
 		
 		favoritePool = sortPool(favoritePool);
 		
-		return favoritePool; //return all in this case only
+		return favoritePool; //return all in the case of favorites only
+	}
+	
+	/**
+	 * Get a list of child comments from the cache
+	 * @param parent
+	 * @return list of child comments
+	 */
+	public ArrayList<ThreadModel> searchChildren(UUID parent)
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		
+		ArrayList<ThreadModel> childPool = new ArrayList<ThreadModel>();
+		
+		for(ThreadModel thread : pool)
+		{
+			if(thread.getParentUUID().equals(parent))
+				childPool.add(thread);
+		}
+		
+		childPool = sortPool(childPool);
+		
+		return getTop(childPool);
+	}
+	
+	public ArrayList<ThreadModel> searchAll()
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		pool = sortPool(pool);
+		
+		return getTop(pool);
+	}
+	
+	public ArrayList<ThreadModel> searchTags(ArrayList<String> tags)
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		
+		//TODO: perform the tag search
+		
+		
+		pool = sortPool(pool);
+		
+		return getTop(pool);
 	}
 	
 	/**
