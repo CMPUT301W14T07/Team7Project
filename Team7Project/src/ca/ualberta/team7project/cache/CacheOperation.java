@@ -31,25 +31,6 @@ public class CacheOperation {
 	public static int BY_PARENTID = 1;
 	public static int BY_ITSELFID = 2;
 	public static int BY_TOPICID =3;
-	
-	/*
-	[We need to do the following]
-	
-	Search By:
-	+own UUID's (for favorites)
-	-nothing
-	-parent UUID (for default)
-	-list of tags (for tag search)
-	
-	Sort By:
-	-nothing
-	-date
-	-proximity to a coordinate (for proximity search)
-	
-	Filter By:
-	-filter by picture
-	-or not
-	 */
 
 	private SortMethod sortMethod = SortMethod.DATE;
 	private boolean isFilterPicture = false;
@@ -92,11 +73,11 @@ public class CacheOperation {
 		sortMethod = SortMethod.DATE;
 	}
 	
-	//SEARCH STRATEGY
-	//filter first
-	//then perform the search
-	//then do the sort
-	//then return the top some number of threads
+	// SEARCH STRATEGY
+	// filter first
+	// then perform the search
+	// then do the sort
+	// then return the top some number of threads
 	
 	/**
 	 * Retrieves a <i>copy</i> of the current cache pool and returns it after applying the picture filter
