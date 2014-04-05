@@ -6,10 +6,10 @@ import java.util.UUID;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
+import ca.ualberta.team7project.alertviews.TagDeleteAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.LocationModel;
@@ -302,6 +302,23 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 				.getFragmentManager(), "New Thread Alert");
 	}
 	
+	
+	/**
+	 * Responds to the user's desire to append or delete tags from a ThreadModel.
+	 * <p>
+	 * The thread to be edited passed to the TagAlertView and then returned to the controller
+	 * after the modifications have been made.
+	 * @param thread The thread for the tags the user wished to edit.
+	 */
+	public void editTags(ThreadModel thread)
+	{
+		setOpenThread(thread);
+		
+		TagDeleteAlertView tagAlert = TagDeleteAlertView.newInstance(thread);
+		tagAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+				.getFragmentManager(), "New Tag Alert");
+	}
+		
 	/**
 	 * Creates a new thread and inserts it into the model in response to a click listener.
 	 * 

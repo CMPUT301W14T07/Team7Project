@@ -162,7 +162,6 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onTagClick(ThreadModel thread)
 	{
-		// TODO Auto-generated method stub
-		
+		controller.editTags(thread);
 	}
 }
