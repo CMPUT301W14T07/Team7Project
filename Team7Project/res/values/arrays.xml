@@ -3,8 +3,11 @@
     <string-array
         name="sorting_preferences_array">
         <item>@string/sort_date</item>
-        <item>@string/sort_pictures</item>
-        <item>@string/sort_location</item>
+        
+        <item>@string/sort_location</item><item>@string/sort_pictures</item>
+        <item >@string/sort_pictures_disable</item>
+        <item >@string/sort_parents</item>
+        <item >@string/sort_global</item>
     </string-array>
     
     <string-array
