@@ -227,9 +227,8 @@ public class ThreadListController extends Activity
 			if(cameraPhoto != null)
 				newThread.setImage(cameraPhoto);
 		
-			String spacelessTags = tags.replace(" ", ",");
 			ThreadTagModel tagModel = new ThreadTagModel();
-			tagModel.parseAndSet(spacelessTags, ",");
+			tagModel.parseAndAppend(tags);
 			newThread.setTags(tagModel);
 		
 			/* Determine if the user was editing, replying or creating a new thread */

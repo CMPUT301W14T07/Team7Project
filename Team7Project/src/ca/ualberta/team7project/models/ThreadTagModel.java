@@ -45,6 +45,7 @@ public class ThreadTagModel
 		
 		for(String token : tokens)
 			addTag(token);
+		
 	}
 	
 	/**
@@ -71,8 +72,12 @@ public class ThreadTagModel
 	
 	public void addTag(String tag)
 	{
-		this.innerTags.add(tag);
-		this.innerTags = sort(this.innerTags);
+		/* Don't insert whitespace or commas */
+		if(tag != " " || tag != ",")
+		{
+			this.innerTags.add(tag);
+			this.innerTags = sort(this.innerTags);
+		}
 	}
 	
 	public void removeTag(String tag)
@@ -169,6 +174,14 @@ public class ThreadTagModel
 	{
 	
 		this.innerTags = sort(tags);
+	}
+	
+	public void removeUnwanteds()
+	{		
+		String[] unwanteds = {" ", ","};
+		
+		for(String token : unwanteds)
+			this.innerTags.remove(token);
 	}
 	
 }

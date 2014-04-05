@@ -22,7 +22,21 @@ public class ThreadTagModelTest extends ActivityInstrumentationTestCase2<MainAct
 
 		super.setUp();
 	}
+	
+	public void testParseAndAppend()
+	{
+		ThreadTagModel model = new ThreadTagModel();
+		model.parseAndAppend("These are,working hooray");
 		
+		assertTrue("Model contains", model.contains("These"));
+		assertTrue("Model contains", model.contains("are"));
+		assertTrue("Model contains", model.contains("working"));
+		assertTrue("Model contains", model.contains("hooray"));
+		
+		/* No whitespace or commas were added. Should only be 4 entries */
+		assertEquals("Size is correct", model.tagCount(), 4);
+	}
+	
 	/**
 	 * ThreadTagModel needs to be able to add a string of tags, parse it and add it to the arraylist
 	 */

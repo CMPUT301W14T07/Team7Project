@@ -89,7 +89,7 @@ public class TagInsertAlertView extends DialogFragment
 						ThreadTagModel threadTags = threadModel.getTags();
 						threadTags.parseAndAppend(strTags);
 						threadModel.setTags(threadTags);
-						
+
 						MainActivity.getListController().InsertThread(threadModel);
 					}
 				});
