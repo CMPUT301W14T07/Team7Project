@@ -18,6 +18,7 @@ import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
+import ca.ualberta.team7project.network.ConnectionDetector;
 import ca.ualberta.team7project.network.ThreadFetcher;
 import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 import ca.ualberta.team7project.network.ThreadUpdater;
@@ -324,61 +325,67 @@ public class ThreadListController extends Activity implements SortPreferencesAle
 	 * @param body of the thread
 	 */
 	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
-	{
-		/* First we need to get the UserModel to associate with a ThreadModel */
-		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
-		currentUser.setLocation(location);
-		ThreadModel newThread = new ThreadModel(comment, currentUser, title);
+	{	
+		ConnectionDetector detector = new ConnectionDetector(MainActivity.getMainContext());
+		if(detector.isConnectingToInternet()){
+			/* First we need to get the UserModel to associate with a ThreadModel */
+			UserModel currentUser = MainActivity.getUserController().getUser().getUser();
+			currentUser.setLocation(location);
+			ThreadModel newThread = new ThreadModel(comment, currentUser, title);
 		
-		ThreadUpdater updater = new ThreadUpdater(listView);
+			ThreadUpdater updater = new ThreadUpdater(listView);
 		
-		if(cameraPhoto != null)
-			newThread.setImage(cameraPhoto);
+			if(cameraPhoto != null)
+				newThread.setImage(cameraPhoto);
 		
-		String spacelessTags = tags.replace(" ", "");
-		ThreadTagModel tagModel = new ThreadTagModel();
-		tagModel.parseAndSet(spacelessTags, ",");
-		newThread.setTags(tagModel);
+			String spacelessTags = tags.replace(" ", "");
+			ThreadTagModel tagModel = new ThreadTagModel();
+			tagModel.parseAndSet(spacelessTags, ",");
+			newThread.setTags(tagModel);
 		
-		/* Determine if the user was editing, replying or creating a new thread */
-		if(getEditingTopic() == true)
-		{
-			/* User edited a thread. Update models appropriately */
-			/* Insert newThread in place of the open thread in the models */						
-			newThread.setUniqueID(this.getOpenThread().getUniqueID());
-			newThread.setParentUUID(this.getOpenThread().getParentUUID());
-			newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
-			
-			updater.sendComment(newThread);
-			MainActivity.userListener.editToast();
-		}
-		else
-		{
-			/* User was not editing thread. Could be replying or creating a topic */
-			if(getInTopic() == true)
+			/* Determine if the user was editing, replying or creating a new thread */
+			if(getEditingTopic() == true)
 			{
-				/* User replied. Updated models appropriately */
-				/* Append the reply to the openThread and then replace in the model */
-				UUID parent = this.getOpenThread().getUniqueID();
-				UUID topic = this.getOpenThread().getTopicUUID();
-				
-				newThread.setParentUUID(parent);
-				newThread.setTopicUUID(topic);
+				/* User edited a thread. Update models appropriately */
+				/* Insert newThread in place of the open thread in the models */						
+				newThread.setUniqueID(this.getOpenThread().getUniqueID());
+				newThread.setParentUUID(this.getOpenThread().getParentUUID());
+				newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
+			
 				updater.sendComment(newThread);
-				
-				MainActivity.userListener.replyingToast();
+				MainActivity.userListener.editToast();
 			}
-			/* User created new topic. Upload to Elastic Search */
 			else
-			{				
-				updater.sendComment(newThread);
-				MainActivity.userListener.newTopicToast();
+			{
+				/* User was not editing thread. Could be replying or creating a topic */
+				if(getInTopic() == true)
+				{
+					/* User replied. Updated models appropriately */
+					/* Append the reply to the openThread and then replace in the model */
+					UUID parent = this.getOpenThread().getUniqueID();
+					UUID topic = this.getOpenThread().getTopicUUID();
+				
+					newThread.setParentUUID(parent);
+					newThread.setTopicUUID(topic);
+					updater.sendComment(newThread);
+				
+					MainActivity.userListener.replyingToast();
+				}
+				/* User created new topic. Upload to Elastic Search */
+				else
+				{				
+					updater.sendComment(newThread);
+					MainActivity.userListener.newTopicToast();
+				}
 			}
-		}
 		
-		setEditingTopic(false);
+			setEditingTopic(false);
 	
-		this.refreshThreads();
+			this.refreshThreads();
+		}
+		else{
+			MainActivity.userListener.postFailToast();
+		}
 	}
 	
 	public ThreadListModel getListModel()

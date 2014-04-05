@@ -9,8 +9,10 @@ import ca.ualberta.team7project.models.ThreadModel;
  * Passes comments on to ElasticSearchOperation
  */
 public class ThreadUpdater
-{
+{	
+	
 	ThreadListener refresh;
+	
 	
 	/**
 	 * Construct a TopicUpdater with no refresh callback

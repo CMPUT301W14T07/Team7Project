@@ -28,4 +28,5 @@ public interface UserListener
 	public void newTopicToast();
 	public void favoriteToast();
 	public void cacheToast();
+	public void postFailToast();
 }

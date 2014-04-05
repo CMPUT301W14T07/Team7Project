@@ -103,7 +103,7 @@ public class UserView extends Activity implements UserListener
 				Toast.LENGTH_SHORT).show();
 
 	}
-
+	
 	@Override
 	public void replyingToast()
 	{
@@ -128,6 +128,13 @@ public class UserView extends Activity implements UserListener
 	public void cacheToast()
 	{
 		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_cache, Toast.LENGTH_SHORT).show();
+		
+	}
+
+	@Override
+	public void postFailToast() {
+		// TODO Auto-generated method stub
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_network_fail_push, Toast.LENGTH_SHORT).show();
 		
 	}
 
