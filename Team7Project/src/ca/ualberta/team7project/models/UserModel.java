@@ -15,12 +15,7 @@
 
 package ca.ualberta.team7project.models;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import java.util.UUID;
 
 /**
  * Stores information for identifying a user
@@ -76,35 +71,11 @@ public class UserModel
 	
 	/**
 	 * Generates a unique name with the given user name.
-	 * <p>
-	 * A random number and the current date with microsecond precision is
-	 * appended to the current user name to ensure that the UniqueID is unique
-	 * when using the .hashCode() method.
-	 * <p>
-	 * Random numbers are appended in case multiple users are created at
-	 * precisely the same millisecond. The current date is appended in case
-	 * multiple users have the same user name.
-	 * <p>
-	 * Despite these measures, UniqueID is not guaranteed to be unique.
-	 * Nevertheless, it prevents UserModel from storing a list of usernames on
-	 * the server.
-	 * <p>
-	 * This private method is only called when names are set.
 	 */
 	private void setUniqueName()
 	{
 
-		DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss",
-				Locale.CANADA);
-		Date currentDate = Calendar.getInstance().getTime();
-		String dateString = dateFormat.format(currentDate);
-
-		Random random = new Random();
-		Integer randomInt = random.nextInt();
-
-		String userName = getName() + dateString + String.valueOf(randomInt);
-
-		this.uniqueName = String.valueOf(userName.hashCode());
+		this.uniqueName = String.valueOf(UUID.randomUUID());
 	}
 
 	public LocationModel getLocation()

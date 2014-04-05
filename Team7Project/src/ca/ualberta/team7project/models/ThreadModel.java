@@ -296,8 +296,7 @@ public class ThreadModel
 	 */
 	protected class BitmapData
 	{
-
-		private String data = null;
+		private String innerBitmapData = null; //verbose naming to make ES happy
 
 		/**
 		 * Converts a bitmap to an array of bytes, then encodes the bytes as a
@@ -313,14 +312,14 @@ public class ThreadModel
 
 			if (image == null)
 			{
-				data = null;
+				innerBitmapData = null;
 				return;
 			}
 
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			image.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
 			byte[] bytes = byteStream.toByteArray();
-			data = Base64.encodeToString(bytes, Base64.DEFAULT);
+			innerBitmapData = Base64.encodeToString(bytes, Base64.DEFAULT);
 		}
 
 		/**
@@ -332,10 +331,10 @@ public class ThreadModel
 		public Bitmap decode()
 		{
 
-			if (data == null)
+			if (innerBitmapData == null)
 				return null;
 
-			byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+			byte[] bytes = Base64.decode(innerBitmapData, Base64.DEFAULT);
 			Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
 					bytes.length);
 			return bitmap;

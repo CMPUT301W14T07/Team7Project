@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="libs/gson-2.2.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="libs/gson-2.2.4-sources.jar"/>
 	<classpathentry kind="lib" path="libs/gson-2.2.4.jar"/>
-	<classpathentry excluding="ca/ualberta/team7project/controllers/ListAdapterController.java|ca/ualberta/team7project/views/ThreadView.java|ca/ualberta/team7project/controllers/ThreadController.java|ca/ualberta/team7project/models/ThreadPersistenceModel.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="libs/geocalc.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>

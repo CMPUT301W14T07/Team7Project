@@ -5,6 +5,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 
@@ -25,8 +30,8 @@ public class TagInsertAlertView extends DialogFragment
 	 * @param thread to be passed to TagAlertView
 	 * @return A functioning TagAlertView
 	 */
-    public static TagDeleteAlertView newInstance(ThreadModel thread) {
-    	TagDeleteAlertView tagAlert = new TagDeleteAlertView();
+    public static TagInsertAlertView newInstance(ThreadModel thread) {
+    	TagInsertAlertView tagAlert = new TagInsertAlertView();
 
         Bundle bundle = new Bundle();
         bundle.putString("ThreadModel", new Gson().toJson(thread));
@@ -42,8 +47,25 @@ public class TagInsertAlertView extends DialogFragment
 		ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
 		ThreadTagModel threadTags = thread.getTags();
 				
+		LayoutInflater inflator = getActivity().getLayoutInflater();
+		final View view = inflator.inflate(ca.ualberta.team7project.R.layout.tag_select, null);
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(ca.ualberta.team7project.R.string.append_tag);
+		builder.setView(view);
+		
+		Button deleteTags = (Button) view.findViewById(ca.ualberta.team7project.R.id.button_delete_tag);
+		deleteTags.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v)
+			{
+
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		builder.setPositiveButton(ca.ualberta.team7project.R.string.confirm,
 				new DialogInterface.OnClickListener()

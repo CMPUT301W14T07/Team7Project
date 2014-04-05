@@ -18,6 +18,10 @@ public class ThreadFetcher
 	double lat = 0;
 	double lon = 0;
 	
+	boolean isPictureSort = false;
+	
+	private final String pictureFilterEntityString = "\"filter\":{\"exists\":{\"field\":\"innerBitmapData\"}}";
+	
 	/**
 	 * Construct and set max size to the default (15)
 	 */
@@ -40,6 +44,14 @@ public class ThreadFetcher
 	}
 	
 	/**
+	 * Set the ThreadFetcher to fetch only comments with pictures
+	 */
+	public void EnablePictureSort()
+	{
+		isPictureSort = true;
+	}
+	
+	/**
 	 * Enumeration of methods used to get the "best/most relevant" topics
 	 */
 	public static enum SortMethod
@@ -47,12 +59,26 @@ public class ThreadFetcher
 		NO_SORT, DATE, LOCATION
 	}
 	
+	/**
+	 * Insert the user's location for proximity sorting
+	 * <p>
+	 * This must be called if passing in SortMethod.LOCATION, else the user's location is treated as [0, 0]
+	 * @param latitude
+	 * @param longitude
+	 */
 	public void SetLocation(double latitude, double longitude)
 	{
 		this.lat = latitude;
 		this.lon = longitude;
 	}
 	
+	/**
+	 * Fetch comments that match a set of tags
+	 * <p>
+	 * Only comments with <i>all</i> the specified tags are fetched
+	 * @param tags a list of tags
+	 * @return list of comments/topics
+	 */
 	public ArrayList<ThreadModel> fetchTaggedComments(ArrayList<String> tags)
 	{
 		String sortString = "_search?sort=threadTimestamp:desc" + "&" + "size=40";
@@ -67,6 +93,10 @@ public class ThreadFetcher
 		}
 		
 		sortEntity += ")\"}}";
+		
+		if(isPictureSort)
+			sortEntity += "," + pictureFilterEntityString;
+		
 		sortEntity += "}";
 		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
@@ -80,26 +110,30 @@ public class ThreadFetcher
 	public ArrayList<ThreadModel> fetchComments(SortMethod sort)
 	{
 		String sortString = null;
-		String sortEntity = null;
+		String sortEntity = "{";
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?sort=threadTimestamp:desc" + "&" + listSize;
-				sortEntity = null;
 				break;
 			case LOCATION:
 				sortString = "_search" + "?" + listSize;
-				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
-				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
 			default:
 				sortString = "_search" + "?" + listSize;
-				sortEntity = null;
 		}
+		
+		if(isPictureSort)
+			sortEntity += pictureFilterEntityString;	
+		
+		sortEntity += "}";
+		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
@@ -114,17 +148,17 @@ public class ThreadFetcher
 	public ArrayList<ThreadModel> fetchChildComments(UUID parentID, SortMethod sort)
 	{
 		String sortString = null;
-		String sortEntity = null;
+		String sortEntity = "{";
+		
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" +
 						"sort=threadTimestamp:desc" + "&" + listSize;
-				sortEntity = null;
 				break;
 			case LOCATION:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
-				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
+				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
@@ -133,8 +167,13 @@ public class ThreadFetcher
 			case NO_SORT:
 			default:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
-				sortEntity = null;
 		}
+		
+		if(isPictureSort)
+			sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") + pictureFilterEntityString;	
+		
+		sortEntity += "}";
+		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
@@ -142,7 +181,6 @@ public class ThreadFetcher
 	 * Fetch comments by a list of their own UUID's
 	 * <p>
 	 * Used to fetch the list of favorited comments from server
-	 * 
 	 * @param favorites list of UUID's for favorited comments
 	 * @param sort sorting method
 	 * @return list of favorited comments
@@ -153,16 +191,16 @@ public class ThreadFetcher
 		String sortEntity = null;
 		String favoritesSize = "size=" + Integer.toString(favorites.size());
 		
+		sortEntity = "{";
+		
 		switch(sort)
 		{
 			case DATE:
 				sortString = "_search?sort=threadTimestamp:desc" + "&" + favoritesSize;
-				sortEntity = "{";
 				break;
 			case LOCATION:
 				sortString = "_search?" + favoritesSize;
-				sortEntity = "{";
-				
+			
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
 				sortEntity += Double.toString(lat);
 				sortEntity += ", ";
@@ -172,7 +210,6 @@ public class ThreadFetcher
 			case NO_SORT:
 			default:
 				sortString = "_search?" + favoritesSize;
-				sortEntity = "{";
 		}
 		
 		sortEntity += "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
@@ -184,6 +221,10 @@ public class ThreadFetcher
 		}
 		
 		sortEntity += ")\"}}";
+		
+		if(isPictureSort)
+			sortEntity += "," + pictureFilterEntityString;
+		
 		sortEntity += "}";
 		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
