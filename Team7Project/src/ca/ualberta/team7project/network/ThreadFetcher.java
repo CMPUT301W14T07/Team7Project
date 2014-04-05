@@ -18,6 +18,8 @@ public class ThreadFetcher
 	double lat = 0;
 	double lon = 0;
 	
+	boolean isPictureSort = false;
+	
 	/**
 	 * Construct and set max size to the default (15)
 	 */
@@ -37,6 +39,11 @@ public class ThreadFetcher
 		super();
 		listSize = "size=" + Integer.toString(maxItems);
 		search = new ElasticSearchOperation();
+	}
+	
+	public void EnablePictureSort()
+	{
+		isPictureSort = true;
 	}
 	
 	/**
