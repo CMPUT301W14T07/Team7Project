@@ -43,6 +43,9 @@ public class ThreadFetcher
 		search = new ElasticSearchOperation();
 	}
 	
+	/**
+	 * Set the ThreadFetcher to fetch only comments with pictures
+	 */
 	public void EnablePictureSort()
 	{
 		isPictureSort = true;
@@ -56,12 +59,26 @@ public class ThreadFetcher
 		NO_SORT, DATE, LOCATION
 	}
 	
+	/**
+	 * Insert the user's location for proximity sorting
+	 * <p>
+	 * This must be called if passing in SortMethod.LOCATION, else the user's location is treated as [0, 0]
+	 * @param latitude
+	 * @param longitude
+	 */
 	public void SetLocation(double latitude, double longitude)
 	{
 		this.lat = latitude;
 		this.lon = longitude;
 	}
 	
+	/**
+	 * Fetch comments that match a set of tags
+	 * <p>
+	 * Only comments with <i>all</i> the specified tags are fetched
+	 * @param tags a list of tags
+	 * @return list of comments/topics
+	 */
 	public ArrayList<ThreadModel> fetchTaggedComments(ArrayList<String> tags)
 	{
 		String sortString = "_search?sort=threadTimestamp:desc" + "&" + "size=40";
@@ -164,7 +181,6 @@ public class ThreadFetcher
 	 * Fetch comments by a list of their own UUID's
 	 * <p>
 	 * Used to fetch the list of favorited comments from server
-	 * 
 	 * @param favorites list of UUID's for favorited comments
 	 * @param sort sorting method
 	 * @return list of favorited comments
