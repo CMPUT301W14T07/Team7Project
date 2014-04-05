@@ -22,10 +22,9 @@ public class ThreadTagModelTest extends ActivityInstrumentationTestCase2<MainAct
 
 		super.setUp();
 	}
-	
-	
+		
 	/**
-	 * ThreadTagModel needs to be able to tag a string of tags, parse it and add it to the arraylist
+	 * ThreadTagModel needs to be able to add a string of tags, parse it and add it to the arraylist
 	 */
 	public void testParseAndSet()
 	{
@@ -82,7 +81,7 @@ public class ThreadTagModelTest extends ActivityInstrumentationTestCase2<MainAct
 		assertTrue("ArrayList was set properly", model.contains("AAA"));
 		Log.e("debug", returnedString);
 		
-		assertEquals("Strings returned with space deliminate", returnedString, "AAA,BBB,CCC,");
+		assertEquals("Strings returned with space deliminate", returnedString, "AAA,BBB,CCC");
 	}
 
 }

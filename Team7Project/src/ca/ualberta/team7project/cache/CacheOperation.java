@@ -39,10 +39,7 @@ public class CacheOperation {
 	
 	private Integer maxResults = 20;
 	
-	public CacheOperation()
-	{
-		super();
-	}
+	//Various methods for setting up the CacheOperation for a pull
 	
 	public void SetLocation(double lat, double lon)
 	{
@@ -65,6 +62,11 @@ public class CacheOperation {
 		this.maxResults = maxResults;
 	}
 	
+	/**
+	 * For testing purposes only
+	 * <p>
+	 * Reset the cache operation to its default state
+	 */
 	public void RestoreDefaults()
 	{
 		lat = 0;

@@ -36,6 +36,18 @@ public class ThreadTagModel
 	}
 	
 	/**
+	 * Parse string tags and append it to the list of tags
+	 * @param tags A string to be parsed by regex
+	 */
+	public void parseAndAppend(String tags)
+	{
+		String[] tokens = tags.split(",|\\s");
+		
+		for(String token : tokens)
+			addTag(token);
+	}
+	
+	/**
 	 * Retrieve how many tags are contained in the model
 	 * @return the number of tags in the model
 	 */
