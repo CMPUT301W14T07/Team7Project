@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements IdentityListener
 	@Override
 	public void onBackPressed()
 	{
-		if(!listController.exitThread())
+		if(!listController.getNavigation().exitThread())
 		{
 			//exit the application
 			finish();

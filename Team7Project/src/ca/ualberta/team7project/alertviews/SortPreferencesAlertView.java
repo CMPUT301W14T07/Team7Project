@@ -41,7 +41,7 @@ public class SortPreferencesAlertView extends DialogFragment
 		
 		mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
 		
-		listener = MainActivity.getListController();
+		listener = MainActivity.getListController().getNavigation();
 	}
 
 	/**
