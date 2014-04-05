@@ -6,11 +6,6 @@ import java.util.UUID;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-<<<<<<< HEAD
-import android.widget.Toast;
-=======
-
->>>>>>> 3333e09e8238e6ea73717dd6fd13f4d271b58a4b
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreference;
 import ca.ualberta.team7project.alertviews.SortPreferencesAlertView.SortPreferencesAlertListener;
