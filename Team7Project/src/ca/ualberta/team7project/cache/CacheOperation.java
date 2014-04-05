@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import android.content.Context;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 
 
 /**
@@ -31,12 +32,189 @@ public class CacheOperation {
 	public static int BY_ITSELFID = 2;
 	public static int BY_TOPICID =3;
 
+	private SortMethod sortMethod = SortMethod.DATE;
+	private boolean isFilterPicture = false;
+	private double lat = 0;
+	private double lon = 0;
+	
+	private Integer maxResults = 20;
+	
+	public CacheOperation()
+	{
+		super();
+	}
+	
+	public void SetLocation(double lat, double lon)
+	{
+		this.lat = lat;
+		this.lon = lon;
+	}
+	
+	public void SetSortMethod(SortMethod sortMethod)
+	{
+		this.sortMethod = sortMethod;
+	}
+	
+	public void SetFilterPicture(boolean isFilterPicture)
+	{
+		this.isFilterPicture = isFilterPicture;
+	}
+	
+	public void SetMaxResults(Integer maxResults)
+	{
+		this.maxResults = maxResults;
+	}
+	
+	public void RestoreDefaults()
+	{
+		lat = 0;
+		lon = 0;
+		isFilterPicture = false;
+		sortMethod = SortMethod.DATE;
+	}
+	
+	// SEARCH STRATEGY
+	// filter first
+	// then perform the search
+	// then do the sort
+	// then return the top some number of threads
+	
+	/**
+	 * Retrieves a <i>copy</i> of the current cache pool and returns it after applying the picture filter
+	 * @return filtered list of comments that were in the pool
+	 */
+	private ArrayList<ThreadModel> grabCurrentPool()
+	{
+		ArrayList<ThreadModel> pool = new ArrayList<ThreadModel>(ThreadModelPool.threadModelPool);
+		
+		if(isFilterPicture)
+		{
+			ArrayList<ThreadModel> filteredPool = new ArrayList<ThreadModel>();
+			
+			for(ThreadModel thread : pool)
+			{
+				if(thread.getImage() != null)
+					filteredPool.add(thread);
+			}
+			
+			return filteredPool;
+		}
+		
+		return pool;
+	}
+	
+	/**
+	 * Sort a pool of threads by the current sorting method
+	 * <p>
+	 * The passed pool should be post-filter and post-search
+	 * @param unsorted pool
+	 * @return sorted pool
+	 */
+	private ArrayList<ThreadModel> sortPool(ArrayList<ThreadModel> pool)
+	{	
+		switch(sortMethod)
+		{		
+			/*
+			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
+			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
+			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
+			 * 
+			 */
+			case DATE:
+				//TODO: date sort
+				
+				break;
+			case LOCATION:
+				//TODO: proximity sort
+				
+				break;
+			case NO_SORT:
+			default:
+				//do nothing (just return the argument)
+				break;
+		}
+		
+		return pool;
+	}
+	
+	private ArrayList<ThreadModel> getTop(ArrayList<ThreadModel> pool)
+	{
+		//TODO: get the top <maxResults> threads
+		
+		return null;
+	}
+	
+	/**
+	 * Get a list of favorited comments from the cache
+	 * @param favorites list of favorite UUID's
+	 * @return list of favorited comments
+	 */
+	public ArrayList<ThreadModel> searchFavorites(ArrayList<UUID> favorites)
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		
+		ArrayList<ThreadModel> favoritePool = new ArrayList<ThreadModel>();
+		
+		for(ThreadModel thread : pool)
+		{
+			if(favorites.contains(thread.getUniqueID()))
+				favoritePool.add(thread);
+		}
+		
+		favoritePool = sortPool(favoritePool);
+		
+		return favoritePool; //return all in the case of favorites only
+	}
+	
+	/**
+	 * Get a list of child comments from the cache
+	 * @param parent
+	 * @return list of child comments
+	 */
+	public ArrayList<ThreadModel> searchChildren(UUID parent)
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		
+		ArrayList<ThreadModel> childPool = new ArrayList<ThreadModel>();
+		
+		for(ThreadModel thread : pool)
+		{
+			if(thread.getParentUUID().equals(parent))
+				childPool.add(thread);
+		}
+		
+		childPool = sortPool(childPool);
+		
+		return getTop(childPool);
+	}
+	
+	public ArrayList<ThreadModel> searchAll()
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		pool = sortPool(pool);
+		
+		return getTop(pool);
+	}
+	
+	public ArrayList<ThreadModel> searchTags(ArrayList<String> tags)
+	{
+		ArrayList<ThreadModel> pool = grabCurrentPool();
+		
+		//TODO: perform the tag search
+		
+		
+		pool = sortPool(pool);
+		
+		return getTop(pool);
+	}
+	
 	/**
 	 * Make ThreadModelPool in the memory synchronized to the pool in the File System<p>
 	 * Technically, if there is no network connected, this is the first function to call to set the cache up
 	 * @param context
 	 */
-	public void loadFile(Context context){
+	public void loadFile(Context context)
+	{
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.loadFromFile();	
 	}
@@ -46,7 +224,8 @@ public class CacheOperation {
 	 * Call this when you want ThreadModelPool in file system to be consistent with the one in memory
 	 * @param context
 	 */
-	public void saveFile(Context context){
+	public void saveFile(Context context)
+	{
 		MemoryToFileOperation transferTool = new MemoryToFileOperation(context);
 		transferTool.saveInFile();
 	}
@@ -61,7 +240,8 @@ public class CacheOperation {
 	 * @param mode
 	 * @return
 	 */
-	public Collection<ThreadModel> searchByUUID(UUID uuid, int mode){
+	public Collection<ThreadModel> searchByUUID(UUID uuid, int mode)
+	{
 		
 		Collection<ThreadModel> collection = new ArrayList<ThreadModel>();
 		
@@ -95,7 +275,8 @@ public class CacheOperation {
 	 * it would check the UUID, and prevent from inserting a duplicated threadModel.
 	 * @param threadModel
 	 */
-	public void saveThread(ThreadModel threadModel){	
+	public void saveThread(ThreadModel threadModel)
+	{	
 		UUID uuid = threadModel.getUniqueID();
 		//I assume the inserted threadModel is always the latest model
 		//I don't know if this assumption is right or not
@@ -117,12 +298,10 @@ public class CacheOperation {
 	 * the same as inserting the single one, except for collection this time
 	 * @param collection
 	 */
-	public void saveCollection(Collection<ThreadModel> collection){
+	public void saveCollection(Collection<ThreadModel> collection)
+	{
 		for(ThreadModel threadModel: collection){
 			saveThread(threadModel);
 		}
 	}
-	
-	
-
 }
