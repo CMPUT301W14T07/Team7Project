@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
 import ca.ualberta.team7project.MainActivity;
+import ca.ualberta.team7project.alertviews.ImageAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.controllers.ThreadListController;
@@ -121,7 +121,9 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	@Override
 	public void onPhotoClick(ThreadModel thread)
 	{
-		// Next milestone
+		ImageAlertView imageAlert = ImageAlertView.newInstance(thread);
+		imageAlert.show(((ca.ualberta.team7project.MainActivity)MainActivity.getMainContext())
+				.getFragmentManager(), "New Image Alert");
 
 	}
 
