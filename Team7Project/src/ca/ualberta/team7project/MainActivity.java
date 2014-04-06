@@ -70,13 +70,12 @@ public class MainActivity extends Activity implements IdentityListener
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.show();
 		
-
 		MainActivity.userController = new UserController(context, fragment);
 		MainActivity.listController = new ThreadListController(this);
 		MainActivity.locationController = new LocationController();
 		
 		listController.refreshThreads();
-		
+				
 		searchButton = (ImageButton) findViewById(ca.ualberta.team7project.R.id.action_search);
 		searchText = (EditText) findViewById(ca.ualberta.team7project.R.id.tag_search_box);
 		

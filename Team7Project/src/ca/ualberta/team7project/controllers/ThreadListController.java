@@ -16,6 +16,7 @@ import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ConnectionDetector;
+import ca.ualberta.team7project.network.ServerPolling;
 import ca.ualberta.team7project.network.ThreadUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 import ca.ualberta.team7project.views.ThreadListView.FavoriteMode;
@@ -38,7 +39,8 @@ public class ThreadListController extends Activity
 	private Boolean editingThread;
 	private ThreadModel openThread;
 	
-	NavigationController navigation;
+	private NavigationController navigation;
+	private ConnectionDetector connection;
 	
 	public ThreadListController(Activity activity)
 	{
@@ -55,6 +57,28 @@ public class ThreadListController extends Activity
 		navigation = new NavigationController(listView, activity);
 		
 		this.refreshThreads();
+		
+		connection = new ConnectionDetector(MainActivity.getMainContext());
+		initiateServerPolling();
+	}
+	
+	/**
+	 * Polls elastic search for updates every 30 seconds
+	 */
+	public void initiateServerPolling()
+	{
+		ServerPolling updater = new ServerPolling(new Runnable() {
+
+			@Override
+			public void run()
+			{
+				if(connection.isConnectingToInternet())
+					refreshThreads();
+			}
+			
+		});
+
+		updater.startUpdates();
 	}
 	
 	/**
