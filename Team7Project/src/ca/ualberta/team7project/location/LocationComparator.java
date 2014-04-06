@@ -10,7 +10,7 @@ import com.grum.geocalc.EarthCalc;
 import com.grum.geocalc.Point;
 
 /**
- * Compares ThreadModels by geolocation distance
+ * Comparator class which compares two ThreadModel objects by their proximity to a given geolocation
  */
 public class LocationComparator implements Comparator<ThreadModel> {
 	

@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+/**
+ * Displays a larger version of an image attached to a comment
+ */
 public class ImageAlertView extends DialogFragment
 {
 

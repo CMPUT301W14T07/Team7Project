@@ -3,6 +3,9 @@ package ca.ualberta.team7project.network;
 import android.os.Handler;
 import android.os.Looper;
 
+/**
+ * Initiates a server poll at set intervals
+ */
 public class ServerPolling
 {
 	/* Reuse statement 

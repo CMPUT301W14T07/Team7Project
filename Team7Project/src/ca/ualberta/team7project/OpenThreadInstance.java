@@ -2,7 +2,9 @@ package ca.ualberta.team7project;
 
 import ca.ualberta.team7project.models.ThreadModel;
 
-
+/**
+ * Singleton used to pass a user-selected thread to an alert view
+ */
 public class OpenThreadInstance
 {
 	private static OpenThreadInstance instance;

@@ -3,11 +3,11 @@ package ca.ualberta.team7project.network;
 import java.util.Collection;
 
 /*
- * Represents part of a search response from ElasticSearch.
+ * Represents part of a search response from ElasticSearch
+ * <p>
  * Taken from https://github.com/zjullion/PicPosterComplete
  * which is taken from https://github.com/rayzhangcl/ESDemo
  */
-
 public class Hits<T>
 {
 
