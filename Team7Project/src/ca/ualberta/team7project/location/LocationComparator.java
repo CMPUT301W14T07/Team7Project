@@ -15,16 +15,38 @@ import com.grum.geocalc.Point;
  * 
  */
 public class LocationComparator implements Comparator<ThreadModel> {
-
+	
 	/**
 	 * Gets the distance between two ThreadModel's LocationModels
 	 * @return distance between two points as a double
 	 */
+	
+	private Coordinate lat;
+	private Coordinate lon;
+	
+	public LocationComparator(double lat, double lon){
+		this.lat = new DegreeCoordinate(lat);
+		this.lon = new DegreeCoordinate(lon);
+	}
+	
+	//calculate the distance from the base point and the point of indicated thread
+	public double distanceFromBase(ThreadModel thread){
+		Coordinate latitude = new DegreeCoordinate(thread.getLocation().getLatitude());
+		Coordinate longitude = new DegreeCoordinate(thread.getLocation().getLongitude());
+		
+		Point threadPoint = new Point(latitude, longitude);
+		
+		Point basePoint = new Point(lat, lon);
+		
+		return EarthCalc.getDistance(threadPoint, basePoint);
+	}
+	
+	//I don't know how to use this
 	public double distanceDelta(ThreadModel lhs, ThreadModel rhs)
 	{
 		Coordinate latitude = new DegreeCoordinate(lhs.getLocation().getLatitude());
 		Coordinate longitude = new DegreeCoordinate(lhs.getLocation().getLongitude());
-
+		
 		Point lhsPoint = new Point(latitude, longitude);
 
 		latitude = new DegreeCoordinate(rhs.getLocation().getLatitude());
@@ -42,14 +64,13 @@ public class LocationComparator implements Comparator<ThreadModel> {
 	@Override
 	public int compare(ThreadModel lhs, ThreadModel rhs) {
 
-		double distance = distanceDelta(lhs, rhs);
+		double distancelhs = distanceFromBase(lhs);
+		double distancerhs = distanceFromBase(rhs);
 		
-		if (distance > 0)
+		if (distancelhs-distancerhs>0)
 			return 1;
-
-		if (distance < 0)
+		if (distancelhs-distancerhs < 0)
 			return -1;
-
 		return 0;
 	}
 
