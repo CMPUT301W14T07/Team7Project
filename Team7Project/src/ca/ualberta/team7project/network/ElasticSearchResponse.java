@@ -2,10 +2,10 @@ package ca.ualberta.team7project.network;
 
 /*
  * Represents part of a response from ElasticSearch.
+ * <p>
  * Taken from https://github.com/zjullion/PicPosterComplete
  * Taken from https://github.com/rayzhangcl/ESDemo
  */
-
 public class ElasticSearchResponse<T>
 {
 

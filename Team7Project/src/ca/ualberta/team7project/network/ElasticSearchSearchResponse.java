@@ -5,6 +5,7 @@ import java.util.Collection;
 
 /*
  * Represents a search response from ElasticSearch.
+ * <p>
  * Taken from https://github.com/zjullion/PicPosterComplete
  * which is taken from https://github.com/rayzhangcl/ESDemo
  */

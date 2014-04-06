@@ -138,17 +138,18 @@ public class ThreadListController extends Activity
 				
 			case READ_LATER:
 				MainActivity.userListener.cacheToast();
+
 				MainActivity.getUserController().getUser().addFavoriteComment(thread);
 
 				//pull the list of thread from server and save into cache
 				operation.saveCollection(fetcher.fetchAllComments(thread.getTopicUUID()));
 				
+
 				operation.saveThread(thread);
 				operation.saveFile(context);
 				break;
 				
 			case PREV_READ:
-				MainActivity.getUserController().getUser().addFavoriteComment(thread);
 				operation.saveThread(thread);
 				operation.saveFile(context);
 				break;

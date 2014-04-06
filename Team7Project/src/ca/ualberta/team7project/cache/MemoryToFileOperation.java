@@ -19,7 +19,6 @@ import com.google.gson.Gson;
  * @author wzhong3
  *
  */
-
 public class MemoryToFileOperation{
 
 	private static final String FILENAME = "threadmodelpool.sav";

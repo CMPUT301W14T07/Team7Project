@@ -46,22 +46,39 @@ public class CacheOperation {
 	
 	//Various methods for setting up the CacheOperation for a pull
 	
+	/**
+	 * Set the user's own or desired location to be used for proximity sorting
+	 * @param lat latitude
+	 * @param lon longitude
+	 */
 	public void SetLocation(double lat, double lon)
 	{
 		this.lat = lat;
 		this.lon = lon;
 	}
 	
+	/**
+	 * Set a sorting method to be applied to all search/pull operations
+	 * @param sortMethod sorting method to be used
+	 */
 	public void SetSortMethod(SortMethod sortMethod)
 	{
 		this.sortMethod = sortMethod;
 	}
 	
+	/**
+	 * Set whether only comments with pictures will be pulled
+	 * @param isFilterPicture true if only pictures with comments should be pulled, else false
+	 */
 	public void SetFilterPicture(boolean isFilterPicture)
 	{
 		this.isFilterPicture = isFilterPicture;
 	}
 	
+	/**
+	 * Set the max number of comments to be pulled for normal operations
+	 * @param maxResults max comment count
+	 */
 	public void SetMaxResults(Integer maxResults)
 	{
 		this.maxResults = maxResults;
@@ -78,6 +95,7 @@ public class CacheOperation {
 		lon = 0;
 		isFilterPicture = false;
 		sortMethod = SortMethod.DATE;
+		maxResults = 20;
 	}
 	
 	// SEARCH STRATEGY
@@ -123,14 +141,7 @@ public class CacheOperation {
 		
 		switch(sortMethod)
 		{		
-			/*
-			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
-			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
-			 * @@@@@@@@@@@@@ PUT SORTING STUFF HERE @@@@@@@@@@@@@
-			 * 
-			 */
 			case DATE:
-				
 				//sort the poolCopy by date
 				Collections.sort(poolCopy, new Comparator<ThreadModel>(){
 						@Override
@@ -161,11 +172,22 @@ public class CacheOperation {
 		return poolCopy;
 	}
 	
+	/**
+	 * Return only the top maxResults items in a pool of threads
+	 * <p>
+	 * Should be called after filtering, searching, and sorting have been done on the pool
+	 * @param pool a list of threads
+	 * @return top maxResults items in the passed list
+	 */
 	private ArrayList<ThreadModel> getTop(ArrayList<ThreadModel> pool)
 	{
 		//TODO: get the top <maxResults> threads
-		
-		return pool;
+		if(pool.size() > maxResults)
+		{
+			return new ArrayList<ThreadModel>(pool.subList(0, maxResults -1 ));
+		}
+		else
+			return pool;
 	}
 	
 	/**
@@ -235,7 +257,6 @@ public class CacheOperation {
 	{
 		ArrayList<ThreadModel> pool = grabCurrentPool();
 		
-		//TODO: perform the tag search
 		ArrayList<ThreadModel> tagPool = new ArrayList<ThreadModel>();
 		
 		for(ThreadModel thread: pool){

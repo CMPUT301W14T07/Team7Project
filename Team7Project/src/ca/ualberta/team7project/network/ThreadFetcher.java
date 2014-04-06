@@ -155,9 +155,9 @@ public class ThreadFetcher
 			case LOCATION:
 				sortString = "_search" + "?" + listSize;
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
@@ -202,9 +202,9 @@ public class ThreadFetcher
 			case LOCATION:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
 				break;
 			case NO_SORT:
@@ -277,9 +277,9 @@ public class ThreadFetcher
 				sortString = "_search?" + favoritesSize;
 			
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
@@ -327,9 +327,9 @@ public class ThreadFetcher
 			case LOCATION:
 				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" + listSize;
 				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
 				break;
 			case NO_SORT:

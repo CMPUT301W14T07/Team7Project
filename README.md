@@ -16,6 +16,7 @@ a username, and see other commenter's usernames.
 
 The application is very much like Reddit, but instead of subreddits, topics are grouped by geolocation.
 
+This application uses [Geocalc](https://github.com/grumlimited/geocalc) to calculate the distance between users and their comments.
 
 Installation Instructions
 ============
