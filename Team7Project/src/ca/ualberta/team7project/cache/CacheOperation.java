@@ -3,6 +3,8 @@ package ca.ualberta.team7project.cache;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.UUID;
 
 import android.content.Context;
@@ -127,7 +129,19 @@ public class CacheOperation {
 			 * 
 			 */
 			case DATE:
-				//TODO: date sort the poolCopy
+				
+				//sort the poolCopy by date
+				Collections.sort(poolCopy, new Comparator<ThreadModel>(){
+						@Override
+						public int compare(ThreadModel model1, ThreadModel model2) {
+		
+							Date date1 = model1.getTimestamp();
+							Date date2 = model2.getTimestamp();
+		
+							return date2.compareTo(date1);
+						}
+				});
+				
 				
 				break;
 			case LOCATION:
@@ -149,7 +163,6 @@ public class CacheOperation {
 	private ArrayList<ThreadModel> getTop(ArrayList<ThreadModel> pool)
 	{
 		//TODO: get the top <maxResults> threads
-		
 		return pool;
 	}
 	
