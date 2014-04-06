@@ -11,8 +11,6 @@ import com.grum.geocalc.Point;
 
 /**
  * Compares ThreadModels by geolocation distance
- * @author michael
- * 
  */
 public class LocationComparator implements Comparator<ThreadModel> {
 	
@@ -29,7 +27,11 @@ public class LocationComparator implements Comparator<ThreadModel> {
 		this.lon = new DegreeCoordinate(lon);
 	}
 	
-	//calculate the distance from the base point and the point of indicated thread
+	/**
+	 * Find the distance from a set longitude latitude
+	 * @param thread a ThreadModel with set distance
+	 * @return the distance of the thread for the constructed class longitude latitude
+	 */
 	public double distanceFromBase(ThreadModel thread){
 		Coordinate latitude = new DegreeCoordinate(thread.getLocation().getLatitude());
 		Coordinate longitude = new DegreeCoordinate(thread.getLocation().getLongitude());
@@ -41,7 +43,12 @@ public class LocationComparator implements Comparator<ThreadModel> {
 		return EarthCalc.getDistance(threadPoint, basePoint);
 	}
 	
-	//I don't know how to use this
+	/**
+	 * Calculates the distance between two ThreadModels
+	 * @param lhs thread model to compare to rhs
+	 * @param rhs thread model to compare to lhs
+	 * @return the distance between the two models.
+	 */
 	public double distanceDelta(ThreadModel lhs, ThreadModel rhs)
 	{
 		Coordinate latitude = new DegreeCoordinate(lhs.getLocation().getLatitude());

@@ -3,7 +3,6 @@ package ca.ualberta.team7project.network;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.ThreadModel;

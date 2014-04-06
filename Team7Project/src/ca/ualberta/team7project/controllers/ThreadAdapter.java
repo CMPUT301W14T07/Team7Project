@@ -58,6 +58,16 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         	rowView = inflater.inflate(ca.ualberta.team7project.R.layout.thread, parent, false);
             image = (ImageView) rowView.findViewById(ca.ualberta.team7project.R.id.threadImage);
         	image.setImageBitmap(bitmap);
+        	
+        	/* Image click listener */
+        	image.setOnClickListener(new ImageView.OnClickListener(){
+				@Override
+				public void onClick(View v)
+				{
+					view.onPhotoClick(thread);
+				}
+        		
+        	});
         }
         else
         {
@@ -160,7 +170,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
 			}	
 			
         });
-        
+                
 		return rowView;
     }
 
