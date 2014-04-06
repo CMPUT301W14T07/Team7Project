@@ -3,9 +3,12 @@ package ca.ualberta.team7project.network;
 import android.os.Handler;
 import android.os.Looper;
 
-
 public class ServerPolling
 {
+	/* Reuse statement 
+	 * https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#serverpolling 
+	 */
+	
     private Handler handler;
     private Runnable serverCheck;
     
@@ -25,16 +28,14 @@ public class ServerPolling
     }
 
     /**
-     * Starts the periodical update routine (mStatusChecker 
-     * adds the callback to the handler).
+     * Start the handler to update every UPDATE_INTERVAL
      */
     public synchronized void startUpdates(){
     	serverCheck.run();
     }
 
     /**
-     * Stops the periodical update routine from running,
-     * by removing the callback.
+     * Stop the handler from updating every UPDATE_INTERVAL
      */
     public synchronized void stopUpdates(){
     	handler.removeCallbacks(serverCheck);
