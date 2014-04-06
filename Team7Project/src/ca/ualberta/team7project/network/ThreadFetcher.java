@@ -220,6 +220,31 @@ public class ThreadFetcher
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
+	
+	/**
+	 * Fetch comments by topicUUID
+	 * <p>
+	 * Can be used to fetch all the comments whose topicUUID is specified
+	 * @param parentID UUID of parent comment
+	 * @return list of comments 
+	 */
+	public ArrayList<ThreadModel> fetchAllComments(UUID topicID)
+	{	
+		String sortString = null;
+		String sortEntity = "{";
+		
+		
+		sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+
+		
+		if(isPictureSort)
+			sortEntity += "" + pictureFilterEntityString;
+		
+		sortEntity += "}";
+		
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
+	}
+	
 	/**
 	 * Fetch comments by a list of their own UUID's
 	 * <p>

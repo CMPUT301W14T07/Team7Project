@@ -17,6 +17,7 @@ import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ConnectionDetector;
 import ca.ualberta.team7project.network.ServerPolling;
+import ca.ualberta.team7project.network.ThreadFetcher;
 import ca.ualberta.team7project.network.ThreadUpdater;
 import ca.ualberta.team7project.views.ThreadListView;
 import ca.ualberta.team7project.views.ThreadListView.FavoriteMode;
@@ -112,18 +113,25 @@ public class ThreadListController extends Activity
 	
 	/**
 	 * When a user clicks on the Favorite button, the ThreadModel UUID is added
+	 * <p>
+	 * And All the comments of the thread is cached 
 	 * @param thread which the user clicked on
 	 */
 	public void addFavorite(ThreadModel thread, FavoriteMode fm)
 	{
 		CacheOperation operation = MainActivity.getCacheOperation();
 		Context context = MainActivity.getMainContext();
+		ThreadFetcher fetcher = new ThreadFetcher();
 		
 		switch(fm)
 		{
 			case FAVORITE:
 				MainActivity.userListener.favoriteToast();
 				MainActivity.getUserController().getUser().addFavoriteComment(thread);
+				
+				//pull the list of thread from server and save into cache
+				operation.saveCollection(fetcher.fetchAllComments(thread.getTopicUUID()));
+				
 				operation.saveThread(thread);
 				operation.saveFile(context);
 				break;
@@ -131,6 +139,10 @@ public class ThreadListController extends Activity
 			case READ_LATER:
 				MainActivity.userListener.cacheToast();
 				MainActivity.getUserController().getUser().addFavoriteComment(thread);
+
+				//pull the list of thread from server and save into cache
+				operation.saveCollection(fetcher.fetchAllComments(thread.getTopicUUID()));
+				
 				operation.saveThread(thread);
 				operation.saveFile(context);
 				break;
