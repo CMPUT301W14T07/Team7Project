@@ -2,9 +2,11 @@ package ca.ualberta.team7project.cache;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 
 import android.content.Context;
+import ca.ualberta.team7project.location.LocationComparator;
 import ca.ualberta.team7project.models.ThreadModel;
 import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 
@@ -129,7 +131,10 @@ public class CacheOperation {
 				
 				break;
 			case LOCATION:
-				//TODO: proximity sort the poolCopy
+				//use the geocalc
+				//LocationComparator is in the location package
+				//override the comparator
+				Collections.sort(poolCopy, new LocationComparator(lat, lon));
 				
 				break;
 			case NO_SORT:
