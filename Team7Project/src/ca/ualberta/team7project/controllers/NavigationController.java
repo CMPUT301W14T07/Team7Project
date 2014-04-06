@@ -15,6 +15,16 @@ import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ThreadFetcher;
 import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 
+/**
+ * Manages the navigation between different pages of comments
+ * <p>
+ * Handles navigating by parent, by favorites, by tags, and view all comments globally.
+ * Also allows the user to filter by picture
+ * <p>
+ * Keeps a "stack" of Navigator objects to facilitate navigation between pages.
+ * Uses ThreadFetcher to grab comments from the server or the local cache.
+ * @author Logan
+ */
 public class NavigationController implements SortPreferencesAlertListener
 {
 	private ThreadListener listener;

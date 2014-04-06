@@ -1,5 +1,6 @@
 package ca.ualberta.team7project.network;
 
+import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.interfaces.ThreadListener;
 import ca.ualberta.team7project.models.ThreadModel;
 
@@ -45,6 +46,9 @@ public class ThreadUpdater
 	public void sendComment(ThreadModel comment)
 	{
 		ElasticSearchOperation search = new ElasticSearchOperation();
+		CacheOperation cache = new CacheOperation();
+		
 		search.pushThreadModel(comment, refresh);
+		cache.saveThread(comment);
 	}
 }

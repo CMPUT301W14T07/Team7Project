@@ -1,7 +1,9 @@
 ca.ualberta.team7project
 ca.ualberta.team7project.alertviews
+ca.ualberta.team7project.cache
 ca.ualberta.team7project.controllers
 ca.ualberta.team7project.interfaces
+ca.ualberta.team7project.location
 ca.ualberta.team7project.models
 ca.ualberta.team7project.network
 ca.ualberta.team7project.views

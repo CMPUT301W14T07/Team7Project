@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * User selects how to sort threads
+ * Allows the user to select how to sort/view threads
  */
 public class SortPreferencesAlertView extends DialogFragment
 {

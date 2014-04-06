@@ -155,9 +155,9 @@ public class ThreadFetcher
 			case LOCATION:
 				sortString = "_search" + "?" + listSize;
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
@@ -202,9 +202,9 @@ public class ThreadFetcher
 			case LOCATION:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
 				break;
 			case NO_SORT:
@@ -214,6 +214,31 @@ public class ThreadFetcher
 		
 		if(isPictureSort)
 			sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") + pictureFilterEntityString;	
+		
+		sortEntity += "}";
+		
+		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
+	}
+	
+	
+	/**
+	 * Fetch comments by topicUUID
+	 * <p>
+	 * Can be used to fetch all the comments whose topicUUID is specified
+	 * @param parentID UUID of parent comment
+	 * @return list of comments 
+	 */
+	public ArrayList<ThreadModel> fetchAllComments(UUID topicID)
+	{	
+		String sortString = null;
+		String sortEntity = "{";
+		
+		
+		sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+
+		
+		if(isPictureSort)
+			sortEntity += "" + pictureFilterEntityString;
 		
 		sortEntity += "}";
 		
@@ -252,9 +277,9 @@ public class ThreadFetcher
 				sortString = "_search?" + favoritesSize;
 			
 				sortEntity += "\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
@@ -302,9 +327,9 @@ public class ThreadFetcher
 			case LOCATION:
 				sortString = "_search?q=uniqueID:" + uniqueID.toString() + "&" + listSize;
 				sortEntity = "{\"sort\":{\"_geo_distance\":{\"user.locationModel.locationInner\":[";
-				sortEntity += Double.toString(lat);
-				sortEntity += ", ";
 				sortEntity += Double.toString(lon);
+				sortEntity += ", ";
+				sortEntity += Double.toString(lat);
 				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
 				break;
 			case NO_SORT:
