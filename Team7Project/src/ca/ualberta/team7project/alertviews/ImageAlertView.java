@@ -7,11 +7,12 @@ import com.google.gson.Gson;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
-
 
 public class ImageAlertView extends DialogFragment
 {
@@ -41,11 +42,18 @@ public class ImageAlertView extends DialogFragment
 		String json = getArguments().getString("ThreadModel");
 		final ThreadModel thread = new Gson().fromJson(json, ThreadModel.class);
 
+		Rect displayRectangle = new Rect();
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflator = getActivity().getLayoutInflater();
 
 		View v = inflator.inflate(ca.ualberta.team7project.R.layout.image_view, null);
 
+		Window window = getActivity().getWindow();
+		window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);		
+		v.setMinimumWidth((int)(displayRectangle.width() * 0.5f));
+		v.setMinimumHeight((int)(displayRectangle.height() * 0.5f));
+		
 		ImageView imageView = (ImageView) v.findViewById(ca.ualberta.team7project.R.id.thread_image_view);
 		imageView.setImageBitmap(thread.getImage());
 
