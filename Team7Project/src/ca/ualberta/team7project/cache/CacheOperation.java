@@ -10,6 +10,7 @@ import java.util.UUID;
 import android.content.Context;
 import ca.ualberta.team7project.location.LocationComparator;
 import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 
 
@@ -163,6 +164,7 @@ public class CacheOperation {
 	private ArrayList<ThreadModel> getTop(ArrayList<ThreadModel> pool)
 	{
 		//TODO: get the top <maxResults> threads
+		
 		return pool;
 	}
 	
@@ -234,11 +236,22 @@ public class CacheOperation {
 		ArrayList<ThreadModel> pool = grabCurrentPool();
 		
 		//TODO: perform the tag search
+		ArrayList<ThreadModel> tagPool = new ArrayList<ThreadModel>();
 		
+		for(ThreadModel thread: pool){
+			ThreadTagModel tagModel = thread.getTags();
+			
+			for(String tag: tags){
+				if(tagModel.contains(tag)){
+					tagPool.add(thread);
+					break;
+				}
+			}
+		}
 		
-		pool = sortPool(pool);
+		tagPool = sortPool(tagPool);
 		
-		return getTop(pool);
+		return getTop(tagPool);
 	}
 	
 	/**
