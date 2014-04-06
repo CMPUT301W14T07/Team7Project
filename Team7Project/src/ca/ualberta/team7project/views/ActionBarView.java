@@ -9,10 +9,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.CreateIdentityAlertView;
@@ -31,10 +27,6 @@ public class ActionBarView extends Activity
 	private FragmentManager fragment;
 	private Context context;
 	private Context mainContext;
-	
-	private ImageButton searchButton;
-	private EditText searchText;
-
 
 	/**
 	 * Construction ActionBarView which handles button clicks and calls the appropriate controllers.
@@ -50,21 +42,6 @@ public class ActionBarView extends Activity
 		this.item = item;
 		this.mainContext = mainContext;
 		
-		searchButton = (ImageButton) findViewById(ca.ualberta.team7project.R.id.action_search);
-		searchText = (EditText) findViewById(ca.ualberta.team7project.R.id.tag_search_box);
-		
-		if(searchButton != null)
-		{
-			searchButton.setOnClickListener(new OnClickListener()
-			{
-			  @Override
-			  public void onClick(View v) 
-			  {
-				  MainActivity.threadListener.onTagSearch(searchText.getText().toString());
-			  }    
-			});
-		}
-
 	}
 
 	/**
