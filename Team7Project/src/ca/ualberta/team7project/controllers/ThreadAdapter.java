@@ -103,7 +103,7 @@ public class ThreadAdapter extends ArrayAdapter<ThreadModel>
         ThreadTagModel tags = thread.getTags();        
         String tag = context.getResources().getString(ca.ualberta.team7project.R.string.tag);
 
-        if(tags != null && tags.tagCount() >= 2)
+        if(tags != null && tags.tagCount() >= 1)
             tagView.setText(tag + tags.customFormatTag(", "));
                 
         /* Edit button on click listener */
