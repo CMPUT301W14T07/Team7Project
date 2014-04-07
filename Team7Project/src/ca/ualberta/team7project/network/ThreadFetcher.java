@@ -230,18 +230,9 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchAllComments(UUID topicID)
 	{	
-		String sortString = null;
-		String sortEntity = "{";
-		
-		
-		sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+		String sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + "size=40";
+		String sortEntity = "{}";
 
-		
-		if(isPictureSort)
-			sortEntity += "" + pictureFilterEntityString;
-		
-		sortEntity += "}";
-		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
