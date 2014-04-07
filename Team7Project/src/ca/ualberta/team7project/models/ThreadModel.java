@@ -289,7 +289,6 @@ public class ThreadModel
 		this.tags = tags;
 	}
 
-
 	/**
 	 * Class that stores a bitmap in json serializable form (a base64 encoded
 	 * byte array)

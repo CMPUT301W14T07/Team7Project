@@ -20,6 +20,9 @@ import android.widget.Spinner;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.models.LocationModel;
+import ca.ualberta.team7project.models.ThreadModel;
+import ca.ualberta.team7project.models.ThreadTagModel;
+import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.views.ThreadListView;
 
 /**
@@ -52,15 +55,14 @@ public class ThreadAlertView extends DialogFragment
 
 	private Boolean replying;
 	private Boolean editing;
-	private ThreadListController controller;
-	private LocationModel location;
 	
-	private Bitmap cameraPhoto;
+	private ThreadListController controller;
 	private final int REQUEST_IMAGE_CAPTURE = 1;
+	private ThreadModel thread;
 	
 	public interface ThreadAlertListener
 	{
-		public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags);
+		public void createThread(ThreadModel thread);
 	}
 
 	ThreadAlertListener listener;
@@ -75,6 +77,10 @@ public class ThreadAlertView extends DialogFragment
 		controller = MainActivity.getListController();
 		replying = MainActivity.getListController().getInTopic();
 		editing = MainActivity.getListController().getEditingTopic();
+		
+		/* Initiated to null and filled in through the alert dialog */
+		UserModel currentUser = MainActivity.getUserController().getUser().getUser();
+		thread = new ThreadModel(null, currentUser, null);
 	}
 
 	@Override
@@ -135,7 +141,7 @@ public class ThreadAlertView extends DialogFragment
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id)
 			{
-				location = getLocationModel((String) spinner.getSelectedItem().toString());
+				thread.setLocation(getLocationModel((String) spinner.getSelectedItem().toString()));
 			}
 
 			@Override
@@ -184,7 +190,7 @@ public class ThreadAlertView extends DialogFragment
 			// Temporary for now...No error checking hasb been done yet.
 			tagInput.setText(controller.getOpenThread().getTags().commaFormatTag());
 						
-			this.cameraPhoto = controller.getOpenThread().getImage();
+			thread.setImage(controller.getOpenThread().getImage());
 		}
 
 		/*
@@ -216,11 +222,14 @@ public class ThreadAlertView extends DialogFragment
 					public void onClick(DialogInterface dialog, int id)
 					{
 
-						String title = titleInput.getText().toString();
-						String body = bodyInput.getText().toString();
-						String tags = tagInput.getText().toString();
+						thread.setTitle(titleInput.getText().toString());
+						thread.setComment(bodyInput.getText().toString());
 						
-						listener.createThread(title, body, location, cameraPhoto, tags);
+						ThreadTagModel tags = new ThreadTagModel();
+						tags.parseAndAppend(tagInput.getText().toString());
+						thread.setTags(tags);
+						
+						listener.createThread(thread);
 					}
 				});
 		
@@ -250,15 +259,8 @@ public class ThreadAlertView extends DialogFragment
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == REQUEST_IMAGE_CAPTURE) {
-	    	
-	    	try
-	    	{
-		        Bundle extras = data.getExtras();
-		        this.cameraPhoto = (Bitmap) extras.get("data");
-	    	} catch (Exception e)
-	    	{
-	    		
-	    	}
+	        Bundle extras = data.getExtras();
+	    	thread.setImage((Bitmap) extras.get("data"));
 	    }
 	}
 }

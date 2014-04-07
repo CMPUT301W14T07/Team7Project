@@ -5,15 +5,12 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.TagInsertAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
 import ca.ualberta.team7project.cache.CacheOperation;
-import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
-import ca.ualberta.team7project.models.ThreadTagModel;
 import ca.ualberta.team7project.models.UserModel;
 import ca.ualberta.team7project.network.ConnectionDetector;
 import ca.ualberta.team7project.network.ServerPolling;
@@ -252,38 +249,25 @@ public class ThreadListController extends Activity
 	}
 	
 	/**
-	 * Creates a new thread and inserts it into the model in response to a click listener.
-	 * 
-	 * @param title of the thread
-	 * @param body of the thread
+	 * Creates a new thread and inserts it into the model in response to a click listener
+	 * @param Thread to be uploaded to the cache and elastic search 
 	 */
-	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
+	//public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
+	public void createThread(ThreadModel thread)
 	{	
 		ConnectionDetector detector = new ConnectionDetector(MainActivity.getMainContext());
+		
 		if(detector.isConnectingToInternet())
-		{
-			/* First we need to get the UserModel to associate with a ThreadModel */
-			UserModel currentUser = MainActivity.getUserController().getUser().getUser();
-			currentUser.setLocation(location);
-			ThreadModel newThread = new ThreadModel(comment, currentUser, title);
-				
-			if(cameraPhoto != null)
-				newThread.setImage(cameraPhoto);
-		
-			ThreadTagModel tagModel = new ThreadTagModel();
-			tagModel.parseAndAppend(tags);
-			newThread.setTags(tagModel);
-		
+		{			
 			/* Determine if the user was editing, replying or creating a new thread */
 			if(getEditingTopic() == true)
 			{
-				/* User edited a thread. Update models appropriately */
 				/* Insert newThread in place of the open thread in the models */						
-				newThread.setUniqueID(this.getOpenThread().getUniqueID());
-				newThread.setParentUUID(this.getOpenThread().getParentUUID());
-				newThread.setTopicUUID(this.getOpenThread().getTopicUUID());
+				thread.setUniqueID(getOpenThread().getUniqueID());
+				thread.setParentUUID(getOpenThread().getParentUUID());
+				thread.setTopicUUID(getOpenThread().getTopicUUID());
 			
-				InsertThread(newThread);
+				InsertThread(thread);
 				MainActivity.userListener.editToast();
 			}
 			else
@@ -291,21 +275,17 @@ public class ThreadListController extends Activity
 				/* User was not editing thread. Could be replying or creating a topic */
 				if(getInTopic() == true)
 				{
-					/* User replied. Updated models appropriately */
-					/* Append the reply to the openThread and then replace in the model */
-					UUID parent = this.getOpenThread().getUniqueID();
-					UUID topic = this.getOpenThread().getTopicUUID();
+					/* Append the reply to the openThread and then replace in the model */				
+					thread.setParentUUID(getOpenThread().getUniqueID());
+					thread.setTopicUUID(getOpenThread().getTopicUUID());
 				
-					newThread.setParentUUID(parent);
-					newThread.setTopicUUID(topic);
-					InsertThread(newThread);
-				
+					InsertThread(thread);
 					MainActivity.userListener.replyingToast();
 				}
 				/* User created new topic. Upload to Elastic Search */
 				else
 				{				
-					InsertThread(newThread);
+					InsertThread(thread);
 					MainActivity.userListener.newTopicToast();
 				}
 			}
