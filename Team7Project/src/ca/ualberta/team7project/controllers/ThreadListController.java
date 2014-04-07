@@ -192,6 +192,9 @@ public class ThreadListController extends Activity
 				break;
 				
 			case PREV_READ:
+				MainActivity.getUserController().getUser().addFavoriteComment(thread);
+				
+				operation.saveCollection(fetcher.fetchAllComments(thread.getTopicUUID()));
 				operation.saveThread(thread);
 				operation.saveFile(context);
 				break;
