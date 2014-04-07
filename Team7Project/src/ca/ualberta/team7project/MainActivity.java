@@ -30,14 +30,11 @@ import ca.ualberta.team7project.interfaces.UserListener;
 import ca.ualberta.team7project.views.ActionBarView;
 
 public class MainActivity extends Activity implements IdentityListener
-{
-	public static final String DEBUG = "debug"; // Log statements 
-	
+{	
 	private static UserController userController;
 	private static ThreadListController listController;
 	private static LocationController locationController;
 	
-	/* mainContext is necessary for casting to all listeners and is used in dialog fragments */
 	private static Context mainContext;
 
 	public static ThreadListener threadListener;

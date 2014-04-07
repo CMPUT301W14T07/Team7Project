@@ -24,7 +24,7 @@ public class MemoryToFileOperationTest extends
 		tool.saveInFile();
 		tool.loadFromFile();
 		
-		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 0);
+		assertEquals(true, ThreadModelPool.threadModelPool.size() == 0);
 	}
 	
 	public void testSaveInFilePopulated(){
@@ -46,7 +46,7 @@ public class MemoryToFileOperationTest extends
 		
 		//load from file and check that it is back
 		tool.loadFromFile();
-		this.assertEquals(true, ThreadModelPool.threadModelPool.size() == 1);
+		assertEquals(true, ThreadModelPool.threadModelPool.size() == 1);
 	}
 	
 	

@@ -11,7 +11,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Allows the user to select how to sort/view threads
@@ -61,43 +60,28 @@ public class SortPreferencesAlertView extends DialogFragment
 							public void onClick(DialogInterface dialog,
 									int which)
 							{
-								// Determine which sorting method was clicked
-								// This isn't very readable or robust; should look into alternative
-								// For instance which is index position....You have to dig into arrays.xml to find that out.
 								switch(which)
 								{
 									case 0:
-										// Sort threads by date (default)
-										Log.e(MainActivity.DEBUG, "sort by date");
 										listener.setSortPreferences(SortPreference.BY_DATE);
 										break;
 									case 1:
-										// Sort threads by proximity
-										Log.e(MainActivity.DEBUG, "sort by proximity");
 										listener.setSortPreferences(SortPreference.BY_LOCATION);
 										break;								
 										
 									case 2:	
-										// Sort threads by pictures									
-										Log.e(MainActivity.DEBUG, "sort by picture");
 										listener.setSortPreferences(SortPreference.FILTER_PICTURE);
 										break;
 									
 									case 3:
-										// Disable sort by picture
-										Log.e(MainActivity.DEBUG, "disabled sort by picture");
 										listener.setSortPreferences(SortPreference.UNFILTER_PICTURE);									
 										break;
 										
 									case 4:
-										// Sort by parent (default)
-										Log.e(MainActivity.DEBUG, "view by parents");
 										listener.setSortPreferences(SortPreference.BY_PARENTS);									
 										break;
 										
 									case 5:
-										// Sort globally
-										Log.e(MainActivity.DEBUG, "view comments globally");
 										listener.setSortPreferences(SortPreference.GLOBALLY);
 										break;
 								}
@@ -110,7 +94,6 @@ public class SortPreferencesAlertView extends DialogFragment
 						public void onClick(DialogInterface dialog, int id)
 						{
 							// Nothing needs to happen if user selects cancel.
-							// Just for show.
 						}
 					});	
 		return builder.create();

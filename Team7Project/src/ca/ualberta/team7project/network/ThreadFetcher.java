@@ -3,6 +3,8 @@ package ca.ualberta.team7project.network;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import android.util.Log;
+
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -165,9 +167,9 @@ public class ThreadFetcher
 				sortString = "_search" + "?" + listSize;
 		}
 		
-		if(isPictureSort)
-			sortEntity += pictureFilterEntityString;	
-		
+		if(isPictureSort){
+			sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") + pictureFilterEntityString;
+		}
 		sortEntity += "}";
 		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
@@ -205,16 +207,17 @@ public class ThreadFetcher
 				sortEntity += Double.toString(lon);
 				sortEntity += ", ";
 				sortEntity += Double.toString(lat);
-				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}}";
+				sortEntity += "],\"order\":\"asc\",\"unit\":\"km\"}}";
 				break;
 			case NO_SORT:
 			default:
 				sortString = "_search?q=parentUUID:" + parentID.toString() + "&" + listSize;
 		}
 		
-		if(isPictureSort)
-			sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") + pictureFilterEntityString;	
-		
+		if(isPictureSort){
+			sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") + pictureFilterEntityString;
+			
+		}
 		sortEntity += "}";
 		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
@@ -230,18 +233,9 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchAllComments(UUID topicID)
 	{	
-		String sortString = null;
-		String sortEntity = "{";
-		
-		
-		sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+		String sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + "size=40";
+		String sortEntity = "{}";
 
-		
-		if(isPictureSort)
-			sortEntity += "" + pictureFilterEntityString;
-		
-		sortEntity += "}";
-		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
@@ -287,7 +281,8 @@ public class ThreadFetcher
 				sortString = "_search?" + favoritesSize;
 		}
 		
-		sortEntity += "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
+		sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") 
+				+ "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
 		
 		//insert space-seperated UUID's into the sortEntity (extra space at end is OK)
 		for(UUID fav : favorites)

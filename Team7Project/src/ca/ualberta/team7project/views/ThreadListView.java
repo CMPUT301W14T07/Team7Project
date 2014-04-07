@@ -8,7 +8,6 @@
 package ca.ualberta.team7project.views;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,7 +18,6 @@ import ca.ualberta.team7project.alertviews.ThreadAlertView.ThreadAlertListener;
 import ca.ualberta.team7project.controllers.ThreadAdapter;
 import ca.ualberta.team7project.controllers.ThreadListController;
 import ca.ualberta.team7project.interfaces.ThreadListener;
-import ca.ualberta.team7project.models.LocationModel;
 import ca.ualberta.team7project.models.ThreadListModel;
 import ca.ualberta.team7project.models.ThreadModel;
 
@@ -113,9 +111,9 @@ public class ThreadListView extends Activity implements ThreadAlertListener, Thr
 	}
 
 	@Override
-	public void createThread(String title, String comment, LocationModel location, Bitmap cameraPhoto, String tags)
+	public void createThread(ThreadModel thread)
 	{	
-		controller.createThread(title, comment, location, cameraPhoto, tags);
+		controller.createThread(thread);
 	}
 
 	@Override

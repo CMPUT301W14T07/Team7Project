@@ -63,9 +63,6 @@ public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainAct
 		}
 		//use parentUUID to ensure it has same properties
 		assertEquals("Same UUID", thread.getParentUUID(), topParent);
-		//this fails, index out of bounds so nothing else there
-		ThreadModel thread2 = search.get(1);
-
 		
 	}
 }

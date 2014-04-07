@@ -14,6 +14,10 @@ import com.grum.geocalc.Point;
  */
 public class LocationComparator implements Comparator<ThreadModel> {
 	
+	/*
+	 * The Geocalc library used in this class can be found at https://github.com/grumlimited/geocalc 
+	 */
+	
 	/**
 	 * Gets the distance between two ThreadModel's LocationModels
 	 * @return distance between two points as a double

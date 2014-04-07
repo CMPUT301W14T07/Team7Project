@@ -28,7 +28,6 @@ import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 public class NavigationController implements SortPreferencesAlertListener
 {
 	private ThreadListener listener;
-	private Activity activity;
 	
 	protected enum NavigatorMode
 	{
@@ -53,7 +52,6 @@ public class NavigationController implements SortPreferencesAlertListener
 	public NavigationController(ThreadListener listener, Activity activity)
 	{
 		this.listener = listener;
-		this.activity = activity;
 		stack = new ArrayList<Navigator>();
 		stack.add(new Navigator(UUID.fromString(ThreadModel.ROOT)));
 	}
@@ -125,9 +123,7 @@ public class NavigationController implements SortPreferencesAlertListener
 		UserModel currentUser = prefs.getUser();
 		fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
 		
-		//get current sorting method
-		MainActivity mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
-		ThreadListController controller = mainActivity.getListController();
+		ThreadListController controller = MainActivity.getListController();
 		if(controller == null)
 			return null;
 		SortMethod currSort = getSortMethod();

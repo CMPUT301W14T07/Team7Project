@@ -76,22 +76,11 @@ public class ActionBarView extends Activity
 			case ca.ualberta.team7project.R.id.action_user_preferences:
 				userPreferences();
 				return true;
-			case ca.ualberta.team7project.R.id.action_show_cache:
-				showCache();
-				return true;
 		}
 		return false;
 	}
 
 	
-	
-	/**
-	 * Handles the user's request to show cached comment threads
-	 */
-	private void showCache()
-	{
-		
-	}
 	
 	/**
 	 * Handles the users request to show favorite threads
