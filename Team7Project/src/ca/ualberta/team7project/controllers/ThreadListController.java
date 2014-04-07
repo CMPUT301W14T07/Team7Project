@@ -74,7 +74,9 @@ public class ThreadListController extends Activity
 			public void run()
 			{
 				if(connection.isConnectingToInternet())
+				{
 					refreshThreads();
+				}
 			}
 			
 		});

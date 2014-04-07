@@ -123,9 +123,7 @@ public class NavigationController implements SortPreferencesAlertListener
 		UserModel currentUser = prefs.getUser();
 		fetcher.SetLocation(currentUser.getLocation().getLatitude(), currentUser.getLocation().getLongitude());
 		
-		//get current sorting method
-		MainActivity mainActivity = (ca.ualberta.team7project.MainActivity)MainActivity.getMainContext();
-		ThreadListController controller = mainActivity.getListController();
+		ThreadListController controller = MainActivity.getListController();
 		if(controller == null)
 			return null;
 		SortMethod currSort = getSortMethod();

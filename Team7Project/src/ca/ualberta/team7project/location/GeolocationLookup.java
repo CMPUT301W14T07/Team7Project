@@ -46,7 +46,7 @@ public class GeolocationLookup extends AsyncTask<String, Void, ArrayList<Address
 			}
 			catch (Exception e)
 			{
-				// Do nothing..But don't crash the application either. Location will not be used.
+				e.printStackTrace();
 			}
 		}
 
@@ -67,7 +67,7 @@ public class GeolocationLookup extends AsyncTask<String, Void, ArrayList<Address
     	}
     	catch (Exception e) 
     	{
-			// Do nothing..But don't crash the application either. Location will not be used.
+    		e.printStackTrace();
     	}
     }
     
