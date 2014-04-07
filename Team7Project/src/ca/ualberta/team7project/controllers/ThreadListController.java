@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.alertviews.TagInsertAlertView;
 import ca.ualberta.team7project.alertviews.ThreadAlertView;
@@ -79,7 +81,7 @@ public class ThreadListController extends Activity
 	
 	/**
 	 * pull the threads from server and check if there are updates.
-	 * but actually checking is based on number variation.
+	 * but actually checking is based on number variation and first thread difference
 	 * It only works for small scale of threads
 	 */
 	public void checkForUpdate(){
@@ -103,6 +105,20 @@ public class ThreadListController extends Activity
 					CacheOperation saveCache = new CacheOperation();
 					saveCache.saveCollection(threads);
 					saveCache.saveFile(activity);
+				}
+				else if(threads.size()!=0){
+					//check if the first thread is the same
+					UUID uuid1 = listModel.getThread(0).getUniqueID();
+					UUID uuid2 = threads.get(0).getUniqueID();
+					if(!uuid1.equals(uuid2)){
+						MainActivity.userListener.pullNewToast();
+						
+						//save in cache
+						CacheOperation saveCache = new CacheOperation();
+						saveCache.saveCollection(threads);
+						saveCache.saveFile(activity);
+					}
+						
 				}
 			}
 		});
