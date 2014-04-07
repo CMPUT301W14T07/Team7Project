@@ -66,19 +66,46 @@ public class ThreadListController extends Activity
 	public void initiateServerPolling()
 	{
 		ServerPolling updater = new ServerPolling(new Runnable() {
-
+			
 			@Override
 			public void run()
-			{
-				if(connection.isConnectingToInternet())
-				{
-					refreshThreads();
-				}
+			{	
+				checkForUpdate();
 			}
-			
 		});
 
 		updater.startUpdates();
+	}
+	
+	/**
+	 * pull the threads from server and check if there are updates.
+	 * but actually checking is based on number variation.
+	 * It only works for small scale of threads
+	 */
+	public void checkForUpdate(){
+		
+		activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				ArrayList<ThreadModel> threads = navigation.getRefreshedThreads();
+				
+				//little bug that threads is null when app starts
+				//don't know how to fix it
+				if(threads == null)
+					return;
+				
+				if(listModel.getSize() != threads.size()){
+					MainActivity.userListener.pullNewToast();
+					
+					//save in cache
+					CacheOperation saveCache = new CacheOperation();
+					saveCache.saveCollection(threads);
+					saveCache.saveFile(activity);
+				}
+			}
+		});
 	}
 	
 	/**

@@ -133,9 +133,16 @@ public class UserView extends Activity implements UserListener
 
 	@Override
 	public void postFailToast() {
-		// TODO Auto-generated method stub
+		
 		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_network_fail_push, Toast.LENGTH_LONG).show();
 		
+	}
+
+	@Override
+	public void pullNewToast() {
+		// TODO Auto-generated method stub
+		Toast.makeText(context, ca.ualberta.team7project.R.string.toast_pull_new, Toast.LENGTH_SHORT).show();
+
 	}
 
 }

@@ -1,7 +1,9 @@
 package ca.ualberta.team7project.network;
 
+import ca.ualberta.team7project.MainActivity;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 /**
  * Initiates a server poll at set intervals
@@ -14,17 +16,41 @@ public class ServerPolling
 	
     private Handler handler;
     private Runnable serverCheck;
-    
-    private int UPDATE_INTERVAL = 30000;
+    ConnectionDetector connection;
+	private int UPDATE_INTERVAL = 30000;
+	private boolean connected = true;
 
     public ServerPolling(final Runnable refreshWarn) 
-    {
+    {	
+    	connection = new ConnectionDetector(MainActivity.getMainContext());
     	handler = new Handler(Looper.getMainLooper());
     	
     	serverCheck = new Runnable() {
             @Override
             public void run() {
-            	refreshWarn.run();
+            	
+            	if(connection.isConnectingToInternet()){
+            	
+            		if(connected){
+            			//connected all the time
+            			refreshWarn.run();
+            		}
+            		else{
+            			//recover the connection
+            			connected = true;
+            			Toast.makeText(MainActivity.getMainContext(), "connected to the internet", Toast.LENGTH_SHORT).show();            			
+            			refreshWarn.run();	
+            		}
+            	}
+            	else{
+            		
+            		if(connected){
+            			//the transition from connected to unconnected 
+            			Toast.makeText(MainActivity.getMainContext(), "Lose connection", Toast.LENGTH_SHORT).show();
+            		}
+            		connected = false;
+            	}
+            	
                 handler.postDelayed(this, UPDATE_INTERVAL);
             }
         };
@@ -34,6 +60,7 @@ public class ServerPolling
      * Start the handler to update every UPDATE_INTERVAL
      */
     public synchronized void startUpdates(){
+    	
     	serverCheck.run();
     }
 
