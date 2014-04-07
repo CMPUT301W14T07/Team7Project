@@ -316,7 +316,7 @@ public class ThreadModel
 			}
 
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-			image.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+			image.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
 			byte[] bytes = byteStream.toByteArray();
 			innerBitmapData = Base64.encodeToString(bytes, Base64.DEFAULT);
 		}
