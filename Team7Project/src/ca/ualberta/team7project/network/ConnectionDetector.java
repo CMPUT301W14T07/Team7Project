@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * reference http://www.androidhive.info/2012/07/android-detect-internet-connection-status/
+ * Reuse statement: https://github.com/CMPUT301W14T07/Team7Project/wiki/Reuse-Statements#connection-detector
  * Helper class to check if there is network connection
  * @author wzhong3
  *
