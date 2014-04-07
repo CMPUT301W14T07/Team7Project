@@ -281,7 +281,8 @@ public class ThreadFetcher
 				sortString = "_search?" + favoritesSize;
 		}
 		
-		sortEntity += "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
+		sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") 
+				+ "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
 		
 		//insert space-seperated UUID's into the sortEntity (extra space at end is OK)
 		for(UUID fav : favorites)
