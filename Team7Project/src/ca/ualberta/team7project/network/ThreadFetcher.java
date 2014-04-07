@@ -233,18 +233,9 @@ public class ThreadFetcher
 	 */
 	public ArrayList<ThreadModel> fetchAllComments(UUID topicID)
 	{	
-		String sortString = null;
-		String sortEntity = "{";
-		
-		
-		sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + listSize;
+		String sortString = "_search?q=topicUUID:" + topicID.toString() + "&" + "size=40";
+		String sortEntity = "{}";
 
-		
-		if(isPictureSort)
-			sortEntity += "" + pictureFilterEntityString;
-		
-		sortEntity += "}";
-		
 		return new ArrayList<ThreadModel>(search.searchThreads(sortString, sortEntity));
 	}
 	
@@ -290,7 +281,8 @@ public class ThreadFetcher
 				sortString = "_search?" + favoritesSize;
 		}
 		
-		sortEntity += "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
+		sortEntity += ((sort == SortMethod.LOCATION) ? "," : "") 
+				+ "\"query\":{\"query_string\":{\"query\":\"uniqueID:(";
 		
 		//insert space-seperated UUID's into the sortEntity (extra space at end is OK)
 		for(UUID fav : favorites)
