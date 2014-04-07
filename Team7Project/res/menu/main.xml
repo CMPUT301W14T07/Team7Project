@@ -11,13 +11,7 @@
 	      android:icon="@drawable/ic_action_favorite"
 	      android:title="@string/show_favorites"
 	      android:showAsAction="ifRoom"/>
-	
-	<!-- Show cache button -->
-	<item android:id="@+id/action_show_cache" 
-	      android:icon="@drawable/ic_action_cache"
-	      android:title="@string/show_cache"
-	      android:showAsAction="ifRoom"/>
-		
+			
 	<!-- Create topic button -->
 	<item android:id="@+id/action_create_topic" 
 	      android:icon="@drawable/ic_action_new_thread"
