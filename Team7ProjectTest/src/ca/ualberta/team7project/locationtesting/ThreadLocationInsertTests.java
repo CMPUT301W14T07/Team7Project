@@ -63,8 +63,6 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 		UserController.updateLocationModel(model);
 		UserModel user = preference.getUser();
 		
-		System.out.println(user.getLocation().getLongitude());
-		
 		assertEquals("User location was set", user.getLocation().getLongitude(),longitude);
 		
 		/* Inject an alternate location with a different location*/

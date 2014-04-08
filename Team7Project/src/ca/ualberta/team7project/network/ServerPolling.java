@@ -17,7 +17,9 @@ public class ServerPolling
     private Handler handler;
     private Runnable serverCheck;
     ConnectionDetector connection;
-	private int UPDATE_INTERVAL = 15000;
+    
+    //fresh every 20 sec
+	private int UPDATE_INTERVAL = 20000;
 	private boolean connected = true;
 
     public ServerPolling(final Runnable refreshWarn) 

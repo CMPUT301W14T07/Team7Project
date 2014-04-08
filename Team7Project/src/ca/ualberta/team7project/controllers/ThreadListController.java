@@ -63,7 +63,7 @@ public class ThreadListController extends Activity
 	}
 	
 	/**
-	 * Polls elastic search for updates every 30 seconds
+	 * Polls elastic search for updates every 20 seconds
 	 */
 	public void initiateServerPolling()
 	{
