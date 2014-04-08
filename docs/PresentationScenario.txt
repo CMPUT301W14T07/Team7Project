@@ -1,0 +1,35 @@
+The user is out and about using our app which they have newly installed on their phone.
+
+Scenario1:
+User decides to start up the app. They must go through:
+--login (User story #20)
+--user will then see the threads. These threads have the comment authors (#21)
+--by default, the user should see the newest threads (#16)
+--the user will also be able to browse top level comments(#4)
+
+Scenario2:
+User now decides to participate.
+--User creates a new top level comment (#3) and attach a photo (#7)
+--the user posts from their current geolocation (#17)
+--once the user has pushed the thread, it is shared and can be seen immediately (#14)
+--oops! wanna edit (#13)
+
+Scenario3:
+The user wants to participate even more.
+--User starts browsing other top level comments (#4 again), and enters a thread to see replies (#5)
+--the user doesn't agree with someone and posts their own reply(#6)
+--the user decides to favorite and cache two other top level comments(#10, #11)
+--the user looks at the favorites, the cached, and the previously read threads through the fave 
+button in the ActionBar (#10, 12)
+--the user decides to tag, and search by that tag (exact match unfortunately) (#22)
+
+Scenario4:
+The user now wants to sort.
+--User sorts by date, but no change (default behavior) (#9, #15, #16)
+--User sorts by the pictures (#8)
+--user sorts by proximity (#1)
+--user sorts globally (shows all EXPANDED threads) (#19)
+
+Scenario5:
+Oh no, no internet.
+--user can still see their favs, prev read and cached (#10, 12)
