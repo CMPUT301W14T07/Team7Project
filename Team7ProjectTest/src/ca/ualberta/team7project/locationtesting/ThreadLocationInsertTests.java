@@ -55,14 +55,17 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 	 * A newly created thread should have data on the most recent user location
 	 */
 	public void testThreadLocation() 
-	{
+	{	
+		
 		LocationModel model = new LocationModel(longitude, latitude);
 		
 		/* Inject a new user location into the user */				
 		UserController.updateLocationModel(model);
 		UserModel user = preference.getUser();
 		
-		assertEquals("User location was set", user.getLocation().getLongitude(), longitude);
+		System.out.println(user.getLocation().getLongitude());
+		
+		assertEquals("User location was set", user.getLocation().getLongitude(),longitude);
 		
 		/* Inject an alternate location with a different location*/
 		Address address = new Address(Locale.getDefault());
@@ -70,7 +73,7 @@ public class ThreadLocationInsertTests extends ActivityInstrumentationTestCase2<
 		address.setLatitude(latitude);
 		
 		locationController.updateSetLocation(address);
-	
+		
 		assertEquals("Alternate location was set", locationController.getAlternateLocation(), model);
 		
 		/* Test that the alert view is able to correctly attach the locations when the spinner asks for them */

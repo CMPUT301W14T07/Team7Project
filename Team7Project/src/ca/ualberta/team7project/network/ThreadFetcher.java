@@ -3,8 +3,7 @@ package ca.ualberta.team7project.network;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import android.util.Log;
-
+import android.content.Context;
 import ca.ualberta.team7project.MainActivity;
 import ca.ualberta.team7project.cache.CacheOperation;
 import ca.ualberta.team7project.models.ThreadModel;
@@ -43,6 +42,18 @@ public class ThreadFetcher
 		listSize = "size=15";
 		search = new ElasticSearchOperation();
 		detector = new ConnectionDetector(MainActivity.getMainContext());
+	}
+	
+	/**
+	 * Construct similar to ThreadFetcher but need context.
+	 * @param context
+	 */
+	public ThreadFetcher(Context context)
+	{
+		super();
+		listSize = "size=15";
+		search = new ElasticSearchOperation();
+		detector = new ConnectionDetector(context);
 	}
 	
 	/**

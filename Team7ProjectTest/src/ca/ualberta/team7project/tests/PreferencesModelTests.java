@@ -28,7 +28,8 @@ public class PreferencesModelTests extends
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception 
+	{
 		super.setUp();
 		setActivityInitialTouchMode(false);
 	    this.activity = getActivity();
@@ -87,14 +88,15 @@ public class PreferencesModelTests extends
 		favorites.add(thread.getUniqueID());
 		favorites.add(thread.getUniqueID());
 		assertEquals("No duplicates were entered into ArrayList", preference.getFavoriteComments().size(), 1);
-
+		ThreadModelPool.threadModelPool.add(thread);
+		
 		assertEquals("Should now have one item", 1, ThreadModelPool.threadModelPool.size());
 		ThreadModel thread2 = new ThreadModel("Pokemon2: Pikachu's Revenge", preference.getUser(), "More favs");
 		//change the threadModelPool directly
 		ThreadModelPool.threadModelPool.add(thread2);
 		
 		tool.loadFile(activity);
-		assertEquals("Should be 1 again", 1, ThreadModelPool.threadModelPool.size());
+		assertEquals("Should be 0 again", 0, ThreadModelPool.threadModelPool.size());
 		
 	}
 	

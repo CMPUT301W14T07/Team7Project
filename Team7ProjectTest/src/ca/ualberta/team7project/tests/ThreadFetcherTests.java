@@ -15,6 +15,14 @@ import ca.ualberta.team7project.network.ThreadFetcher.SortMethod;
 //Ponyta. By using known values that have been created previously, can eliminate 
 //need to create new test cases for the test everytime
 
+/**
+ * 
+ * Since while demo, the ElasticSearch would be cleared, 
+ * The thread below would no longer exist in the server.
+ * So, the test would not pass at that time
+ *
+ */
+
 public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainActivity> 
 {
 
@@ -37,7 +45,7 @@ public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainAct
 	
 	public void testFetchChildComments()
 	{
-		ThreadFetcher fetcher = new ThreadFetcher();
+		ThreadFetcher fetcher = new ThreadFetcher(getActivity());
 		
 		//should have no children
 		ArrayList<ThreadModel> threads = fetcher.fetchChildComments(lowSelf, SortMethod.DATE);				
@@ -50,7 +58,7 @@ public class ThreadFetcherTests extends ActivityInstrumentationTestCase2<MainAct
 	
 	public void testFetchComments()
 	{
-		ThreadFetcher fetcher = new ThreadFetcher();
+		ThreadFetcher fetcher = new ThreadFetcher(getActivity());
 
 		ArrayList<ThreadModel> search = fetcher.fetchByUnique(topSelf, SortMethod.DATE);
 		//return only one thing in ArrayList, make sure can access it
